@@ -1,0 +1,262 @@
+---
+import ArrowNav from "./ArrowNav.astro";
+import type { Artwork } from "../data/artworks";
+
+interface Props {
+  artwork: Artwork;
+  artworks: Artwork[];
+  basePath: string;
+  showMetadata?: boolean;
+  objectLinkHref?: string;
+}
+
+const { artwork, artworks, basePath, showMetadata = true, objectLinkHref } = Astro.props;
+const currentIndex = artworks.findIndex((a) => a.id === artwork.id);
+const prevArtwork = artworks[currentIndex - 1];
+const nextArtwork = artworks[currentIndex + 1];
+---
+
+<div class="artwork-detail" data-artwork-detail={artwork.id}>
+  <div class="artwork-detail__stage">
+    <ArrowNav
+      direction="left"
+      href={prevArtwork ? `${basePath}/${prevArtwork.id}` : undefined}
+      ariaLabel="Vorheriges Werk"
+    />
+
+    <figure class="artwork-detail__figure">
+      <div class="artwork-detail__image">
+        <span class="artwork-detail__image-label label-mono">{artwork.imageDescription}</span>
+      </div>
+      <figcaption class="artwork-detail__caption">
+        <em>{artwork.caption}</em>
+      </figcaption>
+    </figure>
+
+    <ArrowNav
+      direction="right"
+      href={nextArtwork ? `${basePath}/${nextArtwork.id}` : undefined}
+      ariaLabel="Nächstes Werk"
+    />
+  </div>
+
+  <div class="artwork-detail__dots" aria-hidden="true">
+    {Array.from({ length: 5 }).map((_, i) => (
+      <span class={`artwork-detail__dot ${i === 0 ? "artwork-detail__dot--active" : ""}`} />
+    ))}
+  </div>
+
+  <div class="artwork-detail__info">
+    <p class="artwork-detail__count label-mono">Werk {String(currentIndex + 1).padStart(2, "0")} / {String(artworks.length).padStart(2, "0")}</p>
+
+    <h2 class="artwork-detail__title">{artwork.title}</h2>
+
+    {objectLinkHref && (
+      <a href={objectLinkHref} class="artwork-detail__object-link label-mono">Zum Objekt →</a>
+    )}
+
+    {showMetadata && (
+      <dl class="artwork-detail__meta">
+        <div class="artwork-detail__meta-row">
+          <dt class="label-mono">Künstler</dt>
+          <dd>{artwork.artist}</dd>
+        </div>
+        <div class="artwork-detail__meta-row">
+          <dt class="label-mono">Jahr</dt>
+          <dd>{artwork.year}</dd>
+        </div>
+        <div class="artwork-detail__meta-row">
+          <dt class="label-mono">Besitz</dt>
+          <dd>{artwork.ownership}</dd>
+        </div>
+        {artwork.additional && (
+          <div class="artwork-detail__meta-row">
+            <dt class="label-mono">Zusätzlich</dt>
+            <dd>{artwork.additional}</dd>
+          </div>
+        )}
+      </dl>
+    )}
+
+    <div class="artwork-detail__text">
+      <p>{artwork.shortDescription}</p>
+      <div class="artwork-detail__full-text" data-full-text hidden>
+        <p>{artwork.fullDescription}</p>
+      </div>
+      <button type="button" class="artwork-detail__expand label-mono" data-expand-text>
+        mehr lesen
+      </button>
+    </div>
+  </div>
+</div>
+
+<style>
+  .artwork-detail {
+    display: grid;
+    grid-template-columns: 1fr 332px;
+    gap: 64px;
+    align-items: start;
+  }
+
+  .artwork-detail__stage {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .artwork-detail__figure {
+    flex: 1;
+    margin: 0;
+  }
+
+  .artwork-detail__image {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    background: var(--color-gray-200);
+    border: 1px solid var(--color-gray-300);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .artwork-detail__image-label {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 10px 16px;
+    color: var(--color-gray-700);
+  }
+
+  .artwork-detail__caption {
+    margin-top: 16px;
+    font-family: var(--font-serif);
+    font-size: 0.875rem;
+    font-style: italic;
+    color: var(--color-gray-700);
+  }
+
+  .artwork-detail__dots {
+    display: flex;
+    gap: 10px;
+    margin-top: 20px;
+    grid-column: 1;
+  }
+
+  .artwork-detail__dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    border: 1px solid var(--color-gray-600);
+  }
+
+  .artwork-detail__dot--active {
+    background: var(--color-black);
+    border-color: var(--color-black);
+  }
+
+  .artwork-detail__info {
+    padding-top: 28px;
+  }
+
+  .artwork-detail__count {
+    color: var(--color-gray-500);
+    margin: 0 0 12px;
+  }
+
+  .artwork-detail__title {
+    font-size: 2.25rem;
+    font-weight: 500;
+    line-height: 1.15;
+    margin: 0 0 20px;
+  }
+
+  .artwork-detail__object-link {
+    display: inline-block;
+    margin-bottom: 24px;
+    padding-bottom: 2px;
+    border-bottom: 1px solid var(--color-black);
+  }
+
+  .artwork-detail__object-link:hover {
+    color: var(--color-gray-700);
+  }
+
+  .artwork-detail__meta {
+    margin: 0 0 24px;
+  }
+
+  .artwork-detail__meta-row {
+    display: grid;
+    grid-template-columns: 90px 1fr;
+    gap: 12px;
+    padding: 8px 0;
+    border-bottom: 1px solid var(--color-gray-300);
+  }
+
+  .artwork-detail__meta-row dt {
+    color: var(--color-gray-600);
+  }
+
+  .artwork-detail__meta-row dd {
+    margin: 0;
+    font-size: 0.9375rem;
+  }
+
+  .artwork-detail__text p {
+    font-size: 0.9375rem;
+    line-height: 1.75;
+    color: var(--color-gray-800);
+    margin: 0 0 16px;
+  }
+
+  .artwork-detail__expand {
+    background: none;
+    border: none;
+    padding: 0;
+    color: var(--color-black);
+    border-bottom: 1px solid var(--color-black);
+  }
+
+  .artwork-detail__expand:hover {
+    color: var(--color-gray-700);
+  }
+
+  @media (max-width: 1024px) {
+    .artwork-detail {
+      grid-template-columns: 1fr;
+      gap: 32px;
+    }
+
+    .artwork-detail__dots {
+      margin-top: 0;
+    }
+  }
+
+  @media (max-width: 768px) {
+    .artwork-detail__stage {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .artwork-detail__image {
+      aspect-ratio: 4 / 3;
+    }
+  }
+</style>
+
+<script>
+  const details = document.querySelectorAll('[data-artwork-detail]');
+  details.forEach((detail) => {
+    const expandBtn = detail.querySelector('[data-expand-text]');
+    const fullText = detail.querySelector('[data-full-text]');
+
+    expandBtn?.addEventListener('click', () => {
+      const isHidden = fullText?.hasAttribute('hidden');
+      if (isHidden) {
+        fullText?.removeAttribute('hidden');
+        expandBtn.textContent = 'weniger lesen';
+      } else {
+        fullText?.setAttribute('hidden', '');
+        expandBtn.textContent = 'mehr lesen';
+      }
+    });
+  });
+</script>

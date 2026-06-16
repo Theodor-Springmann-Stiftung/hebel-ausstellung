@@ -1,0 +1,34 @@
+---
+import Layout from "../layouts/Layout.astro";
+import TopNav from "../components/TopNav.astro";
+import Footer from "../components/Footer.astro";
+
+const { title = "Seite" } = Astro.props;
+---
+
+<Layout title={title}>
+  <TopNav />
+  <main class="stub container">
+    <h1 class="stub__title">{title}</h1>
+    <p class="stub__text">Diese Seite ist ein Platzhalter.</p>
+  </main>
+  <Footer />
+</Layout>
+
+<style>
+  .stub {
+    min-height: 60vh;
+    padding-top: 120px;
+    padding-bottom: 120px;
+  }
+
+  .stub__title {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin: 0 0 16px;
+  }
+
+  .stub__text {
+    color: var(--color-gray-600);
+  }
+</style>

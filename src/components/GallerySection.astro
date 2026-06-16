@@ -1,0 +1,54 @@
+---
+import type { Subchapter } from "../data/chapter";
+import ArtworkDetail from "./ArtworkDetail.astro";
+import ThumbnailStrip from "./ThumbnailStrip.astro";
+
+interface Props {
+  subchapter: Subchapter;
+  currentArtworkId: string;
+  showHeader?: boolean;
+  showMetadata?: boolean;
+  objectLinkHref?: string;
+}
+
+const { subchapter, currentArtworkId, showHeader = true, showMetadata = true, objectLinkHref } = Astro.props;
+const currentArtwork = subchapter.artworks.find((a) => a.id === currentArtworkId) || subchapter.artworks[0];
+const basePath = `/${subchapter.slug}`;
+---
+
+<section class="gallery-section">
+  {showHeader && (
+    <div class="container">
+      <p class="gallery-section__header label-mono">Galerie · {subchapter.artworks.length} Werke</p>
+    </div>
+  )}
+
+  <div class="container gallery-section__content">
+    <ArtworkDetail
+      artwork={currentArtwork}
+      artworks={subchapter.artworks}
+      basePath={basePath}
+      showMetadata={showMetadata}
+      objectLinkHref={objectLinkHref}
+    />
+  </div>
+
+  <ThumbnailStrip artworks={subchapter.artworks} currentId={currentArtwork.id} basePath={basePath} />
+</section>
+
+<style>
+  .gallery-section {
+    padding-top: var(--section-space);
+    padding-bottom: 40px;
+  }
+
+  .gallery-section__header {
+    margin: 0 0 40px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid var(--color-black);
+  }
+
+  .gallery-section__content {
+    padding-top: 40px;
+  }
+</style>

@@ -1,0 +1,55 @@
+---
+interface Props {
+  direction: "left" | "right";
+  href?: string;
+  ariaLabel: string;
+}
+
+const { direction, href, ariaLabel } = Astro.props;
+---
+
+{href ? (
+  <a href={href} class="arrow-nav" aria-label={ariaLabel} data-arrow={direction}>
+    <svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true">
+      {direction === "left" ? (
+        <path d="M8 1L1 8l7 7M2 8h21" stroke="currentColor" stroke-width="1.5" fill="none" />
+      ) : (
+        <path d="M16 1l7 7-7 7M22 8H1" stroke="currentColor" stroke-width="1.5" fill="none" />
+      )}
+    </svg>
+  </a>
+) : (
+  <button type="button" class="arrow-nav" aria-label={ariaLabel} data-arrow={direction} disabled>
+    <svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true">
+      {direction === "left" ? (
+        <path d="M8 1L1 8l7 7M2 8h21" stroke="currentColor" stroke-width="1.5" fill="none" />
+      ) : (
+        <path d="M16 1l7 7-7 7M22 8H1" stroke="currentColor" stroke-width="1.5" fill="none" />
+      )}
+    </svg>
+  </button>
+)}
+
+<style>
+  .arrow-nav {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60px;
+    height: 84px;
+    border: 1px solid var(--color-gray-400);
+    background: var(--color-white);
+    color: var(--color-black);
+    transition: background 0.15s ease, color 0.15s ease;
+  }
+
+  .arrow-nav:hover:not(:disabled) {
+    background: var(--color-black);
+    color: var(--color-white);
+  }
+
+  .arrow-nav:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+  }
+</style>
