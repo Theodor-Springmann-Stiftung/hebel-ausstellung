@@ -4,13 +4,9 @@ import type { Artwork } from "../data/artworks";
 interface Props {
   artworks: Artwork[];
   currentId: string;
-  basePath: string;
 }
 
-const { artworks, currentId, basePath } = Astro.props;
-const currentIndex = artworks.findIndex((a) => a.id === currentId);
-const prevArtwork = artworks[currentIndex - 1];
-const nextArtwork = artworks[currentIndex + 1];
+const { artworks, currentId } = Astro.props;
 ---
 
 <section class="thumbnail-strip" data-thumbnail-strip>
@@ -18,28 +14,21 @@ const nextArtwork = artworks[currentIndex + 1];
     {artworks.map((artwork, index) => {
       const isActive = artwork.id === currentId;
       return (
-        <a
-          href={`${basePath}/${artwork.id}`}
+        <button
+          type="button"
           class="thumbnail-strip__item"
+          data-thumbnail
           data-active={isActive}
-          aria-current={isActive ? "true" : undefined}
+          data-index={index}
         >
           <div class="thumbnail-strip__image">
             <span class="thumbnail-strip__number label-mono">{String(index + 1).padStart(2, "0")}</span>
           </div>
           <span class="thumbnail-strip__title">{artwork.thumbnailTitle}</span>
-        </a>
+        </button>
       );
     })}
   </div>
-
-  <!-- Hidden prev/next metadata for JS keyboard navigation -->
-  {prevArtwork && (
-    <meta name="thumbnail-prev" content={`${basePath}/${prevArtwork.id}`} />
-  )}
-  {nextArtwork && (
-    <meta name="thumbnail-next" content={`${basePath}/${nextArtwork.id}`} />
-  )}
 </section>
 
 <style>
@@ -58,6 +47,11 @@ const nextArtwork = artworks[currentIndex + 1];
     display: flex;
     flex-direction: column;
     gap: 8px;
+    background: none;
+    border: none;
+    padding: 0;
+    text-align: left;
+    cursor: pointer;
   }
 
   .thumbnail-strip__item[data-active="true"] .thumbnail-strip__image {

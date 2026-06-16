@@ -1,34 +1,25 @@
 ---
 interface Props {
   direction: "left" | "right";
-  href?: string;
   ariaLabel: string;
 }
 
-const { direction, href, ariaLabel } = Astro.props;
+const { direction, ariaLabel } = Astro.props;
 ---
 
-{href ? (
-  <a href={href} class="arrow-nav" aria-label={ariaLabel} data-arrow={direction}>
-    <svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true">
-      {direction === "left" ? (
-        <path d="M8 1L1 8l7 7M2 8h21" stroke="currentColor" stroke-width="1.5" fill="none" />
-      ) : (
-        <path d="M16 1l7 7-7 7M22 8H1" stroke="currentColor" stroke-width="1.5" fill="none" />
-      )}
-    </svg>
-  </a>
-) : (
-  <button type="button" class="arrow-nav" aria-label={ariaLabel} data-arrow={direction} disabled>
-    <svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true">
-      {direction === "left" ? (
-        <path d="M8 1L1 8l7 7M2 8h21" stroke="currentColor" stroke-width="1.5" fill="none" />
-      ) : (
-        <path d="M16 1l7 7-7 7M22 8H1" stroke="currentColor" stroke-width="1.5" fill="none" />
-      )}
-    </svg>
-  </button>
-)}
+<button
+  type="button"
+  class="arrow-nav"
+  data-direction={direction}
+  aria-label={ariaLabel}>
+  <svg width="24" height="16" viewBox="0 0 24 16" aria-hidden="true">
+    {direction === "left" ? (
+      <path d="M8 1L1 8l7 7M2 8h21" stroke="currentColor" stroke-width="1.5" fill="none" />
+    ) : (
+      <path d="M16 1l7 7-7 7M22 8H1" stroke="currentColor" stroke-width="1.5" fill="none" />
+    )}
+  </svg>
+</button>
 
 <style>
   .arrow-nav {
@@ -43,13 +34,8 @@ const { direction, href, ariaLabel } = Astro.props;
     transition: background 0.15s ease, color 0.15s ease;
   }
 
-  .arrow-nav:hover:not(:disabled) {
+  .arrow-nav:hover {
     background: var(--color-black);
     color: var(--color-white);
-  }
-
-  .arrow-nav:disabled {
-    opacity: 0.4;
-    cursor: not-allowed;
   }
 </style>

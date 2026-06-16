@@ -3,88 +3,57 @@ import ArrowNav from "./ArrowNav.astro";
 import type { Artwork } from "../data/artworks";
 
 interface Props {
-  artwork: Artwork;
   artworks: Artwork[];
-  basePath: string;
-  showMetadata?: boolean;
-  objectLinkHref?: string;
+  initialIndex?: number;
 }
 
-const { artwork, artworks, basePath, showMetadata = true, objectLinkHref } = Astro.props;
-const currentIndex = artworks.findIndex((a) => a.id === artwork.id);
-const prevArtwork = artworks[currentIndex - 1];
-const nextArtwork = artworks[currentIndex + 1];
+const { artworks, initialIndex = 0 } = Astro.props;
+const artwork = artworks[initialIndex];
 ---
 
-<div class="artwork-detail" data-artwork-detail={artwork.id}>
-  <div class="artwork-detail__stage">
-    <ArrowNav
-      direction="left"
-      href={prevArtwork ? `${basePath}/${prevArtwork.id}` : undefined}
-      ariaLabel="Vorheriges Werk"
-    />
+<div class="gallery" data-gallery data-artworks={JSON.stringify(artworks)}>
+  <div class="artwork-detail">
+    <div class="artwork-detail__stage">
+      <ArrowNav direction="left" ariaLabel="Vorheriges Werk" />
 
-    <div class="artwork-detail__image">
-      <span class="artwork-detail__image-label label-mono">{artwork.imageDescription}</span>
+      <div class="artwork-detail__image">
+        <span class="artwork-detail__image-label label-mono" data-image-label>{artwork.imageDescription}</span>
+      </div>
+
+      <ArrowNav direction="right" ariaLabel="Nächstes Werk" />
     </div>
 
-    <ArrowNav
-      direction="right"
-      href={nextArtwork ? `${basePath}/${nextArtwork.id}` : undefined}
-      ariaLabel="Nächstes Werk"
-    />
-  </div>
+    <p class="artwork-detail__caption" data-caption>
+      <em>{artwork.caption}</em>
+    </p>
 
-  <p class="artwork-detail__caption">
-    <em>{artwork.caption}</em>
-  </p>
+    <div class="artwork-detail__dots" data-dots aria-hidden="true">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <span
+          class={`artwork-detail__dot ${i === 0 ? "artwork-detail__dot--active" : ""}`}
+          data-dot
+        />
+      ))}
+    </div>
 
-  <div class="artwork-detail__dots" aria-hidden="true">
-    {Array.from({ length: 5 }).map((_, i) => (
-      <span class={`artwork-detail__dot ${i === 0 ? "artwork-detail__dot--active" : ""}`} />
-    ))}
-  </div>
+    <div class="artwork-detail__info">
+      <p class="artwork-detail__count label-mono" data-count>
+        Werk {String(initialIndex + 1).padStart(2, "0")} / {String(artworks.length).padStart(2, "0")}
+      </p>
 
-  <div class="artwork-detail__info">
-    <p class="artwork-detail__count label-mono">Werk {String(currentIndex + 1).padStart(2, "0")} / {String(artworks.length).padStart(2, "0")}</p>
+      <h2 class="artwork-detail__title" data-title>{artwork.title}</h2>
 
-    <h2 class="artwork-detail__title">{artwork.title}</h2>
+      <a href={`/objekte/${artwork.id}`} class="artwork-detail__object-link label-mono" data-object-link>Zum Objekt →</a>
 
-    {objectLinkHref && (
-      <a href={objectLinkHref} class="artwork-detail__object-link label-mono">Zum Objekt →</a>
-    )}
-
-    {showMetadata && (
-      <dl class="artwork-detail__meta">
-        <div class="artwork-detail__meta-row">
-          <dt class="label-mono">Künstler</dt>
-          <dd>{artwork.artist}</dd>
+      <div class="artwork-detail__text">
+        <p data-short-desc>{artwork.shortDescription}</p>
+        <div class="artwork-detail__full-text" data-full-desc hidden>
+          <p>{artwork.fullDescription}</p>
         </div>
-        <div class="artwork-detail__meta-row">
-          <dt class="label-mono">Jahr</dt>
-          <dd>{artwork.year}</dd>
-        </div>
-        <div class="artwork-detail__meta-row">
-          <dt class="label-mono">Besitz</dt>
-          <dd>{artwork.ownership}</dd>
-        </div>
-        {artwork.additional && (
-          <div class="artwork-detail__meta-row">
-            <dt class="label-mono">Zusätzlich</dt>
-            <dd>{artwork.additional}</dd>
-          </div>
-        )}
-      </dl>
-    )}
-
-    <div class="artwork-detail__text">
-      <p>{artwork.shortDescription}</p>
-      <div class="artwork-detail__full-text" data-full-text hidden>
-        <p>{artwork.fullDescription}</p>
+        <button type="button" class="artwork-detail__expand label-mono" data-expand-text>
+          mehr lesen
+        </button>
       </div>
-      <button type="button" class="artwork-detail__expand label-mono" data-expand-text>
-        mehr lesen
-      </button>
     </div>
   </div>
 </div>
@@ -181,27 +150,6 @@ const nextArtwork = artworks[currentIndex + 1];
     color: var(--color-gray-700);
   }
 
-  .artwork-detail__meta {
-    margin: 0 0 24px;
-  }
-
-  .artwork-detail__meta-row {
-    display: grid;
-    grid-template-columns: 90px 1fr;
-    gap: 12px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--color-gray-300);
-  }
-
-  .artwork-detail__meta-row dt {
-    color: var(--color-gray-600);
-  }
-
-  .artwork-detail__meta-row dd {
-    margin: 0;
-    font-size: 0.9375rem;
-  }
-
   .artwork-detail__text p {
     font-size: 0.9375rem;
     line-height: 1.75;
@@ -250,20 +198,78 @@ const nextArtwork = artworks[currentIndex + 1];
 </style>
 
 <script>
-  const details = document.querySelectorAll('[data-artwork-detail]');
-  details.forEach((detail) => {
-    const expandBtn = detail.querySelector('[data-expand-text]');
-    const fullText = detail.querySelector('[data-full-text]');
+  (function () {
+    const container = document.querySelector('[data-gallery]');
+    if (!container) return;
 
-    expandBtn?.addEventListener('click', () => {
-      const isHidden = fullText?.hasAttribute('hidden');
+    const artworksJson = container.getAttribute('data-artworks');
+    const artworks = artworksJson ? JSON.parse(artworksJson) : [];
+    let currentIndex = 0;
+
+    const els = {
+      imageLabel: container.querySelector('[data-image-label]'),
+      caption: container.querySelector('[data-caption]'),
+      count: container.querySelector('[data-count]'),
+      title: container.querySelector('[data-title]'),
+      objectLink: container.querySelector('[data-object-link]'),
+      shortDesc: container.querySelector('[data-short-desc]'),
+      fullDesc: container.querySelector('[data-full-desc]'),
+      expandBtn: container.querySelector('[data-expand-text]'),
+      thumbnails: document.querySelectorAll('[data-thumbnail]'),
+      dots: container.querySelectorAll('[data-dot]'),
+    };
+
+    function render(index: number) {
+      currentIndex = index;
+      const artwork = artworks[index];
+      if (!artwork) return;
+
+      if (els.imageLabel) els.imageLabel.textContent = artwork.imageDescription;
+      if (els.caption) els.caption.innerHTML = `<em>${artwork.caption}</em>`;
+      if (els.count)
+        els.count.textContent = `Werk ${String(index + 1).padStart(2, '0')} / ${String(artworks.length).padStart(2, '0')}`;
+      if (els.title) els.title.textContent = artwork.title;
+      if (els.shortDesc) els.shortDesc.textContent = artwork.shortDescription;
+      if (els.fullDesc) {
+        const p = els.fullDesc.querySelector('p');
+        if (p) p.textContent = artwork.fullDescription;
+        els.fullDesc.setAttribute('hidden', '');
+      }
+      if (els.expandBtn) els.expandBtn.textContent = 'mehr lesen';
+      if (els.objectLink) els.objectLink.setAttribute('href', `/objekte/${artwork.id}`);
+
+      els.thumbnails.forEach((thumb, i) => {
+        thumb.setAttribute('data-active', String(i === index));
+      });
+
+      els.dots.forEach((dot, i) => {
+        dot.classList.toggle('artwork-detail__dot--active', i === 0);
+      });
+    }
+
+    container.querySelector('[data-direction="left"]')?.addEventListener('click', () => {
+      const newIndex = currentIndex === 0 ? artworks.length - 1 : currentIndex - 1;
+      render(newIndex);
+    });
+
+    container.querySelector('[data-direction="right"]')?.addEventListener('click', () => {
+      const newIndex = currentIndex === artworks.length - 1 ? 0 : currentIndex + 1;
+      render(newIndex);
+    });
+
+    els.thumbnails.forEach((thumb, i) => {
+      thumb.addEventListener('click', () => render(i));
+    });
+
+    els.expandBtn?.addEventListener('click', () => {
+      const isHidden = els.fullDesc?.hasAttribute('hidden');
       if (isHidden) {
-        fullText?.removeAttribute('hidden');
-        expandBtn.textContent = 'weniger lesen';
+        els.fullDesc?.removeAttribute('hidden');
+        if (els.expandBtn) els.expandBtn.textContent = 'weniger lesen';
       } else {
-        fullText?.setAttribute('hidden', '');
-        expandBtn.textContent = 'mehr lesen';
+        els.fullDesc?.setAttribute('hidden', '');
+        if (els.expandBtn) els.expandBtn.textContent = 'mehr lesen';
       }
     });
-  });
+  })();
 </script>

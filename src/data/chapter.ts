@@ -35,3 +35,9 @@ export const illustrationen: Subchapter = {
   prevSubchapter: { slug: "02/textgeschichte", title: "Textgeschichte" },
   nextSubchapter: { slug: "02/uebersetzungen", title: "Übersetzungen" },
 };
+
+export const subchapters: { slug: string; title: string }[] = [
+  { slug: "02/textgeschichte", title: "Textgeschichte" },
+  { slug: "02/illustrationen", title: "Illustrationen" },
+  { slug: "02/uebersetzungen", title: "Übersetzungen" },
+];
