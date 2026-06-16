@@ -24,14 +24,9 @@ const nextArtwork = artworks[currentIndex + 1];
       ariaLabel="Vorheriges Werk"
     />
 
-    <figure class="artwork-detail__figure">
-      <div class="artwork-detail__image">
-        <span class="artwork-detail__image-label label-mono">{artwork.imageDescription}</span>
-      </div>
-      <figcaption class="artwork-detail__caption">
-        <em>{artwork.caption}</em>
-      </figcaption>
-    </figure>
+    <div class="artwork-detail__image">
+      <span class="artwork-detail__image-label label-mono">{artwork.imageDescription}</span>
+    </div>
 
     <ArrowNav
       direction="right"
@@ -39,6 +34,10 @@ const nextArtwork = artworks[currentIndex + 1];
       ariaLabel="Nächstes Werk"
     />
   </div>
+
+  <p class="artwork-detail__caption">
+    <em>{artwork.caption}</em>
+  </p>
 
   <div class="artwork-detail__dots" aria-hidden="true">
     {Array.from({ length: 5 }).map((_, i) => (
@@ -94,24 +93,25 @@ const nextArtwork = artworks[currentIndex + 1];
   .artwork-detail {
     display: grid;
     grid-template-columns: 1fr 332px;
-    gap: 64px;
+    gap: 12px 64px;
     align-items: start;
+    grid-template-areas:
+      "stage info"
+      "caption info"
+      "dots info";
   }
 
   .artwork-detail__stage {
+    grid-area: stage;
     display: flex;
     align-items: center;
     gap: 12px;
   }
 
-  .artwork-detail__figure {
-    flex: 1;
-    margin: 0;
-  }
-
   .artwork-detail__image {
     position: relative;
-    aspect-ratio: 1 / 1;
+    flex: 1;
+    aspect-ratio: 698 / 607;
     background: var(--color-gray-200);
     border: 1px solid var(--color-gray-300);
     display: flex;
@@ -126,7 +126,8 @@ const nextArtwork = artworks[currentIndex + 1];
   }
 
   .artwork-detail__caption {
-    margin-top: 16px;
+    grid-area: caption;
+    margin: 16px 0 0;
     font-family: var(--font-serif);
     font-size: 0.875rem;
     font-style: italic;
@@ -134,10 +135,10 @@ const nextArtwork = artworks[currentIndex + 1];
   }
 
   .artwork-detail__dots {
+    grid-area: dots;
     display: flex;
     gap: 10px;
     margin-top: 20px;
-    grid-column: 1;
   }
 
   .artwork-detail__dot {
@@ -153,6 +154,7 @@ const nextArtwork = artworks[currentIndex + 1];
   }
 
   .artwork-detail__info {
+    grid-area: info;
     padding-top: 28px;
   }
 
@@ -222,11 +224,16 @@ const nextArtwork = artworks[currentIndex + 1];
   @media (max-width: 1024px) {
     .artwork-detail {
       grid-template-columns: 1fr;
-      gap: 32px;
+      grid-template-areas:
+        "stage"
+        "caption"
+        "dots"
+        "info";
+      gap: 24px;
     }
 
-    .artwork-detail__dots {
-      margin-top: 0;
+    .artwork-detail__info {
+      padding-top: 0;
     }
   }
 
