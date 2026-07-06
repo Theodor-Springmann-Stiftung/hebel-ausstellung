@@ -1,54 +1,11 @@
 ---
-import Layout from "../layouts/Layout.astro";
+import Welcome from '../components/Welcome.astro';
+import Layout from '../layouts/Layout.astro';
+
+// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
+// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
 ---
 
-<Layout title="Johann Peter Hebel — Das Nachleben der Worte">
-  <main class="home">
-    <h1 class="home__title">Johann Peter Hebel<br />Das Nachleben der Worte</h1>
-    <p class="home__subtitle">Virtuelle Ausstellung der Theodor-Springmann-Stiftung</p>
-    <a href="/02/illustrationen" class="home__link">Zum Kapitel 2.2 — Illustrationen →</a>
-  </main>
+<Layout>
+	<Welcome />
 </Layout>
-
-<style>
-  .home {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    padding: var(--page-gutter);
-  }
-
-  .home__title {
-    font-size: 3rem;
-    font-weight: 500;
-    line-height: 1.1;
-    margin: 0 0 20px;
-  }
-
-  .home__subtitle {
-    font-size: 1rem;
-    color: var(--color-gray-600);
-    margin: 0 0 40px;
-  }
-
-  .home__link {
-    font-family: var(--font-mono);
-    font-size: 0.875rem;
-    padding: 12px 20px;
-    border: 1px solid var(--color-black);
-  }
-
-  .home__link:hover {
-    background: var(--color-black);
-    color: var(--color-white);
-  }
-
-  @media (max-width: 768px) {
-    .home__title {
-      font-size: 2rem;
-    }
-  }
-</style>
