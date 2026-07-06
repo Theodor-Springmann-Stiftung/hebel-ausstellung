@@ -1,0 +1,406 @@
+@import "tailwindcss";
+
+/* Hebel Exhibition design primitives from Figma. */
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("/fonts/NyghtSerif-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("/fonts/NyghtSerif-RegularItalic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("/fonts/NyghtSerif-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Nyght Serif";
+  src: url("/fonts/NyghtSerif-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist";
+  src: url("/fonts/Geist-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Italic.woff2") format("woff2");
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Geist Mono";
+  src: url("/fonts/GeistMono-BoldItalic.woff2") format("woff2");
+  font-weight: 700;
+  font-style: italic;
+  font-display: swap;
+}
+
+@theme {
+  --font-display: "Nyght Serif", Georgia, serif;
+  --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+
+  --color-paper: #f7f7f4;
+  --color-oat: #f2f1ed;
+  --color-ink: #26251e;
+  --color-stone: #6e6b60;
+  --color-navy: #1f365c;
+  --color-moss-green: #808e46;
+  --color-stardust: #97abc7;
+  --color-midnight: #122233;
+  --color-greige: #b6b2ad;
+  --color-dark-wine: #462118;
+  --color-burnt-rust: #752210;
+  --color-terracotta: #ab6644;
+  --color-night-owl: #1d0e09;
+
+  --color-background: var(--color-paper);
+  --color-surface: var(--color-oat);
+  --color-text-primary: var(--color-ink);
+  --color-text-secondary: var(--color-stone);
+  --color-link: var(--color-navy);
+  --color-button-primary-bg: var(--color-ink);
+  --color-button-primary-text: var(--color-paper);
+  --color-button-secondary-bg: var(--color-paper);
+  --color-button-secondary-border: var(--color-ink);
+  --color-button-secondary-text: var(--color-ink);
+
+  --spacing-4: 0.25rem;
+  --spacing-8: 0.5rem;
+  --spacing-12: 0.75rem;
+  --spacing-16: 1rem;
+  --spacing-20: 1.25rem;
+  --spacing-24: 1.5rem;
+  --spacing-28: 1.75rem;
+  --spacing-32: 2rem;
+  --spacing-36: 2.25rem;
+  --spacing-40: 2.5rem;
+  --spacing-44: 2.75rem;
+  --spacing-48: 3rem;
+  --spacing-56: 3.5rem;
+  --spacing-64: 4rem;
+  --spacing-80: 5rem;
+  --spacing-120: 7.5rem;
+
+  --radius-xxs: 2px;
+  --radius-xs: 4px;
+  --radius-sm: 8px;
+  --radius-med: 12px;
+  --radius-lg: 16px;
+  --radius-full: 9999px;
+
+  --breakpoint-mobile: 390px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-desktop: 1440px;
+
+  --text-display: 5.25rem;
+  --text-display--line-height: 1.1;
+  --text-display--letter-spacing: 0;
+  --text-h1: 3.75rem;
+  --text-h1--line-height: 1.25;
+  --text-h1--letter-spacing: 0;
+  --text-h2: 2.5rem;
+  --text-h2--line-height: 1.25;
+  --text-h2--letter-spacing: 0;
+  --text-h3: 2rem;
+  --text-h3--line-height: 1.25;
+  --text-h3--letter-spacing: 0.01em;
+  --text-h4: 1.5rem;
+  --text-h4--line-height: 1.25;
+  --text-h4--letter-spacing: 0.01em;
+  --text-h5: 1.25rem;
+  --text-h5--line-height: 1.25;
+  --text-h5--letter-spacing: 0.01em;
+  --text-lead: 1.5rem;
+  --text-lead--line-height: 1.35;
+  --text-body: 1rem;
+  --text-body--line-height: 1.5;
+  --text-small: 0.875rem;
+  --text-small--line-height: 1.5;
+}
+
+@layer base {
+  :root {
+    color-scheme: light;
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  *,
+  ::before,
+  ::after {
+    box-sizing: border-box;
+  }
+
+  html {
+    min-width: 320px;
+    background: var(--color-background);
+  }
+
+  body {
+    min-height: 100vh;
+    margin: 0;
+    background: var(--color-background);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  p {
+    margin: 0;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-weight: 400;
+  }
+
+  a {
+    color: var(--color-link);
+    text-decoration-thickness: 0.08em;
+    text-underline-offset: 0.16em;
+  }
+
+  img,
+  picture,
+  svg,
+  video {
+    display: block;
+    max-width: 100%;
+  }
+
+  button,
+  input,
+  textarea,
+  select {
+    font: inherit;
+  }
+}
+
+@layer utilities {
+  .type-display {
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    line-height: var(--text-display--line-height);
+    letter-spacing: var(--text-display--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-h1 {
+    font-family: var(--font-display);
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    letter-spacing: var(--text-h1--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    letter-spacing: var(--text-h2--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-h3 {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+    letter-spacing: var(--text-h3--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-h4 {
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    letter-spacing: var(--text-h4--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-h5 {
+    font-family: var(--font-display);
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    letter-spacing: var(--text-h5--letter-spacing);
+    font-weight: 400;
+  }
+
+  .type-lead {
+    font-family: var(--font-sans);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+    font-weight: 400;
+  }
+
+  .type-body {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    font-weight: 400;
+  }
+
+  .type-small {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    font-weight: 400;
+  }
+
+  .page-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--spacing-16);
+    padding-inline: var(--spacing-20);
+  }
+
+  .page-container {
+    width: 100%;
+    margin-inline: auto;
+    padding-inline: var(--spacing-20);
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    column-gap: var(--spacing-16);
+  }
+
+  .button-primary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-full);
+    background: var(--color-button-primary-bg);
+    color: var(--color-button-primary-text);
+    padding: var(--spacing-12) var(--spacing-20);
+    text-decoration: none;
+  }
+
+  .button-secondary {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-button-secondary-border);
+    border-radius: var(--radius-full);
+    background: var(--color-button-secondary-bg);
+    color: var(--color-button-secondary-text);
+    padding: var(--spacing-12) var(--spacing-20);
+    text-decoration: none;
+  }
+
+  @media (min-width: 768px) {
+    .page-grid {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      column-gap: var(--spacing-20);
+      padding-inline: var(--spacing-32);
+    }
+
+    .page-container {
+      padding-inline: var(--spacing-32);
+    }
+
+    .content-grid {
+      grid-template-columns: repeat(8, minmax(0, 1fr));
+      column-gap: var(--spacing-20);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .page-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--spacing-20);
+      padding-inline: var(--spacing-80);
+    }
+
+    .page-container {
+      max-width: 1440px;
+      padding-inline: var(--spacing-80);
+    }
+
+    .content-grid {
+      grid-template-columns: repeat(12, minmax(0, 1fr));
+      column-gap: var(--spacing-20);
+    }
+  }
+}
