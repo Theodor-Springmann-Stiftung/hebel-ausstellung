@@ -1,5 +1,8 @@
 {
-  "name": "",
+  "name": "Johann Peter Hebel: Das Leben der Worte. Eine Ausstellung.",
+	"description": "Code für die Online Ausstellung des Johann Peter Hebel Archivs Heidelberg",
+	"author": "Theodor Springmann Stiftung Heidelberg",
+	"license": "UNLICENSED",
   "type": "module",
   "version": "0.0.1",
   "engines": {
