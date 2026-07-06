@@ -110,7 +110,15 @@ function formatBytes(bytes) {
 function outputPathFor(inputFile, inputDir, outputDir, flat) {
   const relativePath = path.relative(inputDir, inputFile);
   const parsed = path.parse(relativePath);
-  return path.join(outputDir, flat ? "" : parsed.dir, `${parsed.name}.webp`);
+  const outputDirname = flat
+    ? ""
+    : parsed.dir
+        .split(path.sep)
+        .map((segment) => segment.replace(/\s+/g, "_"))
+        .join(path.sep);
+  const outputBasename = parsed.name.replace(/\s+/g, "_");
+
+  return path.join(outputDir, outputDirname, `${outputBasename}.webp`);
 }
 
 async function processImage(inputFile, inputDir, outputDir, maxEdge, flat) {

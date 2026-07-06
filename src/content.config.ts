@@ -68,6 +68,8 @@ const objects = defineCollection({
     date: z.string().optional(),
     holdingInstitution: z.string().optional(),
     inventoryId: z.string().optional(),
+    rights: z.string().optional(),
+    url: z.string().url().optional(),
     description: z.string().optional(),
     image: imageSchema,
     relatedObjects: z.array(reference("objects")).default([]),

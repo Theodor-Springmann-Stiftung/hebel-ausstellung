@@ -9,6 +9,8 @@ The exhibition content is split into four content collections:
 
 Edit object metadata only in `objects`. Galleries should reference objects by slug instead of repeating creator, date, institution, image credit, or alt text.
 
+Object `rights` are free text. Object `url` values must be absolute URLs, for example `https://example.org/object`.
+
 Long text lives in the Markdown body below the frontmatter. Structured data lives in the YAML frontmatter between the `---` lines.
 
 Unknown or not-yet-needed fields should be omitted instead of filled with `TODO`. Add fields later when the information is available.
