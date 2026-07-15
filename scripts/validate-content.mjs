@@ -6,6 +6,7 @@ const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "src", "content");
 const assetObjectsDir = path.join(rootDir, "src", "assets", "objects");
 const errors = [];
+const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
 
 async function listMarkdownFiles(directory) {
   try {
@@ -90,7 +91,14 @@ async function validateObjects() {
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
-    const { body } = splitMarkdownFile(file, source);
+    const { frontmatter, body } = splitMarkdownFile(file, source);
+    const slug = getFrontmatterString(frontmatter, "slug");
+
+    if (!slug) {
+      errors.push(`${relative(file)} must define slug`);
+    } else if (!urlSafeAsciiSlugPattern.test(slug)) {
+      errors.push(`${relative(file)} slug must use only ASCII letters, digits, and hyphens`);
+    }
 
     if (!body.trim()) {
       continue;

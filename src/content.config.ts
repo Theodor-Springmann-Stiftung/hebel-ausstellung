@@ -13,6 +13,10 @@ const optionalMarkdown = z
   })
   .optional();
 
+const urlSafeAsciiSlug = z.string().regex(/^[A-Za-z0-9-]+$/, {
+  message: "Slug must use only ASCII letters, digits, and hyphens",
+});
+
 const galleryColor = z
   .enum(["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5", "chapter-6", "chapter-7"])
   .default("chapter-1");
@@ -80,7 +84,7 @@ const images = defineCollection({
 const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z.object({
-    slug: z.string().min(1),
+    slug: urlSafeAsciiSlug,
     title: requiredMarkdown,
     urheber: optionalMarkdown,
     date: z.string().min(1).optional(),

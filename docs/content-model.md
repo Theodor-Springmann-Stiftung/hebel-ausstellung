@@ -1,48 +1,74 @@
-# Content Model
+# Inhaltsmodell
 
-This document describes the Astro content collections defined in `src/content.config.ts`.
+Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 
-## Type Legend
+## Kurzueberblick
 
-| Type | Meaning |
+| Bereich | Kurzbeschreibung |
 |---|---|
-| Required Markdown string | Frontmatter string that must be present and non-empty. It may contain inline Markdown such as `*italic*`. |
-| Optional Markdown string | Frontmatter string that may be omitted, but must be non-empty when present. It may contain inline Markdown. |
-| Plain string | Frontmatter string treated as plain data, not Markdown. |
-| Body Markdown | Markdown content below the frontmatter block. Not validated by the schema unless noted here. |
-| Reference | Astro content reference to another collection entry by ID. |
-| Enum | String limited to predefined values. |
+| Kapitel | Ein Kapitel beschreibt einen grossen Ausstellungsabschnitt und enthaelt entweder Unterkapitel oder direkt Galerien. |
+| Unterkapitel | Ein Unterkapitel beschreibt einen kleineren Abschnitt innerhalb eines Kapitels und enthaelt die zugehoerigen Galerien. |
+| Galerie | Eine Galerie verbindet ein oder mehrere Bilder mit Bildunterschriftsdaten und einem begleitenden Markdown-Text. |
+| Bild | Ein Bild beschreibt die Bilddatei, Alternativtext, Bildunterschriften und optional die darauf gezeigten Objekte. |
+| Objekt | Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit Titel, Urheber, Datierung, Institution und weiteren Metadaten. |
 
-## Shared Section Fields
+## Feldtypen
 
-`chapters` and `subchapters` share these fields.
+| Typ | Bedeutung |
+|---|---|
+| String | Ein kurzer Textwert im Frontmatter, meistens in Anfuehrungszeichen, zum Beispiel `"Der Dichter"`. |
+| Einfacher String | Ein String, der als reiner Datenwert behandelt wird, nicht als Markdown. Formatierungen wie `*kursiv*` werden hier nicht als Gestaltung interpretiert. |
+| Markdown-String | Ein String, der Inline-Markdown enthalten darf, zum Beispiel `"Der *Dichter*"`. |
+| Pflicht-Markdown-String | Ein Markdown-String, der vorhanden und nicht leer sein muss. |
+| Optionaler Markdown-String | Ein Markdown-String, der fehlen darf, aber nicht leer sein darf, wenn er gesetzt ist. |
+| Body-Markdown | Langer Markdown-Inhalt unterhalb des Frontmatter-Blocks. Hier stehen zum Beispiel Fliesstexte, Absaetze und Blockzitate. |
+| Ganzzahl | Eine Zahl ohne Nachkommastellen, zum Beispiel `1`, `2` oder `3`. |
+| Positive Ganzzahl | Eine Ganzzahl groesser als `0`. |
+| Boolean | Ein Wahr/Falsch-Wert: entweder `true` oder `false`. Dieser Typ wird aktuell nicht verwendet, ist aber fuer Schalter geeignet. |
+| Array | Eine Liste mehrerer Werte, meistens als YAML-Liste geschrieben. Die Reihenfolge ist relevant, wenn das Feld so beschrieben ist. |
+| Referenz | Verweis auf einen anderen Content-Eintrag, angegeben ueber dessen ID, zum Beispiel `"carfunkel-kupfer"`. |
+| Array von Referenzen | Eine Liste von Verweisen auf andere Content-Eintraege, zum Beispiel mehrere Bilder in einer Galerie. |
+| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel `chapter-1` bis `chapter-7`. |
+| URL-sicherer ASCII-Slug | Ein String fuer URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
 
-| Field | Type | Required | Notes |
+## Gemeinsame Abschnittsfelder
+
+`chapters` und `subchapters` verwenden diese Felder gemeinsam.
+
+Kurzbeschreibung: Diese Felder speichern die gemeinsamen Informationen fuer Kapitel und Unterkapitel, also Nummer, Titel, Navigationstitel und Hero-Bild.
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `number` | Plain string | yes | Display number, for example `"01"` or `"01.1"`. |
-| `title` | Required Markdown string | yes | Display title. Supports inline Markdown. |
-| `navTitle` | Required Markdown string | yes | Navigation title. Supports inline Markdown by schema, but should usually stay simple. |
-| `heroImage` | Reference to `images` | yes | Hero image entry ID. |
-| body | Body Markdown | optional | Free Markdown below frontmatter. |
+| `number` | Einfacher String | ja | Sichtbare Nummer, zum Beispiel `"01"` oder `"01.1"`. |
+| `title` | Pflicht-Markdown-String | ja | Sichtbarer Titel. Unterstuetzt Inline-Markdown. |
+| `navTitle` | Pflicht-Markdown-String | ja | Titel fuer die Navigation. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
+| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
+| Inhalt | Body-Markdown | optional | Freier Markdown-Text unterhalb des Frontmatters. |
 
-## Collection: `chapters`
+## Sammlungen
 
-Path: `src/content/chapters/*.md`
+Die folgenden Abschnitte beschreiben die Content-Sammlungen, aus denen die Ausstellungsdaten aufgebaut sind.
 
-| Field | Type | Required | Notes |
+### Sammlung: `chapters`
+
+Ein Kapitel ist ein grosser Ausstellungsabschnitt und verweist entweder auf Unterkapitel oder direkt auf Galerien.
+
+Pfad: `src/content/chapters/*.md`
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `order` | Positive integer | yes | Sort order for chapters. |
-| `number` | Plain string | yes | From shared section fields. |
-| `title` | Required Markdown string | yes | From shared section fields. |
-| `navTitle` | Required Markdown string | yes | From shared section fields. |
-| `heroImage` | Reference to `images` | yes | From shared section fields. |
-| `subchapters` | Array of references to `subchapters` | conditional | Minimum 1 item when present. |
-| `galleries` | Array of references to `galleries` | conditional | Minimum 1 item when present. |
-| body | Body Markdown | optional | Chapter text below frontmatter. |
+| `order` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
+| `number` | Einfacher String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `title` | Pflicht-Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `navTitle` | Pflicht-Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `heroImage` | Referenz auf `images` | ja | Siehe gemeinsame Abschnittsfelder. |
+| `subchapters` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
+| `galleries` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
+| Inhalt | Body-Markdown | optional | Kapiteltext unterhalb des Frontmatters. |
 
-Validation rule: a chapter must define either `subchapters` or `galleries`, but not both.
+Validierungsregel: Ein Kapitel muss entweder `subchapters` oder `galleries` definieren, aber nicht beides.
 
-Example:
+Beispiel:
 
 ```yaml
 ---
@@ -56,20 +82,22 @@ subchapters:
 ---
 ```
 
-## Collection: `subchapters`
+### Sammlung: `subchapters`
 
-Path: `src/content/subchapters/*.md`
+Ein Unterkapitel ist ein Abschnitt innerhalb eines Kapitels und verweist direkt auf seine Galerien.
 
-| Field | Type | Required | Notes |
+Pfad: `src/content/subchapters/*.md`
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `number` | Plain string | yes | From shared section fields. |
-| `title` | Required Markdown string | yes | From shared section fields. |
-| `navTitle` | Required Markdown string | yes | From shared section fields. |
-| `heroImage` | Reference to `images` | yes | From shared section fields. |
-| `galleries` | Array of references to `galleries` | yes | Minimum 1 gallery. |
-| body | Body Markdown | optional | Subchapter text below frontmatter. |
+| `number` | Einfacher String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `title` | Pflicht-Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `navTitle` | Pflicht-Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
+| `heroImage` | Referenz auf `images` | ja | Siehe gemeinsame Abschnittsfelder. |
+| `galleries` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
+| Inhalt | Body-Markdown | optional | Unterkapiteltext unterhalb des Frontmatters. |
 
-Example:
+Beispiel:
 
 ```yaml
 ---
@@ -82,38 +110,40 @@ galleries:
 ---
 ```
 
-## Collection: `galleries`
+### Sammlung: `galleries`
 
-Path: `src/content/galleries/*.md`
+Eine Galerie verbindet Bilder, Bildunterschriften, Farbe und begleitenden Markdown-Text zu einem Galeriebaustein.
 
-| Field | Type | Required | Notes |
+Pfad: `src/content/galleries/*.md`
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `title` | Required Markdown string | yes | Gallery title. Supports inline Markdown. |
-| `caption` | Optional Markdown string | no | Gallery-level caption fallback. |
-| `subCaption` | Optional Markdown string | no | Gallery-level subcaption fallback. |
-| `color` | Enum | no | Defaults to `chapter-1`. Allowed: `chapter-1` through `chapter-7`. |
-| `images` | Array of references to `images` | yes | Minimum 1 image. |
-| body | Body Markdown | optional | Essay text below the gallery. Blockquotes can be written directly here. |
+| `title` | Pflicht-Markdown-String | ja | Galerietitel. Unterstuetzt Inline-Markdown. |
+| `caption` | Optionaler Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
+| `subCaption` | Optionaler Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
+| `color` | Enum | nein | Standardwert ist `chapter-1`. Erlaubt sind `chapter-1` bis `chapter-7`. |
+| `images` | Array von Referenzen auf `images` | ja | Mindestens 1 Bild. |
+| Inhalt | Body-Markdown | optional | Essay-Text unterhalb der Galerie. Blockzitate koennen direkt hier geschrieben werden. |
 
-Blockquote convention in body Markdown:
+Blockzitat-Konvention im Body-Markdown:
 
 ```md
-> Quote text can contain one or more paragraphs.
+> Der Zitattext kann einen oder mehrere Absaetze enthalten.
 >
 > — JPH
 >
-> Source or subcaption line
+> Quellen- oder Zusatzzeile
 ```
 
-The last paragraph is treated as the source, the second-to-last paragraph as the author, and all earlier paragraphs as quote text.
+Der letzte Absatz wird als Quelle interpretiert, der vorletzte Absatz als Autor, und alle vorherigen Absaetze als Zitattext.
 
-Example:
+Beispiel:
 
 ```yaml
 ---
 title: "Der *Karfunkel* als Bildfolge"
 caption: "Bildzeugnisse zur Wirkungsgeschichte"
-subCaption: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Caption-Fallbacks."
+subCaption: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Ersatzwerte fuer Bildunterschriften."
 color: "chapter-1"
 images:
   - "carfunkel-kupfer"
@@ -122,20 +152,22 @@ images:
 ---
 ```
 
-## Collection: `images`
+### Sammlung: `images`
 
-Path: `src/content/images/*.md`
+Ein Bild beschreibt eine Bilddatei mit Alternativtext, Bildunterschrift, Bildnachweis und optionalen Objektverweisen.
 
-| Field | Type | Required | Notes |
+Pfad: `src/content/images/*.md`
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `fileName` | Plain string | yes | Asset filename. Must end in `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png`, or `.webp`. |
-| `altText` | Optional Markdown string | no | Alternative text. Schema allows Markdown, but keep this plain for accessibility. |
-| `caption` | Optional Markdown string | no | Image-level caption. |
-| `credits` | Optional Markdown string | no | Image credit line. |
-| `objects` | Array of references to `objects` | no | Object entries depicted by this image. |
-| body | Body Markdown | optional | Not currently used by the gallery rendering. |
+| `fileName` | Einfacher String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
+| `altText` | Optionaler Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgruenden sollte der Text aber einfach bleiben. |
+| `caption` | Optionaler Markdown-String | nein | Bild-spezifische Bildunterschrift. |
+| `credits` | Optionaler Markdown-String | nein | Bildnachweis. |
+| `objects` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. |
+| Inhalt | Body-Markdown | optional | Wird aktuell nicht fuer die Galerie-Darstellung genutzt. |
 
-Example:
+Beispiel:
 
 ```yaml
 ---
@@ -148,22 +180,24 @@ objects:
 ---
 ```
 
-## Collection: `objects`
+### Sammlung: `objects`
 
-Path: `src/content/objects/*.md`
+Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit seinen kuratorischen Metadaten.
 
-| Field | Type | Required | Notes |
+Pfad: `src/content/objects/*.md`
+
+| Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `slug` | Plain string | yes | Public object slug. |
-| `title` | Required Markdown string | yes | Object title. Supports inline Markdown. |
-| `urheber` | Optional Markdown string | no | Creator/author. |
-| `date` | Plain string | no | Date or date range. Must be non-empty when present. |
-| `materialTechnik` | Plain string | no | Material/technique. Must be non-empty when present. |
-| `institution` | Optional Markdown string | no | Holding institution. |
-| `inventarnummer` | Optional Markdown string | no | Inventory number. |
-| body | Body Markdown | optional | Object description below frontmatter. |
+| `slug` | URL-sicherer ASCII-Slug | ja | Oeffentlicher Objekt-Slug. |
+| `title` | Pflicht-Markdown-String | ja | Objekttitel. Unterstuetzt Inline-Markdown. |
+| `urheber` | Optionaler Markdown-String | nein | Urheber oder Autor. |
+| `date` | Einfacher String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
+| `materialTechnik` | Einfacher String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
+| `institution` | Optionaler Markdown-String | nein | Bewahrende Institution. |
+| `inventarnummer` | Optionaler Markdown-String | nein | Inventarnummer. |
+| Inhalt | Body-Markdown | optional | Objektbeschreibung unterhalb des Frontmatters. |
 
-Example:
+Beispiel:
 
 ```yaml
 ---
@@ -177,72 +211,74 @@ inventarnummer: "Beispiel-Inventarnummer"
 ---
 ```
 
-## Caption Fallbacks
+## Bildunterschrift-Ersatzlogik
 
-Gallery captions are resolved from the most specific data first:
+Galerie-Bildunterschriften werden von den spezifischsten zu den allgemeinsten Daten aufgeloest:
 
-| Priority | Source | Notes |
+Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Daten, dann aus Bild-Daten und zuletzt aus Galerie-Daten.
+
+| Prioritaet | Quelle | Hinweise |
 |---:|---|---|
-| 1 | `objects` metadata | Used when an image references one or more objects. |
-| 2 | `images.caption` and `images.credits` | Used when image metadata exists without object metadata. |
-| 3 | `galleries.caption` and `galleries.subCaption` | Gallery-level fallback. |
+| 1 | Metadaten aus `objects` | Wird genutzt, wenn ein Bild ein oder mehrere Objekte referenziert. |
+| 2 | `images.caption` und `images.credits` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
+| 3 | `galleries.caption` und `galleries.subCaption` | Galerie-weiter Ersatzwert. |
 
-## Graphic
+## Grafik
 
 ```mermaid
 erDiagram
-  CHAPTER ||--o{ SUBCHAPTER : "contains optional"
-  CHAPTER ||--o{ GALLERY : "contains optional"
-  SUBCHAPTER ||--|{ GALLERY : "contains"
-  GALLERY ||--|{ IMAGE : "references"
-  IMAGE ||--o{ OBJECT : "depicts"
+  CHAPTER ||--o{ SUBCHAPTER : "enthaelt optional"
+  CHAPTER ||--o{ GALLERY : "enthaelt optional"
+  SUBCHAPTER ||--|{ GALLERY : "enthaelt"
+  GALLERY ||--|{ IMAGE : "referenziert"
+  IMAGE ||--o{ OBJECT : "zeigt"
 
   CHAPTER {
-    integer order "required"
-    string number "required plain"
-    markdown title "required markdown"
-    markdown navTitle "required markdown"
-    reference heroImage "required image"
-    reference_array subchapters "conditional, min 1"
-    reference_array galleries "conditional, min 1"
+    integer order "Pflicht"
+    string number "Pflicht einfach"
+    markdown title "Pflicht Markdown"
+    markdown navTitle "Pflicht Markdown"
+    reference heroImage "Pflicht Bild"
+    reference_array subchapters "bedingt, min 1"
+    reference_array galleries "bedingt, min 1"
     markdown body "optional"
   }
 
   SUBCHAPTER {
-    string number "required plain"
-    markdown title "required markdown"
-    markdown navTitle "required markdown"
-    reference heroImage "required image"
-    reference_array galleries "required, min 1"
+    string number "Pflicht einfach"
+    markdown title "Pflicht Markdown"
+    markdown navTitle "Pflicht Markdown"
+    reference heroImage "Pflicht Bild"
+    reference_array galleries "Pflicht, min 1"
     markdown body "optional"
   }
 
   GALLERY {
-    markdown title "required markdown"
-    markdown caption "optional markdown"
-    markdown subCaption "optional markdown"
-    enum color "optional, defaults chapter-1"
-    reference_array images "required, min 1"
+    markdown title "Pflicht Markdown"
+    markdown caption "Markdown optional"
+    markdown subCaption "Markdown optional"
+    enum color "optional, Standard chapter-1"
+    reference_array images "Pflicht, min 1"
     markdown body "optional"
   }
 
   IMAGE {
-    string fileName "required asset filename"
-    markdown altText "optional markdown"
-    markdown caption "optional markdown"
-    markdown credits "optional markdown"
+    string fileName "Pflicht Asset-Dateiname"
+    markdown altText "Markdown optional"
+    markdown caption "Markdown optional"
+    markdown credits "Markdown optional"
     reference_array objects "optional"
-    markdown body "optional, unused"
+    markdown body "optional, ungenutzt"
   }
 
   OBJECT {
-    string slug "required plain"
-    markdown title "required markdown"
-    markdown urheber "optional markdown"
-    string date "optional plain"
-    string materialTechnik "optional plain"
-    markdown institution "optional markdown"
-    markdown inventarnummer "optional markdown"
+    slug slug "Pflicht URL-sicherer ASCII"
+    markdown title "Pflicht Markdown"
+    markdown urheber "Markdown optional"
+    string date "optional einfach"
+    string materialTechnik "optional einfach"
+    markdown institution "Markdown optional"
+    markdown inventarnummer "Markdown optional"
     markdown body "optional"
   }
 ```
