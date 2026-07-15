@@ -38,6 +38,7 @@ NOTE: Same fields as chapter, except for ORDER, and can't contain further subcha
 
 
 ### Gallery
+
 Title: String (MARKDOWN), Required
 Caption: String (MARKDOWN), Optional
 SubCaption: String (MARKDOWN), Optional
@@ -56,6 +57,7 @@ Objects: ->Objects, Optional, InOrder as seen on Picture
 
 ### Objects
 
+Slug: URL-Compatible String, Required
 Title: String (MARKDOWN), Required
 Beschreibung: String (MARKDOWN), Optional
 Urheber: String (MARKDOWN), Optional

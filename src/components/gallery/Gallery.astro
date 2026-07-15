@@ -1,0 +1,677 @@
+---
+import type { ImageMetadata } from "astro";
+
+export type GalleryColor =
+  | "chapter-1"
+  | "chapter-2"
+  | "chapter-3"
+  | "chapter-4"
+  | "chapter-5"
+  | "chapter-6"
+  | "chapter-7";
+
+export type GalleryObject = {
+  slug: string;
+  title: string;
+  urheber?: string;
+  date?: string;
+  materialTechnik?: string;
+  institution?: string;
+  inventarnummer?: string;
+};
+
+export type GalleryImage = {
+  src: ImageMetadata;
+  alt?: string;
+  caption?: string;
+  credits?: string;
+  objects?: GalleryObject[];
+};
+
+type CaptionItem = {
+  title: string;
+  text: string;
+  href?: string;
+  linkLabel?: string;
+};
+
+export type GalleryProps = {
+  title: string;
+  caption?: string;
+  subCaption?: string;
+  color?: GalleryColor;
+  images: GalleryImage[];
+};
+
+const props = Astro.props as GalleryProps;
+const { title, caption, subCaption, color = "chapter-1", images } = props;
+const isMultiImage = images.length > 1;
+
+const stripInlineMarkdown = (value = "") => value.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
+
+const objectMetadata = (object: GalleryObject) =>
+  [
+    object.urheber,
+    object.date,
+    object.materialTechnik,
+    object.institution,
+    object.inventarnummer ? `Inv. Nr. ${object.inventarnummer}` : undefined,
+  ]
+    .filter(Boolean)
+    .map((value) => stripInlineMarkdown(value))
+    .join(", ");
+
+const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
+  if (image.objects?.length) {
+    return image.objects.map((object) => {
+      const title = stripInlineMarkdown(object.title);
+
+      return {
+        title,
+        text: objectMetadata(object),
+        href: `/objects/${object.slug}/`,
+        linkLabel: `Zum Objekt: ${title}`,
+      };
+    });
+  }
+
+  if (image.caption || image.credits) {
+    return [
+      {
+        title: stripInlineMarkdown(image.caption ?? ""),
+        text: stripInlineMarkdown(image.credits ?? ""),
+      },
+    ];
+  }
+
+  return [
+    {
+      title: stripInlineMarkdown(caption ?? ""),
+      text: stripInlineMarkdown(subCaption ?? ""),
+    },
+  ];
+};
+
+const slides = images.map((image, index) => ({
+  index,
+  src: image.src.src,
+  alt: stripInlineMarkdown(image.alt ?? ""),
+  captions: getCaptionItems(image),
+}));
+
+const firstSlide = slides[0];
+const nextSlide = slides[1] ?? firstSlide;
+---
+
+<section class:list={["gallery", isMultiImage ? "gallery--multi" : "gallery--single"]} data-gallery data-color={color} aria-roledescription={isMultiImage ? "carousel" : undefined} aria-label={title}>
+  <div class="gallery__title-section">
+    <h2 class="gallery__title">{stripInlineMarkdown(title)}</h2>
+  </div>
+
+  <div class="gallery__stage">
+    {isMultiImage && (
+      <button class="gallery__button gallery__button--prev" type="button" data-gallery-prev aria-label="Vorheriges Bild" disabled>
+        <span aria-hidden="true">←</span>
+      </button>
+    )}
+
+    {isMultiImage && (
+      <div class="gallery__peek gallery__peek--prev is-empty" aria-hidden="true" data-gallery-peek-prev>
+        <img src={firstSlide.src} alt="" data-gallery-peek-prev-image />
+      </div>
+    )}
+
+    <figure class="gallery__frame">
+      <div class="gallery__mat">
+        <img class="gallery__image" src={firstSlide.src} alt={firstSlide.alt} loading="lazy" decoding="async" data-gallery-image />
+      </div>
+    </figure>
+
+    {isMultiImage && (
+      <div class="gallery__peek gallery__peek--next" class:list={{ "is-empty": slides.length < 2 }} aria-hidden="true" data-gallery-peek-next>
+        <img src={nextSlide.src} alt="" data-gallery-peek-next-image />
+      </div>
+    )}
+
+    {isMultiImage && (
+      <button class="gallery__button gallery__button--next" type="button" data-gallery-next aria-label="Nächstes Bild">
+        <span aria-hidden="true">→</span>
+      </button>
+    )}
+  </div>
+
+  <div class="gallery__caption-section" data-gallery-caption aria-live="polite">
+    {isMultiImage && (
+      <div class="gallery__pagination">
+        <div class="gallery__dots" data-gallery-dots>
+          {slides.map((slide) => <button class="gallery__dot" class:list={{ "is-active": slide.index === 0 }} type="button" data-gallery-dot={slide.index} aria-label={`Bild ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
+        </div>
+        <p class="gallery__counter" data-gallery-counter>1 / {slides.length}</p>
+      </div>
+    )}
+
+    <div class="gallery__caption-list">
+      {firstSlide.captions.map((item) => (
+        <div class="gallery__caption-item">
+          {item.title && <p class="gallery__caption-title">{item.title}</p>}
+          {item.text && <p class="gallery__caption-text">{item.text}</p>}
+          {item.href && (
+            <a class="gallery__object-link" href={item.href}>
+              <span>{item.linkLabel}</span>
+              <span class="gallery__object-link-arrow" aria-hidden="true">→</span>
+            </a>
+          )}
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <script type="application/json" data-gallery-slides set:html={JSON.stringify(slides)}></script>
+</section>
+
+<script>
+  const renderCaption = (container: HTMLElement, captions: Array<{ title?: string; text?: string; href?: string; linkLabel?: string }>) => {
+    const captionList = document.createElement("div");
+    captionList.className = "gallery__caption-list";
+
+    captions.forEach((caption) => {
+      const item = document.createElement("div");
+      item.className = "gallery__caption-item";
+
+      if (caption.title) {
+        const title = document.createElement("p");
+        title.className = "gallery__caption-title";
+        title.textContent = caption.title;
+        item.append(title);
+      }
+
+      if (caption.text) {
+        const text = document.createElement("p");
+        text.className = "gallery__caption-text";
+        text.textContent = caption.text;
+        item.append(text);
+      }
+
+      if (caption.href) {
+        const link = document.createElement("a");
+        link.className = "gallery__object-link";
+        link.href = caption.href;
+
+        const label = document.createElement("span");
+        label.textContent = caption.linkLabel ?? "Zum Objekt";
+
+        const arrow = document.createElement("span");
+        arrow.className = "gallery__object-link-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "→";
+
+        link.append(label, arrow);
+        item.append(link);
+      }
+
+      captionList.append(item);
+    });
+
+    const pagination = container.querySelector(".gallery__pagination");
+    container.replaceChildren(...[pagination, captionList].filter(Boolean));
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
+    const script = gallery.querySelector<HTMLScriptElement>("[data-gallery-slides]");
+    const slides = script?.textContent ? JSON.parse(script.textContent) : [];
+
+    if (slides.length <= 1) return;
+
+    const image = gallery.querySelector<HTMLImageElement>("[data-gallery-image]");
+    const previousImage = gallery.querySelector<HTMLImageElement>("[data-gallery-peek-prev-image]");
+    const nextImage = gallery.querySelector<HTMLImageElement>("[data-gallery-peek-next-image]");
+    const counter = gallery.querySelector<HTMLElement>("[data-gallery-counter]");
+    const caption = gallery.querySelector<HTMLElement>("[data-gallery-caption]");
+    const stage = gallery.querySelector<HTMLElement>(".gallery__stage");
+    const previousButton = gallery.querySelector<HTMLButtonElement>("[data-gallery-prev]");
+    const nextButton = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
+    const previousPeek = gallery.querySelector<HTMLElement>("[data-gallery-peek-prev]");
+    const nextPeek = gallery.querySelector<HTMLElement>("[data-gallery-peek-next]");
+    const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"));
+    let activeIndex = 0;
+    let pointerStart: { id: number; x: number; y: number } | undefined;
+
+    const setSlide = (nextIndex: number) => {
+      activeIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+      const slide = slides[activeIndex];
+      const previousSlide = slides[activeIndex - 1];
+      const nextSlide = slides[activeIndex + 1];
+
+      if (image) {
+        image.src = slide.src;
+        image.alt = slide.alt;
+      }
+
+      if (previousImage && previousSlide) previousImage.src = previousSlide.src;
+      if (nextImage && nextSlide) nextImage.src = nextSlide.src;
+      previousPeek?.classList.toggle("is-empty", !previousSlide);
+      nextPeek?.classList.toggle("is-empty", !nextSlide);
+      if (previousButton) previousButton.disabled = activeIndex === 0;
+      if (nextButton) nextButton.disabled = activeIndex === slides.length - 1;
+      if (counter) counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+      if (caption) renderCaption(caption, slide.captions);
+
+      dots.forEach((dot, index) => {
+        const isActive = index === activeIndex;
+        dot.classList.toggle("is-active", isActive);
+        dot.toggleAttribute("aria-current", isActive);
+      });
+    };
+
+    gallery.querySelector("[data-gallery-prev]")?.addEventListener("click", () => setSlide(activeIndex - 1));
+    gallery.querySelector("[data-gallery-next]")?.addEventListener("click", () => setSlide(activeIndex + 1));
+
+    stage?.addEventListener("pointerdown", (event) => {
+      if ((event.target as HTMLElement).closest("button, a")) return;
+      pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    });
+
+    stage?.addEventListener("pointerup", (event) => {
+      if (!pointerStart || pointerStart.id !== event.pointerId) return;
+
+      const deltaX = event.clientX - pointerStart.x;
+      const deltaY = event.clientY - pointerStart.y;
+      pointerStart = undefined;
+
+      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (deltaX > 0 && activeIndex === 0) return;
+      if (deltaX < 0 && activeIndex === slides.length - 1) return;
+      setSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1);
+    });
+
+    stage?.addEventListener("pointercancel", () => {
+      pointerStart = undefined;
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => setSlide(Number(dot.dataset.galleryDot ?? 0)));
+    });
+  });
+</script>
+
+<style>
+  .gallery {
+    --gallery-mat-bg: var(--color-oat);
+    --gallery-border: var(--color-ink);
+
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    overflow: hidden;
+    background: #fff;
+    color: var(--color-text-primary);
+  }
+
+  .gallery[data-color="chapter-1"] {
+    --gallery-mat-bg: #d3e2c6;
+  }
+
+  .gallery[data-color="chapter-2"] {
+    --gallery-mat-bg: rgb(255 250 204 / 40%);
+  }
+
+  .gallery[data-color="chapter-3"] {
+    --gallery-mat-bg: #cce6f1;
+  }
+
+  .gallery[data-color="chapter-4"] {
+    --gallery-mat-bg: rgb(214 255 225 / 70%);
+  }
+
+  .gallery[data-color="chapter-5"] {
+    --gallery-mat-bg: #ffe8e5;
+  }
+
+  .gallery[data-color="chapter-6"] {
+    --gallery-mat-bg: rgb(177 203 247 / 40%);
+  }
+
+  .gallery[data-color="chapter-7"] {
+    --gallery-mat-bg: rgb(141 151 132 / 40%);
+  }
+
+  .gallery__title-section {
+    padding: var(--spacing-40) var(--spacing-20) var(--spacing-24);
+  }
+
+  .gallery__title {
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: 400;
+    line-height: var(--text-h2--line-height);
+  }
+
+  .gallery__stage {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    padding-inline: var(--spacing-20);
+    touch-action: pan-y;
+  }
+
+  .gallery__frame {
+    width: 100%;
+    margin: 0;
+    border: 0.5px solid var(--gallery-border);
+  }
+
+  .gallery__mat {
+    display: flex;
+    height: 280px;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: var(--gallery-mat-bg);
+    padding: var(--spacing-20);
+  }
+
+  .gallery__image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+
+  .gallery__peek,
+  .gallery__button {
+    display: none;
+  }
+
+  .gallery__pagination {
+    display: flex;
+    height: 100px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--spacing-8);
+    color: var(--color-text-secondary);
+  }
+
+  .gallery__dots {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+  }
+
+  .gallery__dot {
+    width: 6px;
+    height: 6px;
+    border: 0;
+    border-radius: var(--radius-full);
+    background: var(--color-greige);
+    padding: 0;
+    cursor: pointer;
+  }
+
+  .gallery__dot.is-active {
+    background: var(--color-ink);
+  }
+
+  .gallery__counter {
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .gallery__caption-section {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    padding: 0 var(--spacing-20) var(--spacing-24);
+  }
+
+  .gallery--single .gallery__caption-section {
+    padding-top: var(--spacing-24);
+  }
+
+  :global(.gallery__caption-list) {
+    display: flex;
+    max-width: 698px;
+    flex-direction: column;
+    gap: var(--spacing-16);
+  }
+
+  :global(.gallery__caption-item) {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-8);
+  }
+
+  :global(.gallery__caption-title),
+  :global(.gallery__caption-text) {
+    font-family: var(--font-mono);
+    line-height: 1;
+  }
+
+  :global(.gallery__caption-title) {
+    font-size: var(--text-caption);
+  }
+
+  :global(.gallery__caption-text) {
+    color: var(--color-text-secondary);
+    font-size: var(--text-caption-small);
+    letter-spacing: var(--text-caption-small--letter-spacing);
+  }
+
+  :global(.gallery__object-link) {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    width: fit-content;
+    border-bottom: 1px solid transparent;
+    color: var(--color-link);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    text-decoration: none;
+    transition:
+      border-color var(--duration-interaction) var(--ease-interaction),
+      opacity var(--duration-interaction) var(--ease-interaction);
+  }
+
+  :global(.gallery__object-link-arrow) {
+    display: inline-block;
+    transition: transform var(--duration-interaction) var(--ease-interaction);
+  }
+
+  :global(.gallery__object-link:hover) {
+    border-bottom-color: currentColor;
+  }
+
+  :global(.gallery__object-link:hover .gallery__object-link-arrow) {
+    transform: translateX(3px);
+  }
+
+  @media (min-width: 768px) {
+    .gallery__title-section {
+      padding: var(--spacing-40) var(--spacing-32) var(--spacing-24);
+    }
+
+    .gallery__stage {
+      align-items: flex-start;
+      gap: var(--spacing-20);
+      padding-inline: 0;
+    }
+
+    .gallery__peek {
+      display: block;
+      width: 72px;
+      height: 440px;
+      flex: 0 0 72px;
+      overflow: hidden;
+      border: 0.5px solid rgb(38 37 30 / 60%);
+      opacity: 0.8;
+    }
+
+    .gallery__peek img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0.24;
+    }
+
+    .gallery__peek.is-empty img {
+      opacity: 0;
+    }
+
+    .gallery__frame {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .gallery__mat {
+      height: 440px;
+      padding: var(--spacing-32);
+    }
+
+    .gallery__button {
+      position: absolute;
+      z-index: 2;
+      top: 185px;
+      display: inline-flex;
+      width: 70px;
+      height: 70px;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid var(--color-ink);
+      background: var(--color-surface);
+      color: var(--color-ink);
+      cursor: pointer;
+      font-family: var(--font-sans);
+      font-size: var(--text-h2);
+      line-height: 1;
+    }
+
+    .gallery__button--prev {
+      left: 46px;
+    }
+
+    .gallery__button--next {
+      right: 46px;
+    }
+
+    .gallery__button:disabled {
+      cursor: not-allowed;
+      opacity: 0.25;
+    }
+
+    .gallery__pagination {
+      height: auto;
+      align-items: flex-end;
+      padding: 0;
+    }
+
+    .gallery__dots {
+      display: none;
+    }
+
+    .gallery__counter {
+      font-size: var(--text-body);
+    }
+
+    .gallery__caption-section {
+      display: grid;
+      grid-template-columns: minmax(0, 500px) 1fr;
+      align-items: start;
+      gap: var(--spacing-16) var(--spacing-24);
+      padding: var(--spacing-32) 92px var(--spacing-24);
+    }
+
+    .gallery__pagination {
+      grid-column: 2;
+      grid-row: 1;
+      justify-self: end;
+    }
+
+    :global(.gallery__caption-list) {
+      grid-column: 1;
+      grid-row: 1;
+    }
+
+
+    .gallery--single .gallery__peek,
+    .gallery--single .gallery__button,
+    .gallery--single .gallery__pagination {
+      display: none;
+    }
+
+    .gallery--single .gallery__stage {
+      padding-inline: 92px;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .gallery__title-section {
+      padding: var(--spacing-80) var(--spacing-80) var(--spacing-24) 188px;
+    }
+
+    .gallery__title {
+      max-width: 650px;
+    }
+
+    .gallery__stage {
+      align-items: center;
+    }
+
+    .gallery__peek {
+      width: 168.5px;
+      height: 608px;
+      flex-basis: 168.5px;
+    }
+
+    .gallery__mat {
+      height: 608px;
+    }
+
+    .gallery__button {
+      top: 269px;
+    }
+
+    .gallery__button--prev {
+      left: 49px;
+    }
+
+    .gallery__button--next {
+      right: 49px;
+    }
+
+    .gallery__pagination {
+      right: 188px;
+      height: auto;
+      padding: 0;
+    }
+
+    .gallery__counter {
+      font-size: var(--text-lead);
+      line-height: var(--text-lead--line-height);
+    }
+
+    .gallery__caption-section {
+      grid-template-columns: minmax(0, 698px) 1fr;
+      padding: var(--spacing-32) 188px var(--spacing-24);
+    }
+
+    .gallery--single {
+      padding-inline: 189px;
+    }
+
+    .gallery--single .gallery__title-section {
+      padding-inline: 0;
+    }
+
+    .gallery--single .gallery__stage,
+    .gallery--single .gallery__caption-section {
+      padding-inline: 0;
+    }
+
+    .gallery--single .gallery__mat {
+      height: 600px;
+    }
+  }
+</style>

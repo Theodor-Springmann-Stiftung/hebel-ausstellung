@@ -13,6 +13,10 @@ const optionalMarkdown = z
   })
   .optional();
 
+const galleryColor = z
+  .enum(["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5", "chapter-6", "chapter-7"])
+  .default("chapter-1");
+
 const sectionSchema = z.object({
   number: z.string().min(1),
   title: requiredMarkdown,
@@ -55,6 +59,7 @@ const galleries = defineCollection({
     title: requiredMarkdown,
     caption: optionalMarkdown,
     subCaption: optionalMarkdown,
+    color: galleryColor,
     images: z.array(reference("images")).min(1),
   }),
 });
