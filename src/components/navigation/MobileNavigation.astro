@@ -1,0 +1,500 @@
+---
+const chapters = [
+  { number: "01", title: "Der Oberländer", href: "#der-oberlaender" },
+  { number: "02", title: "Der Dichter", href: "#der-dichter" },
+  { number: "03", title: "Der Hausfreund", href: "#der-hausfreund" },
+  { number: "04", title: "Der Theologe", href: "#der-theologe" },
+  { number: "05", title: "Der Proteuser", href: "#der-proteuser" },
+  { number: "06", title: "Der Junggeselle", href: "#der-junggeselle" },
+  { number: "07", title: "Der Briefschreiber", href: "#der-briefschreiber" },
+];
+---
+
+<nav class="mobile-navigation" aria-label="Mobile Hauptnavigation">
+  <input class="mobile-navigation__toggle" id="mobile-navigation-toggle" type="checkbox" aria-label="Menü öffnen oder schließen" />
+
+  <div class="mobile-navigation__bar">
+    <a class="mobile-navigation__brand" href="/" aria-label="Startseite">
+      <span class="mobile-navigation__brand-kicker">Johann Peter Hebel</span>
+      <span class="mobile-navigation__brand-title">Das Nachleben der Worte</span>
+    </a>
+
+    <label class="mobile-navigation__menu-button" for="mobile-navigation-toggle" aria-label="Menü öffnen">
+      <span></span>
+      <span></span>
+      <span></span>
+    </label>
+  </div>
+
+  <div class="mobile-navigation__panel">
+    <div class="mobile-navigation__panel-bar">
+      <a class="mobile-navigation__panel-brand" href="/" aria-label="Startseite">
+        <span class="mobile-navigation__panel-kicker">Johann Peter Hebel</span>
+        <span class="mobile-navigation__panel-title">Das Nachleben der Worte</span>
+      </a>
+
+      <label class="mobile-navigation__close-button" for="mobile-navigation-toggle" aria-label="Menü schließen">
+        <span></span>
+        <span></span>
+      </label>
+    </div>
+
+    <div class="mobile-navigation__views">
+      <div class="mobile-navigation__main-view">
+        <button
+          class="nav-link mobile-navigation__panel-link mobile-navigation__panel-link--arrow"
+          type="button"
+          aria-controls="mobile-navigation-chapters-view"
+          aria-expanded="false"
+          data-mobile-navigation-show-chapters
+        >
+          Ausstellung
+        </button>
+        <a class="nav-link mobile-navigation__panel-link" href="#ueber-die-ausstellung">Über die Ausstellung</a>
+        <a class="nav-link mobile-navigation__panel-link" href="#kontakt">Kontakt</a>
+      </div>
+
+      <div class="mobile-navigation__chapters-view" id="mobile-navigation-chapters-view" aria-hidden="true">
+        <button class="mobile-navigation__back-button" type="button" data-mobile-navigation-hide-chapters>
+          ←&nbsp; Zurück zum Hauptmenü
+        </button>
+
+        <div class="mobile-navigation__chapter-section">
+          <p class="mobile-navigation__chapter-label">Kapitel der Ausstellung</p>
+          <ol class="mobile-navigation__chapter-list">
+            {chapters.map((chapter) => (
+              <li class="mobile-navigation__chapter-item">
+                <a class="mobile-navigation__chapter-link" href={chapter.href}>
+                  <span class="mobile-navigation__chapter-number">{chapter.number}</span>
+                  <span class="mobile-navigation__chapter-title">{chapter.title}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<script>
+  document.querySelectorAll(".mobile-navigation").forEach((navigation) => {
+    const toggle = navigation.querySelector<HTMLInputElement>(".mobile-navigation__toggle");
+    const panel = navigation.querySelector<HTMLElement>(".mobile-navigation__panel");
+    const showChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-show-chapters]");
+    const hideChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-hide-chapters]");
+    const chaptersView = navigation.querySelector<HTMLElement>("#mobile-navigation-chapters-view");
+    const closeLinks = navigation.querySelectorAll<HTMLAnchorElement>(".mobile-navigation__panel-link[href], .mobile-navigation__chapter-link");
+
+    const setChaptersOpen = (isOpen: boolean) => {
+      panel?.toggleAttribute("data-chapters-open", isOpen);
+      showChaptersButton?.setAttribute("aria-expanded", String(isOpen));
+      chaptersView?.setAttribute("aria-hidden", String(!isOpen));
+    };
+
+    showChaptersButton?.addEventListener("click", () => setChaptersOpen(true));
+    hideChaptersButton?.addEventListener("click", () => setChaptersOpen(false));
+
+    toggle?.addEventListener("change", () => {
+      if (!toggle.checked) {
+        setChaptersOpen(false);
+      }
+    });
+
+    closeLinks.forEach((link) => {
+      link.addEventListener("click", () => {
+        if (toggle) {
+          toggle.checked = false;
+        }
+        setChaptersOpen(false);
+      });
+    });
+  });
+</script>
+
+<style>
+  .mobile-navigation {
+    display: block;
+    position: relative;
+  }
+
+  .mobile-navigation__toggle {
+    position: absolute;
+    z-index: 30;
+    top: 26px;
+    right: var(--spacing-20);
+    width: var(--spacing-32);
+    height: var(--spacing-32);
+    margin: 0;
+    cursor: pointer;
+    opacity: 0;
+  }
+
+  .mobile-navigation__toggle:checked {
+    position: fixed;
+    top: var(--spacing-24);
+    right: var(--spacing-24);
+    width: var(--spacing-44);
+    height: var(--spacing-44);
+  }
+
+  .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__bar .mobile-navigation__menu-button,
+  .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__panel .mobile-navigation__close-button {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+    border-radius: var(--radius-xxs);
+  }
+
+  .mobile-navigation__bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--color-ink);
+    background-color: var(--color-paper, #f7f7f4);
+    padding: var(--spacing-16) var(--spacing-20);
+  }
+
+  .mobile-navigation__brand,
+  .mobile-navigation__panel-brand {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    text-decoration: none;
+  }
+
+  .mobile-navigation__brand {
+    min-width: 0;
+    flex: 1;
+    color: var(--color-text-primary);
+  }
+
+  .mobile-navigation__brand-kicker {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-medium);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .mobile-navigation__brand-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    letter-spacing: var(--text-h4--letter-spacing);
+  }
+
+  .mobile-navigation__menu-button,
+  .mobile-navigation__close-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    user-select: none;
+  }
+
+  .mobile-navigation__menu-button {
+    width: var(--spacing-32);
+    height: var(--spacing-32);
+    flex-direction: column;
+    gap: 5px;
+  }
+
+  .mobile-navigation__menu-button span {
+    width: 22px;
+    height: 1.5px;
+    background: var(--color-text-primary);
+  }
+
+  .mobile-navigation__panel {
+    position: fixed;
+    z-index: 20;
+    inset: 0;
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background: var(--color-ink);
+    color: var(--color-paper);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(var(--motion-dropdown-y));
+    transition:
+      opacity var(--duration-dropdown) var(--ease-interaction),
+      transform var(--duration-dropdown) var(--ease-interaction);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
+  .mobile-navigation__panel-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--spacing-24);
+  }
+
+  .mobile-navigation__panel-brand {
+    color: var(--color-paper);
+  }
+
+  .mobile-navigation__panel-kicker {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height);
+    opacity: 0.7;
+  }
+
+  .mobile-navigation__panel-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h4);
+    line-height: var(--text-h4--line-height);
+    letter-spacing: var(--text-h4--letter-spacing);
+  }
+
+  .mobile-navigation__close-button {
+    position: relative;
+    width: var(--spacing-44);
+    height: var(--spacing-44);
+  }
+
+  .mobile-navigation__close-button span {
+    position: absolute;
+    width: 32px;
+    height: 1.5px;
+    background: var(--color-paper);
+  }
+
+  .mobile-navigation__close-button span:first-child {
+    transform: rotate(45deg);
+  }
+
+  .mobile-navigation__close-button span:last-child {
+    transform: rotate(-45deg);
+  }
+
+  .mobile-navigation__views {
+    width: 100%;
+    flex: 1;
+  }
+
+  .mobile-navigation__main-view {
+    display: flex;
+    flex-direction: column;
+    gap: var(--padding-lg);
+    padding: var(--padding-xl) var(--spacing-24) var(--spacing-48);
+  }
+
+  .mobile-navigation__chapters-view {
+    display: none;
+    flex-direction: column;
+    gap: var(--spacing-32);
+    padding: 0 var(--spacing-24) var(--spacing-48);
+  }
+
+  .mobile-navigation__panel[data-chapters-open] .mobile-navigation__main-view {
+    display: none;
+  }
+
+  .mobile-navigation__panel[data-chapters-open] .mobile-navigation__chapters-view {
+    display: flex;
+  }
+
+  .mobile-navigation__panel-link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: var(--spacing-16);
+    width: fit-content;
+    color: var(--color-paper);
+    border: 0;
+    padding: 0;
+    background: transparent;
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+    cursor: pointer;
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .mobile-navigation__panel-link:hover {
+    opacity: 0.8;
+    text-decoration: none;
+  }
+
+  .mobile-navigation__panel-link--arrow::after {
+    content: "→";
+    display: inline-block;
+    font-family: var(--font-sans);
+    font-size: var(--text-h4);
+    line-height: var(--text-lead--line-height);
+    transition: transform var(--duration-interaction) var(--ease-interaction);
+  }
+
+  .mobile-navigation__panel-link--arrow:hover::after {
+    transform: translateX(3px);
+  }
+
+  .mobile-navigation__back-button {
+    width: fit-content;
+    border: 0;
+    padding: 0;
+    background: transparent;
+    color: var(--color-paper);
+    cursor: pointer;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    text-align: left;
+    user-select: none;
+  }
+
+  .mobile-navigation__back-button:hover {
+    opacity: 0.8;
+  }
+
+  .mobile-navigation__chapter-section,
+  .mobile-navigation__chapter-list {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+  }
+
+  .mobile-navigation__chapter-section {
+    gap: var(--spacing-32);
+  }
+
+  .mobile-navigation__chapter-label {
+    color: var(--color-paper);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
+    line-height: var(--text-caption--line-height);
+  }
+
+  .mobile-navigation__chapter-list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .mobile-navigation__chapter-item {
+    border-bottom: 1px solid rgb(247 247 244 / 50%);
+    padding-block: var(--spacing-24);
+  }
+
+  .mobile-navigation__chapter-link {
+    display: flex;
+    align-items: baseline;
+    gap: var(--spacing-24);
+    color: var(--color-paper);
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .mobile-navigation__chapter-link:hover .mobile-navigation__chapter-title {
+    opacity: 0.8;
+  }
+
+  .mobile-navigation__chapter-number {
+    min-width: var(--spacing-16);
+    color: rgb(247 247 244 / 50%);
+    font-family: var(--font-sans);
+    font-size: var(--text-body-medium);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .mobile-navigation__chapter-title {
+    flex: 1;
+    color: var(--color-paper);
+    font-family: var(--font-sans);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  @media (min-width: 768px) {
+    .mobile-navigation__toggle {
+      top: 26px;
+      right: var(--spacing-48);
+      width: var(--spacing-40);
+      height: var(--spacing-40);
+    }
+
+    .mobile-navigation__toggle:checked {
+      top: 26px;
+      right: var(--spacing-48);
+      width: var(--spacing-40);
+      height: var(--spacing-40);
+    }
+
+    .mobile-navigation__bar,
+    .mobile-navigation__panel-bar {
+      padding: var(--spacing-16) var(--spacing-48);
+    }
+
+    .mobile-navigation__brand-kicker {
+      font-size: var(--text-body-medium);
+      line-height: var(--text-body-medium--line-height);
+    }
+
+    .mobile-navigation__brand-title,
+    .mobile-navigation__panel-title {
+      font-size: var(--text-h3);
+      line-height: var(--text-h3--line-height);
+      letter-spacing: var(--text-h3--letter-spacing);
+    }
+
+    .mobile-navigation__menu-button,
+    .mobile-navigation__close-button {
+      width: var(--spacing-40);
+      height: var(--spacing-40);
+    }
+
+    .mobile-navigation__main-view {
+      gap: var(--spacing-48);
+      padding: var(--padding-xl) var(--spacing-48);
+    }
+
+    .mobile-navigation__chapters-view {
+      gap: var(--spacing-64);
+      padding: var(--spacing-40) var(--spacing-48) var(--spacing-64);
+    }
+
+    .mobile-navigation__chapter-section {
+      gap: var(--spacing-20);
+    }
+
+    .mobile-navigation__chapter-list {
+      gap: var(--spacing-20);
+    }
+
+    .mobile-navigation__chapter-item {
+      padding-block: 0 var(--spacing-32);
+    }
+
+    .mobile-navigation__chapter-link {
+      gap: var(--spacing-32);
+    }
+
+    .mobile-navigation__chapter-number {
+      min-width: var(--spacing-16);
+    }
+
+    .mobile-navigation__chapter-title {
+      font-family: var(--font-display);
+      font-size: var(--text-h2);
+      line-height: var(--text-h2--line-height);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .mobile-navigation {
+      display: none;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-navigation__panel {
+      transition: none;
+      transform: none;
+    }
+  }
+</style>

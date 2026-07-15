@@ -8,6 +8,8 @@ The CSS currently uses these files:
 - `NyghtSerif-BoldItalic.woff2`
 - `Geist-Regular.woff2`
 - `Geist-Italic.woff2`
+- `Geist-Medium.woff2`
+- `Geist-SemiBold.woff2`
 - `Geist-Bold.woff2`
 - `Geist-BoldItalic.woff2`
 - `GeistMono-Regular.woff2`

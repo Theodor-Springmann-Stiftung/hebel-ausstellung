@@ -2,78 +2,85 @@ import { defineCollection, reference } from "astro:content";
 import { glob } from "astro/loaders";
 import { z } from "astro/zod";
 
-const noteSchema = z.object({
-  label: z.string().optional(),
-  text: z.string(),
+const requiredMarkdown = z.string().refine((value) => value.trim().length > 0, {
+  message: "Required Markdown string must not be empty",
 });
 
-const imageSchema = z.object({
-  filename: z.string(),
-  alt: z.string().optional(),
-  credit: z.string().optional(),
-  caption: z.string().optional(),
+const optionalMarkdown = z
+  .string()
+  .refine((value) => value.trim().length > 0, {
+    message: "Optional Markdown string must not be empty when provided",
+  })
+  .optional();
+
+const sectionSchema = z.object({
+  number: z.string().min(1),
+  title: requiredMarkdown,
+  navTitle: requiredMarkdown,
+  heroImage: reference("images"),
 });
 
 const chapters = defineCollection({
   loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
-  schema: z.object({
-    slug: z.string(),
-    order: z.number().int().positive(),
-    title: z.string(),
-    shortTitle: z.string().optional(),
-    subchapters: z.array(reference("subchapters")).default([]),
-  }),
+  schema: sectionSchema
+    .extend({
+      order: z.number().int().positive(),
+      subchapters: z.array(reference("subchapters")).min(1).optional(),
+      galleries: z.array(reference("galleries")).min(1).optional(),
+    })
+    .superRefine((data, context) => {
+      const hasSubchapters = Boolean(data.subchapters?.length);
+      const hasGalleries = Boolean(data.galleries?.length);
+
+      if (hasSubchapters === hasGalleries) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Chapter must define either subchapters or galleries, but not both",
+          path: ["subchapters"],
+        });
+      }
+    }),
 });
 
 const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
-  schema: z.object({
-    slug: z.string(),
-    chapter: reference("chapters"),
-    order: z.number().int().positive(),
-    title: z.string(),
-    kicker: z.string(),
-    hero: imageSchema.optional(),
-    galleries: z.array(reference("galleries")).default([]),
-    notes: z.array(noteSchema).default([]),
+  schema: sectionSchema.extend({
+    galleries: z.array(reference("galleries")).min(1),
   }),
 });
 
 const galleries = defineCollection({
   loader: glob({ base: "./src/content/galleries", pattern: "**/*.md" }),
   schema: z.object({
-    slug: z.string(),
-    subchapter: reference("subchapters"),
-    order: z.number().int().positive(),
-    title: z.string(),
-    objects: z.array(
-      z.object({
-        object: reference("objects"),
-        captionTitle: z.string().optional(),
-        captionOverride: z.string().optional(),
-        imageOverride: imageSchema.partial().optional(),
-      }),
-    ),
-    crossReferences: z.array(reference("objects")).default([]),
-    notes: z.array(noteSchema).default([]),
+    title: requiredMarkdown,
+    caption: optionalMarkdown,
+    subCaption: optionalMarkdown,
+    images: z.array(reference("images")).min(1),
+  }),
+});
+
+const images = defineCollection({
+  loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
+  schema: z.object({
+    fileName: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
+      message: "Image fileName must end with a supported image extension",
+    }),
+    altText: optionalMarkdown,
+    caption: optionalMarkdown,
+    credits: optionalMarkdown,
+    objects: z.array(reference("objects")).optional(),
   }),
 });
 
 const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z.object({
-    slug: z.string(),
-    title: z.string(),
-    creator: z.string().optional(),
-    date: z.string().optional(),
-    holdingInstitution: z.string().optional(),
-    inventoryId: z.string().optional(),
-    rights: z.string().optional(),
-    url: z.string().url().optional(),
-    description: z.string().optional(),
-    image: imageSchema,
-    relatedObjects: z.array(reference("objects")).default([]),
-    notes: z.array(noteSchema).default([]),
+    title: requiredMarkdown,
+    urheber: optionalMarkdown,
+    date: z.string().min(1).optional(),
+    materialTechnik: z.string().min(1).optional(),
+    institution: optionalMarkdown,
+    inventarnummer: optionalMarkdown,
   }),
 });
 
@@ -81,5 +88,6 @@ export const collections = {
   chapters,
   subchapters,
   galleries,
+  images,
   objects,
 };

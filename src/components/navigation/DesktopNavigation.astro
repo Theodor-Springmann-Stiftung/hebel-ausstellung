@@ -1,0 +1,204 @@
+---
+const chapters = [
+  { number: "01", title: "Der Oberländer", href: "#der-oberlaender" },
+  { number: "02", title: "Der Dichter", href: "#der-dichter" },
+  { number: "03", title: "Der Hausfreund", href: "#der-hausfreund" },
+  { number: "04", title: "Der Theologe", href: "#der-theologe" },
+  { number: "05", title: "Der Proteuser", href: "#der-proteuser" },
+  { number: "06", title: "Der Junggeselle", href: "#der-junggeselle" },
+  { number: "07", title: "Der Briefschreiber", href: "#der-briefschreiber" },
+];
+---
+
+<nav class="desktop-navigation" aria-label="Hauptnavigation">
+  <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
+    <span class="desktop-navigation__brand-kicker">Johann Peter Hebel</span>
+    <span class="desktop-navigation__brand-title">Das Nachleben der Worte</span>
+  </a>
+
+  <div class="desktop-navigation__links">
+    <details class="desktop-navigation__dropdown">
+      <summary class="nav-link desktop-navigation__dropdown-trigger">
+        <span>Ausstellung</span>
+        <svg class="desktop-navigation__chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false">
+          <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" />
+        </svg>
+      </summary>
+
+      <div class="desktop-navigation__dropdown-panel motion-dropdown" data-open="true">
+        <p class="type-caption desktop-navigation__dropdown-label">Kapitel der Ausstellung</p>
+        <ol class="desktop-navigation__chapter-list">
+          {chapters.map((chapter) => (
+            <li class="desktop-navigation__chapter-item">
+              <a class="desktop-navigation__chapter-link" href={chapter.href}>
+                <span class="type-caption-small desktop-navigation__chapter-number">{chapter.number}</span>
+                <span class="type-body-medium desktop-navigation__chapter-title">{chapter.title}</span>
+              </a>
+            </li>
+          ))}
+        </ol>
+      </div>
+    </details>
+
+    <a class="nav-link desktop-navigation__link" href="#ueber-die-ausstellung">Über die Ausstellung</a>
+    <a class="nav-link desktop-navigation__link" href="#kontakt">Kontakt</a>
+  </div>
+</nav>
+
+<style>
+  .desktop-navigation {
+    display: none;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 0.5px solid var(--color-ink);
+    background-color: var(--color-paper, #f7f7f4);
+    padding: var(--spacing-16) var(--spacing-32);
+  }
+
+  .desktop-navigation__brand {
+    display: flex;
+    width: 375px;
+    flex-direction: column;
+    gap: var(--spacing-4);
+    color: var(--color-text-primary);
+    text-decoration: none;
+  }
+
+  .desktop-navigation__brand-kicker {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-medium);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .desktop-navigation__brand-title {
+    font-family: var(--font-display);
+    font-size: var(--text-h3);
+    line-height: var(--text-h3--line-height);
+  }
+
+  .desktop-navigation__links {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-48);
+  }
+
+  .desktop-navigation__dropdown {
+    position: relative;
+  }
+
+  .desktop-navigation__dropdown-trigger {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-8);
+    border-bottom: 1.5px solid transparent;
+    padding-block: 7.5px 8.75px;
+    cursor: pointer;
+    line-height: var(--text-body--line-height);
+    list-style: none;
+    text-decoration: none;
+    user-select: none;
+    transition:
+      border-color var(--duration-interaction) var(--ease-interaction),
+      opacity var(--duration-interaction) var(--ease-interaction);
+  }
+
+  .desktop-navigation__link {
+    border-bottom: 1.5px solid transparent;
+    padding-block: 7.5px 8.75px;
+    line-height: var(--text-body--line-height);
+    text-decoration: none;
+    user-select: none;
+    transition:
+      border-color var(--duration-interaction) var(--ease-interaction),
+      opacity var(--duration-interaction) var(--ease-interaction);
+  }
+
+  .desktop-navigation__dropdown-trigger:hover,
+  .desktop-navigation__link:hover {
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+
+  .desktop-navigation__dropdown-trigger::-webkit-details-marker {
+    display: none;
+  }
+
+  .desktop-navigation__chevron {
+    width: 12px;
+    height: 8px;
+    flex: 0 0 auto;
+    overflow: visible;
+    transition: transform var(--duration-interaction) var(--ease-interaction);
+  }
+
+  .desktop-navigation__dropdown[open] > .desktop-navigation__dropdown-trigger {
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+
+  .desktop-navigation__dropdown[open] .desktop-navigation__chevron {
+    transform: rotate(180deg);
+  }
+
+  .desktop-navigation__dropdown-panel {
+    position: absolute;
+    z-index: 10;
+    top: calc(100% + var(--spacing-16));
+    right: -120px;
+    width: 320px;
+    padding: var(--spacing-24);
+    background-color: var(--color-paper, #f7f7f4);
+    box-shadow: 6px 6px 5px rgb(0 0 0 / 15%);
+  }
+
+  .desktop-navigation__dropdown-label {
+    margin-bottom: var(--spacing-24);
+    color: var(--color-text-secondary);
+  }
+
+  .desktop-navigation__chapter-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-16);
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .desktop-navigation__chapter-item:not(:last-child) {
+    padding-bottom: var(--spacing-16);
+    border-bottom: 0.5px solid rgb(38 37 30 / 50%);
+  }
+
+  .desktop-navigation__chapter-link {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-16);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    user-select: none;
+  }
+
+  .desktop-navigation__chapter-link:hover .desktop-navigation__chapter-title {
+    color: var(--color-link);
+    text-decoration-line: underline;
+    text-underline-offset: 0.16em;
+  }
+
+  .desktop-navigation__chapter-number {
+    width: var(--spacing-24);
+    color: var(--color-text-secondary);
+  }
+
+  .desktop-navigation__chapter-title {
+    flex: 1;
+  }
+
+  @media (min-width: 1440px) {
+    .desktop-navigation {
+      display: flex;
+      padding-inline: var(--spacing-80);
+    }
+  }
+</style>

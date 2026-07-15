@@ -1,0 +1,17 @@
+---
+import DesktopNavigation from "./DesktopNavigation.astro";
+import MobileNavigation from "./MobileNavigation.astro";
+---
+
+<header class="top-navigation">
+  <DesktopNavigation />
+  <MobileNavigation />
+</header>
+
+<style>
+  .top-navigation {
+    position: relative;
+    z-index: 10;
+    width: 100%;
+  }
+</style>
