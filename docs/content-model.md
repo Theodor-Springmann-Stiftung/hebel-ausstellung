@@ -263,7 +263,7 @@ erDiagram
   CHAPTER ||--o{ GALLERY : "contains optional"
   SUBCHAPTER ||--|{ GALLERY : "contains"
   GALLERY ||--|{ IMAGE : "contains"
-  IMAGE ||--o{ OBJECT : "depicts"
+  IMAGE }o--o{ OBJECT : "contains / is depicted by"
 
   CHAPTER {
     number order "int positive required"
