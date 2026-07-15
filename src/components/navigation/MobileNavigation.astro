@@ -19,7 +19,7 @@ const chapters = [
       <span class="mobile-navigation__brand-title">Das Nachleben der Worte</span>
     </a>
 
-    <label class="mobile-navigation__menu-button" for="mobile-navigation-toggle" aria-label="Menü öffnen">
+    <label class="mobile-navigation__menu-button" for="mobile-navigation-toggle" aria-label="Menü öffnen oder schließen">
       <span></span>
       <span></span>
       <span></span>
@@ -27,18 +27,6 @@ const chapters = [
   </div>
 
   <div class="mobile-navigation__panel">
-    <div class="mobile-navigation__panel-bar">
-      <a class="mobile-navigation__panel-brand" href="/" aria-label="Startseite">
-        <span class="mobile-navigation__panel-kicker">Johann Peter Hebel</span>
-        <span class="mobile-navigation__panel-title">Das Nachleben der Worte</span>
-      </a>
-
-      <label class="mobile-navigation__close-button" for="mobile-navigation-toggle" aria-label="Menü schließen">
-        <span></span>
-        <span></span>
-      </label>
-    </div>
-
     <div class="mobile-navigation__views">
       <div class="mobile-navigation__main-view">
         <button
@@ -138,24 +126,32 @@ const chapters = [
     height: var(--spacing-44);
   }
 
-  .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__bar .mobile-navigation__menu-button,
-  .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__panel .mobile-navigation__close-button {
+  .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__bar .mobile-navigation__menu-button {
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
     border-radius: var(--radius-xxs);
   }
 
   .mobile-navigation__bar {
+    position: relative;
+    z-index: 25;
     display: flex;
     align-items: center;
     justify-content: space-between;
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
     padding: var(--spacing-16) var(--spacing-20);
+    transition:
+      background-color var(--duration-dropdown) var(--ease-interaction),
+      border-color var(--duration-dropdown) var(--ease-interaction);
   }
 
-  .mobile-navigation__brand,
-  .mobile-navigation__panel-brand {
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar {
+    border-bottom-color: transparent;
+    background-color: var(--color-ink);
+  }
+
+  .mobile-navigation__brand {
     display: flex;
     flex-direction: column;
     gap: var(--spacing-4);
@@ -166,6 +162,11 @@ const chapters = [
     min-width: 0;
     flex: 1;
     color: var(--color-text-primary);
+    transition: color var(--duration-dropdown) var(--ease-interaction);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__brand {
+    color: var(--color-paper);
   }
 
   .mobile-navigation__brand-kicker {
@@ -181,8 +182,7 @@ const chapters = [
     letter-spacing: var(--text-h4--letter-spacing);
   }
 
-  .mobile-navigation__menu-button,
-  .mobile-navigation__close-button {
+  .mobile-navigation__menu-button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -201,6 +201,27 @@ const chapters = [
     width: 22px;
     height: 1.5px;
     background: var(--color-text-primary);
+    transform-origin: center;
+    transition:
+      background-color var(--duration-dropdown) var(--ease-interaction),
+      opacity var(--duration-dropdown) var(--ease-interaction),
+      transform var(--duration-dropdown) var(--ease-interaction);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span {
+    background: var(--color-paper);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:first-child {
+    transform: translateY(6.5px) rotate(45deg) scaleX(1.45);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:last-child {
+    transform: translateY(-6.5px) rotate(-45deg) scaleX(1.45);
   }
 
   .mobile-navigation__panel {
@@ -214,62 +235,13 @@ const chapters = [
     color: var(--color-paper);
     opacity: 0;
     pointer-events: none;
-    transform: translateY(var(--motion-dropdown-y));
-    transition:
-      opacity var(--duration-dropdown) var(--ease-interaction),
-      transform var(--duration-dropdown) var(--ease-interaction);
+    padding-top: 84px;
+    transition: opacity var(--duration-dropdown) var(--ease-interaction);
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
     opacity: 1;
     pointer-events: auto;
-    transform: translateY(0);
-  }
-
-  .mobile-navigation__panel-bar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: var(--spacing-24);
-  }
-
-  .mobile-navigation__panel-brand {
-    color: var(--color-paper);
-  }
-
-  .mobile-navigation__panel-kicker {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
-    line-height: var(--text-caption--line-height);
-    opacity: 0.7;
-  }
-
-  .mobile-navigation__panel-title {
-    font-family: var(--font-display);
-    font-size: var(--text-h4);
-    line-height: var(--text-h4--line-height);
-    letter-spacing: var(--text-h4--letter-spacing);
-  }
-
-  .mobile-navigation__close-button {
-    position: relative;
-    width: var(--spacing-44);
-    height: var(--spacing-44);
-  }
-
-  .mobile-navigation__close-button span {
-    position: absolute;
-    width: 32px;
-    height: 1.5px;
-    background: var(--color-paper);
-  }
-
-  .mobile-navigation__close-button span:first-child {
-    transform: rotate(45deg);
-  }
-
-  .mobile-navigation__close-button span:last-child {
-    transform: rotate(-45deg);
   }
 
   .mobile-navigation__views {
@@ -425,8 +397,7 @@ const chapters = [
       height: var(--spacing-40);
     }
 
-    .mobile-navigation__bar,
-    .mobile-navigation__panel-bar {
+    .mobile-navigation__bar {
       padding: var(--spacing-16) var(--spacing-48);
     }
 
@@ -435,17 +406,19 @@ const chapters = [
       line-height: var(--text-body-medium--line-height);
     }
 
-    .mobile-navigation__brand-title,
-    .mobile-navigation__panel-title {
+    .mobile-navigation__brand-title {
       font-size: var(--text-h3);
       line-height: var(--text-h3--line-height);
       letter-spacing: var(--text-h3--letter-spacing);
     }
 
-    .mobile-navigation__menu-button,
-    .mobile-navigation__close-button {
+    .mobile-navigation__menu-button {
       width: var(--spacing-40);
       height: var(--spacing-40);
+    }
+
+    .mobile-navigation__panel {
+      padding-top: 92px;
     }
 
     .mobile-navigation__main-view {
@@ -494,7 +467,6 @@ const chapters = [
   @media (prefers-reduced-motion: reduce) {
     .mobile-navigation__panel {
       transition: none;
-      transform: none;
     }
   }
 </style>

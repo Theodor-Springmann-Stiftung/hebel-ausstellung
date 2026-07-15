@@ -1,0 +1,328 @@
+---
+import portrait from "../../assets/objects/Hebel_Portraet_Mueller.jpg";
+
+const footerLinks = [
+  { label: "Über die Ausstellung", href: "#ueber-die-ausstellung" },
+  { label: "Team & Partners", href: "#team-partners" },
+  { label: "Presse Kontakt", href: "#presse-kontakt" },
+  { label: "Kontakt Uns", href: "#kontakt" },
+  { label: "Mitwirkende / Credits", href: "#credits" },
+  { label: "Impressum & Datenschutz", href: "#impressum-datenschutz" },
+  { label: "Datenschutz / Barrierefreiheit", href: "#datenschutz-barrierefreiheit" },
+];
+---
+
+<footer class="site-footer" data-node-id="415:1388" aria-labelledby="footer-title">
+  <div class="site-footer__inner">
+    <div class="site-footer__columns">
+      <section class="site-footer__exhibition" aria-labelledby="footer-title">
+        <p class="site-footer__eyebrow">Ausstellung</p>
+        <div class="site-footer__intro">
+          <div class="site-footer__title-group">
+            <p class="site-footer__kicker">Johann Peter Hebel</p>
+            <h2 class="site-footer__title" id="footer-title">Das Nachleben<br />der Worte</h2>
+          </div>
+          <p class="site-footer__description">Eine virtuelle Ausstellung der Theodor Springmann Stiftung.</p>
+        </div>
+      </section>
+
+      <div class="site-footer__right-column">
+        <nav class="site-footer__section" aria-labelledby="footer-about-title">
+          <p class="site-footer__eyebrow" id="footer-about-title">Über Uns</p>
+          <ul class="site-footer__link-list">
+            {footerLinks.map((link) => (
+              <li>
+                <a class="site-footer__link" href={link.href}>{link.label}</a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
+        <section class="site-footer__section site-footer__contact" aria-labelledby="footer-contact-title">
+          <p class="site-footer__eyebrow" id="footer-contact-title">Kontakt</p>
+          <div class="site-footer__portrait-frame" aria-hidden="true">
+            <img class="site-footer__portrait" src={portrait.src} alt="" loading="lazy" decoding="async" />
+          </div>
+          <address class="site-footer__address">
+            Hebel-Archiv<br />
+            Theodor Springmann Stiftung<br />
+            Hirschgasse 2<br />
+            69120 Heidelberg<br />
+            <br />
+            <a class="site-footer__email" href="mailto:info@hebel-archiv.de">info@hebel-archiv.de</a>
+          </address>
+        </section>
+      </div>
+    </div>
+
+    <div class="site-footer__legal">
+      <p>© 2026 Theodor Springmann Stiftung</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    --footer-heading-gap: var(--spacing-16);
+
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .site-footer__inner {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-64);
+    padding: var(--spacing-56) var(--spacing-20) 0;
+  }
+
+  .site-footer__columns {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-80);
+  }
+
+  .site-footer__exhibition,
+  .site-footer__section,
+  .site-footer__right-column,
+  .site-footer__intro,
+  .site-footer__title-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .site-footer__exhibition,
+  .site-footer__section {
+    gap: var(--footer-heading-gap);
+  }
+
+  .site-footer__right-column {
+    gap: var(--spacing-80);
+  }
+
+  .site-footer__intro {
+    gap: var(--spacing-40);
+    width: 100%;
+  }
+
+  .site-footer__title-group {
+    gap: var(--spacing-8);
+    width: 100%;
+  }
+
+  .site-footer__eyebrow,
+  .site-footer__legal {
+    font-family: var(--font-mono);
+    font-size: var(--text-caption-small);
+    font-weight: 400;
+    letter-spacing: var(--text-caption-small--letter-spacing);
+    line-height: var(--text-caption-small--line-height);
+    text-transform: uppercase;
+  }
+
+  .site-footer__kicker {
+    font-family: var(--font-sans);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .site-footer__title {
+    width: 100%;
+    color: inherit;
+    font-family: var(--font-display);
+    font-size: var(--text-display);
+    font-weight: 400;
+    line-height: var(--text-display--line-height);
+  }
+
+  .site-footer__description {
+    font-family: var(--font-sans);
+    font-size: var(--text-body-medium);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .site-footer__link-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-20);
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .site-footer__link {
+    display: inline-flex;
+    padding-block: var(--spacing-8);
+    color: inherit;
+    font-family: var(--font-sans);
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+    text-decoration: none;
+    transition: opacity var(--duration-interaction) var(--ease-interaction);
+  }
+
+  .site-footer__link:hover {
+    opacity: 0.72;
+  }
+
+  .site-footer__contact {
+    width: 100%;
+  }
+
+  .site-footer__portrait-frame {
+    width: 280px;
+    height: 78px;
+    border: 1px solid #cfcfcf;
+    overflow: hidden;
+  }
+
+  .site-footer__portrait {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .site-footer__address,
+  .site-footer__address a {
+    color: inherit;
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-style: normal;
+    line-height: var(--text-body--line-height);
+    text-decoration: none;
+  }
+
+  .site-footer__address a:hover {
+    text-decoration: underline;
+  }
+
+  .site-footer__address .site-footer__email {
+    font-style: italic;
+  }
+
+  .site-footer__legal {
+    border-top: 0.25px solid var(--color-paper);
+    padding-block: var(--spacing-16);
+    white-space: nowrap;
+  }
+
+  @media (min-width: 768px) {
+    .site-footer__inner {
+      gap: var(--spacing-64);
+      padding: var(--spacing-40) var(--spacing-32) 0;
+    }
+
+    .site-footer__columns {
+      flex-direction: row;
+      gap: 31px;
+    }
+
+    .site-footer__exhibition {
+      width: 240px;
+      flex: 0 0 240px;
+    }
+
+    .site-footer__intro {
+      gap: var(--spacing-24);
+    }
+
+    .site-footer__kicker {
+      font-size: var(--text-body);
+      line-height: var(--text-body--line-height);
+    }
+
+    .site-footer__title {
+      font-size: var(--text-h2);
+      line-height: var(--text-h2--line-height);
+    }
+
+    .site-footer__description,
+    .site-footer__link,
+    .site-footer__address,
+    .site-footer__address a {
+      font-size: var(--text-body-medium);
+      line-height: var(--text-body-medium--line-height);
+    }
+
+    .site-footer__right-column {
+      flex: 1;
+      min-width: 0;
+      gap: var(--spacing-56);
+    }
+
+    .site-footer__link-list {
+      gap: var(--spacing-12);
+    }
+
+    .site-footer__link {
+      padding-block: 0;
+    }
+
+    .site-footer__portrait-frame {
+      width: 252px;
+      height: 71px;
+      border-color: var(--color-paper);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .site-footer__inner {
+      --footer-heading-gap: var(--spacing-24);
+
+      gap: 0;
+      padding: 60px var(--spacing-80) 0;
+    }
+
+    .site-footer__columns {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      align-items: start;
+      gap: var(--spacing-64);
+      min-height: 359px;
+      padding-bottom: var(--spacing-80);
+    }
+
+    .site-footer__exhibition {
+      width: auto;
+      flex-basis: auto;
+      gap: var(--spacing-24);
+    }
+
+    .site-footer__right-column {
+      display: contents;
+    }
+
+    .site-footer__title {
+      font-size: var(--text-h1);
+      line-height: var(--text-h1--line-height);
+    }
+
+    .site-footer__description {
+      width: 389px;
+    }
+
+    .site-footer__link-list {
+      gap: 0;
+    }
+
+    .site-footer__link {
+      padding-block: 6px;
+    }
+
+    .site-footer__portrait-frame {
+      width: 265px;
+      height: 123px;
+      border-color: #cfcfcf;
+    }
+
+    .site-footer__legal {
+      margin-inline: calc(var(--spacing-80) * -1);
+      padding: 18.5px var(--spacing-80) 18px;
+      border-top: 0.5px solid var(--color-surface);
+    }
+  }
+</style>

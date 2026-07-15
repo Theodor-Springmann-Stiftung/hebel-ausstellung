@@ -1,4 +1,5 @@
 ---
+slug: "zix-carfunkel-1806"
 title: "Der Karfunkel"
 urheber: "Benjamin Zix"
 date: "1806"

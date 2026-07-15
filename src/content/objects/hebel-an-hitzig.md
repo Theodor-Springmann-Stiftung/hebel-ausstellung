@@ -1,4 +1,5 @@
 ---
+slug: "hebel-an-hitzig"
 title: "Hebel an Hitzig"
 urheber: "Johann Peter Hebel"
 date: "1811"

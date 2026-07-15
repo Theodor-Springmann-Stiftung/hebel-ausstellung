@@ -75,6 +75,7 @@ const images = defineCollection({
 const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z.object({
+    slug: z.string().min(1),
     title: requiredMarkdown,
     urheber: optionalMarkdown,
     date: z.string().min(1).optional(),

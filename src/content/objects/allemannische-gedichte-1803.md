@@ -1,4 +1,5 @@
 ---
+slug: "allemannische-gedichte-1803"
 title: "*Allemannische Gedichte*, Erstausgabe"
 urheber: "Johann Peter Hebel"
 date: "1803"
