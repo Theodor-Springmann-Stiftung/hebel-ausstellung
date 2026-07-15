@@ -1,8 +1,8 @@
 ---
 slug: "zix-carfunkel-1806"
-title: "Der Karfunkel"
+titel: "Der Karfunkel"
 urheber: "Benjamin Zix"
-date: "1806"
+datierung: "1806"
 materialTechnik: "Kupferstich"
 institution: "Theodor Springmann Stiftung"
 inventarnummer: "Beispiel-Inventarnummer"

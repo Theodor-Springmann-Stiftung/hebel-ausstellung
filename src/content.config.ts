@@ -18,12 +18,12 @@ const urlSafeAsciiSlug = z.string().regex(/^[A-Za-z0-9-]+$/, {
 });
 
 const galleryColor = z
-  .enum(["chapter-1", "chapter-2", "chapter-3", "chapter-4", "chapter-5", "chapter-6", "chapter-7"])
-  .default("chapter-1");
+  .enum(["lindgrün", "vanille", "hellblau", "mintgrün", "rosa", "himmelblau", "salbeigrün"])
+  .default("lindgrün");
 
 const sectionSchema = z.object({
-  number: z.string().min(1),
-  title: requiredMarkdown,
+  nummer: z.string().min(1),
+  titel: requiredMarkdown,
   navTitel: requiredMarkdown,
   hero: reference("images"),
 });
@@ -32,19 +32,19 @@ const chapters = defineCollection({
   loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
   schema: sectionSchema
     .extend({
-      order: z.number().int().positive(),
-      subchapters: z.array(reference("subchapters")).min(1).optional(),
-      galleries: z.array(reference("galleries")).min(1).optional(),
+      reihenfolge: z.number().int().positive(),
+      unterkapitel: z.array(reference("subchapters")).min(1).optional(),
+      galerien: z.array(reference("galleries")).min(1).optional(),
     })
     .superRefine((data, context) => {
-      const hasSubchapters = Boolean(data.subchapters?.length);
-      const hasGalleries = Boolean(data.galleries?.length);
+      const hasSubchapters = Boolean(data.unterkapitel?.length);
+      const hasGalleries = Boolean(data.galerien?.length);
 
       if (hasSubchapters === hasGalleries) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Chapter must define either subchapters or galleries, but not both",
-          path: ["subchapters"],
+          path: ["unterkapitel"],
         });
       }
     }),
@@ -53,31 +53,31 @@ const chapters = defineCollection({
 const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
   schema: sectionSchema.extend({
-    galleries: z.array(reference("galleries")).min(1),
+    galerien: z.array(reference("galleries")).min(1),
   }),
 });
 
 const galleries = defineCollection({
   loader: glob({ base: "./src/content/galleries", pattern: "**/*.md" }),
   schema: z.object({
-    title: requiredMarkdown,
+    titel: requiredMarkdown,
     beschriftung: optionalMarkdown,
     untertitel: optionalMarkdown,
-    color: galleryColor,
-    images: z.array(reference("images")).min(1),
+    farbe: galleryColor,
+    bilder: z.array(reference("images")).min(1),
   }),
 });
 
 const images = defineCollection({
   loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
   schema: z.object({
-    fileName: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
-      message: "Image fileName must end with a supported image extension",
+    dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
+      message: "Image dateiname must end with a supported image extension",
     }),
     altText: optionalMarkdown,
     beschriftung: optionalMarkdown,
-    credits: optionalMarkdown,
-    objects: z.array(reference("objects")).optional(),
+    nachweis: optionalMarkdown,
+    objekte: z.array(reference("objects")).optional(),
   }),
 });
 
@@ -85,9 +85,9 @@ const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z.object({
     slug: urlSafeAsciiSlug,
-    title: requiredMarkdown,
+    titel: requiredMarkdown,
     urheber: optionalMarkdown,
-    date: z.string().min(1).optional(),
+    datierung: z.string().min(1).optional(),
     materialTechnik: z.string().min(1).optional(),
     institution: optionalMarkdown,
     inventarnummer: optionalMarkdown,

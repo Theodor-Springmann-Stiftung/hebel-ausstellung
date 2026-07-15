@@ -2,19 +2,19 @@
 import type { ImageMetadata } from "astro";
 
 export type GalleryColor =
-  | "chapter-1"
-  | "chapter-2"
-  | "chapter-3"
-  | "chapter-4"
-  | "chapter-5"
-  | "chapter-6"
-  | "chapter-7";
+  | "lindgrün"
+  | "vanille"
+  | "hellblau"
+  | "mintgrün"
+  | "rosa"
+  | "himmelblau"
+  | "salbeigrün";
 
 export type GalleryObject = {
   slug: string;
-  title: string;
+  titel: string;
   urheber?: string;
-  date?: string;
+  datierung?: string;
   materialTechnik?: string;
   institution?: string;
   inventarnummer?: string;
@@ -24,8 +24,8 @@ export type GalleryImage = {
   src: ImageMetadata;
   alt?: string;
   beschriftung?: string;
-  credits?: string;
-  objects?: GalleryObject[];
+  nachweis?: string;
+  objekte?: GalleryObject[];
 };
 
 type CaptionItem = {
@@ -36,23 +36,23 @@ type CaptionItem = {
 };
 
 export type GalleryProps = {
-  title: string;
+  titel: string;
   beschriftung?: string;
   untertitel?: string;
-  color?: GalleryColor;
-  images: GalleryImage[];
+  farbe?: GalleryColor;
+  bilder: GalleryImage[];
 };
 
 const props = Astro.props as GalleryProps;
-const { title, beschriftung, untertitel, color = "chapter-1", images } = props;
-const isMultiImage = images.length > 1;
+const { titel, beschriftung, untertitel, farbe = "lindgrün", bilder } = props;
+const isMultiImage = bilder.length > 1;
 
 const stripInlineMarkdown = (value = "") => value.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
 
 const objectMetadata = (object: GalleryObject) =>
   [
     object.urheber,
-    object.date,
+    object.datierung,
     object.materialTechnik,
     object.institution,
     object.inventarnummer ? `Inv. Nr. ${object.inventarnummer}` : undefined,
@@ -62,9 +62,9 @@ const objectMetadata = (object: GalleryObject) =>
     .join(", ");
 
 const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
-  if (image.objects?.length) {
-    return image.objects.map((object) => {
-      const title = stripInlineMarkdown(object.title);
+  if (image.objekte?.length) {
+    return image.objekte.map((object) => {
+      const title = stripInlineMarkdown(object.titel);
 
       return {
         title,
@@ -75,11 +75,11 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
     });
   }
 
-  if (image.beschriftung || image.credits) {
+  if (image.beschriftung || image.nachweis) {
     return [
       {
         title: stripInlineMarkdown(image.beschriftung ?? ""),
-        text: stripInlineMarkdown(image.credits ?? ""),
+        text: stripInlineMarkdown(image.nachweis ?? ""),
       },
     ];
   }
@@ -92,7 +92,7 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
   ];
 };
 
-const slides = images.map((image, index) => ({
+const slides = bilder.map((image, index) => ({
   index,
   src: image.src.src,
   alt: stripInlineMarkdown(image.alt ?? ""),
@@ -103,9 +103,9 @@ const firstSlide = slides[0];
 const nextSlide = slides[1] ?? firstSlide;
 ---
 
-<section class:list={["gallery", isMultiImage ? "gallery--multi" : "gallery--single"]} data-gallery data-color={color} aria-roledescription={isMultiImage ? "carousel" : undefined} aria-label={title}>
+<section class:list={["gallery", isMultiImage ? "gallery--multi" : "gallery--single"]} data-gallery data-color={farbe} aria-roledescription={isMultiImage ? "carousel" : undefined} aria-label={titel}>
   <div class="gallery__title-section">
-    <h2 class="gallery__title">{stripInlineMarkdown(title)}</h2>
+    <h2 class="gallery__title">{stripInlineMarkdown(titel)}</h2>
   </div>
 
   <div class="gallery__stage">
@@ -307,31 +307,31 @@ const nextSlide = slides[1] ?? firstSlide;
     color: var(--color-text-primary);
   }
 
-  .gallery[data-color="chapter-1"] {
+  .gallery[data-color="lindgrün"] {
     --gallery-mat-bg: #d3e2c6;
   }
 
-  .gallery[data-color="chapter-2"] {
+  .gallery[data-color="vanille"] {
     --gallery-mat-bg: rgb(255 250 204 / 40%);
   }
 
-  .gallery[data-color="chapter-3"] {
+  .gallery[data-color="hellblau"] {
     --gallery-mat-bg: #cce6f1;
   }
 
-  .gallery[data-color="chapter-4"] {
+  .gallery[data-color="mintgrün"] {
     --gallery-mat-bg: rgb(214 255 225 / 70%);
   }
 
-  .gallery[data-color="chapter-5"] {
+  .gallery[data-color="rosa"] {
     --gallery-mat-bg: #ffe8e5;
   }
 
-  .gallery[data-color="chapter-6"] {
+  .gallery[data-color="himmelblau"] {
     --gallery-mat-bg: rgb(177 203 247 / 40%);
   }
 
-  .gallery[data-color="chapter-7"] {
+  .gallery[data-color="salbeigrün"] {
     --gallery-mat-bg: rgb(141 151 132 / 40%);
   }
 

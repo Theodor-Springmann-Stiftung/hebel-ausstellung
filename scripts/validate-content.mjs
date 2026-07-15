@@ -65,10 +65,10 @@ async function validateImages() {
   for (const file of files) {
     const source = await readFile(file, "utf8");
     const { frontmatter } = splitMarkdownFile(file, source);
-    const fileName = getFrontmatterString(frontmatter, "fileName");
+    const fileName = getFrontmatterString(frontmatter, "dateiname");
 
     if (!fileName) {
-      errors.push(`${relative(file)} must define fileName`);
+      errors.push(`${relative(file)} must define dateiname`);
       continue;
     }
 

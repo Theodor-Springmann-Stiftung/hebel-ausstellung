@@ -1,8 +1,8 @@
 ---
 slug: "allemannische-gedichte-1803"
-title: "*Allemannische Gedichte*, Erstausgabe"
+titel: "*Allemannische Gedichte*, Erstausgabe"
 urheber: "Johann Peter Hebel"
-date: "1803"
+datierung: "1803"
 materialTechnik: "Druck auf Papier"
 institution: "Theodor Springmann Stiftung"
 inventarnummer: "Beispiel-Inventarnummer"

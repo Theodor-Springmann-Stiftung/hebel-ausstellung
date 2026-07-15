@@ -1,7 +1,7 @@
 ---
-title: "Briefe und Transkriptionen"
+titel: "Briefe und Transkriptionen"
 beschriftung: "Original und Lesehilfe nebeneinander"
-images:
+bilder:
   - "brief-hitzig"
   - "brief-hitzig-transkription"
 ---

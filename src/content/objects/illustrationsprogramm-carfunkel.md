@@ -1,7 +1,7 @@
 ---
 slug: "illustrationsprogramm-carfunkel"
-title: "Illustrationsprogramm zum *Karfunkel*"
-date: "1845"
+titel: "Illustrationsprogramm zum *Karfunkel*"
+datierung: "1845"
 materialTechnik: "Druckgrafik"
 institution: "Beispielsammlung"
 inventarnummer: "BEI 1845/7"

@@ -1,8 +1,8 @@
 ---
 slug: "nisle-carfunkel-1845"
-title: "Lithographie zum *Karfunkel*"
+titel: "Lithographie zum *Karfunkel*"
 urheber: "Julius Nisle"
-date: "1845"
+datierung: "1845"
 materialTechnik: "Lithographie"
 institution: "Theodor Springmann Stiftung"
 inventarnummer: "TSS 2.2.02"

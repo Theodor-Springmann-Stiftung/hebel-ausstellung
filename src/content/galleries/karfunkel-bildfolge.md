@@ -1,9 +1,9 @@
 ---
-title: "Der *Karfunkel* als Bildfolge"
+titel: "Der *Karfunkel* als Bildfolge"
 beschriftung: "Bildzeugnisse zur Wirkungsgeschichte"
 untertitel: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Ersatzwerte für Bildunterschriften."
-color: "chapter-1"
-images:
+farbe: "lindgrün"
+bilder:
   - "carfunkel-kupfer"
   - "carfunkel-nisle"
   - "carfunkel-richter"

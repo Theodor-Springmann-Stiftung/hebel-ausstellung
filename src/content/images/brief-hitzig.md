@@ -1,8 +1,8 @@
 ---
-fileName: "2.4_02_01a__Hebel_an_Hitzig_BLB.webp"
+dateiname: "2.4_02_01a__Hebel_an_Hitzig_BLB.webp"
 altText: "Brief von Johann Peter Hebel an Julius Eduard Hitzig"
 beschriftung: "Hebel an Hitzig"
-credits: "Badische Landesbibliothek"
-objects:
+nachweis: "Badische Landesbibliothek"
+objekte:
   - "hebel-an-hitzig"
 ---

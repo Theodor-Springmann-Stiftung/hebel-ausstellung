@@ -1,8 +1,8 @@
 ---
 slug: "hebel-an-hitzig"
-title: "Hebel an Hitzig"
+titel: "Hebel an Hitzig"
 urheber: "Johann Peter Hebel"
-date: "1811"
+datierung: "1811"
 materialTechnik: "Tinte auf Papier"
 institution: "Badische Landesbibliothek"
 inventarnummer: "Beispiel-Signatur"

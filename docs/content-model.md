@@ -26,7 +26,7 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Array | Eine Liste mehrerer Werte, meistens als YAML-Liste geschrieben. Die Reihenfolge ist relevant, wenn das Feld so beschrieben ist. |
 | Referenz | Verweis auf einen anderen Content-Eintrag, angegeben über dessen ID, zum Beispiel `"carfunkel-kupfer"`. |
 | Array von Referenzen | Eine Liste von Verweisen auf andere Content-Einträge, zum Beispiel mehrere Bilder in einer Galerie. |
-| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel `chapter-1` bis `chapter-7`. |
+| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel die Farbnamen `lindgrün`, `vanille` oder `rosa`. |
 | URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
 
 ## Sammlungen
@@ -41,27 +41,27 @@ Pfad: `src/content/chapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `order` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
-| `number` | Einfacher String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
-| `title` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
+| `reihenfolge` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
+| `nummer` | Einfacher String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
+| `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
-| `subchapters` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
-| `galleries` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
+| `unterkapitel` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
+| `galerien` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | Inhalt | Body-Markdown | nein | Kapiteltext unterhalb des Frontmatters. |
 
-Validierungsregel: Ein Kapitel muss entweder `subchapters` oder `galleries` definieren, aber nicht beides.
+Validierungsregel: Ein Kapitel muss entweder `unterkapitel` oder `galerien` definieren, aber nicht beides.
 
 Beispiel mit Unterkapiteln:
 
 ```md
 ---
-order: 2
-number: "02"
-title: "Der Dichter"
+reihenfolge: 2
+nummer: "02"
+titel: "Der Dichter"
 navTitel: "Der Dichter"
 hero: "tschopli-hero"
-subchapters:
+unterkapitel:
   - "allemannische-gedichte-von-1803"
   - "allemannische-gedichte-im-bild"
   - "uebersetzungen-der-allemannischen-gedichte"
@@ -79,12 +79,12 @@ Beispiel mit direkt enthaltenen Galerien:
 
 ```md
 ---
-order: 1
-number: "01"
-title: "Der Oberländer"
+reihenfolge: 1
+nummer: "01"
+titel: "Der Oberländer"
 navTitel: "Der Oberländer"
 hero: "oberland-1833"
-galleries:
+galerien:
   - "basel"
   - "hausen"
   - "schopfheim"
@@ -102,22 +102,22 @@ Pfad: `src/content/subchapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `number` | Einfacher String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
-| `title` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
+| `nummer` | Einfacher String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
+| `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
-| `galleries` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
+| `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
 Beispiel:
 
 ```md
 ---
-number: "02.1"
-title: "Die *Allemannischen Gedichte* von 1803"
+nummer: "02.1"
+titel: "Die *Allemannischen Gedichte* von 1803"
 navTitel: "Die Allemannischen Gedichte von 1803"
 hero: "hans-und-verene-hero"
-galleries:
+galerien:
   - "ueberraschungserfolg-eines-literarischen-debuetanten"
   - "christlich-romantische-volkspoesie"
   - "volkspoesie-im-harmlosen-biedermeier"
@@ -135,11 +135,11 @@ Pfad: `src/content/galleries/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `title` | Markdown-String | ja | Galerietitel. Unterstützt Inline-Markdown. |
+| `titel` | Markdown-String | ja | Galerietitel. Unterstützt Inline-Markdown. |
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
-| `color` | Enum | nein | Standardwert ist `chapter-1`. Erlaubt sind `chapter-1` bis `chapter-7`. |
-| `images` | Array von Referenzen auf `images` | ja | Mindestens 1 Bild. |
+| `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
+| `bilder` | Array von Referenzen auf `images` | ja | Mindestens 1 Bild. |
 | Inhalt | Body-Markdown | ja | Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
@@ -158,11 +158,11 @@ Beispiel:
 
 ```md
 ---
-title: "Überraschungserfolg eines literarischen Debütanten"
+titel: "Überraschungserfolg eines literarischen Debütanten"
 beschriftung: "Hebel-Haus in Hausen"
 untertitel: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
-color: "chapter-2"
-images:
+farbe: "vanille"
+bilder:
   - "hebelhaus-hausen-1840"
   - "allemannische-gedichte-1803-titel"
 ---
@@ -186,22 +186,22 @@ Pfad: `src/content/images/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `fileName` | Einfacher String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
+| `dateiname` | Einfacher String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
-| `credits` | Markdown-String | nein | Bildnachweis. |
-| `objects` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. |
+| `nachweis` | Markdown-String | nein | Bildnachweis. |
+| `objekte` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
 
 Beispiel:
 
 ```yaml
 ---
-fileName: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
+dateiname: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 altText: "Dritte Auflage der Allemannischen Gedichte mit Titelkupfer von Benjamin Zix"
 beschriftung: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
-credits: "Hebel-Archiv Heidelberg"
-objects:
+nachweis: "Hebel-Archiv Heidelberg"
+objekte:
   - "zix-carfunkel-1806"
 ---
 ```
@@ -215,9 +215,9 @@ Pfad: `src/content/objects/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
-| `title` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
+| `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |
-| `date` | Einfacher String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
+| `datierung` | Einfacher String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
 | `materialTechnik` | Einfacher String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
@@ -228,11 +228,11 @@ Beispiel:
 ```md
 ---
 slug: "zix-carfunkel-1806"
-title: "Dritte Auflage der *Allemannischen Gedichte* mit einem Titelkupfer von Benjamin Zix"
+titel: "Dritte Auflage der *Allemannischen Gedichte* mit einem Titelkupfer von Benjamin Zix"
 urheber: |-
   Benjamin Zix (Künstler)
   Johann Peter Hebel (Autor)
-date: "1806"
+datierung: "1806"
 materialTechnik: "Kupferstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412284"
@@ -252,7 +252,7 @@ Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Dat
 | Priorität | Quelle | Hinweise |
 |---:|---|---|
 | 1 | Metadaten aus `objects` | Wird genutzt, wenn ein Bild ein oder mehrere Objekte referenziert. |
-| 2 | `images.beschriftung` und `images.credits` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
+| 2 | `images.beschriftung` und `images.nachweis` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
 | 3 | `galleries.beschriftung` und `galleries.untertitel` | Galerie-weiter Ersatzwert. |
 
 ## Grafik
@@ -268,48 +268,48 @@ erDiagram
   IMAGE }o--o{ OBJECT : "contains / is depicted by"
 
   CHAPTER {
-    number order "int positive required"
-    string number "required"
-    markdown title "requiredMarkdown"
+    number reihenfolge "int positive required"
+    string nummer "required"
+    markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
     reference hero "reference images required"
-    reference_array subchapters "reference subchapters optional min 1"
-    reference_array galleries "reference galleries optional min 1"
+    reference_array unterkapitel "reference subchapters optional min 1"
+    reference_array galerien "reference galleries optional min 1"
     markdown body "optional"
   }
 
   SUBCHAPTER {
-    string number "required"
-    markdown title "requiredMarkdown"
+    string nummer "required"
+    markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
     reference hero "reference images required"
-    reference_array galleries "reference galleries required min 1"
+    reference_array galerien "reference galleries required min 1"
     markdown body "optional"
   }
 
   GALLERY {
-    markdown title "requiredMarkdown"
+    markdown titel "requiredMarkdown"
     markdown beschriftung "optionalMarkdown"
     markdown untertitel "optionalMarkdown"
-    enum color "galleryColor default chapter-1"
-    reference_array images "reference images required min 1"
+    enum farbe "galleryColor default lindgrün"
+    reference_array bilder "reference images required min 1"
     markdown body "required by validator"
   }
 
   IMAGE {
-    string fileName "required image extension"
+    string dateiname "required image extension"
     markdown altText "optionalMarkdown"
     markdown beschriftung "optionalMarkdown"
-    markdown credits "optionalMarkdown"
-    reference_array objects "optional"
+    markdown nachweis "optionalMarkdown"
+    reference_array objekte "optional"
     markdown body "optional unused"
   }
 
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
-    markdown title "requiredMarkdown"
+    markdown titel "requiredMarkdown"
     markdown urheber "optionalMarkdown"
-    string date "optional"
+    string datierung "optional"
     string materialTechnik "optional"
     markdown institution "optionalMarkdown"
     markdown inventarnummer "optionalMarkdown"

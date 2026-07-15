@@ -1,12 +1,12 @@
 ---
 const chapters = [
-  { number: "01", title: "Der Oberländer", href: "#der-oberlaender" },
-  { number: "02", title: "Der Dichter", href: "#der-dichter" },
-  { number: "03", title: "Der Hausfreund", href: "#der-hausfreund" },
-  { number: "04", title: "Der Theologe", href: "#der-theologe" },
-  { number: "05", title: "Der Proteuser", href: "#der-proteuser" },
-  { number: "06", title: "Der Junggeselle", href: "#der-junggeselle" },
-  { number: "07", title: "Der Briefschreiber", href: "#der-briefschreiber" },
+  { nummer: "01", titel: "Der Oberländer", href: "#der-oberlaender" },
+  { nummer: "02", titel: "Der Dichter", href: "#der-dichter" },
+  { nummer: "03", titel: "Der Hausfreund", href: "#der-hausfreund" },
+  { nummer: "04", titel: "Der Theologe", href: "#der-theologe" },
+  { nummer: "05", titel: "Der Proteuser", href: "#der-proteuser" },
+  { nummer: "06", titel: "Der Junggeselle", href: "#der-junggeselle" },
+  { nummer: "07", titel: "Der Briefschreiber", href: "#der-briefschreiber" },
 ];
 ---
 
@@ -31,8 +31,8 @@ const chapters = [
           {chapters.map((chapter) => (
             <li class="desktop-navigation__chapter-item">
               <a class="desktop-navigation__chapter-link" href={chapter.href}>
-                <span class="type-caption-small desktop-navigation__chapter-number">{chapter.number}</span>
-                <span class="type-body-medium desktop-navigation__chapter-title">{chapter.title}</span>
+                <span class="type-caption-small desktop-navigation__chapter-number">{chapter.nummer}</span>
+                <span class="type-body-medium desktop-navigation__chapter-title">{chapter.titel}</span>
               </a>
             </li>
           ))}

@@ -11,11 +11,11 @@ const objectImageModules = import.meta.glob('../assets/objects/*.{avif,gif,jpg,j
 	import: 'default',
 }) as Record<string, ImageMetadata>;
 
-const getObjectImage = (fileName: string) => {
-	const image = objectImageModules[`../assets/objects/${fileName}`];
+const getObjectImage = (dateiname: string) => {
+	const image = objectImageModules[`../assets/objects/${dateiname}`];
 
 	if (!image) {
-		throw new Error(`Missing object image asset: ${fileName}`);
+		throw new Error(`Missing object image asset: ${dateiname}`);
 	}
 
 	return image;
@@ -26,23 +26,23 @@ const galleries = await Promise.all(
 		.sort((a, b) => a.id.localeCompare(b.id))
 		.map(async (gallery) => {
 			const { Content } = await render(gallery);
-			const imageEntries = await Promise.all(gallery.data.images.map((imageReference) => getEntry(imageReference)));
-			const images = await Promise.all(
+			const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => getEntry(imageReference)));
+			const bilder = await Promise.all(
 				imageEntries.filter(Boolean).map(async (imageEntry) => {
-					const objectEntries = imageEntry.data.objects?.length
-						? await Promise.all(imageEntry.data.objects.map((objectReference) => getEntry(objectReference)))
+					const objectEntries = imageEntry.data.objekte?.length
+						? await Promise.all(imageEntry.data.objekte.map((objectReference) => getEntry(objectReference)))
 						: [];
 
 					return {
-						src: getObjectImage(imageEntry.data.fileName),
+						src: getObjectImage(imageEntry.data.dateiname),
 						alt: imageEntry.data.altText,
 						beschriftung: imageEntry.data.beschriftung,
-						credits: imageEntry.data.credits,
-						objects: objectEntries.filter(Boolean).map((objectEntry) => ({
+						nachweis: imageEntry.data.nachweis,
+						objekte: objectEntries.filter(Boolean).map((objectEntry) => ({
 							slug: objectEntry.data.slug,
-							title: objectEntry.data.title,
+							titel: objectEntry.data.titel,
 							urheber: objectEntry.data.urheber,
-							date: objectEntry.data.date,
+							datierung: objectEntry.data.datierung,
 							materialTechnik: objectEntry.data.materialTechnik,
 							institution: objectEntry.data.institution,
 							inventarnummer: objectEntry.data.inventarnummer,
@@ -52,11 +52,11 @@ const galleries = await Promise.all(
 			);
 
 			return {
-				title: gallery.data.title,
+				titel: gallery.data.titel,
 				beschriftung: gallery.data.beschriftung,
 				untertitel: gallery.data.untertitel,
-				color: gallery.data.color,
-				images,
+				farbe: gallery.data.farbe,
+				bilder,
 				Content,
 			};
 		}),

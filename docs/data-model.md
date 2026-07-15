@@ -16,52 +16,53 @@
 
 ### Chapter
 
-Order: INT, Required
-Number: String, Required
-Title: String (MARKDOWN), Required
+Reihenfolge: INT, Required
+Nummer: String, Required
+Titel: String (MARKDOWN), Required
 Nav-Titel: String (MARKDOWN), Required
 Hero: ->Image, Required
 Intro-Text: MD
-Subchapters: ->Subchapters, IN ORDER
-Galleries: ->Galleries (one of both required, either Subchapters or Galleries), IN ORDER
+Unterkapitel: ->Subchapters, IN ORDER
+Galerien: ->Galleries (one of both required, either Unterkapitel or Galerien), IN ORDER
 
 
 ### Subchapter
 
-Number: String, Required
-Title: String (MARKDOWN), Required
+Nummer: String, Required
+Titel: String (MARKDOWN), Required
 Nav-Titel: String (MARKDOWN), Required
 Hero: ->Image, Required
 Intro-Text: MD
-Galleries: ->Galleries (one of both required, either Subchapters or Galleries)
+Galerien: ->Galleries, Required
 NOTE: Same fields as chapter, except for ORDER, and can't contain further subchapters)
 
 
 ### Gallery
 
-Title: String (MARKDOWN), Required
+Titel: String (MARKDOWN), Required
 Beschriftung: String (MARKDOWN), Optional
 Untertitel: String (MARKDOWN), Optional
-Images: ->Images, Required, In Order
+Farbe: String, Optional
+Bilder: ->Images, Required, In Order
 Text: String (MARKDOWN), Required, Long
 
 
 ### Image
 
-File-Name: String, Required
+Dateiname: String, Required
 Alt-Text: String (MARKDOWN), Optional
 Beschriftung: String (MARKDOWN), Optional
-Credits: String (MARKDOWN), Optional
-Objects: ->Objects, Optional, InOrder as seen on Picture
+Nachweis: String (MARKDOWN), Optional
+Objekte: ->Objects, Optional, InOrder as seen on Picture
 
 
 ### Objects
 
 Slug: URL-Compatible String, Required
-Title: String (MARKDOWN), Required
+Titel: String (MARKDOWN), Required
 Beschreibung: String (MARKDOWN), Optional
 Urheber: String (MARKDOWN), Optional
-Date: String, Optional
+Datierung: String, Optional
 Material-Technik: String, Optional
 Institution: String (MARKDOWN), Optional
 Inventarnummer: String (MARKDOWN), Optional

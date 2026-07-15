@@ -1,10 +1,10 @@
 ---
-order: 2
-number: "02"
-title: "Der Briefschreiber"
+reihenfolge: 2
+nummer: "02"
+titel: "Der Briefschreiber"
 navTitel: "Briefschreiber"
 hero: "brief-hitzig"
-galleries:
+galerien:
   - "briefwechsel"
 ---
 

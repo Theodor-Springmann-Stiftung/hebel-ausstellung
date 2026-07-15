@@ -1,10 +1,10 @@
 ---
-order: 1
-number: "01"
-title: "Der *Dichter*"
+reihenfolge: 1
+nummer: "01"
+titel: "Der *Dichter*"
 navTitel: "Der Dichter"
 hero: "ag-1803-title"
-subchapters:
+unterkapitel:
   - "allemannische-gedichte"
 ---
 

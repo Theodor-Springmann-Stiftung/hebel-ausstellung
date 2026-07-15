@@ -1,9 +1,9 @@
 ---
-number: "01.1"
-title: "Die *Allemannischen Gedichte*"
+nummer: "01.1"
+titel: "Die *Allemannischen Gedichte*"
 navTitel: "Allemannische Gedichte"
 hero: "tschopli-hero"
-galleries:
+galerien:
   - "allemannische-gedichte-im-bild"
 ---
 
