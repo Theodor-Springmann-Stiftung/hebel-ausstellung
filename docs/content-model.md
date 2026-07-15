@@ -29,20 +29,6 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel `chapter-1` bis `chapter-7`. |
 | URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
 
-## Gemeinsame Abschnittsfelder
-
-`chapters` und `subchapters` verwenden diese Felder gemeinsam.
-
-Kurzbeschreibung: Diese Felder speichern die gemeinsamen Informationen für Kapitel und Unterkapitel, also Nummer, Titel, Navigationstitel und Hero-Bild.
-
-| Feld | Typ | Pflicht | Hinweise |
-|---|---|---:|---|
-| `number` | Einfacher String | ja | Sichtbare Nummer, zum Beispiel `"01"` oder `"01.1"`. |
-| `title` | Markdown-String | ja | Sichtbarer Titel. Unterstützt Inline-Markdown. |
-| `navTitle` | Markdown-String | ja | Titel für die Navigation. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
-| Inhalt | Body-Markdown | nein | Freier Markdown-Text unterhalb des Frontmatters. |
-
 ## Sammlungen
 
 Die folgenden Abschnitte beschreiben die Content-Sammlungen, aus denen die Ausstellungsdaten aufgebaut sind.
@@ -56,10 +42,10 @@ Pfad: `src/content/chapters/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `order` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
-| `number` | Einfacher String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `title` | Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `navTitle` | Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `heroImage` | Referenz auf `images` | ja | Siehe gemeinsame Abschnittsfelder. |
+| `number` | Einfacher String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
+| `title` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
+| `navTitle` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
+| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
 | `subchapters` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | `galleries` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | Inhalt | Body-Markdown | nein | Kapiteltext unterhalb des Frontmatters. |
@@ -116,10 +102,10 @@ Pfad: `src/content/subchapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `number` | Einfacher String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `title` | Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `navTitle` | Markdown-String | ja | Siehe gemeinsame Abschnittsfelder. |
-| `heroImage` | Referenz auf `images` | ja | Siehe gemeinsame Abschnittsfelder. |
+| `number` | Einfacher String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
+| `title` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
+| `navTitle` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
+| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
 | `galleries` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
