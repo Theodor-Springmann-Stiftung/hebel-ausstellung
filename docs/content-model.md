@@ -66,18 +66,46 @@ Pfad: `src/content/chapters/*.md`
 
 Validierungsregel: Ein Kapitel muss entweder `subchapters` oder `galleries` definieren, aber nicht beides.
 
-Beispiel:
+Beispiel mit Unterkapiteln:
 
-```yaml
+```md
+---
+order: 2
+number: "02"
+title: "Der Dichter"
+navTitle: "Der Dichter"
+heroImage: "tschopli-hero"
+subchapters:
+  - "allemannische-gedichte-von-1803"
+  - "allemannische-gedichte-im-bild"
+  - "uebersetzungen-der-allemannischen-gedichte"
+  - "raubdrucke-der-allemannischen-gedichte"
+---
+
+Jenseits des deutschsprachigen Südwestens sind sie heute weitgehend unbekannt – anders als früher. 1803 begründeten die anonym erschienenen *Allemannischen Gedichte* schlagartig das Renommée ihres Autors. Hebel hatte zur rechten Zeit den rechten Ton getroffen: Die Sammlung wurde mehrfach übersetzt, teilweise vertont, wiederholt bebildert, sie sah zahlreiche rechtmäßige Ausgaben, fragwürdige Nachdrucke sowie gelehrte Editionen. Als eines der meistaufgelegten Werke des 19. Jahrhunderts waren die *Allemannischen Gedichte* Teil des deutschliterarischen Kanons.
+
+> Daß das Allemänlein in seinem luftigen rothen Tschöplein von seinen Landsleuten so gerne erkannt und so gut aufgenommen ist, und mit seinen Gauckeleyen noch da und dort ein Lächeln gewinnt, freut mich für das Allemänlein, und freut mich an den Landsleuten.
+>
+> — JPH, Z 90
+```
+
+Beispiel mit direkt enthaltenen Galerien:
+
+```md
 ---
 order: 1
 number: "01"
-title: "Der *Dichter*"
-navTitle: "Der Dichter"
-heroImage: "ag-1803-title"
-subchapters:
-  - "allemannische-gedichte"
+title: "Der Oberländer"
+navTitle: "Der Oberländer"
+heroImage: "oberland-1833"
+galleries:
+  - "basel"
+  - "hausen"
+  - "schopfheim"
+  - "roettler-schloss"
 ---
+
+Wenn es vom *Rheinländischen Hausfreund* im Jahrgang 1809 heißt, er gehe fleißig am Rheinstrom auf und ab, dann deckt sich das recht genau mit dem Raum, in dem sich auch Hebels Leben abspielte. Sieht man von seiner Studienzeit in Erlangen ab, gelangte Hebel auch da, wo er das zwischen Basel und Mannheim sich erstreckende Großherzogtum Basel verließ, nur in die nächste Nachbarschaft (Straßburg, Stuttgart, Schweiz). Das erste Kapitel stellt die wichtigsten Stationen in Hebels Leben vor.
 ```
 
 ### Sammlung: `subchapters`
@@ -97,15 +125,20 @@ Pfad: `src/content/subchapters/*.md`
 
 Beispiel:
 
-```yaml
+```md
 ---
-number: "01.1"
-title: "Die *Allemannischen Gedichte*"
-navTitle: "Allemannische Gedichte"
-heroImage: "tschopli-hero"
+number: "02.1"
+title: "Die *Allemannischen Gedichte* von 1803"
+navTitle: "Die Allemannischen Gedichte von 1803"
+heroImage: "hans-und-verene-hero"
 galleries:
-  - "allemannische-gedichte-im-bild"
+  - "ueberraschungserfolg-eines-literarischen-debuetanten"
+  - "christlich-romantische-volkspoesie"
+  - "volkspoesie-im-harmlosen-biedermeier"
+  - "hans-und-verene-reinhard-1820"
 ---
+
+Anonym erschienen, begründeten sie sein literarisches Renommée: Mit den *Allemannischen Gedichten* traf Hebel am rechten Ort zur rechten Zeit den richtigen Ton.
 ```
 
 ### Sammlung: `galleries`
@@ -137,17 +170,26 @@ Der letzte Absatz wird als Quelle interpretiert, der vorletzte Absatz als Autor,
 
 Beispiel:
 
-```yaml
+```md
 ---
-title: "Der *Karfunkel* als Bildfolge"
-caption: "Bildzeugnisse zur Wirkungsgeschichte"
-subCaption: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Ersatzwerte für Bildunterschriften."
-color: "chapter-1"
+title: "Überraschungserfolg eines literarischen Debütanten"
+caption: "Hebel-Haus in Hausen"
+subCaption: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
+color: "chapter-2"
 images:
-  - "carfunkel-kupfer"
-  - "carfunkel-nisle"
-  - "carfunkel-richter"
+  - "hebelhaus-hausen-1840"
+  - "allemannische-gedichte-1803-titel"
 ---
+
+Die *Allemannischen Gedichte*, von denen rasch eine weitere Auflage auf den Markt kam, waren umgehend nicht nur regional erfolgreich; mit seinem literarischen Debüt war Hebel „im Begriff sich einen eigenen Platz auf dem deutschen Parnaß zu erwerben“ (Goethe).
+
+Beifall fand die Sammlung als kunstfertig inszenierte naive Dichtung: in der Tradition von Matthias Claudius’ *Wandsbecker Bothen* bzw. einer sich mündlich gebenden Volkspoesie, wie sie seit Herders *Volksliedern* geschätzt wurde.
+
+> Es ist für mich wahr und bleibt für mich wahr, der Himmel ist nirgends so blau, und die Luft nirgends so rein, und alles so lieblich und so heimlich als zwischen den Bergen von Hausen [...]
+>
+> — JPH, Z 54
+>
+> Brief an Johann Jeremias Herbster, 14. Dezember 1800
 ```
 
 ### Sammlung: `images`
@@ -170,9 +212,9 @@ Beispiel:
 ```yaml
 ---
 fileName: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
-altText: "Kupferstich zu Der Karfunkel"
-caption: "Der Karfunkel"
-credits: "Theodor Springmann Stiftung"
+altText: "Dritte Auflage der Allemannischen Gedichte mit Titelkupfer von Benjamin Zix"
+caption: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
+credits: "Hebel-Archiv Heidelberg"
 objects:
   - "zix-carfunkel-1806"
 ---
@@ -197,16 +239,22 @@ Pfad: `src/content/objects/*.md`
 
 Beispiel:
 
-```yaml
+```md
 ---
 slug: "zix-carfunkel-1806"
-title: "Der Karfunkel"
-urheber: "Benjamin Zix"
+title: "Dritte Auflage der *Allemannischen Gedichte* mit einem Titelkupfer von Benjamin Zix"
+urheber: |-
+  Benjamin Zix (Künstler)
+  Johann Peter Hebel (Autor)
 date: "1806"
 materialTechnik: "Kupferstich"
-institution: "Theodor Springmann Stiftung"
-inventarnummer: "Beispiel-Inventarnummer"
+institution: "Hebel-Archiv Heidelberg"
+inventarnummer: "412284"
 ---
+
+# Beschreibung
+
+Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von Benjamin Zix, wie Hebels alemannische Gedichte schon früh durch Bilder gelesen und gedeutet wurden.
 ```
 
 ## Bildunterschrift-Ersatzlogik
@@ -228,7 +276,7 @@ erDiagram
   CHAPTER ||--o{ SUBCHAPTER : "contains optional"
   CHAPTER ||--o{ GALLERY : "contains optional"
   SUBCHAPTER ||--|{ GALLERY : "contains"
-  GALLERY ||--|{ IMAGE : "references"
+  GALLERY ||--|{ IMAGE : "contains"
   IMAGE ||--o{ OBJECT : "depicts"
 
   CHAPTER {
