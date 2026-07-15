@@ -261,7 +261,9 @@ Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Dat
 erDiagram
   CHAPTER ||--o{ SUBCHAPTER : "contains optional"
   CHAPTER ||--o{ GALLERY : "contains optional"
+  CHAPTER ||--|| IMAGE : "heroImage"
   SUBCHAPTER ||--|{ GALLERY : "contains"
+  SUBCHAPTER ||--|| IMAGE : "heroImage"
   GALLERY ||--|{ IMAGE : "contains"
   IMAGE }o--o{ OBJECT : "contains / is depicted by"
 
