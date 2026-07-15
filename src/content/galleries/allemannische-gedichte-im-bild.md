@@ -1,7 +1,7 @@
 ---
 title: "Die *Allemannischen Gedichte* im Bild"
-caption: "Bild- und Druckzeugnisse zur Wirkungsgeschichte"
-subCaption: "Beispieldaten fuer die neue Struktur"
+beschriftung: "Bild- und Druckzeugnisse zur Wirkungsgeschichte"
+untertitel: "Beispieldaten fuer die neue Struktur"
 images:
   - "ag-1803-title"
   - "carfunkel-kupfer"

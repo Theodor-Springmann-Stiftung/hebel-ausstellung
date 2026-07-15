@@ -1,6 +1,6 @@
 ---
 title: "Briefe und Transkriptionen"
-caption: "Original und Lesehilfe nebeneinander"
+beschriftung: "Original und Lesehilfe nebeneinander"
 images:
   - "brief-hitzig"
   - "brief-hitzig-transkription"

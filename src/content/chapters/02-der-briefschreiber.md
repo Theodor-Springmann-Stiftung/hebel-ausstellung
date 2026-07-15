@@ -2,8 +2,8 @@
 order: 2
 number: "02"
 title: "Der Briefschreiber"
-navTitle: "Briefschreiber"
-heroImage: "brief-hitzig"
+navTitel: "Briefschreiber"
+hero: "brief-hitzig"
 galleries:
   - "briefwechsel"
 ---

@@ -24,8 +24,8 @@ const galleryColor = z
 const sectionSchema = z.object({
   number: z.string().min(1),
   title: requiredMarkdown,
-  navTitle: requiredMarkdown,
-  heroImage: reference("images"),
+  navTitel: requiredMarkdown,
+  hero: reference("images"),
 });
 
 const chapters = defineCollection({
@@ -61,8 +61,8 @@ const galleries = defineCollection({
   loader: glob({ base: "./src/content/galleries", pattern: "**/*.md" }),
   schema: z.object({
     title: requiredMarkdown,
-    caption: optionalMarkdown,
-    subCaption: optionalMarkdown,
+    beschriftung: optionalMarkdown,
+    untertitel: optionalMarkdown,
     color: galleryColor,
     images: z.array(reference("images")).min(1),
   }),
@@ -75,7 +75,7 @@ const images = defineCollection({
       message: "Image fileName must end with a supported image extension",
     }),
     altText: optionalMarkdown,
-    caption: optionalMarkdown,
+    beschriftung: optionalMarkdown,
     credits: optionalMarkdown,
     objects: z.array(reference("objects")).optional(),
   }),

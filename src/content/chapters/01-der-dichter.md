@@ -2,8 +2,8 @@
 order: 1
 number: "01"
 title: "Der *Dichter*"
-navTitle: "Der Dichter"
-heroImage: "ag-1803-title"
+navTitel: "Der Dichter"
+hero: "ag-1803-title"
 subchapters:
   - "allemannische-gedichte"
 ---

@@ -44,8 +44,8 @@ Pfad: `src/content/chapters/*.md`
 | `order` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
 | `number` | Einfacher String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
 | `title` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
-| `navTitle` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
+| `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
+| `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
 | `subchapters` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | `galleries` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | Inhalt | Body-Markdown | nein | Kapiteltext unterhalb des Frontmatters. |
@@ -59,8 +59,8 @@ Beispiel mit Unterkapiteln:
 order: 2
 number: "02"
 title: "Der Dichter"
-navTitle: "Der Dichter"
-heroImage: "tschopli-hero"
+navTitel: "Der Dichter"
+hero: "tschopli-hero"
 subchapters:
   - "allemannische-gedichte-von-1803"
   - "allemannische-gedichte-im-bild"
@@ -82,8 +82,8 @@ Beispiel mit direkt enthaltenen Galerien:
 order: 1
 number: "01"
 title: "Der Oberländer"
-navTitle: "Der Oberländer"
-heroImage: "oberland-1833"
+navTitel: "Der Oberländer"
+hero: "oberland-1833"
 galleries:
   - "basel"
   - "hausen"
@@ -104,8 +104,8 @@ Pfad: `src/content/subchapters/*.md`
 |---|---|---:|---|
 | `number` | Einfacher String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
 | `title` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
-| `navTitle` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `heroImage` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
+| `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
+| `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
 | `galleries` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
@@ -115,8 +115,8 @@ Beispiel:
 ---
 number: "02.1"
 title: "Die *Allemannischen Gedichte* von 1803"
-navTitle: "Die Allemannischen Gedichte von 1803"
-heroImage: "hans-und-verene-hero"
+navTitel: "Die Allemannischen Gedichte von 1803"
+hero: "hans-und-verene-hero"
 galleries:
   - "ueberraschungserfolg-eines-literarischen-debuetanten"
   - "christlich-romantische-volkspoesie"
@@ -136,8 +136,8 @@ Pfad: `src/content/galleries/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `title` | Markdown-String | ja | Galerietitel. Unterstützt Inline-Markdown. |
-| `caption` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
-| `subCaption` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
+| `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
+| `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `color` | Enum | nein | Standardwert ist `chapter-1`. Erlaubt sind `chapter-1` bis `chapter-7`. |
 | `images` | Array von Referenzen auf `images` | ja | Mindestens 1 Bild. |
 | Inhalt | Body-Markdown | ja | Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
@@ -159,8 +159,8 @@ Beispiel:
 ```md
 ---
 title: "Überraschungserfolg eines literarischen Debütanten"
-caption: "Hebel-Haus in Hausen"
-subCaption: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
+beschriftung: "Hebel-Haus in Hausen"
+untertitel: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
 color: "chapter-2"
 images:
   - "hebelhaus-hausen-1840"
@@ -188,7 +188,7 @@ Pfad: `src/content/images/*.md`
 |---|---|---:|---|
 | `fileName` | Einfacher String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
-| `caption` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
+| `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `credits` | Markdown-String | nein | Bildnachweis. |
 | `objects` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
@@ -199,7 +199,7 @@ Beispiel:
 ---
 fileName: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 altText: "Dritte Auflage der Allemannischen Gedichte mit Titelkupfer von Benjamin Zix"
-caption: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
+beschriftung: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
 credits: "Hebel-Archiv Heidelberg"
 objects:
   - "zix-carfunkel-1806"
@@ -252,8 +252,8 @@ Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Dat
 | Priorität | Quelle | Hinweise |
 |---:|---|---|
 | 1 | Metadaten aus `objects` | Wird genutzt, wenn ein Bild ein oder mehrere Objekte referenziert. |
-| 2 | `images.caption` und `images.credits` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
-| 3 | `galleries.caption` und `galleries.subCaption` | Galerie-weiter Ersatzwert. |
+| 2 | `images.beschriftung` und `images.credits` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
+| 3 | `galleries.beschriftung` und `galleries.untertitel` | Galerie-weiter Ersatzwert. |
 
 ## Grafik
 
@@ -261,9 +261,9 @@ Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Dat
 erDiagram
   CHAPTER ||--o{ SUBCHAPTER : "contains optional"
   CHAPTER ||--o{ GALLERY : "contains optional"
-  CHAPTER ||--|| IMAGE : "heroImage"
+  CHAPTER ||--|| IMAGE : "hero"
   SUBCHAPTER ||--|{ GALLERY : "contains"
-  SUBCHAPTER ||--|| IMAGE : "heroImage"
+  SUBCHAPTER ||--|| IMAGE : "hero"
   GALLERY ||--|{ IMAGE : "contains"
   IMAGE }o--o{ OBJECT : "contains / is depicted by"
 
@@ -271,8 +271,8 @@ erDiagram
     number order "int positive required"
     string number "required"
     markdown title "requiredMarkdown"
-    markdown navTitle "requiredMarkdown"
-    reference heroImage "reference images required"
+    markdown navTitel "requiredMarkdown"
+    reference hero "reference images required"
     reference_array subchapters "reference subchapters optional min 1"
     reference_array galleries "reference galleries optional min 1"
     markdown body "optional"
@@ -281,16 +281,16 @@ erDiagram
   SUBCHAPTER {
     string number "required"
     markdown title "requiredMarkdown"
-    markdown navTitle "requiredMarkdown"
-    reference heroImage "reference images required"
+    markdown navTitel "requiredMarkdown"
+    reference hero "reference images required"
     reference_array galleries "reference galleries required min 1"
     markdown body "optional"
   }
 
   GALLERY {
     markdown title "requiredMarkdown"
-    markdown caption "optionalMarkdown"
-    markdown subCaption "optionalMarkdown"
+    markdown beschriftung "optionalMarkdown"
+    markdown untertitel "optionalMarkdown"
     enum color "galleryColor default chapter-1"
     reference_array images "reference images required min 1"
     markdown body "required by validator"
@@ -299,7 +299,7 @@ erDiagram
   IMAGE {
     string fileName "required image extension"
     markdown altText "optionalMarkdown"
-    markdown caption "optionalMarkdown"
+    markdown beschriftung "optionalMarkdown"
     markdown credits "optionalMarkdown"
     reference_array objects "optional"
     markdown body "optional unused"

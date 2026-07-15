@@ -36,7 +36,7 @@ const galleries = await Promise.all(
 					return {
 						src: getObjectImage(imageEntry.data.fileName),
 						alt: imageEntry.data.altText,
-						caption: imageEntry.data.caption,
+						beschriftung: imageEntry.data.beschriftung,
 						credits: imageEntry.data.credits,
 						objects: objectEntries.filter(Boolean).map((objectEntry) => ({
 							slug: objectEntry.data.slug,
@@ -53,8 +53,8 @@ const galleries = await Promise.all(
 
 			return {
 				title: gallery.data.title,
-				caption: gallery.data.caption,
-				subCaption: gallery.data.subCaption,
+				beschriftung: gallery.data.beschriftung,
+				untertitel: gallery.data.untertitel,
 				color: gallery.data.color,
 				images,
 				Content,

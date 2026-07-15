@@ -1,7 +1,7 @@
 ---
 title: "Der *Karfunkel* als Bildfolge"
-caption: "Bildzeugnisse zur Wirkungsgeschichte"
-subCaption: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Caption-Fallbacks."
+beschriftung: "Bildzeugnisse zur Wirkungsgeschichte"
+untertitel: "Diese Galerie nutzt Objekt-, Bild- und Galerie-Metadaten als Ersatzwerte für Bildunterschriften."
 color: "chapter-1"
 images:
   - "carfunkel-kupfer"

@@ -19,8 +19,8 @@
 Order: INT, Required
 Number: String, Required
 Title: String (MARKDOWN), Required
-Nav-Title: String (MARKDOWN), Required
-Hero-Image: ->Image, Required
+Nav-Titel: String (MARKDOWN), Required
+Hero: ->Image, Required
 Intro-Text: MD
 Subchapters: ->Subchapters, IN ORDER
 Galleries: ->Galleries (one of both required, either Subchapters or Galleries), IN ORDER
@@ -30,8 +30,8 @@ Galleries: ->Galleries (one of both required, either Subchapters or Galleries), 
 
 Number: String, Required
 Title: String (MARKDOWN), Required
-Nav-Title: String (MARKDOWN), Required
-Hero-Image: ->Image, Required
+Nav-Titel: String (MARKDOWN), Required
+Hero: ->Image, Required
 Intro-Text: MD
 Galleries: ->Galleries (one of both required, either Subchapters or Galleries)
 NOTE: Same fields as chapter, except for ORDER, and can't contain further subchapters)
@@ -40,8 +40,8 @@ NOTE: Same fields as chapter, except for ORDER, and can't contain further subcha
 ### Gallery
 
 Title: String (MARKDOWN), Required
-Caption: String (MARKDOWN), Optional
-SubCaption: String (MARKDOWN), Optional
+Beschriftung: String (MARKDOWN), Optional
+Untertitel: String (MARKDOWN), Optional
 Images: ->Images, Required, In Order
 Text: String (MARKDOWN), Required, Long
 
@@ -50,7 +50,7 @@ Text: String (MARKDOWN), Required, Long
 
 File-Name: String, Required
 Alt-Text: String (MARKDOWN), Optional
-Caption: String (MARKDOWN), Optional
+Beschriftung: String (MARKDOWN), Optional
 Credits: String (MARKDOWN), Optional
 Objects: ->Objects, Optional, InOrder as seen on Picture
 

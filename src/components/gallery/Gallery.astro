@@ -23,7 +23,7 @@ export type GalleryObject = {
 export type GalleryImage = {
   src: ImageMetadata;
   alt?: string;
-  caption?: string;
+  beschriftung?: string;
   credits?: string;
   objects?: GalleryObject[];
 };
@@ -37,14 +37,14 @@ type CaptionItem = {
 
 export type GalleryProps = {
   title: string;
-  caption?: string;
-  subCaption?: string;
+  beschriftung?: string;
+  untertitel?: string;
   color?: GalleryColor;
   images: GalleryImage[];
 };
 
 const props = Astro.props as GalleryProps;
-const { title, caption, subCaption, color = "chapter-1", images } = props;
+const { title, beschriftung, untertitel, color = "chapter-1", images } = props;
 const isMultiImage = images.length > 1;
 
 const stripInlineMarkdown = (value = "") => value.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
@@ -75,10 +75,10 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
     });
   }
 
-  if (image.caption || image.credits) {
+  if (image.beschriftung || image.credits) {
     return [
       {
-        title: stripInlineMarkdown(image.caption ?? ""),
+        title: stripInlineMarkdown(image.beschriftung ?? ""),
         text: stripInlineMarkdown(image.credits ?? ""),
       },
     ];
@@ -86,8 +86,8 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
 
   return [
     {
-      title: stripInlineMarkdown(caption ?? ""),
-      text: stripInlineMarkdown(subCaption ?? ""),
+      title: stripInlineMarkdown(beschriftung ?? ""),
+      text: stripInlineMarkdown(untertitel ?? ""),
     },
   ];
 };
