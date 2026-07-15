@@ -10,3 +10,7 @@ images:
 Diese Galerie kombiniert mehrere Bilder mit einem laengeren erklaerenden Text. Die Reihenfolge der Bilder entsteht durch die Reihenfolge der Referenzen im Feld `images`.
 
 > Ein Blockzitat kann direkt im Galerie-Text stehen und spaeter als eigener typografischer Baustein dargestellt werden.
+>
+> Was
+>
+> Ist das

@@ -1,6 +1,6 @@
 ---
 import type { ImageMetadata } from 'astro';
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
 import TopNavigation from '../components/navigation/TopNavigation.astro';
 import Footer from '../components/footer/Footer.astro';
@@ -25,6 +25,7 @@ const galleries = await Promise.all(
 	(await getCollection('galleries'))
 		.sort((a, b) => a.id.localeCompare(b.id))
 		.map(async (gallery) => {
+			const { Content } = await render(gallery);
 			const imageEntries = await Promise.all(gallery.data.images.map((imageReference) => getEntry(imageReference)));
 			const images = await Promise.all(
 				imageEntries.filter(Boolean).map(async (imageEntry) => {
@@ -56,6 +57,7 @@ const galleries = await Promise.all(
 				subCaption: gallery.data.subCaption,
 				color: gallery.data.color,
 				images,
+				Content,
 			};
 		}),
 );
@@ -64,13 +66,175 @@ const galleries = await Promise.all(
 <Layout>
 	<TopNavigation />
 	<main class="gallery-samples" aria-label="Beispielgalerien">
-		{galleries.map((gallery) => <Gallery {...gallery} />)}
+		{galleries.map(({ Content, ...gallery }) => (
+			<section class="gallery-sample">
+				<Gallery {...gallery} />
+				<div class="gallery-sample__body">
+					<Content />
+				</div>
+			</section>
+		))}
 	</main>
 	<Footer />
 </Layout>
 
 <style>
 	.gallery-samples {
-		background: #fff;
+		background: var(--color-paper);
+	}
+
+	.gallery-sample__body {
+		background: var(--color-paper);
+	}
+
+	.gallery-sample__body :global(> p) {
+		max-width: 800px;
+		margin-inline: auto;
+		padding: var(--spacing-64) var(--spacing-20);
+		color: var(--color-text-primary);
+		font-family: var(--font-sans);
+		font-size: var(--text-body);
+		line-height: var(--text-body--line-height);
+	}
+
+	.gallery-sample__body :global(> blockquote) {
+		max-width: none;
+		margin: var(--spacing-40) var(--spacing-24);
+		border-left: 0.5px solid var(--color-ink);
+		background: var(--color-paper);
+		padding: 0 0 0 var(--spacing-24);
+	}
+
+	.gallery-sample__body :global(> blockquote::before) {
+		display: block;
+		content: '»';
+		font-family: var(--font-display);
+		font-size: var(--text-display);
+		line-height: 1;
+		margin-bottom: var(--spacing-4);
+	}
+
+	.gallery-sample__body :global(> blockquote > p) {
+		margin: 0;
+	}
+
+	.gallery-sample__body :global(> blockquote > p) {
+		font-family: var(--font-display);
+		font-size: var(--text-h4);
+		font-style: italic;
+		font-weight: 400;
+		line-height: normal;
+	}
+
+	.gallery-sample__body :global(> blockquote > p + p) {
+		margin-top: 0.5em;
+	}
+
+	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
+		display: flex;
+		align-items: center;
+		gap: var(--spacing-12);
+		margin-top: var(--spacing-24);
+		font-family: var(--font-display);
+		font-size: var(--text-lead);
+		font-style: normal;
+		font-weight: 400;
+		line-height: 1.25;
+		letter-spacing: 0.01em;
+	}
+
+	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
+		display: block;
+		width: var(--spacing-56);
+		height: var(--spacing-56);
+		flex: 0 0 var(--spacing-56);
+		border: 0.5px solid var(--color-ink);
+		border-radius: var(--radius-full);
+		background-image: url('../assets/objects/Hebel_Portraet_Mueller.jpg');
+		background-position: 58% 50%;
+		background-size: cover;
+		content: '';
+	}
+
+	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
+		margin-left: calc(var(--spacing-56) + var(--spacing-12));
+		margin-top: 2px;
+		color: var(--color-text-secondary);
+		font-family: var(--font-mono);
+		font-size: var(--text-caption);
+		font-style: normal;
+		font-weight: 400;
+		line-height: normal;
+	}
+
+	@media (min-width: 768px) {
+		.gallery-sample__body :global(> p) {
+			padding-inline: var(--spacing-32);
+		}
+
+		.gallery-sample__body :global(> blockquote) {
+			margin: var(--spacing-64) var(--spacing-32);
+			padding-left: var(--spacing-48);
+		}
+
+		.gallery-sample__body :global(> blockquote::before) {
+			font-size: 4rem;
+			margin-bottom: var(--spacing-8);
+		}
+
+		.gallery-sample__body :global(> blockquote > p) {
+			font-size: 2.25rem;
+			letter-spacing: 0.015em;
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
+			gap: var(--spacing-16);
+			margin-top: var(--spacing-32);
+			font-size: var(--text-h5);
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
+			width: var(--spacing-40);
+			height: var(--spacing-40);
+			flex-basis: var(--spacing-40);
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
+			margin-left: calc(var(--spacing-40) + var(--spacing-16));
+			font-size: 1rem;
+		}
+	}
+
+	@media (min-width: 1440px) {
+		.gallery-sample__body :global(> p) {
+			padding-inline: 0;
+			font-size: var(--text-body);
+		}
+
+		.gallery-sample__body :global(> blockquote) {
+			max-width: 1066px;
+			margin: var(--spacing-80) auto;
+			padding-left: 71px;
+		}
+
+		.gallery-sample__body :global(> blockquote::before) {
+			font-size: var(--text-display);
+			line-height: var(--text-display--line-height);
+			margin-bottom: 0;
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
+			margin-top: 38px;
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
+			width: var(--spacing-48);
+			height: var(--spacing-48);
+			flex-basis: var(--spacing-48);
+		}
+
+		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
+			margin-left: calc(var(--spacing-48) + var(--spacing-16));
+		}
 	}
 </style>
