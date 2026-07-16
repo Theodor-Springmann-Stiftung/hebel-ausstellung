@@ -111,7 +111,9 @@ const nextSlide = slides[1] ?? firstSlide;
   <div class="gallery__stage">
     {isMultiImage && (
       <button class="gallery__button gallery__button--prev" type="button" data-gallery-prev aria-label="Vorheriges Bild" disabled>
-        <span aria-hidden="true">←</span>
+        <svg class="gallery__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M19 12H5m6-6-6 6 6 6" />
+        </svg>
       </button>
     )}
 
@@ -135,7 +137,9 @@ const nextSlide = slides[1] ?? firstSlide;
 
     {isMultiImage && (
       <button class="gallery__button gallery__button--next" type="button" data-gallery-next aria-label="Nächstes Bild">
-        <span aria-hidden="true">→</span>
+        <svg class="gallery__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <path d="M5 12h14m-6-6 6 6-6 6" />
+        </svg>
       </button>
     )}
   </div>
@@ -514,7 +518,7 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button {
-      @apply absolute inline-flex cursor-pointer items-center justify-center font-sans text-h2;
+      @apply absolute inline-flex cursor-pointer items-center justify-center;
 
       z-index: 2;
       top: 185px;
@@ -524,6 +528,22 @@ const nextSlide = slides[1] ?? firstSlide;
       background: var(--color-surface);
       color: var(--color-ink);
       line-height: 1;
+    }
+
+    .gallery__button-icon {
+      width: 24px;
+      height: 24px;
+      overflow: visible;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2px;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    .gallery__button:hover:not(:disabled) {
+      background: var(--color-ink);
+      color: var(--color-paper);
     }
 
     .gallery__button--prev {
@@ -537,7 +557,9 @@ const nextSlide = slides[1] ?? firstSlide;
     .gallery__button:disabled {
       @apply cursor-not-allowed;
 
-      opacity: 0.25;
+      border-color: transparent;
+      background: var(--color-oat);
+      color: #cfd3d5;
     }
 
     .gallery__pagination {

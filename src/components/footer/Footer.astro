@@ -234,13 +234,14 @@ const footerTitleParts = site.title.split(" der ");
     .site-footer__columns {
       @apply grid items-start;
 
-      grid-template-columns: 240px minmax(0, 1fr);
-      gap: 31px;
+      grid-template-columns: 280px minmax(0, 1fr);
+      column-gap: var(--spacing-64);
+      row-gap: 31px;
       padding-bottom: var(--spacing-64);
     }
 
     .site-footer__exhibition {
-      width: 240px;
+      width: 280px;
       grid-column: 1;
       grid-row: 1 / span 2;
     }
@@ -305,16 +306,15 @@ const footerTitleParts = site.title.split(" der ");
     }
 
     .site-footer__columns {
-      @apply grid items-start;
+      @apply flex flex-row flex-nowrap items-start justify-center;
 
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: var(--spacing-64);
+      gap: clamp(var(--spacing-120), 12vw, calc(var(--spacing-120) * 2));
       min-height: 359px;
       padding-bottom: var(--spacing-80);
     }
 
     .site-footer__exhibition {
-      width: auto;
+      width: 389px;
       grid-column: auto;
       grid-row: auto;
       gap: var(--spacing-24);
@@ -323,14 +323,14 @@ const footerTitleParts = site.title.split(" der ");
     .site-footer__about {
       grid-column: auto;
       grid-row: auto;
-      justify-self: center;
+      width: max-content;
     }
 
     .site-footer__contact {
       grid-column: auto;
       grid-row: auto;
       margin-top: 0;
-      justify-self: end;
+      width: fit-content;
     }
 
     .site-footer__title {

@@ -1,8 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getSubchapterRoutes } from '../../lib/content';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+import { chapterHref, getSubchapterRoutes } from '../../lib/content';
 
 export const getStaticPaths = getSubchapterRoutes;
+
+const { chapter, subchapter } = Astro.props;
+const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.navTitel}`;
 ---
 
-<Layout />
+<Layout>
+	<Breadcrumbs
+		items={[
+			{ label: 'Startseite', href: '/' },
+			{ label: chapterLabel, href: chapterHref(chapter.data.nummer) },
+			{ label: subchapter.data.navTitel },
+		]}
+	/>
+</Layout>

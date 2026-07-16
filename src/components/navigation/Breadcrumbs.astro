@@ -1,0 +1,93 @@
+---
+type BreadcrumbItem = {
+  label: string;
+  href?: string;
+};
+
+const { items } = Astro.props as { items: BreadcrumbItem[] };
+const stripInlineMarkdown = (value: string) =>
+  value.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
+---
+
+<nav class="breadcrumbs" aria-label="Breadcrumb">
+  <ol class="breadcrumbs__list">
+    {items.map((item, index) => {
+      const isCurrent = index === items.length - 1;
+      const label = stripInlineMarkdown(item.label);
+
+      return (
+        <li class="breadcrumbs__item">
+          {index > 0 && <span class="breadcrumbs__separator" aria-hidden="true">/</span>}
+          {isCurrent ? (
+            <span class="breadcrumbs__link breadcrumbs__link--current" aria-current="page">{label}</span>
+          ) : (
+            <a class="breadcrumbs__link" href={item.href}>{label}</a>
+          )}
+        </li>
+      );
+    })}
+  </ol>
+</nav>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .breadcrumbs {
+    @apply w-full border-b border-ink bg-paper;
+
+    border-bottom-width: 0.5px;
+  }
+
+  .breadcrumbs__list {
+    @apply mx-auto flex w-full list-none items-center overflow-x-auto whitespace-nowrap p-0;
+
+    max-width: var(--container-chrome);
+    gap: 9px;
+    padding: var(--spacing-16) var(--spacing-20);
+  }
+
+  .breadcrumbs__item {
+    @apply flex shrink-0 items-center;
+
+    gap: 9px;
+  }
+
+  .breadcrumbs__link {
+    @apply font-sans text-small text-text-secondary no-underline;
+
+    line-height: var(--text-small--line-height);
+  }
+
+  .breadcrumbs__link:hover {
+    @apply underline;
+
+    text-underline-offset: 0.16em;
+  }
+
+  .breadcrumbs__link--current {
+    @apply text-link;
+  }
+
+  .breadcrumbs__link--current:hover {
+    @apply no-underline;
+  }
+
+  .breadcrumbs__separator {
+    @apply font-mono text-caption-small text-text-secondary;
+
+    line-height: var(--text-caption-small--line-height);
+    opacity: 0.7;
+  }
+
+  @media (min-width: 768px) {
+    .breadcrumbs__list {
+      padding-inline: var(--spacing-32);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .breadcrumbs__list {
+      padding-inline: var(--spacing-80);
+    }
+  }
+</style>
