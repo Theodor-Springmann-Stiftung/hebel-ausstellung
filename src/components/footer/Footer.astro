@@ -1,4 +1,5 @@
 ---
+import { execFileSync } from "node:child_process";
 import portrait from "../../assets/objects/Hebel_Portraet_Mueller.jpg";
 
 const footerLinks = [
@@ -10,6 +11,22 @@ const footerLinks = [
   { label: "Impressum & Datenschutz", href: "#impressum-datenschutz" },
   { label: "Datenschutz / Barrierefreiheit", href: "/datenschutz/" },
 ];
+
+const readGitValue = (args: string[]) => {
+  try {
+    return execFileSync("git", args, {
+      cwd: process.cwd(),
+      encoding: "utf8",
+      stdio: ["ignore", "pipe", "ignore"],
+    }).trim();
+  } catch {
+    return null;
+  }
+};
+
+const commitHash = readGitValue(["rev-parse", "--short", "HEAD"]);
+const commitDate = readGitValue(["show", "-s", "--format=%cd", "--date=format:%d.%m.%Y", "HEAD"]);
+const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-ausstellung/";
 ---
 
 <footer class="site-footer" data-node-id="415:1388" aria-labelledby="footer-title">
@@ -58,6 +75,11 @@ const footerLinks = [
 
   <div class="site-footer__legal">
     <p>© 2026 Theodor Springmann Stiftung</p>
+    {commitHash && commitDate && (
+      <p class="site-footer__commit">
+        Commit <a class="site-footer__commit-link" href={repositoryUrl}>{commitHash}</a>, {commitDate}
+      </p>
+    )}
   </div>
 </footer>
 
@@ -184,10 +206,23 @@ const footerLinks = [
   }
 
   .site-footer__legal {
-    @apply whitespace-nowrap;
+    @apply flex flex-wrap items-center justify-between whitespace-nowrap;
 
     border-top: 0.25px solid var(--color-paper);
+    gap: var(--spacing-8) var(--spacing-20);
     padding: var(--spacing-16) var(--spacing-20);
+  }
+
+  .site-footer__commit {
+    @apply ml-auto text-right;
+  }
+
+  .site-footer__commit-link {
+    @apply text-inherit underline;
+  }
+
+  .site-footer__commit-link:hover {
+    opacity: 0.72;
   }
 
   @media (min-width: 768px) {
