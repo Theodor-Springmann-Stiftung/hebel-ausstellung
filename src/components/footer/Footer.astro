@@ -1,6 +1,7 @@
 ---
 import { execFileSync } from "node:child_process";
 import portrait from "../../assets/objects/Hebel_Portraet_Mueller.jpg";
+import { site } from "../../data/site";
 
 const footerLinks = [
   { label: "Über die Ausstellung", href: "/ueber/" },
@@ -26,58 +27,57 @@ const readGitValue = (args: string[]) => {
 
 const commitHash = readGitValue(["rev-parse", "--short", "HEAD"]);
 const commitDate = readGitValue(["show", "-s", "--format=%cd", "--date=format:%d.%m.%Y", "HEAD"]);
-const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-ausstellung/";
+const footerTitleParts = site.title.split(" der ");
 ---
 
-<footer class="site-footer" data-node-id="415:1388" aria-labelledby="footer-title">
+<footer class="site-footer" aria-labelledby="footer-title">
   <div class="site-footer__inner">
     <div class="site-footer__columns">
       <section class="site-footer__exhibition" aria-labelledby="footer-title">
         <p class="site-footer__eyebrow">Ausstellung</p>
         <div class="site-footer__intro">
           <div class="site-footer__title-group">
-            <p class="site-footer__kicker">Johann Peter Hebel</p>
-            <h2 class="site-footer__title" id="footer-title">Das Nachleben<br />der Worte</h2>
+            <p class="site-footer__kicker">{site.tagline}</p>
+            <h2 class="site-footer__title" id="footer-title">
+              {footerTitleParts[0]}{footerTitleParts[1] && <><br />der {footerTitleParts[1]}</>}
+            </h2>
           </div>
-          <p class="site-footer__description">Eine virtuelle Ausstellung der Theodor Springmann Stiftung.</p>
+          <p class="site-footer__description">{site.footerTagline}</p>
         </div>
       </section>
 
-      <div class="site-footer__right-column">
-        <nav class="site-footer__section" aria-labelledby="footer-about-title">
-          <p class="site-footer__eyebrow" id="footer-about-title">Über Uns</p>
-          <ul class="site-footer__link-list">
-            {footerLinks.map((link) => (
-              <li>
-                <a class="site-footer__link" href={link.href}>{link.label}</a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+      <nav class="site-footer__section site-footer__about" aria-labelledby="footer-about-title">
+        <p class="site-footer__eyebrow" id="footer-about-title">Über Uns</p>
+        <ul class="site-footer__link-list">
+          {footerLinks.map((link) => (
+            <li>
+              <a class="site-footer__link" href={link.href}>{link.label}</a>
+            </li>
+          ))}
+        </ul>
+      </nav>
 
-        <section class="site-footer__section site-footer__contact" aria-labelledby="footer-contact-title">
-          <p class="site-footer__eyebrow" id="footer-contact-title">Kontakt</p>
-          <div class="site-footer__portrait-frame" aria-hidden="true">
-            <img class="site-footer__portrait" src={portrait.src} alt="" loading="lazy" decoding="async" />
-          </div>
-          <address class="site-footer__address">
-            Johann Peter Hebel-Archiv<br />
-            Theodor Springmann Stiftung<br />
-            Hirschgasse 2<br />
-            69120 Heidelberg<br />
-            <br />
-            <a class="site-footer__email" href="mailto:info@hebel-archiv.de">info@hebel-archiv.de</a>
-          </address>
-        </section>
-      </div>
+      <section class="site-footer__section site-footer__contact" aria-labelledby="footer-contact-title">
+        <p class="site-footer__eyebrow" id="footer-contact-title">Kontakt</p>
+        <div class="site-footer__portrait-frame" aria-hidden="true">
+          <img class="site-footer__portrait" src={portrait.src} alt="" loading="lazy" decoding="async" />
+        </div>
+        <address class="site-footer__address">
+          Johann Peter Hebel-Archiv<br />
+          Theodor Springmann Stiftung<br />
+          Hirschgasse 2<br />
+          69120 Heidelberg<br />
+          <a class="site-footer__email" href="mailto:info@hebel-archiv.de">info@hebel-archiv.de</a>
+        </address>
+      </section>
     </div>
   </div>
 
   <div class="site-footer__legal">
-    <p>© 2026 Theodor Springmann Stiftung</p>
+    <p>{site.copyright}</p>
     {commitHash && commitDate && (
       <p class="site-footer__commit">
-        Commit <a class="site-footer__commit-link" href={repositoryUrl}>{commitHash}</a>, {commitDate}
+        Commit <a class="site-footer__commit-link" href={site.repositoryUrl}>{commitHash}</a>, {commitDate}
       </p>
     )}
   </div>
@@ -102,23 +102,19 @@ const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-auss
     @apply flex flex-col items-start;
 
     gap: var(--spacing-80);
+    padding-bottom: var(--spacing-40);
   }
 
   .site-footer__exhibition,
   .site-footer__section,
-  .site-footer__right-column,
   .site-footer__intro,
   .site-footer__title-group {
-    @apply flex flex-col items-start;
+    @apply grow-0 flex flex-col items-start;
   }
 
   .site-footer__exhibition,
   .site-footer__section {
     gap: var(--footer-heading-gap);
-  }
-
-  .site-footer__right-column {
-    gap: var(--spacing-80);
   }
 
   .site-footer__intro {
@@ -178,12 +174,13 @@ const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-auss
     @apply w-full;
   }
 
+	/* mt-1 to visually align the header distance to the picture with the other columns */
   .site-footer__portrait-frame {
-    @apply overflow-hidden;
+    @apply overflow-hidden mt-1;
 
     width: 280px;
     height: 78px;
-    border: 1px solid #cfcfcf;
+    border: 1px solid var(--color-paper);
   }
 
   .site-footer__portrait {
@@ -235,14 +232,31 @@ const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-auss
     }
 
     .site-footer__columns {
-      @apply flex-row;
+      @apply grid items-start;
 
+      grid-template-columns: 240px minmax(0, 1fr);
       gap: 31px;
+      padding-bottom: var(--spacing-64);
     }
 
     .site-footer__exhibition {
       width: 240px;
-      flex: 0 0 240px;
+      grid-column: 1;
+      grid-row: 1 / span 2;
+    }
+
+    .site-footer__about,
+    .site-footer__contact {
+      grid-column: 2;
+    }
+
+    .site-footer__about {
+      grid-row: 1;
+    }
+
+    .site-footer__contact {
+      grid-row: 2;
+      margin-top: var(--spacing-56);
     }
 
     .site-footer__intro {
@@ -265,12 +279,6 @@ const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-auss
     .site-footer__address a {
       font-size: var(--text-body-medium);
       line-height: var(--text-body-medium--line-height);
-    }
-
-    .site-footer__right-column {
-      @apply min-w-0 flex-1;
-
-      gap: var(--spacing-56);
     }
 
     .site-footer__link-list {
@@ -307,12 +315,22 @@ const repositoryUrl = "https://github.com/Theodor-Springmann-Stiftung/hebel-auss
 
     .site-footer__exhibition {
       width: auto;
-      flex-basis: auto;
+      grid-column: auto;
+      grid-row: auto;
       gap: var(--spacing-24);
     }
 
-    .site-footer__right-column {
-      @apply contents;
+    .site-footer__about {
+      grid-column: auto;
+      grid-row: auto;
+      justify-self: center;
+    }
+
+    .site-footer__contact {
+      grid-column: auto;
+      grid-row: auto;
+      margin-top: 0;
+      justify-self: end;
     }
 
     .site-footer__title {

@@ -1,4 +1,6 @@
 ---
+import { site } from "../../data/site";
+
 type ChapterLink = {
   nummer: string;
   titel: string;
@@ -15,8 +17,8 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 <nav class="desktop-navigation" aria-label="Hauptnavigation">
   <div class="desktop-navigation__inner">
     <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
-      <span class="desktop-navigation__brand-kicker">Johann Peter Hebel</span>
-      <span class="desktop-navigation__brand-title">Das Nachleben der Worte</span>
+      <span class="desktop-navigation__brand-kicker">{site.tagline}</span>
+      <span class="desktop-navigation__brand-title">{site.title}</span>
     </a>
 
     <div class="desktop-navigation__links">

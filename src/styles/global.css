@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* Hebel Exhibition design primitives from Figma. */
+/* Hebel Exhibition design primitives. */
 @font-face {
   font-family: "Nyght Serif";
   src: url("/fonts/NyghtSerif-Regular.woff2") format("woff2");
