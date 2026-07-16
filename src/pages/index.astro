@@ -86,7 +86,7 @@ const galleries = await Promise.all(
 	}
 
 	.gallery-sample__body :global(> p) {
-		max-width: 800px;
+		max-width: var(--container-text);
 		margin-inline: auto;
 		padding: var(--spacing-64) var(--spacing-20);
     @apply font-sans text-body text-text-primary;
@@ -201,7 +201,7 @@ const galleries = await Promise.all(
 		}
 
 		.gallery-sample__body :global(> blockquote) {
-			max-width: 1066px;
+			max-width: var(--container-content);
 			margin: var(--spacing-80) auto;
 			padding-left: 71px;
 		}

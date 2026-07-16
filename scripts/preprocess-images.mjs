@@ -107,6 +107,27 @@ function formatBytes(bytes) {
   return `${(bytes / 1024 / 1024).toFixed(1)} MB`;
 }
 
+function normalizeOutputSegment(segment) {
+  const replacements = new Map([
+    ["ä", "ae"],
+    ["Ä", "Ae"],
+    ["ö", "oe"],
+    ["Ö", "Oe"],
+    ["ü", "ue"],
+    ["Ü", "Ue"],
+    ["ß", "ss"],
+  ]);
+
+  return segment
+    .replace(/[äÄöÖüÜß]/g, (character) => replacements.get(character))
+    .normalize("NFD")
+    .replace(/[\u0300-\u036f]/g, "")
+    .replace(/['’‘`´]/g, "")
+    .replace(/[^A-Za-z0-9._+-]+/g, "_")
+    .replace(/_+/g, "_")
+    .replace(/^_+|_+$/g, "") || "_";
+}
+
 function outputPathFor(inputFile, inputDir, outputDir, flat) {
   const relativePath = path.relative(inputDir, inputFile);
   const parsed = path.parse(relativePath);
@@ -114,9 +135,9 @@ function outputPathFor(inputFile, inputDir, outputDir, flat) {
     ? ""
     : parsed.dir
         .split(path.sep)
-        .map((segment) => segment.replace(/\s+/g, "_"))
+        .map(normalizeOutputSegment)
         .join(path.sep);
-  const outputBasename = parsed.name.replace(/\s+/g, "_");
+  const outputBasename = normalizeOutputSegment(parsed.name);
 
   return path.join(outputDir, outputDirname, `${outputBasename}.webp`);
 }

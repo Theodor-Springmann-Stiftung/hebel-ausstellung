@@ -416,7 +416,7 @@ const nextSlide = slides[1] ?? firstSlide;
   :global(.gallery__caption-list) {
     @apply flex flex-col;
 
-    max-width: 698px;
+    max-width: var(--container-caption);
     gap: var(--spacing-16);
   }
 
@@ -466,7 +466,12 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__stage {
-      @apply items-start;
+      @apply items-start justify-center;
+
+      --gallery-button-size: 70px;
+      --gallery-peek-width: 72px;
+      --gallery-frame-width: min(var(--container-content), calc(100% - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
+      --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
 
       gap: var(--spacing-20);
       padding-inline: 0;
@@ -475,9 +480,9 @@ const nextSlide = slides[1] ?? firstSlide;
     .gallery__peek {
       @apply block overflow-hidden;
 
-      width: 72px;
+      width: var(--gallery-peek-width);
       height: 440px;
-      flex: 0 0 72px;
+      flex: 0 0 var(--gallery-peek-width);
       border: 0.5px solid rgb(38 37 30 / 60%);
       opacity: 0.8;
     }
@@ -494,6 +499,8 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery__frame {
       @apply min-w-0 flex-1;
+
+      max-width: var(--container-content);
     }
 
     .gallery__mat {
@@ -506,8 +513,8 @@ const nextSlide = slides[1] ?? firstSlide;
 
       z-index: 2;
       top: 185px;
-      width: 70px;
-      height: 70px;
+      width: var(--gallery-button-size);
+      height: var(--gallery-button-size);
       border: 1px solid var(--color-ink);
       background: var(--color-surface);
       color: var(--color-ink);
@@ -515,11 +522,11 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button--prev {
-      left: 46px;
+      left: calc((100% - var(--gallery-group-width)) / 2 + (var(--gallery-peek-width) - var(--gallery-button-size)) / 2);
     }
 
     .gallery__button--next {
-      right: 46px;
+      right: calc((100% - var(--gallery-group-width)) / 2 + (var(--gallery-peek-width) - var(--gallery-button-size)) / 2);
     }
 
     .gallery__button:disabled {
@@ -574,21 +581,26 @@ const nextSlide = slides[1] ?? firstSlide;
 
   @media (min-width: 1440px) {
     .gallery__title-section {
-      padding: var(--spacing-80) var(--spacing-80) var(--spacing-24) 188px;
+      width: 100%;
+      max-width: var(--container-content);
+      margin-inline: auto;
+      padding: var(--spacing-80) 0 var(--spacing-24);
     }
 
     .gallery__title {
-      max-width: 650px;
+      max-width: var(--container-caption);
     }
 
     .gallery__stage {
-      @apply items-center;
+      @apply items-center justify-center;
+
+      --gallery-peek-width: 168.5px;
     }
 
     .gallery__peek {
-      width: 168.5px;
+      width: var(--gallery-peek-width);
       height: 608px;
-      flex-basis: 168.5px;
+      flex-basis: var(--gallery-peek-width);
     }
 
     .gallery__mat {
@@ -597,14 +609,6 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery__button {
       top: 269px;
-    }
-
-    .gallery__button--prev {
-      left: 49px;
-    }
-
-    .gallery__button--next {
-      right: 49px;
     }
 
     .gallery__pagination {
@@ -619,12 +623,15 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__caption-section {
-      grid-template-columns: minmax(0, 698px) 1fr;
-      padding: var(--spacing-32) 188px var(--spacing-24);
+      grid-template-columns: minmax(0, var(--container-caption)) 1fr;
+      width: 100%;
+      max-width: var(--container-content);
+      margin-inline: auto;
+      padding: var(--spacing-32) 0 var(--spacing-24);
     }
 
     .gallery--single {
-      padding-inline: 189px;
+      padding-inline: 0;
     }
 
     .gallery--single .gallery__title-section {
@@ -633,6 +640,9 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery--single .gallery__stage,
     .gallery--single .gallery__caption-section {
+      width: 100%;
+      max-width: var(--container-content);
+      margin-inline: auto;
       padding-inline: 0;
     }
 

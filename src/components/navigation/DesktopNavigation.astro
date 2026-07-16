@@ -13,37 +13,39 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 ---
 
 <nav class="desktop-navigation" aria-label="Hauptnavigation">
-  <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
-    <span class="desktop-navigation__brand-kicker">Johann Peter Hebel</span>
-    <span class="desktop-navigation__brand-title">Das Nachleben der Worte</span>
-  </a>
+  <div class="desktop-navigation__inner">
+    <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
+      <span class="desktop-navigation__brand-kicker">Johann Peter Hebel</span>
+      <span class="desktop-navigation__brand-title">Das Nachleben der Worte</span>
+    </a>
 
-  <div class="desktop-navigation__links">
-    <details class="desktop-navigation__dropdown">
-      <summary class="nav-link desktop-navigation__dropdown-trigger">
-        <span>Ausstellung</span>
-        <svg class="desktop-navigation__chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false">
-          <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" />
-        </svg>
-      </summary>
+    <div class="desktop-navigation__links">
+      <details class="desktop-navigation__dropdown">
+        <summary class="nav-link desktop-navigation__dropdown-trigger">
+          <span>Ausstellung</span>
+          <svg class="desktop-navigation__chevron" viewBox="0 0 12 8" aria-hidden="true" focusable="false">
+            <path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.25" />
+          </svg>
+        </summary>
 
-      <div class="desktop-navigation__dropdown-panel">
-        <p class="type-caption desktop-navigation__dropdown-label">Kapitel der Ausstellung</p>
-        <ol class="desktop-navigation__chapter-list">
-          {chapters.map((chapter) => (
-            <li class="desktop-navigation__chapter-item">
-              <a class="desktop-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
-                <span class="type-caption-small desktop-navigation__chapter-number">{chapter.nummer}</span>
-                <span class="type-body-medium desktop-navigation__chapter-title">{chapter.titel}</span>
-              </a>
-            </li>
-          ))}
-        </ol>
-      </div>
-    </details>
+        <div class="desktop-navigation__dropdown-panel">
+          <p class="type-caption desktop-navigation__dropdown-label">Kapitel der Ausstellung</p>
+          <ol class="desktop-navigation__chapter-list">
+            {chapters.map((chapter) => (
+              <li class="desktop-navigation__chapter-item">
+                <a class="desktop-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
+                  <span class="type-caption-small desktop-navigation__chapter-number">{chapter.nummer}</span>
+                  <span class="type-body-medium desktop-navigation__chapter-title">{chapter.titel}</span>
+                </a>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </details>
 
-    <a class="nav-link desktop-navigation__link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
-    <a class="nav-link desktop-navigation__link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
+      <a class="nav-link desktop-navigation__link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
+      <a class="nav-link desktop-navigation__link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
+    </div>
   </div>
 </nav>
 
@@ -51,10 +53,16 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   @reference "../../styles/global.css";
 
   .desktop-navigation {
-    @apply hidden w-full items-center justify-between;
+    @apply hidden w-full;
 
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
+  }
+
+  .desktop-navigation__inner {
+    @apply mx-auto flex w-full items-center justify-between;
+
+    max-width: var(--container-chrome);
     padding: var(--spacing-16) var(--spacing-32);
   }
 
@@ -185,8 +193,16 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
   @media (min-width: 1440px) {
     .desktop-navigation {
-      @apply flex;
+      @apply block;
+    }
 
+    .desktop-navigation__inner {
+      padding-inline: var(--spacing-80);
+    }
+  }
+
+  @media (min-width: 1920px) {
+    .desktop-navigation__inner {
       padding-inline: var(--spacing-80);
     }
   }
