@@ -1,17 +1,21 @@
 ---
 import DesktopNavigation from "./DesktopNavigation.astro";
 import MobileNavigation from "./MobileNavigation.astro";
+import { getChapterNavigation } from "../../lib/content";
+
+const chapters = await getChapterNavigation();
+const currentPath = Astro.url.pathname;
 ---
 
 <header class="top-navigation">
-  <DesktopNavigation />
-  <MobileNavigation />
+  <DesktopNavigation chapters={chapters} currentPath={currentPath} />
+  <MobileNavigation chapters={chapters} currentPath={currentPath} />
 </header>
 
 <style>
+  @reference "../../styles/global.css";
+
   .top-navigation {
-    position: relative;
-    z-index: 10;
-    width: 100%;
+    @apply relative z-10 w-full;
   }
 </style>

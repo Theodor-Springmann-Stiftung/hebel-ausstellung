@@ -2,13 +2,13 @@
 import portrait from "../../assets/objects/Hebel_Portraet_Mueller.jpg";
 
 const footerLinks = [
-  { label: "Über die Ausstellung", href: "#ueber-die-ausstellung" },
+  { label: "Über die Ausstellung", href: "/ueber/" },
   { label: "Team & Partners", href: "#team-partners" },
   { label: "Presse Kontakt", href: "#presse-kontakt" },
-  { label: "Kontakt Uns", href: "#kontakt" },
+  { label: "Kontakt Uns", href: "/kontakt/" },
   { label: "Mitwirkende / Credits", href: "#credits" },
   { label: "Impressum & Datenschutz", href: "#impressum-datenschutz" },
-  { label: "Datenschutz / Barrierefreiheit", href: "#datenschutz-barrierefreiheit" },
+  { label: "Datenschutz / Barrierefreiheit", href: "/datenschutz/" },
 ];
 ---
 
@@ -54,32 +54,31 @@ const footerLinks = [
         </section>
       </div>
     </div>
+  </div>
 
-    <div class="site-footer__legal">
-      <p>© 2026 Theodor Springmann Stiftung</p>
-    </div>
+  <div class="site-footer__legal">
+    <p>© 2026 Theodor Springmann Stiftung</p>
   </div>
 </footer>
 
 <style>
+  @reference "../../styles/global.css";
+
   .site-footer {
     --footer-heading-gap: var(--spacing-16);
 
-    background: var(--color-ink);
-    color: var(--color-paper);
+    @apply bg-ink text-paper;
   }
 
   .site-footer__inner {
-    display: flex;
-    flex-direction: column;
-    gap: var(--spacing-64);
+    @apply mx-auto flex w-full flex-col;
+
     padding: var(--spacing-56) var(--spacing-20) 0;
   }
 
   .site-footer__columns {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @apply flex flex-col items-start;
+
     gap: var(--spacing-80);
   }
 
@@ -88,9 +87,7 @@ const footerLinks = [
   .site-footer__right-column,
   .site-footer__intro,
   .site-footer__title-group {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+    @apply flex flex-col items-start;
   }
 
   .site-footer__exhibition,
@@ -114,54 +111,41 @@ const footerLinks = [
 
   .site-footer__eyebrow,
   .site-footer__legal {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption-small);
-    font-weight: 400;
+    @apply font-mono text-caption-small font-normal uppercase;
+
     letter-spacing: var(--text-caption-small--letter-spacing);
     line-height: var(--text-caption-small--line-height);
-    text-transform: uppercase;
   }
 
   .site-footer__kicker {
-    font-family: var(--font-sans);
-    font-size: var(--text-lead);
+    @apply font-sans text-lead;
+
     line-height: var(--text-lead--line-height);
   }
 
   .site-footer__title {
-    width: 100%;
-    color: inherit;
-    font-family: var(--font-display);
-    font-size: var(--text-display);
-    font-weight: 400;
+    @apply w-full font-display text-display font-normal text-inherit;
+
     line-height: var(--text-display--line-height);
   }
 
   .site-footer__description {
-    font-family: var(--font-sans);
-    font-size: var(--text-body-medium);
+    @apply font-sans text-body-medium;
+
     line-height: var(--text-body-medium--line-height);
   }
 
   .site-footer__link-list {
-    display: flex;
-    flex-direction: column;
+    @apply m-0 flex w-full list-none flex-col p-0;
+
     gap: var(--spacing-20);
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   .site-footer__link {
-    display: inline-flex;
+    @apply inline-flex font-sans text-lead text-inherit no-underline;
+
     padding-block: var(--spacing-8);
-    color: inherit;
-    font-family: var(--font-sans);
-    font-size: var(--text-lead);
     line-height: var(--text-lead--line-height);
-    text-decoration: none;
-    transition: opacity var(--duration-interaction) var(--ease-interaction);
   }
 
   .site-footer__link:hover {
@@ -169,55 +153,55 @@ const footerLinks = [
   }
 
   .site-footer__contact {
-    width: 100%;
+    @apply w-full;
   }
 
   .site-footer__portrait-frame {
+    @apply overflow-hidden;
+
     width: 280px;
     height: 78px;
     border: 1px solid #cfcfcf;
-    overflow: hidden;
   }
 
   .site-footer__portrait {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    object-position: center;
+    @apply h-full w-full object-cover object-center;
   }
 
   .site-footer__address,
   .site-footer__address a {
-    color: inherit;
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
-    font-style: normal;
+    @apply font-sans text-body not-italic text-inherit no-underline;
+
     line-height: var(--text-body--line-height);
-    text-decoration: none;
   }
 
   .site-footer__address a:hover {
-    text-decoration: underline;
+    @apply underline;
   }
 
   .site-footer__address .site-footer__email {
-    font-style: italic;
+    @apply italic;
   }
 
   .site-footer__legal {
+    @apply whitespace-nowrap;
+
     border-top: 0.25px solid var(--color-paper);
-    padding-block: var(--spacing-16);
-    white-space: nowrap;
+    padding: var(--spacing-16) var(--spacing-20);
   }
 
   @media (min-width: 768px) {
     .site-footer__inner {
-      gap: var(--spacing-64);
       padding: var(--spacing-40) var(--spacing-32) 0;
     }
 
+    .site-footer__legal {
+      padding-inline: var(--spacing-32);
+    }
+
     .site-footer__columns {
-      flex-direction: row;
+      @apply flex-row;
+
       gap: 31px;
     }
 
@@ -249,8 +233,8 @@ const footerLinks = [
     }
 
     .site-footer__right-column {
-      flex: 1;
-      min-width: 0;
+      @apply min-w-0 flex-1;
+
       gap: var(--spacing-56);
     }
 
@@ -273,14 +257,14 @@ const footerLinks = [
     .site-footer__inner {
       --footer-heading-gap: var(--spacing-24);
 
-      gap: 0;
+      max-width: 1440px;
       padding: 60px var(--spacing-80) 0;
     }
 
     .site-footer__columns {
-      display: grid;
+      @apply grid items-start;
+
       grid-template-columns: repeat(3, minmax(0, 1fr));
-      align-items: start;
       gap: var(--spacing-64);
       min-height: 359px;
       padding-bottom: var(--spacing-80);
@@ -293,7 +277,7 @@ const footerLinks = [
     }
 
     .site-footer__right-column {
-      display: contents;
+      @apply contents;
     }
 
     .site-footer__title {
@@ -320,7 +304,6 @@ const footerLinks = [
     }
 
     .site-footer__legal {
-      margin-inline: calc(var(--spacing-80) * -1);
       padding: 18.5px var(--spacing-80) 18px;
       border-top: 0.5px solid var(--color-surface);
     }

@@ -11,7 +11,7 @@ export type GalleryColor =
   | "salbeigrün";
 
 export type GalleryObject = {
-  slug: string;
+  slug?: string;
   titel: string;
   urheber?: string;
   datierung?: string;
@@ -69,7 +69,7 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
       return {
         title,
         text: objectMetadata(object),
-        href: `/objects/${object.slug}/`,
+        href: object.slug ? `/objects/${object.slug}/` : undefined,
         linkLabel: `Zum Objekt: ${title}`,
       };
     });
@@ -144,7 +144,7 @@ const nextSlide = slides[1] ?? firstSlide;
     {isMultiImage && (
       <div class="gallery__pagination">
         <div class="gallery__dots" data-gallery-dots>
-          {slides.map((slide) => <button class="gallery__dot" class:list={{ "is-active": slide.index === 0 }} type="button" data-gallery-dot={slide.index} aria-label={`Bild ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
+          {slides.map((slide) => <button class="gallery__dot" type="button" data-gallery-dot={slide.index} aria-label={`Bild ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
         </div>
         <p class="gallery__counter" data-gallery-counter>1 / {slides.length}</p>
       </div>
@@ -258,7 +258,6 @@ const nextSlide = slides[1] ?? firstSlide;
 
       dots.forEach((dot, index) => {
         const isActive = index === activeIndex;
-        dot.classList.toggle("is-active", isActive);
         dot.toggleAttribute("aria-current", isActive);
       });
     };
@@ -295,16 +294,13 @@ const nextSlide = slides[1] ?? firstSlide;
 </script>
 
 <style>
+  @reference "../../styles/global.css";
+
   .gallery {
     --gallery-mat-bg: var(--color-oat);
     --gallery-border: var(--color-ink);
 
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    overflow: hidden;
-    background: var(--color-paper);
-    color: var(--color-text-primary);
+    @apply flex w-full flex-col overflow-hidden bg-paper text-text-primary;
   }
 
   .gallery[data-color="lindgrün"] {
@@ -340,88 +336,75 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   .gallery__title {
-    color: inherit;
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    font-weight: 400;
+    @apply font-display text-h2 font-normal text-inherit;
+
     line-height: var(--text-h2--line-height);
   }
 
   .gallery__stage {
-    position: relative;
-    display: flex;
-    align-items: center;
-    width: 100%;
+    @apply relative flex w-full items-center;
+
     padding-inline: var(--spacing-20);
     touch-action: pan-y;
   }
 
   .gallery__frame {
-    width: 100%;
-    margin: 0;
+    @apply m-0 w-full;
+
     border: 0.5px solid var(--gallery-border);
   }
 
   .gallery__mat {
-    display: flex;
+    @apply flex items-center justify-center overflow-hidden;
+
     height: 280px;
-    align-items: center;
-    justify-content: center;
-    overflow: hidden;
     background: var(--gallery-mat-bg);
     padding: var(--spacing-20);
   }
 
   .gallery__image {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
+    @apply h-full w-full object-contain;
   }
 
   .gallery__peek,
   .gallery__button {
-    display: none;
+    @apply hidden;
   }
 
   .gallery__pagination {
-    display: flex;
+    @apply flex flex-col items-center justify-center text-text-secondary;
+
     height: 100px;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
     gap: var(--spacing-8);
-    color: var(--color-text-secondary);
   }
 
   .gallery__dots {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
+
     gap: var(--spacing-8);
   }
 
   .gallery__dot {
+    @apply cursor-pointer border-0 p-0;
+
     width: 6px;
     height: 6px;
-    border: 0;
-    border-radius: var(--radius-full);
     background: var(--color-greige);
-    padding: 0;
-    cursor: pointer;
   }
 
-  .gallery__dot.is-active {
+  .gallery__dot[aria-current] {
     background: var(--color-ink);
   }
 
   .gallery__counter {
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
+    @apply font-sans text-body;
+
     line-height: var(--text-body--line-height);
   }
 
   .gallery__caption-section {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
+
     gap: var(--spacing-16);
     padding: 0 var(--spacing-20) var(--spacing-24);
   }
@@ -431,21 +414,22 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   :global(.gallery__caption-list) {
-    display: flex;
+    @apply flex flex-col;
+
     max-width: 698px;
-    flex-direction: column;
     gap: var(--spacing-16);
   }
 
   :global(.gallery__caption-item) {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
+
     gap: var(--spacing-8);
   }
 
   :global(.gallery__caption-title),
   :global(.gallery__caption-text) {
-    font-family: var(--font-mono);
+    @apply font-mono;
+
     line-height: 1;
   }
 
@@ -454,38 +438,26 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   :global(.gallery__caption-text) {
-    color: var(--color-text-secondary);
+    @apply text-text-secondary;
+
     font-size: var(--text-caption-small);
     letter-spacing: var(--text-caption-small--letter-spacing);
   }
 
   :global(.gallery__object-link) {
-    display: inline-flex;
-    align-items: baseline;
+    @apply inline-flex w-fit items-baseline font-sans text-body text-link no-underline;
+
     gap: 0.25em;
-    width: fit-content;
     border-bottom: 1px solid transparent;
-    color: var(--color-link);
-    font-family: var(--font-sans);
-    font-size: var(--text-body);
     line-height: var(--text-body--line-height);
-    text-decoration: none;
-    transition:
-      border-color var(--duration-interaction) var(--ease-interaction),
-      opacity var(--duration-interaction) var(--ease-interaction);
   }
 
   :global(.gallery__object-link-arrow) {
-    display: inline-block;
-    transition: transform var(--duration-interaction) var(--ease-interaction);
+    @apply inline-block;
   }
 
   :global(.gallery__object-link:hover) {
     border-bottom-color: currentColor;
-  }
-
-  :global(.gallery__object-link:hover .gallery__object-link-arrow) {
-    transform: translateX(3px);
   }
 
   @media (min-width: 768px) {
@@ -494,25 +466,25 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__stage {
-      align-items: flex-start;
+      @apply items-start;
+
       gap: var(--spacing-20);
       padding-inline: 0;
     }
 
     .gallery__peek {
-      display: block;
+      @apply block overflow-hidden;
+
       width: 72px;
       height: 440px;
       flex: 0 0 72px;
-      overflow: hidden;
       border: 0.5px solid rgb(38 37 30 / 60%);
       opacity: 0.8;
     }
 
     .gallery__peek img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      @apply h-full w-full object-cover;
+
       opacity: 0.24;
     }
 
@@ -521,8 +493,7 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__frame {
-      flex: 1;
-      min-width: 0;
+      @apply min-w-0 flex-1;
     }
 
     .gallery__mat {
@@ -531,20 +502,15 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button {
-      position: absolute;
+      @apply absolute inline-flex cursor-pointer items-center justify-center font-sans text-h2;
+
       z-index: 2;
       top: 185px;
-      display: inline-flex;
       width: 70px;
       height: 70px;
-      align-items: center;
-      justify-content: center;
       border: 1px solid var(--color-ink);
       background: var(--color-surface);
       color: var(--color-ink);
-      cursor: pointer;
-      font-family: var(--font-sans);
-      font-size: var(--text-h2);
       line-height: 1;
     }
 
@@ -557,18 +523,18 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button:disabled {
-      cursor: not-allowed;
+      @apply cursor-not-allowed;
+
       opacity: 0.25;
     }
 
     .gallery__pagination {
       height: auto;
-      align-items: flex-end;
-      padding: 0;
+      @apply items-end p-0;
     }
 
     .gallery__dots {
-      display: none;
+      @apply hidden;
     }
 
     .gallery__counter {
@@ -576,9 +542,9 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__caption-section {
-      display: grid;
+      @apply grid items-start;
+
       grid-template-columns: minmax(0, 500px) 1fr;
-      align-items: start;
       gap: var(--spacing-16) var(--spacing-24);
       padding: var(--spacing-32) 92px var(--spacing-24);
     }
@@ -586,7 +552,7 @@ const nextSlide = slides[1] ?? firstSlide;
     .gallery__pagination {
       grid-column: 2;
       grid-row: 1;
-      justify-self: end;
+      @apply justify-self-end;
     }
 
     :global(.gallery__caption-list) {
@@ -598,7 +564,7 @@ const nextSlide = slides[1] ?? firstSlide;
     .gallery--single .gallery__peek,
     .gallery--single .gallery__button,
     .gallery--single .gallery__pagination {
-      display: none;
+      @apply hidden;
     }
 
     .gallery--single .gallery__stage {
@@ -616,7 +582,7 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__stage {
-      align-items: center;
+      @apply items-center;
     }
 
     .gallery__peek {

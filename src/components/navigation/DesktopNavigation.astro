@@ -1,13 +1,15 @@
 ---
-const chapters = [
-  { nummer: "01", titel: "Der Oberländer", href: "#der-oberlaender" },
-  { nummer: "02", titel: "Der Dichter", href: "#der-dichter" },
-  { nummer: "03", titel: "Der Hausfreund", href: "#der-hausfreund" },
-  { nummer: "04", titel: "Der Theologe", href: "#der-theologe" },
-  { nummer: "05", titel: "Der Proteuser", href: "#der-proteuser" },
-  { nummer: "06", titel: "Der Junggeselle", href: "#der-junggeselle" },
-  { nummer: "07", titel: "Der Briefschreiber", href: "#der-briefschreiber" },
-];
+type ChapterLink = {
+  nummer: string;
+  titel: string;
+  href: string;
+};
+
+const { chapters, currentPath } = Astro.props as { chapters: ChapterLink[]; currentPath: string };
+// INFO: we normalize the path to be able to correctly determine where we are
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const isUeberActive = normalizedPath === '/ueber/';
+const isKontaktActive = normalizedPath === '/kontakt/';
 ---
 
 <nav class="desktop-navigation" aria-label="Hauptnavigation">
@@ -25,12 +27,12 @@ const chapters = [
         </svg>
       </summary>
 
-      <div class="desktop-navigation__dropdown-panel motion-dropdown" data-open="true">
+      <div class="desktop-navigation__dropdown-panel">
         <p class="type-caption desktop-navigation__dropdown-label">Kapitel der Ausstellung</p>
         <ol class="desktop-navigation__chapter-list">
           {chapters.map((chapter) => (
             <li class="desktop-navigation__chapter-item">
-              <a class="desktop-navigation__chapter-link" href={chapter.href}>
+              <a class="desktop-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
                 <span class="type-caption-small desktop-navigation__chapter-number">{chapter.nummer}</span>
                 <span class="type-body-medium desktop-navigation__chapter-title">{chapter.titel}</span>
               </a>
@@ -40,110 +42,95 @@ const chapters = [
       </div>
     </details>
 
-    <a class="nav-link desktop-navigation__link" href="#ueber-die-ausstellung">Über die Ausstellung</a>
-    <a class="nav-link desktop-navigation__link" href="#kontakt">Kontakt</a>
+    <a class="nav-link desktop-navigation__link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
+    <a class="nav-link desktop-navigation__link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
   </div>
 </nav>
 
 <style>
+  @reference "../../styles/global.css";
+
   .desktop-navigation {
-    display: none;
-    width: 100%;
-    align-items: center;
-    justify-content: space-between;
+    @apply hidden w-full items-center justify-between;
+
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
     padding: var(--spacing-16) var(--spacing-32);
   }
 
   .desktop-navigation__brand {
-    display: flex;
+    @apply flex flex-col text-text-primary no-underline;
+
     width: 375px;
-    flex-direction: column;
     gap: var(--spacing-4);
-    color: var(--color-text-primary);
-    text-decoration: none;
   }
 
   .desktop-navigation__brand-kicker {
-    font-family: var(--font-sans);
-    font-size: var(--text-body-medium);
+    @apply font-sans text-body-medium;
+
     line-height: var(--text-body-medium--line-height);
   }
 
   .desktop-navigation__brand-title {
-    font-family: var(--font-display);
-    font-size: var(--text-h3);
+    @apply font-display text-h3;
+
     line-height: var(--text-h3--line-height);
   }
 
   .desktop-navigation__links {
-    display: flex;
-    align-items: center;
+    @apply flex items-center;
+
     gap: var(--spacing-48);
   }
 
   .desktop-navigation__dropdown {
-    position: relative;
+    @apply relative;
   }
 
   .desktop-navigation__dropdown-trigger {
-    display: flex;
-    align-items: center;
+    @apply flex cursor-pointer list-none items-center no-underline select-none;
+
     gap: var(--spacing-8);
     border-bottom: 1.5px solid transparent;
     padding-block: 7.5px 8.75px;
-    cursor: pointer;
     line-height: var(--text-body--line-height);
-    list-style: none;
-    text-decoration: none;
-    user-select: none;
-    transition:
-      border-color var(--duration-interaction) var(--ease-interaction),
-      opacity var(--duration-interaction) var(--ease-interaction);
   }
 
   .desktop-navigation__link {
+    @apply no-underline select-none;
+
     border-bottom: 1.5px solid transparent;
     padding-block: 7.5px 8.75px;
     line-height: var(--text-body--line-height);
-    text-decoration: none;
-    user-select: none;
-    transition:
-      border-color var(--duration-interaction) var(--ease-interaction),
-      opacity var(--duration-interaction) var(--ease-interaction);
   }
 
   .desktop-navigation__dropdown-trigger:hover,
   .desktop-navigation__link:hover {
+    @apply no-underline;
+
     border-bottom-color: currentColor;
-    text-decoration: none;
   }
 
   .desktop-navigation__dropdown-trigger::-webkit-details-marker {
-    display: none;
+    @apply hidden;
   }
 
   .desktop-navigation__chevron {
+    @apply flex-none overflow-visible;
+
     width: 12px;
     height: 8px;
-    flex: 0 0 auto;
-    overflow: visible;
-    transition: transform var(--duration-interaction) var(--ease-interaction);
   }
 
   .desktop-navigation__dropdown[open] > .desktop-navigation__dropdown-trigger {
-    border-bottom-color: currentColor;
-    text-decoration: none;
-  }
+    @apply no-underline;
 
-  .desktop-navigation__dropdown[open] .desktop-navigation__chevron {
-    transform: rotate(180deg);
+    border-bottom-color: currentColor;
   }
 
   .desktop-navigation__dropdown-panel {
-    position: absolute;
-    z-index: 10;
+    @apply absolute z-10;
+
     top: calc(100% + var(--spacing-16));
     right: -120px;
     width: 320px;
@@ -153,17 +140,15 @@ const chapters = [
   }
 
   .desktop-navigation__dropdown-label {
+    @apply text-text-secondary;
+
     margin-bottom: var(--spacing-24);
-    color: var(--color-text-secondary);
   }
 
   .desktop-navigation__chapter-list {
-    display: flex;
-    flex-direction: column;
+    @apply m-0 flex list-none flex-col p-0;
+
     gap: var(--spacing-16);
-    margin: 0;
-    padding: 0;
-    list-style: none;
   }
 
   .desktop-navigation__chapter-item:not(:last-child) {
@@ -172,32 +157,36 @@ const chapters = [
   }
 
   .desktop-navigation__chapter-link {
-    display: flex;
-    align-items: center;
+    @apply flex items-center text-text-primary no-underline select-none;
+
     gap: var(--spacing-16);
-    color: var(--color-text-primary);
-    text-decoration: none;
-    user-select: none;
   }
 
-  .desktop-navigation__chapter-link:hover .desktop-navigation__chapter-title {
-    color: var(--color-link);
-    text-decoration-line: underline;
+  .desktop-navigation__chapter-link:hover .desktop-navigation__chapter-title,
+  .desktop-navigation__chapter-link[aria-current] .desktop-navigation__chapter-title {
+    @apply text-link underline;
+
     text-underline-offset: 0.16em;
   }
 
+  .desktop-navigation__link[aria-current] {
+    border-bottom-color: currentColor;
+  }
+
   .desktop-navigation__chapter-number {
+    @apply text-text-secondary;
+
     width: var(--spacing-24);
-    color: var(--color-text-secondary);
   }
 
   .desktop-navigation__chapter-title {
-    flex: 1;
+    @apply flex-1;
   }
 
   @media (min-width: 1440px) {
     .desktop-navigation {
-      display: flex;
+      @apply flex;
+
       padding-inline: var(--spacing-80);
     }
   }

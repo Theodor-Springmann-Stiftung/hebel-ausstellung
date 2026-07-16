@@ -175,13 +175,6 @@
   --padding-card-sm: var(--spacing-32);
   --padding-card-lg: var(--spacing-64);
 
-  --radius-xxs: 2px;
-  --radius-xs: 4px;
-  --radius-sm: 8px;
-  --radius-med: 12px;
-  --radius-lg: 16px;
-  --radius-full: 9999px;
-
   --breakpoint-mobile: 390px;
   --breakpoint-tablet: 768px;
   --breakpoint-desktop: 1440px;
@@ -224,19 +217,6 @@
   --text-quote--line-height: 1;
   --text-quote--letter-spacing: 0;
 
-  --duration-instant: 0ms;
-  --duration-interaction: 150ms;
-  --duration-elevation: 200ms;
-  --duration-dropdown: 200ms;
-  --duration-gallery: 400ms;
-  --duration-reveal: 600ms;
-  --duration-stagger: 100ms;
-  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
-  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-out-back: cubic-bezier(0.34, 1.56, 0.64, 1);
-  --ease-interaction: var(--ease-default);
-  --motion-reveal-y: 24px;
-  --motion-dropdown-y: -8px;
   --shadow-card-hover: 0 4px 6px rgb(0 0 0 / 3%);
 }
 
@@ -283,7 +263,7 @@
   }
 
   html {
-    min-width: 320px;
+    /* min-width: 320px; TODO: should this be here? */
     background: var(--color-background);
   }
 
@@ -327,7 +307,6 @@
   :focus-visible {
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
-    border-radius: var(--radius-xxs);
   }
 
   img,
@@ -510,45 +489,17 @@
     padding: var(--padding-card-lg);
   }
 
-  .radius-xxs {
-    border-radius: var(--radius-xxs);
-  }
-
-  .radius-xs {
-    border-radius: var(--radius-xs);
-  }
-
-  .radius-sm {
-    border-radius: var(--radius-sm);
-  }
-
-  .radius-med {
-    border-radius: var(--radius-med);
-  }
-
-  .radius-lg {
-    border-radius: var(--radius-lg);
-  }
-
-  .radius-full {
-    border-radius: var(--radius-full);
-  }
-
   .button-primary {
     display: inline-flex;
     align-items: center;
     justify-content: center;
     min-height: var(--spacing-48);
     border: 1px solid var(--color-button-primary-bg);
-    border-radius: var(--radius-full);
     background: var(--color-button-primary-bg);
     color: var(--color-button-primary-text);
     padding: var(--spacing-12) var(--spacing-20);
     cursor: pointer;
     text-decoration: none;
-    transition:
-      opacity var(--duration-interaction) var(--ease-interaction),
-      transform var(--duration-interaction) var(--ease-interaction);
   }
 
   .button-secondary {
@@ -557,18 +508,11 @@
     justify-content: center;
     min-height: var(--spacing-48);
     border: 1px solid var(--color-button-secondary-border);
-    border-radius: var(--radius-full);
     background: var(--color-button-secondary-bg);
     color: var(--color-button-secondary-text);
     padding: var(--spacing-12) var(--spacing-20);
     cursor: pointer;
     text-decoration: none;
-    transition:
-      background-color var(--duration-interaction) var(--ease-interaction),
-      border-color var(--duration-interaction) var(--ease-interaction),
-      color var(--duration-interaction) var(--ease-interaction),
-      opacity var(--duration-interaction) var(--ease-interaction),
-      transform var(--duration-interaction) var(--ease-interaction);
   }
 
   .button-primary:hover {
@@ -578,7 +522,6 @@
   .button-primary:active,
   .button-secondary:active {
     opacity: 0.95;
-    transform: scale(0.98);
   }
 
   .button-secondary:hover {
@@ -595,7 +538,6 @@
   .button-secondary.is-disabled {
     cursor: not-allowed;
     opacity: 0.3;
-    transform: none;
   }
 
   .button-secondary:disabled,
@@ -618,9 +560,6 @@
     line-height: 1;
     text-underline-offset: 0.16em;
     text-decoration-thickness: 1px;
-    transition:
-      opacity var(--duration-interaction) var(--ease-interaction),
-      text-decoration-color var(--duration-interaction) var(--ease-interaction);
   }
 
   .text-link,
@@ -644,7 +583,6 @@
   .link-arrow::after,
   .link-arrow-left::before {
     display: inline-block;
-    transition: transform var(--duration-interaction) var(--ease-interaction);
   }
 
   .link-arrow::after {
@@ -660,14 +598,6 @@
   .link-arrow-left:hover,
   .nav-link:hover {
     text-decoration-line: underline;
-  }
-
-  .link-arrow:hover::after {
-    transform: translateX(3px);
-  }
-
-  .link-arrow-left:hover::before {
-    transform: translateX(-3px);
   }
 
   .link-underline:hover,
@@ -686,10 +616,6 @@
     color: var(--color-gallery-arrow-icon);
     cursor: pointer;
     text-decoration: none;
-    transition:
-      background-color var(--duration-interaction) var(--ease-interaction),
-      color var(--duration-interaction) var(--ease-interaction),
-      opacity var(--duration-interaction) var(--ease-interaction);
   }
 
   .gallery-arrow-button:hover {
@@ -702,111 +628,6 @@
   .gallery-arrow-button.is-disabled {
     pointer-events: none;
     opacity: 0.25;
-  }
-
-  .motion-gallery-track {
-    transition: transform var(--duration-gallery) var(--ease-default);
-    will-change: transform;
-  }
-
-  .motion-reveal {
-    opacity: 0;
-    transform: translateY(var(--motion-reveal-y));
-    transition:
-      opacity var(--duration-reveal) var(--ease-out-expo),
-      transform var(--duration-reveal) var(--ease-out-expo);
-    will-change: opacity, transform;
-  }
-
-  .motion-reveal.is-visible,
-  .motion-reveal[data-visible="true"] {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .motion-stagger > * {
-    transition-delay: calc(var(--motion-index, 0) * var(--duration-stagger));
-  }
-
-  .motion-stagger > :nth-child(1) {
-    --motion-index: 0;
-  }
-
-  .motion-stagger > :nth-child(2) {
-    --motion-index: 1;
-  }
-
-  .motion-stagger > :nth-child(3) {
-    --motion-index: 2;
-  }
-
-  .motion-stagger > :nth-child(4) {
-    --motion-index: 3;
-  }
-
-  .motion-stagger > :nth-child(5) {
-    --motion-index: 4;
-  }
-
-  .motion-stagger > :nth-child(6) {
-    --motion-index: 5;
-  }
-
-  .motion-card-elevate {
-    transition: box-shadow var(--duration-elevation) var(--ease-interaction);
-  }
-
-  .motion-card-elevate:hover {
-    box-shadow: var(--shadow-card-hover);
-  }
-
-  .motion-dropdown {
-    opacity: 0;
-    transform: translateY(var(--motion-dropdown-y));
-    transition:
-      opacity var(--duration-dropdown) var(--ease-interaction),
-      transform var(--duration-dropdown) var(--ease-interaction);
-  }
-
-  .motion-dropdown.is-open,
-  .motion-dropdown[data-open="true"] {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .button-primary,
-    .button-secondary,
-    .text-link,
-    .link-arrow,
-    .link-arrow-left,
-    .link-underline,
-    .nav-link,
-    .link-arrow::after,
-    .link-arrow-left::before,
-    .gallery-arrow-button,
-    .motion-gallery-track,
-    .motion-reveal,
-    .motion-stagger > *,
-    .motion-card-elevate,
-    .motion-dropdown {
-      transition: none;
-    }
-
-    .button-primary:active,
-    .button-secondary:active,
-    .link-arrow:hover::after,
-    .link-arrow-left:hover::before,
-    .motion-gallery-track,
-    .motion-reveal,
-    .motion-dropdown {
-      transform: none;
-    }
-
-    .motion-reveal,
-    .motion-dropdown {
-      opacity: 1;
-    }
   }
 
   @media (min-width: 768px) {

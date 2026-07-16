@@ -2,8 +2,6 @@
 import type { ImageMetadata } from 'astro';
 import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import TopNavigation from '../components/navigation/TopNavigation.astro';
-import Footer from '../components/footer/Footer.astro';
 import Gallery from '../components/gallery/Gallery.astro';
 
 const objectImageModules = import.meta.glob('../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}', {
@@ -64,7 +62,6 @@ const galleries = await Promise.all(
 ---
 
 <Layout>
-	<TopNavigation />
 	<main class="gallery-samples" aria-label="Beispielgalerien">
 		{galleries.map(({ Content, ...gallery }) => (
 			<section class="gallery-sample">
@@ -75,25 +72,25 @@ const galleries = await Promise.all(
 			</section>
 		))}
 	</main>
-	<Footer />
 </Layout>
 
 <style>
+	@reference "../styles/global.css";
+
 	.gallery-samples {
-		background: var(--color-paper);
+		@apply bg-paper;
 	}
 
 	.gallery-sample__body {
-		background: var(--color-paper);
+    @apply bg-paper;
 	}
 
 	.gallery-sample__body :global(> p) {
 		max-width: 800px;
 		margin-inline: auto;
 		padding: var(--spacing-64) var(--spacing-20);
-		color: var(--color-text-primary);
-		font-family: var(--font-sans);
-		font-size: var(--text-body);
+    @apply font-sans text-body text-text-primary;
+
 		line-height: var(--text-body--line-height);
 	}
 
@@ -101,28 +98,27 @@ const galleries = await Promise.all(
 		max-width: none;
 		margin: var(--spacing-40) var(--spacing-24);
 		border-left: 0.5px solid var(--color-ink);
-		background: var(--color-paper);
+    @apply bg-paper;
+
 		padding: 0 0 0 var(--spacing-24);
 	}
 
 	.gallery-sample__body :global(> blockquote::before) {
-		display: block;
+		@apply block font-display;
+
 		content: '»';
-		font-family: var(--font-display);
 		font-size: var(--text-display);
 		line-height: 1;
 		margin-bottom: var(--spacing-4);
 	}
 
 	.gallery-sample__body :global(> blockquote > p) {
-		margin: 0;
+		@apply m-0;
 	}
 
 	.gallery-sample__body :global(> blockquote > p) {
-		font-family: var(--font-display);
-		font-size: var(--text-h4);
-		font-style: italic;
-		font-weight: 400;
+		@apply font-display text-h4 font-normal italic;
+
 		line-height: normal;
 	}
 
@@ -131,25 +127,21 @@ const galleries = await Promise.all(
 	}
 
 	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-		display: flex;
-		align-items: center;
+    @apply flex items-center font-display text-lead font-normal not-italic;
+
 		gap: var(--spacing-12);
 		margin-top: var(--spacing-24);
-		font-family: var(--font-display);
-		font-size: var(--text-lead);
-		font-style: normal;
-		font-weight: 400;
 		line-height: 1.25;
 		letter-spacing: 0.01em;
 	}
 
 	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-		display: block;
+		@apply block flex-none;
+
 		width: var(--spacing-56);
 		height: var(--spacing-56);
-		flex: 0 0 var(--spacing-56);
+		flex-basis: var(--spacing-56);
 		border: 0.5px solid var(--color-ink);
-		border-radius: var(--radius-full);
 		background-image: url('../assets/objects/Hebel_Portraet_Mueller.jpg');
 		background-position: 58% 50%;
 		background-size: cover;
@@ -159,11 +151,8 @@ const galleries = await Promise.all(
 	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
 		margin-left: calc(var(--spacing-56) + var(--spacing-12));
 		margin-top: 2px;
-		color: var(--color-text-secondary);
-		font-family: var(--font-mono);
-		font-size: var(--text-caption);
-		font-style: normal;
-		font-weight: 400;
+    @apply font-mono text-caption font-normal not-italic text-text-secondary;
+
 		line-height: normal;
 	}
 

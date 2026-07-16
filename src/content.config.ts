@@ -84,7 +84,7 @@ const images = defineCollection({
 const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z.object({
-    slug: urlSafeAsciiSlug,
+    slug: urlSafeAsciiSlug.optional(),
     titel: requiredMarkdown,
     urheber: optionalMarkdown,
     datierung: z.string().min(1).optional(),

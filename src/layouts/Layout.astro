@@ -1,5 +1,7 @@
 ---
 import "../styles/global.css";
+import Footer from "../components/footer/Footer.astro";
+import TopNavigation from "../components/navigation/TopNavigation.astro";
 ---
 
 <!doctype html>
@@ -12,6 +14,26 @@ import "../styles/global.css";
 		<title>Johann Peter Hebel: Das Leben der Worte. Eine Ausstellung.</title>
 	</head>
 	<body>
-		<slot />
+		<div class="site-shell">
+			<TopNavigation />
+			<div class="site-main">
+				<slot />
+			</div>
+			<Footer />
+		</div>
 	</body>
 </html>
+
+<style>
+	@reference "../styles/global.css";
+
+	.site-shell {
+		@apply flex flex-col;
+
+		min-height: 100vh;
+	}
+
+	.site-main {
+		@apply flex-1;
+	}
+</style>

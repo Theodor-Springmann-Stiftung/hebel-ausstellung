@@ -1,0 +1,8 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getSubchapterRoutes } from '../../lib/content';
+
+export const getStaticPaths = getSubchapterRoutes;
+---
+
+<Layout />

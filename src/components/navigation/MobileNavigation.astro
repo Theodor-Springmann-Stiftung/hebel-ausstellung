@@ -1,13 +1,14 @@
 ---
-const chapters = [
-  { nummer: "01", titel: "Der Oberländer", href: "#der-oberlaender" },
-  { nummer: "02", titel: "Der Dichter", href: "#der-dichter" },
-  { nummer: "03", titel: "Der Hausfreund", href: "#der-hausfreund" },
-  { nummer: "04", titel: "Der Theologe", href: "#der-theologe" },
-  { nummer: "05", titel: "Der Proteuser", href: "#der-proteuser" },
-  { nummer: "06", titel: "Der Junggeselle", href: "#der-junggeselle" },
-  { nummer: "07", titel: "Der Briefschreiber", href: "#der-briefschreiber" },
-];
+type ChapterLink = {
+  nummer: string;
+  titel: string;
+  href: string;
+};
+
+const { chapters, currentPath } = Astro.props as { chapters: ChapterLink[]; currentPath: string };
+const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const isUeberActive = normalizedPath === '/ueber/';
+const isKontaktActive = normalizedPath === '/kontakt/';
 ---
 
 <nav class="mobile-navigation" aria-label="Mobile Hauptnavigation">
@@ -38,8 +39,8 @@ const chapters = [
         >
           Ausstellung
         </button>
-        <a class="nav-link mobile-navigation__panel-link" href="#ueber-die-ausstellung">Über die Ausstellung</a>
-        <a class="nav-link mobile-navigation__panel-link" href="#kontakt">Kontakt</a>
+        <a class="nav-link mobile-navigation__panel-link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
+        <a class="nav-link mobile-navigation__panel-link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
       </div>
 
       <div class="mobile-navigation__chapters-view" id="mobile-navigation-chapters-view" aria-hidden="true">
@@ -52,7 +53,7 @@ const chapters = [
           <ol class="mobile-navigation__chapter-list">
             {chapters.map((chapter) => (
               <li class="mobile-navigation__chapter-item">
-                <a class="mobile-navigation__chapter-link" href={chapter.href}>
+                <a class="mobile-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
                   <span class="mobile-navigation__chapter-number">{chapter.nummer}</span>
                   <span class="mobile-navigation__chapter-title">{chapter.titel}</span>
                 </a>
@@ -101,25 +102,24 @@ const chapters = [
 </script>
 
 <style>
+  @reference "../../styles/global.css";
+
   .mobile-navigation {
-    display: block;
-    position: relative;
+    @apply relative block;
   }
 
   .mobile-navigation__toggle {
-    position: absolute;
-    z-index: 30;
+    @apply absolute z-30 m-0 cursor-pointer opacity-0;
+
     top: 26px;
     right: var(--spacing-20);
     width: var(--spacing-32);
     height: var(--spacing-32);
-    margin: 0;
-    cursor: pointer;
-    opacity: 0;
   }
 
   .mobile-navigation__toggle:checked {
-    position: fixed;
+    @apply fixed;
+
     top: var(--spacing-24);
     right: var(--spacing-24);
     width: var(--spacing-44);
@@ -129,21 +129,15 @@ const chapters = [
   .mobile-navigation__toggle:focus-visible ~ .mobile-navigation__bar .mobile-navigation__menu-button {
     outline: 2px solid var(--color-focus-ring);
     outline-offset: 2px;
-    border-radius: var(--radius-xxs);
   }
 
   .mobile-navigation__bar {
-    position: relative;
+    @apply relative flex items-center justify-between;
+
     z-index: 25;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
     padding: var(--spacing-16) var(--spacing-20);
-    transition:
-      background-color var(--duration-dropdown) var(--ease-interaction),
-      border-color var(--duration-dropdown) var(--ease-interaction);
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar {
@@ -152,42 +146,34 @@ const chapters = [
   }
 
   .mobile-navigation__brand {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col no-underline;
+
     gap: var(--spacing-4);
-    text-decoration: none;
   }
 
   .mobile-navigation__brand {
-    min-width: 0;
-    flex: 1;
-    color: var(--color-text-primary);
-    transition: color var(--duration-dropdown) var(--ease-interaction);
+    @apply min-w-0 flex-1 text-text-primary;
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__brand {
-    color: var(--color-paper);
+    @apply text-paper;
   }
 
   .mobile-navigation__brand-kicker {
-    font-family: var(--font-sans);
-    font-size: var(--text-body-medium);
+    @apply font-sans text-body-medium;
+
     line-height: var(--text-body-medium--line-height);
   }
 
   .mobile-navigation__brand-title {
-    font-family: var(--font-display);
-    font-size: var(--text-h4);
+    @apply font-display text-h4;
+
     line-height: var(--text-h4--line-height);
     letter-spacing: var(--text-h4--letter-spacing);
   }
 
   .mobile-navigation__menu-button {
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    user-select: none;
+    @apply inline-flex cursor-pointer items-center justify-center select-none;
   }
 
   .mobile-navigation__menu-button {
@@ -201,96 +187,64 @@ const chapters = [
     width: 22px;
     height: 1.5px;
     background: var(--color-text-primary);
-    transform-origin: center;
-    transition:
-      background-color var(--duration-dropdown) var(--ease-interaction),
-      opacity var(--duration-dropdown) var(--ease-interaction),
-      transform var(--duration-dropdown) var(--ease-interaction);
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span {
     background: var(--color-paper);
   }
 
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:first-child {
-    transform: translateY(6.5px) rotate(45deg) scaleX(1.45);
-  }
-
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:nth-child(2) {
     opacity: 0;
   }
 
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:last-child {
-    transform: translateY(-6.5px) rotate(-45deg) scaleX(1.45);
-  }
-
   .mobile-navigation__panel {
-    position: fixed;
-    z-index: 20;
-    inset: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    background: var(--color-ink);
-    color: var(--color-paper);
-    opacity: 0;
-    pointer-events: none;
+    @apply pointer-events-none fixed inset-0 z-20 flex flex-col overflow-auto bg-ink text-paper opacity-0;
+
     padding-top: 84px;
-    transition: opacity var(--duration-dropdown) var(--ease-interaction);
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
-    opacity: 1;
-    pointer-events: auto;
+    @apply pointer-events-auto opacity-100;
   }
 
   .mobile-navigation__views {
-    width: 100%;
-    flex: 1;
+    @apply w-full flex-1;
   }
 
   .mobile-navigation__main-view {
-    display: flex;
-    flex-direction: column;
+    @apply flex flex-col;
+
     gap: var(--padding-lg);
     padding: var(--padding-xl) var(--spacing-24) var(--spacing-48);
   }
 
   .mobile-navigation__chapters-view {
-    display: none;
-    flex-direction: column;
+    @apply hidden flex-col;
+
     gap: var(--spacing-32);
     padding: 0 var(--spacing-24) var(--spacing-48);
   }
 
   .mobile-navigation__panel[data-chapters-open] .mobile-navigation__main-view {
-    display: none;
+    @apply hidden;
   }
 
   .mobile-navigation__panel[data-chapters-open] .mobile-navigation__chapters-view {
-    display: flex;
+    @apply flex;
   }
 
   .mobile-navigation__panel-link {
-    display: inline-flex;
-    align-items: baseline;
+    @apply inline-flex w-fit cursor-pointer items-baseline border-0 bg-transparent p-0 text-paper no-underline select-none;
+
     gap: var(--spacing-16);
-    width: fit-content;
-    color: var(--color-paper);
-    border: 0;
-    padding: 0;
-    background: transparent;
     font-family: var(--font-display);
     font-size: var(--text-h2);
     line-height: var(--text-h2--line-height);
-    cursor: pointer;
-    text-decoration: none;
-    user-select: none;
   }
 
-  .mobile-navigation__panel-link:hover {
-    opacity: 0.8;
-    text-decoration: none;
+  .mobile-navigation__panel-link:hover,
+  .mobile-navigation__panel-link[aria-current] {
+    @apply no-underline opacity-80;
   }
 
   .mobile-navigation__panel-link--arrow::after {
@@ -299,36 +253,23 @@ const chapters = [
     font-family: var(--font-sans);
     font-size: var(--text-h4);
     line-height: var(--text-lead--line-height);
-    transition: transform var(--duration-interaction) var(--ease-interaction);
-  }
-
-  .mobile-navigation__panel-link--arrow:hover::after {
-    transform: translateX(3px);
   }
 
   .mobile-navigation__back-button {
-    width: fit-content;
-    border: 0;
-    padding: 0;
-    background: transparent;
-    color: var(--color-paper);
-    cursor: pointer;
+    @apply w-fit cursor-pointer border-0 bg-transparent p-0 text-left text-paper select-none;
+
     font-family: var(--font-sans);
     font-size: var(--text-body);
     line-height: var(--text-body--line-height);
-    text-align: left;
-    user-select: none;
   }
 
   .mobile-navigation__back-button:hover {
-    opacity: 0.8;
+    @apply opacity-80;
   }
 
   .mobile-navigation__chapter-section,
   .mobile-navigation__chapter-list {
-    display: flex;
-    width: 100%;
-    flex-direction: column;
+    @apply flex w-full flex-col;
   }
 
   .mobile-navigation__chapter-section {
@@ -336,16 +277,13 @@ const chapters = [
   }
 
   .mobile-navigation__chapter-label {
-    color: var(--color-paper);
-    font-family: var(--font-mono);
-    font-size: var(--text-caption);
+    @apply font-mono text-caption text-paper;
+
     line-height: var(--text-caption--line-height);
   }
 
   .mobile-navigation__chapter-list {
-    margin: 0;
-    padding: 0;
-    list-style: none;
+    @apply m-0 list-none p-0;
   }
 
   .mobile-navigation__chapter-item {
@@ -354,31 +292,31 @@ const chapters = [
   }
 
   .mobile-navigation__chapter-link {
-    display: flex;
-    align-items: baseline;
+    @apply flex items-baseline text-paper no-underline select-none;
+
     gap: var(--spacing-24);
-    color: var(--color-paper);
-    text-decoration: none;
-    user-select: none;
   }
 
-  .mobile-navigation__chapter-link:hover .mobile-navigation__chapter-title {
+  .mobile-navigation__chapter-link:hover .mobile-navigation__chapter-title,
+  .mobile-navigation__chapter-link[aria-current] .mobile-navigation__chapter-title {
     opacity: 0.8;
+  }
+
+  .mobile-navigation__chapter-link[aria-current] .mobile-navigation__chapter-number {
+    color: var(--color-paper);
   }
 
   .mobile-navigation__chapter-number {
     min-width: var(--spacing-16);
     color: rgb(247 247 244 / 50%);
-    font-family: var(--font-sans);
-    font-size: var(--text-body-medium);
+    @apply font-sans text-body-medium;
+
     line-height: var(--text-body-medium--line-height);
   }
 
   .mobile-navigation__chapter-title {
-    flex: 1;
-    color: var(--color-paper);
-    font-family: var(--font-sans);
-    font-size: var(--text-lead);
+    @apply flex-1 font-sans text-lead text-paper;
+
     line-height: var(--text-lead--line-height);
   }
 
@@ -452,21 +390,16 @@ const chapters = [
     }
 
     .mobile-navigation__chapter-title {
-      font-family: var(--font-display);
-      font-size: var(--text-h2);
+      @apply font-display text-h2;
+
       line-height: var(--text-h2--line-height);
     }
   }
 
   @media (min-width: 1440px) {
     .mobile-navigation {
-      display: none;
+      @apply hidden;
     }
   }
 
-  @media (prefers-reduced-motion: reduce) {
-    .mobile-navigation__panel {
-      transition: none;
-    }
-  }
 </style>
