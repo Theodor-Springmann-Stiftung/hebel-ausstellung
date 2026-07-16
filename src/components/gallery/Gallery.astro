@@ -461,17 +461,21 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   @media (min-width: 768px) {
+    .gallery {
+      --gallery-button-size: 70px;
+      --gallery-peek-width: 72px;
+      --gallery-frame-width: min(var(--container-content), calc(100vw - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
+      --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
+    }
+
     .gallery__title-section {
-      padding: var(--spacing-40) var(--spacing-32) var(--spacing-24);
+      width: var(--gallery-frame-width);
+      margin-inline: auto;
+      padding: var(--spacing-40) 0 var(--spacing-24);
     }
 
     .gallery__stage {
       @apply items-start justify-center;
-
-      --gallery-button-size: 70px;
-      --gallery-peek-width: 72px;
-      --gallery-frame-width: min(var(--container-content), calc(100% - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
-      --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
 
       gap: var(--spacing-20);
       padding-inline: 0;
@@ -498,9 +502,10 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__frame {
-      @apply min-w-0 flex-1;
+      @apply min-w-0;
 
-      max-width: var(--container-content);
+      width: var(--gallery-frame-width);
+      flex: 0 1 var(--gallery-frame-width);
     }
 
     .gallery__mat {
@@ -552,8 +557,10 @@ const nextSlide = slides[1] ?? firstSlide;
       @apply grid items-start;
 
       grid-template-columns: minmax(0, 500px) 1fr;
+      width: var(--gallery-frame-width);
+      margin-inline: auto;
       gap: var(--spacing-16) var(--spacing-24);
-      padding: var(--spacing-32) 92px var(--spacing-24);
+      padding: var(--spacing-32) 0 var(--spacing-24);
     }
 
     .gallery__pagination {
@@ -575,15 +582,21 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery--single .gallery__stage {
-      padding-inline: 92px;
+      width: var(--gallery-frame-width);
+      margin-inline: auto;
+      padding-inline: 0;
     }
   }
 
   @media (min-width: 1440px) {
+    .gallery {
+      --gallery-peek-width: 168.5px;
+      --gallery-frame-width: min(var(--container-content), calc(100vw - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
+      --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
+    }
+
     .gallery__title-section {
-      width: 100%;
-      max-width: var(--container-content);
-      margin-inline: auto;
+      width: var(--gallery-frame-width);
       padding: var(--spacing-80) 0 var(--spacing-24);
     }
 
@@ -593,8 +606,6 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery__stage {
       @apply items-center justify-center;
-
-      --gallery-peek-width: 168.5px;
     }
 
     .gallery__peek {
@@ -624,9 +635,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery__caption-section {
       grid-template-columns: minmax(0, var(--container-caption)) 1fr;
-      width: 100%;
-      max-width: var(--container-content);
-      margin-inline: auto;
+      width: var(--gallery-frame-width);
       padding: var(--spacing-32) 0 var(--spacing-24);
     }
 
@@ -640,8 +649,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery--single .gallery__stage,
     .gallery--single .gallery__caption-section {
-      width: 100%;
-      max-width: var(--container-content);
+      width: var(--gallery-frame-width);
       margin-inline: auto;
       padding-inline: 0;
     }

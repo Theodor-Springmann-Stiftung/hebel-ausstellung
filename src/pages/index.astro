@@ -162,7 +162,8 @@ const galleries = await Promise.all(
 		}
 
 		.gallery-sample__body :global(> blockquote) {
-			margin: var(--spacing-64) var(--spacing-32);
+			max-width: min(var(--container-content), calc(100vw - 72px - 72px - var(--spacing-20) - var(--spacing-20)));
+			margin: var(--spacing-64) auto;
 			padding-left: var(--spacing-48);
 		}
 
@@ -201,7 +202,7 @@ const galleries = await Promise.all(
 		}
 
 		.gallery-sample__body :global(> blockquote) {
-			max-width: var(--container-content);
+			max-width: min(var(--container-content), calc(100vw - 168.5px - 168.5px - var(--spacing-20) - var(--spacing-20)));
 			margin: var(--spacing-80) auto;
 			padding-left: 71px;
 		}
