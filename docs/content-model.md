@@ -190,7 +190,7 @@ Pfad: `src/content/images/*.md`
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
-| `objekte` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. |
+| `objekte` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. Ein Bild kann mehrere Objekte zeigen; ein Objekt kann in mehreren Bildern dargestellt sein. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
 
 Beispiel:
