@@ -17,17 +17,15 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Typ | Bedeutung |
 |---|---|
 | String | Ein kurzer Textwert im Frontmatter, meistens in Anführungszeichen, zum Beispiel `"Der Dichter"`. |
-| Einfacher String | Ein String, der als reiner Datenwert behandelt wird, nicht als Markdown. Formatierungen wie `*kursiv*` werden hier nicht als Gestaltung interpretiert. |
 | Markdown-String | Ein String, der Inline-Markdown enthalten darf, zum Beispiel `"Der *Dichter*"`. |
 | Body-Markdown | Langer Markdown-Inhalt unterhalb des Frontmatter-Blocks. Hier stehen zum Beispiel Fließtexte, Absätze und Blockzitate. |
 | Ganzzahl | Eine Zahl ohne Nachkommastellen, zum Beispiel `1`, `2` oder `3`. |
-| Positive Ganzzahl | Eine Ganzzahl größer als `0`. |
-| Boolean | Ein Wahr/Falsch-Wert: entweder `true` oder `false`. Dieser Typ wird aktuell nicht verwendet, ist aber für Schalter geeignet. |
-| Array | Eine Liste mehrerer Werte, meistens als YAML-Liste geschrieben. Die Reihenfolge ist relevant, wenn das Feld so beschrieben ist. |
+| Boolean | Ein Wahr/Falsch-Wert: entweder `true` oder `false`. |
+| Array | Eine Liste mehrerer Werte. Die Reihenfolge kann je nach Verwendugn relevant sein. |
 | Referenz | Verweis auf einen anderen Content-Eintrag, angegeben über dessen ID, zum Beispiel `"carfunkel-kupfer"`. |
-| Array von Referenzen | Eine Liste von Verweisen auf andere Content-Einträge, zum Beispiel mehrere Bilder in einer Galerie. |
-| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel die Farbnamen `lindgrün`, `vanille` oder `rosa`. |
-| URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
+| Array von Referenzen | Eine Liste von Referenzen, zum Beispiel mehrere Bilder in einer Galerie. |
+| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel nur  die Farbnamen `lindgrün`, `vanille` oder `rosa`. |
+| URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-` oder `_`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
 
 ## Sammlungen
 
@@ -42,7 +40,7 @@ Pfad: `src/content/chapters/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `reihenfolge` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
-| `nummer` | Einfacher String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
+| `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
@@ -102,7 +100,7 @@ Pfad: `src/content/subchapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `nummer` | Einfacher String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
+| `nummer` | String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
@@ -186,7 +184,7 @@ Pfad: `src/content/images/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `dateiname` | Einfacher String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
+| `dateiname` | String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
@@ -217,8 +215,8 @@ Pfad: `src/content/objects/*.md`
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |
-| `datierung` | Einfacher String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
-| `materialTechnik` | Einfacher String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
+| `datierung` | String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
+| `materialTechnik` | String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
 | Inhalt | Body-Markdown | nein | Objektbeschreibung unterhalb des Frontmatters. |
