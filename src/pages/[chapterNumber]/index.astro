@@ -1,6 +1,8 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+import ChapterSubchapters from '../../components/chapter/ChapterSubchapters.astro';
+import SectionGalleries from '../../components/chapter/SectionGalleries.astro';
 import { getChapterRoutes } from '../../lib/content';
 
 export const getStaticPaths = getChapterRoutes;
@@ -16,4 +18,5 @@ const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.nav
 			{ label: chapterLabel },
 		]}
 	/>
+	{chapter.data.galerien ? <SectionGalleries section={chapter} /> : <ChapterSubchapters chapter={chapter} />}
 </Layout>

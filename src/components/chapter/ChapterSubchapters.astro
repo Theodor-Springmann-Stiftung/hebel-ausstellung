@@ -1,0 +1,65 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { getEntry, render } from "astro:content";
+import { subchapterHref } from "../../lib/content";
+
+const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
+const { Content } = await render(chapter);
+const subchapters = await Promise.all((chapter.data.unterkapitel ?? []).map((reference) => getEntry(reference)));
+---
+
+<section class="chapter-overview">
+  <h1>{chapter.data.titel}</h1>
+  <div class="chapter-overview__text"><Content /></div>
+
+  <nav aria-label={`${chapter.data.navTitel} Unterkapitel`}>
+    <ol class="chapter-overview__list">
+      {subchapters.filter(Boolean).map((subchapter) => (
+        <li>
+          <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>{subchapter.data.titel}</a>
+        </li>
+      ))}
+    </ol>
+  </nav>
+</section>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .chapter-overview {
+    @apply bg-paper;
+
+    padding: var(--spacing-64) var(--spacing-20);
+  }
+
+  .chapter-overview > h1,
+  .chapter-overview__text :global(> p),
+  .chapter-overview__list {
+    max-width: var(--container-text);
+    margin-inline: auto;
+  }
+
+  .chapter-overview > h1 {
+    @apply font-display text-h1 font-normal text-text-primary;
+  }
+
+  .chapter-overview__text :global(> p) {
+    @apply mt-6 font-sans text-body text-text-primary;
+  }
+
+  .chapter-overview__list {
+    @apply mt-12 flex list-none flex-col p-0;
+
+    border-top: 0.5px solid var(--color-ink);
+  }
+
+  .chapter-overview__list a {
+    @apply block py-4 font-display text-h4 text-link no-underline;
+
+    border-bottom: 0.5px solid var(--color-ink);
+  }
+
+  .chapter-overview__list a:hover {
+    @apply underline;
+  }
+</style>

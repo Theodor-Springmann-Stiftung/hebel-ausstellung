@@ -83,16 +83,41 @@ const images = defineCollection({
 
 const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
-  schema: z.object({
-    slug: urlSafeAsciiSlug.optional(),
-    titel: requiredMarkdown,
-    untertitel: optionalMarkdown,
-    urheber: optionalMarkdown,
-    datierung: z.string().min(1).optional(),
-    materialTechnik: z.string().min(1).optional(),
-    institution: optionalMarkdown,
-    inventarnummer: optionalMarkdown,
-  }),
+  schema: z
+    .object({
+      slug: z.string().optional(),
+      titel: z.string().optional(),
+      untertitel: z.string().optional(),
+      urheber: z.string().optional(),
+      datierung: z.string().optional(),
+      materialTechnik: z.string().optional(),
+      institution: z.string().optional(),
+      inventarnummer: z.string().optional(),
+    })
+    .superRefine((data, context) => {
+      const fields = Object.entries(data);
+
+      // Generated templates remain valid until an object has been populated.
+      if (fields.every(([, value]) => !value?.trim())) {
+        return;
+      }
+
+      if (!data.slug?.trim()) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message: "Slug is required", path: ["slug"] });
+      } else if (!urlSafeAsciiSlug.safeParse(data.slug).success) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message: "Slug must use only ASCII letters, digits, and hyphens", path: ["slug"] });
+      }
+
+      if (!data.titel?.trim()) {
+        context.addIssue({ code: z.ZodIssueCode.custom, message: "Title is required", path: ["titel"] });
+      }
+
+      for (const field of ["untertitel", "urheber", "datierung", "materialTechnik", "institution", "inventarnummer"] as const) {
+        if (data[field] !== undefined && !data[field].trim()) {
+          context.addIssue({ code: z.ZodIssueCode.custom, message: "Optional field must not be empty when provided", path: [field] });
+        }
+      }
+    }),
 });
 
 export const collections = {
