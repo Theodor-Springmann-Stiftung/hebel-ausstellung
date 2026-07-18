@@ -14,6 +14,7 @@
 		"astro": "astro",
     "build": "npm run content:validate && astro build",
     "content:validate": "node scripts/validate-content.mjs",
+    "content:generate": "node scripts/generate-asset-content.mjs",
     "images:preprocess": "node scripts/preprocess-images.mjs"
   },
   "dependencies": {
