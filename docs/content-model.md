@@ -214,6 +214,7 @@ Pfad: `src/content/objects/*.md`
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
+| `untertitel` | Markdown-String | nein | Objektuntertitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |
 | `datierung` | String | nein | Datum oder Datierung. Darf nicht leer sein, wenn gesetzt. |
 | `materialTechnik` | String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
@@ -306,6 +307,7 @@ erDiagram
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
     markdown titel "requiredMarkdown"
+    markdown untertitel "optionalMarkdown"
     markdown urheber "optionalMarkdown"
     string datierung "optional"
     string materialTechnik "optional"

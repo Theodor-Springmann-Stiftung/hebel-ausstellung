@@ -60,6 +60,7 @@ Objekte: ->Objects, Optional, InOrder as seen on Picture
 
 Slug: URL-Compatible String, Required
 Titel: String (MARKDOWN), Required
+Untertitel: String (MARKDOWN), Optional
 Beschreibung: String (MARKDOWN), Optional
 Urheber: String (MARKDOWN), Optional
 Datierung: String, Optional

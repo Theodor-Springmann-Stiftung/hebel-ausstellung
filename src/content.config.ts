@@ -86,6 +86,7 @@ const objects = defineCollection({
   schema: z.object({
     slug: urlSafeAsciiSlug.optional(),
     titel: requiredMarkdown,
+    untertitel: optionalMarkdown,
     urheber: optionalMarkdown,
     datierung: z.string().min(1).optional(),
     materialTechnik: z.string().min(1).optional(),
