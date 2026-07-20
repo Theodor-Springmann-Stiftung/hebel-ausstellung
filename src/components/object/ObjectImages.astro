@@ -1,0 +1,165 @@
+---
+import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { markdownToPlainText } from "../../lib/markdown";
+import ObjectImageCarousel from "./ObjectImageCarousel.astro";
+
+const { images } = Astro.props as { images: CollectionEntry<"images">[] };
+const objectImageModules = import.meta.glob("../../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, ImageMetadata>;
+const imageItems = images.map((image) => {
+  const asset = objectImageModules[`../../assets/objects/${image.data.dateiname}`];
+
+  if (!asset) throw new Error(`Missing object image asset: ${image.data.dateiname}`);
+
+  return { image, asset, isPortrait: asset.height > asset.width };
+});
+const imageGroups: typeof imageItems[] = [];
+const hasMultipleImages = imageItems.length > 1;
+const shouldUseCarousel = hasMultipleImages && !(imageItems.length === 2 && imageItems.every((item) => item.isPortrait));
+const carouselImages = imageItems.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.data.altText) }));
+
+for (const item of imageItems) {
+  const previousGroup = imageGroups.at(-1);
+
+  if (item.isPortrait && previousGroup?.length === 1 && previousGroup[0].isPortrait) {
+    previousGroup.push(item);
+  } else {
+    imageGroups.push([item]);
+  }
+}
+---
+
+{hasMultipleImages && (
+  <div class="object-images object-images--compact-carousel">
+    <ObjectImageCarousel slides={carouselImages.map((image) => [image])} syncId="responsive-object-images" />
+  </div>
+)}
+
+{shouldUseCarousel && (
+  <div class="object-images object-images--desktop-only">
+    <ObjectImageCarousel slides={imageGroups.map((group) => group.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.data.altText) })))} syncId="responsive-object-images" />
+  </div>
+)}
+
+{!shouldUseCarousel && imageGroups.length > 0 && (
+  <div class:list={["object-images", { "object-images--desktop-only": hasMultipleImages }]}>
+    {imageGroups.map((group, groupIndex) => (
+      <figure class:list={["object-images__frame", { "object-images__frame--paired": group.length === 2 }]}>
+        {group.map(({ image, asset }) => (
+          <img
+            class="object-images__image"
+            src={asset.src}
+            alt={markdownToPlainText(image.data.altText)}
+            width={asset.width}
+            height={asset.height}
+            loading={groupIndex === 0 ? "eager" : "lazy"}
+            decoding="async"
+          />
+        ))}
+      </figure>
+    ))}
+  </div>
+)}
+
+<style>
+  @reference "../../styles/global.css";
+
+  .object-images {
+    @apply flex flex-col;
+
+    gap: var(--spacing-24);
+    padding-inline: var(--spacing-20);
+  }
+
+  .object-images--desktop-only {
+    display: none;
+  }
+
+  .object-images__frame {
+    @apply m-0 flex items-center justify-center overflow-hidden bg-oat;
+
+    width: 100%;
+    height: auto;
+    gap: var(--spacing-20);
+    border: 0.5px solid var(--color-ink);
+    padding: var(--spacing-32) var(--spacing-20);
+  }
+
+  .object-images__image {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .object-images__frame--paired .object-images__image {
+    width: calc((100% - var(--spacing-8)) / 2);
+    height: auto;
+    max-height: none;
+  }
+
+  .object-images__frame--paired {
+    height: auto;
+    min-height: 315px;
+    gap: var(--spacing-8);
+  }
+
+  @media (min-width: 768px) {
+    .object-images {
+      padding-inline: var(--spacing-32);
+    }
+
+    .object-images__frame {
+      gap: var(--spacing-32);
+      padding-inline: var(--spacing-32);
+    }
+
+    .object-images__frame--paired .object-images__image {
+      width: calc((100% - var(--spacing-12)) / 2);
+    }
+
+    .object-images__frame--paired {
+      height: auto;
+      min-height: 563px;
+      gap: var(--spacing-12);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .object-images--compact-carousel {
+      display: none;
+    }
+
+    .object-images--desktop-only {
+      display: flex;
+    }
+
+    .object-images {
+      padding-inline: var(--spacing-80);
+    }
+
+    .object-images__frame {
+      height: 1000px;
+      gap: var(--spacing-40);
+      padding-inline: var(--spacing-40);
+    }
+
+    .object-images__frame:not(.object-images__frame--paired) .object-images__image {
+      height: 100%;
+    }
+
+    .object-images__frame--paired .object-images__image {
+      width: calc((100% - var(--spacing-16)) / 2);
+    }
+
+    .object-images__frame--paired {
+      height: auto;
+      min-height: 1000px;
+      gap: var(--spacing-16);
+    }
+  }
+</style>

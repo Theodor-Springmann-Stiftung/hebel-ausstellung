@@ -1,0 +1,187 @@
+---
+import type { CollectionEntry } from "astro:content";
+import { render } from "astro:content";
+import { renderInlineMarkdown } from "../../lib/markdown";
+import ObjectImages from "./ObjectImages.astro";
+
+type Props = {
+  object: CollectionEntry<"objects">;
+  images: CollectionEntry<"images">[];
+  returnHref: string;
+  returnLabel: string;
+};
+
+const { object, images, returnHref, returnLabel } = Astro.props as Props;
+const { Content } = await render(object);
+const hasBody = Boolean(object.body?.trim());
+
+const details = [
+  { label: "Urheber", value: object.data.urheber },
+  { label: "Datum", value: object.data.datierung },
+  { label: "Material und Technik", value: object.data.materialTechnik },
+  { label: "Institution", value: object.data.institution },
+  { label: "Inventarnummer", value: object.data.inventarnummer },
+].filter((detail) => detail.value);
+---
+
+<article class="object-detail">
+  <header class="object-detail__header">
+    <p class="object-detail__eyebrow">Objekt</p>
+    <h1 set:html={renderInlineMarkdown(object.data.titel)}></h1>
+    {object.data.untertitel && <p class="object-detail__subtitle" set:html={renderInlineMarkdown(object.data.untertitel)}></p>}
+  </header>
+
+  <ObjectImages images={images} />
+
+  <div class="object-detail__content">
+    <aside class="object-detail__sidebar" aria-label="Objektdaten">
+      <dl class="object-detail__metadata">
+        {details.map((detail) => (
+          <div class="object-detail__metadata-item">
+            <dt>{detail.label}</dt>
+            <dd set:html={renderInlineMarkdown(detail.value)}></dd>
+          </div>
+        ))}
+      </dl>
+
+      <a class="object-detail__return-link" href={returnHref}><span aria-hidden="true">←</span>{returnLabel}</a>
+    </aside>
+
+    {hasBody && <div class="object-detail__body"><Content /></div>}
+  </div>
+</article>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .object-detail {
+    @apply bg-paper text-text-primary;
+  }
+
+  .object-detail__header {
+    @apply flex flex-col;
+
+    gap: var(--spacing-12);
+    padding: var(--spacing-40) var(--spacing-20);
+  }
+
+  .object-detail__eyebrow,
+  .object-detail__metadata dt {
+    @apply font-mono font-normal uppercase text-text-secondary;
+
+    font-size: var(--text-caption-small);
+    line-height: 1;
+    letter-spacing: var(--text-caption-small--letter-spacing);
+  }
+
+  .object-detail__header h1 {
+    @apply font-display text-h3 font-normal text-text-primary;
+
+    line-height: var(--text-h3--line-height);
+  }
+
+  .object-detail__subtitle {
+    @apply font-sans text-body text-text-secondary;
+
+    max-width: var(--container-text);
+    line-height: var(--text-body--line-height);
+  }
+
+  .object-detail__content {
+    @apply flex flex-col;
+
+    gap: var(--spacing-40);
+    padding: var(--spacing-64) var(--spacing-20);
+  }
+
+  .object-detail__sidebar {
+    @apply flex w-full flex-col;
+
+    gap: var(--spacing-40);
+  }
+
+  .object-detail__metadata {
+    @apply m-0 w-full;
+  }
+
+  .object-detail__metadata-item {
+    @apply flex flex-col;
+
+    gap: var(--spacing-8);
+    border-bottom: 1px solid var(--color-greige);
+    padding-block: var(--spacing-12);
+  }
+
+  .object-detail__metadata-item:first-child {
+    padding-top: 0;
+  }
+
+  .object-detail__metadata dd {
+    @apply m-0 whitespace-pre-line font-sans text-body text-text-primary;
+
+    line-height: var(--text-body--line-height);
+  }
+
+  .object-detail__return-link {
+    @apply inline-flex w-fit items-baseline font-sans text-body text-link no-underline;
+
+    gap: 0.25em;
+    border-bottom: 1px solid transparent;
+    line-height: var(--text-body--line-height);
+  }
+
+  .object-detail__return-link:hover {
+    border-bottom-color: currentColor;
+  }
+
+  .object-detail__body {
+    @apply flex flex-col font-sans text-body text-text-primary;
+
+    gap: var(--spacing-64);
+    line-height: var(--text-body--line-height);
+  }
+
+  .object-detail__body :global(h1) {
+    @apply mb-6 font-display text-h3 font-normal text-text-primary;
+
+    line-height: var(--text-h3--line-height);
+  }
+
+  .object-detail__body :global(p + p) {
+    margin-top: var(--spacing-16);
+  }
+
+  @media (min-width: 768px) {
+    .object-detail__header {
+      padding: var(--spacing-48) var(--spacing-32) var(--spacing-40);
+    }
+
+    .object-detail__header h1 {
+      font-size: 2.5rem;
+    }
+
+    .object-detail__content {
+      gap: var(--spacing-48);
+      padding: var(--spacing-64) var(--spacing-32) var(--spacing-120);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .object-detail__header {
+      padding-inline: var(--spacing-80);
+    }
+
+    .object-detail__header h1 {
+      font-size: var(--text-h1);
+      line-height: var(--text-h1--line-height);
+    }
+
+    .object-detail__content {
+      display: grid;
+      grid-template-columns: 415px minmax(0, 1fr);
+      gap: 128px;
+      padding: var(--spacing-64) var(--spacing-80) var(--spacing-120);
+    }
+
+  }
+</style>

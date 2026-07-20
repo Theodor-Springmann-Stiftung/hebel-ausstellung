@@ -61,12 +61,11 @@ const galleries = await Promise.all(
 ---
 
 <section class="section-intro">
-  <h1>{section.data.titel}</h1>
   <div class="section-intro__text"><Content /></div>
 </section>
 
-{galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }) => (
-  <section class="section-gallery">
+{galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
+  <section class="section-gallery" id={String(index + 1)}>
     <Gallery
       titel={gallery.data.titel}
       beschriftung={gallery.data.beschriftung}
@@ -91,30 +90,28 @@ const galleries = await Promise.all(
   }
 
   .section-intro {
-    padding: var(--spacing-64) var(--spacing-20);
+    padding: var(--spacing-48) var(--spacing-20);
   }
 
-  .section-intro > h1,
   .section-intro__text :global(> p),
   .section-gallery__body :global(> p) {
     max-width: var(--container-text);
     margin-inline: auto;
   }
 
-  .section-intro > h1 {
-    @apply font-display text-h1 font-normal text-text-primary;
-  }
-
   .section-intro__text :global(> p),
   .section-gallery__body :global(> p) {
     @apply font-sans text-body text-text-primary;
 
-    margin-top: var(--spacing-24);
     line-height: var(--text-body--line-height);
   }
 
+  .section-intro__text :global(> p) {
+    font-size: var(--text-body);
+  }
+
   .section-gallery__body :global(> p) {
-    padding: var(--spacing-64) var(--spacing-20);
+    padding: var(--spacing-48) var(--spacing-20);
     order: 1;
   }
 
@@ -124,6 +121,15 @@ const galleries = await Promise.all(
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
     order: 2;
+  }
+
+  .section-gallery + .section-gallery::before {
+    display: block;
+    height: var(--spacing-80);
+    margin-inline: var(--spacing-20);
+    border-top: 0.5px solid var(--color-ink);
+    content: "";
+    transform: translateY(var(--spacing-40));
   }
 
   .section-gallery__body :global(> blockquote::before) {
@@ -182,9 +188,28 @@ const galleries = await Promise.all(
       padding-inline: var(--spacing-32);
     }
 
+    .section-gallery__body :global(> p) {
+      padding-block: var(--spacing-64);
+    }
+
     .section-gallery__body :global(> blockquote) {
+      margin-block: var(--spacing-64);
       margin-inline: auto;
       padding-left: var(--spacing-48);
+    }
+
+    .section-intro {
+      padding-block: var(--spacing-64);
+    }
+
+    .section-intro__text :global(> p) {
+      max-width: 522px;
+      font-size: var(--text-lead);
+      line-height: var(--text-lead--line-height);
+    }
+
+    .section-gallery + .section-gallery::before {
+      margin-inline: var(--spacing-32);
     }
 
     .section-gallery__body :global(> blockquote::before) {
@@ -223,6 +248,19 @@ const galleries = await Promise.all(
 
     .section-intro {
       padding-block: var(--spacing-80);
+    }
+
+    .section-intro__text :global(> p) {
+      max-width: 840px;
+    }
+
+    .section-gallery__body :global(> blockquote) {
+      margin-block: var(--spacing-80);
+    }
+
+    .section-gallery + .section-gallery::before {
+      max-width: 1060px;
+      margin-inline: auto;
     }
 
     .section-gallery__body :global(> blockquote::before) {

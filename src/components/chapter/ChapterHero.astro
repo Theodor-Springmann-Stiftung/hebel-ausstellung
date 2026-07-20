@@ -1,0 +1,149 @@
+---
+import type { ImageMetadata } from "astro";
+import type { CollectionEntry } from "astro:content";
+import { getEntry } from "astro:content";
+import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
+
+const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
+const hero = await getEntry(chapter.data.hero);
+
+if (!hero) {
+  throw new Error(`Missing hero image entry for chapter ${chapter.id}`);
+}
+
+const objectImageModules = import.meta.glob("../../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, ImageMetadata>;
+const image = objectImageModules[`../../assets/objects/${hero.data.dateiname}`];
+
+if (!image) {
+  throw new Error(`Missing hero image asset: ${hero.data.dateiname}`);
+}
+---
+
+<header class="chapter-hero">
+  <h1 class="chapter-hero__title">
+    <span>Kapitel {Number(chapter.data.nummer)}</span>
+    <span set:html={renderInlineMarkdown(chapter.data.titel)}></span>
+  </h1>
+
+  <div class="chapter-hero__image-frame">
+    <img
+      class="chapter-hero__image"
+      src={image.src}
+      alt={markdownToPlainText(hero.data.altText)}
+      width={image.width}
+      height={image.height}
+      loading="eager"
+      decoding="async"
+    />
+  </div>
+
+  {(hero.data.beschriftung || hero.data.nachweis) && (
+    <div class="chapter-hero__caption">
+      <div class="chapter-hero__caption-inner">
+        {hero.data.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(hero.data.beschriftung)}></p>}
+        {hero.data.nachweis && <p class="chapter-hero__caption-credit" set:html={renderInlineMarkdown(hero.data.nachweis)}></p>}
+      </div>
+    </div>
+  )}
+</header>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .chapter-hero {
+    @apply w-full overflow-hidden bg-paper;
+  }
+
+  .chapter-hero__title {
+    @apply flex flex-col items-center font-display font-normal text-text-primary;
+
+    gap: var(--spacing-8);
+    padding: var(--spacing-20);
+    font-size: var(--text-h1);
+    line-height: var(--text-h1--line-height);
+    text-align: center;
+  }
+
+  .chapter-hero__image-frame {
+    width: 100%;
+    height: 270px;
+    overflow: hidden;
+  }
+
+  .chapter-hero__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .chapter-hero__caption {
+    width: calc(100% - var(--spacing-20) * 2);
+    margin-inline: auto;
+    padding-block: var(--spacing-16);
+  }
+
+  .chapter-hero__caption-inner {
+    @apply flex flex-col font-mono;
+
+    gap: var(--spacing-4);
+  }
+
+  .chapter-hero__caption-title {
+    font-size: var(--text-caption);
+    line-height: 1.4;
+  }
+
+  .chapter-hero__caption-credit {
+    @apply text-text-secondary;
+
+    font-size: var(--text-caption-small);
+    line-height: 1.4;
+    letter-spacing: var(--text-caption-small--letter-spacing);
+  }
+
+  .chapter-hero__caption :global(a) {
+    overflow-wrap: anywhere;
+  }
+
+  @media (min-width: 768px) {
+    .chapter-hero__title {
+      padding: var(--spacing-40) var(--spacing-48);
+      font-size: var(--text-h1);
+    }
+
+    .chapter-hero__image-frame {
+      height: 499px;
+      border-block: 0.5px solid var(--color-ink);
+    }
+
+    .chapter-hero__caption {
+      width: min(var(--container-content), calc(100vw - 72px - 72px - var(--spacing-20) - var(--spacing-20)));
+      padding-block: var(--spacing-24);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .chapter-hero__title {
+      gap: var(--spacing-20);
+      padding: var(--spacing-40) var(--spacing-80);
+      font-size: var(--text-display);
+      line-height: var(--text-display--line-height);
+    }
+
+    .chapter-hero__image-frame {
+      height: 700px;
+    }
+
+    .chapter-hero__caption {
+      width: min(var(--container-content), calc(100vw - 168.5px - 168.5px - var(--spacing-20) - var(--spacing-20)));
+      padding-block: var(--spacing-20);
+    }
+
+    .chapter-hero__caption-inner {
+      gap: var(--spacing-10, 10px);
+    }
+  }
+</style>

@@ -9,7 +9,6 @@ const subchapters = await Promise.all((chapter.data.unterkapitel ?? []).map((ref
 ---
 
 <section class="chapter-overview">
-  <h1>{chapter.data.titel}</h1>
   <div class="chapter-overview__text"><Content /></div>
 
   <nav aria-label={`${chapter.data.navTitel} Unterkapitel`}>
@@ -29,22 +28,19 @@ const subchapters = await Promise.all((chapter.data.unterkapitel ?? []).map((ref
   .chapter-overview {
     @apply bg-paper;
 
-    padding: var(--spacing-64) var(--spacing-20);
+    padding: var(--spacing-48) var(--spacing-20);
   }
 
-  .chapter-overview > h1,
   .chapter-overview__text :global(> p),
   .chapter-overview__list {
     max-width: var(--container-text);
     margin-inline: auto;
   }
 
-  .chapter-overview > h1 {
-    @apply font-display text-h1 font-normal text-text-primary;
-  }
-
   .chapter-overview__text :global(> p) {
-    @apply mt-6 font-sans text-body text-text-primary;
+    @apply font-sans text-body text-text-primary;
+
+    line-height: var(--text-body--line-height);
   }
 
   .chapter-overview__list {
@@ -61,5 +57,27 @@ const subchapters = await Promise.all((chapter.data.unterkapitel ?? []).map((ref
 
   .chapter-overview__list a:hover {
     @apply underline;
+  }
+
+  @media (min-width: 768px) {
+    .chapter-overview {
+      padding: var(--spacing-64) var(--spacing-32);
+    }
+
+    .chapter-overview__text :global(> p) {
+      max-width: 522px;
+      font-size: var(--text-lead);
+      line-height: var(--text-lead--line-height);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .chapter-overview {
+      padding-block: var(--spacing-80);
+    }
+
+    .chapter-overview__text :global(> p) {
+      max-width: 840px;
+    }
   }
 </style>

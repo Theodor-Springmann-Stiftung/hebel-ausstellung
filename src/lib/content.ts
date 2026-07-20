@@ -48,10 +48,91 @@ export const getSubchapterRoutes = async () => {
 	return routes;
 };
 
-export const getObjectRoutes = async () =>
-	(await getCollection('objects'))
+export const getObjectRoutes = async () => {
+	const [objects, images, galleries, chapters] = await Promise.all([
+		getCollection('objects'),
+		getCollection('images'),
+		getCollection('galleries'),
+		getOrderedChapters(),
+	]);
+	const imageById = new Map(images.map((image) => [image.id, image]));
+	const galleryById = new Map(galleries.map((gallery) => [gallery.id, gallery]));
+	const imagesByObject = new Map();
+	const contextByObject = new Map();
+
+	for (const image of images) {
+		for (const objectReference of image.data.objekte ?? []) {
+			const objectImages = imagesByObject.get(objectReference.id) ?? [];
+			objectImages.push(image);
+			imagesByObject.set(objectReference.id, objectImages);
+		}
+	}
+
+	const recordImageContext = (imageReference, context) => {
+		const image = imageById.get(imageReference.id);
+
+		if (!image) return;
+
+		for (const objectReference of image.data.objekte ?? []) {
+			if (!contextByObject.has(objectReference.id)) {
+				contextByObject.set(objectReference.id, context);
+			}
+		}
+	};
+
+	const recordGalleryContext = (galleryReference, galleryIndex, chapter, subchapter) => {
+		const gallery = galleryById.get(galleryReference.id);
+
+		if (!gallery) return;
+
+		const sectionHref = subchapter
+			? subchapterHref(chapter.data.nummer, subchapter.data.nummer)
+			: chapterHref(chapter.data.nummer);
+
+		for (const imageReference of gallery.data.bilder) {
+			recordImageContext(imageReference, {
+				chapter,
+				subchapter,
+				returnHref: `${sectionHref}#${galleryIndex + 1}`,
+			});
+		}
+	};
+
+	for (const chapter of chapters) {
+		recordImageContext(chapter.data.hero, {
+			chapter,
+			returnHref: chapterHref(chapter.data.nummer),
+		});
+
+		for (const [galleryIndex, galleryReference] of (chapter.data.galerien ?? []).entries()) {
+			recordGalleryContext(galleryReference, galleryIndex, chapter, undefined);
+		}
+
+		for (const subchapterReference of chapter.data.unterkapitel ?? []) {
+			const subchapter = await getEntry(subchapterReference);
+
+			if (!subchapter) continue;
+
+			for (const [galleryIndex, galleryReference] of subchapter.data.galerien.entries()) {
+				recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);
+			}
+		}
+	}
+
+	return objects
 		.filter((object) => object.data.slug)
-		.map((object) => ({
-			params: { slug: object.data.slug },
-			props: { object },
-		}));
+		.map((object) => {
+			const context = contextByObject.get(object.id);
+
+			return {
+				params: { slug: object.data.slug },
+				props: {
+					object,
+					context: {
+						...(context ?? { returnHref: '/' }),
+						images: imagesByObject.get(object.id) ?? [],
+					},
+				},
+			};
+		});
+};

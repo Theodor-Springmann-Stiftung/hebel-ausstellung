@@ -1,0 +1,398 @@
+---
+import type { ImageMetadata } from "astro";
+import { serializeForScript } from "../../lib/markdown";
+
+type CarouselImage = {
+  asset: ImageMetadata;
+  alt: string;
+};
+
+const { slides: imageGroups, syncId } = Astro.props as { slides: CarouselImage[][]; syncId?: string };
+const slides = imageGroups.map((images) => ({
+  images: images.map(({ asset, alt }) => ({ src: asset.src, alt })),
+}));
+const firstSlide = slides[0];
+const nextSlide = slides[1];
+---
+
+<section class="object-carousel" data-object-carousel data-object-carousel-sync-id={syncId} aria-roledescription="carousel" aria-label="Objektansichten">
+  <div class="object-carousel__stage">
+    <button class="object-carousel__button object-carousel__button--previous" type="button" data-object-carousel-previous aria-label="Vorheriges Bild" disabled>
+      <svg class="object-carousel__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M19 12H5m6-6-6 6 6 6" />
+      </svg>
+    </button>
+
+    <div class="object-carousel__peek is-empty" aria-hidden="true" data-object-carousel-previous-peek></div>
+
+    <figure class="object-carousel__frame">
+      <div class="object-carousel__slide" data-object-carousel-slide>
+        {firstSlide.images.map((image) => (
+          <img class="object-carousel__slide-image" src={image.src} alt={image.alt} loading="eager" decoding="async" />
+        ))}
+      </div>
+    </figure>
+
+    <div class:list={["object-carousel__peek", { "is-empty": !nextSlide }]} aria-hidden="true" data-object-carousel-next-peek>
+      {nextSlide?.images.map((image) => <img class="object-carousel__peek-image" src={image.src} alt="" loading="eager" decoding="async" />)}
+    </div>
+
+    <button class="object-carousel__button object-carousel__button--next" type="button" data-object-carousel-next aria-label="Nächstes Bild">
+      <svg class="object-carousel__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+        <path d="M5 12h14m-6-6 6 6-6 6" />
+      </svg>
+    </button>
+  </div>
+
+  <div class="object-carousel__pagination" aria-live="polite">
+    <div class="object-carousel__dots">
+      {slides.map((_, index) => (
+        <button
+          class="object-carousel__dot"
+          type="button"
+          data-object-carousel-dot={index}
+          aria-label={`Bild ${index + 1} anzeigen`}
+          aria-current={index === 0 ? "true" : undefined}
+        ></button>
+      ))}
+    </div>
+    <p class="object-carousel__counter" data-object-carousel-counter>1 / {slides.length}</p>
+  </div>
+
+  <script type="application/json" data-object-carousel-slides set:html={serializeForScript(slides)}></script>
+</section>
+
+<script>
+  type Slide = { images: Array<{ src: string; alt: string }> };
+
+  const renderObjectSlide = (container: HTMLElement, slide: Slide | undefined, isPeek = false) => {
+    container.replaceChildren();
+    container.classList.toggle("is-empty", !slide);
+
+    slide?.images.forEach((image) => {
+      const element = document.createElement("img");
+      element.className = isPeek ? "object-carousel__peek-image" : "object-carousel__slide-image";
+      element.src = image.src;
+      element.alt = isPeek ? "" : image.alt;
+      element.decoding = "async";
+      container.append(element);
+    });
+  };
+
+  document.querySelectorAll<HTMLElement>("[data-object-carousel]").forEach((carousel) => {
+    const slideData = carousel.querySelector<HTMLScriptElement>("[data-object-carousel-slides]")?.textContent;
+    const slides: Slide[] = slideData ? JSON.parse(slideData) : [];
+    const currentSlide = carousel.querySelector<HTMLElement>("[data-object-carousel-slide]");
+    const previousPeek = carousel.querySelector<HTMLElement>("[data-object-carousel-previous-peek]");
+    const nextPeek = carousel.querySelector<HTMLElement>("[data-object-carousel-next-peek]");
+    const stage = carousel.querySelector<HTMLElement>(".object-carousel__stage");
+    const previousButton = carousel.querySelector<HTMLButtonElement>("[data-object-carousel-previous]");
+    const nextButton = carousel.querySelector<HTMLButtonElement>("[data-object-carousel-next]");
+    const counter = carousel.querySelector<HTMLElement>("[data-object-carousel-counter]");
+    const dots = Array.from(carousel.querySelectorAll<HTMLButtonElement>("[data-object-carousel-dot]"));
+    const syncId = carousel.dataset.objectCarouselSyncId;
+    let activeIndex = 0;
+    let pointerStart: { id: number; x: number; y: number } | undefined;
+
+    const setSlide = (nextIndex: number, broadcast = true) => {
+      activeIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+
+      if (currentSlide) renderObjectSlide(currentSlide, slides[activeIndex]);
+      if (previousPeek) renderObjectSlide(previousPeek, slides[activeIndex - 1], true);
+      if (nextPeek) renderObjectSlide(nextPeek, slides[activeIndex + 1], true);
+      if (previousButton) previousButton.disabled = activeIndex === 0;
+      if (nextButton) nextButton.disabled = activeIndex === slides.length - 1;
+      if (counter) counter.textContent = `${activeIndex + 1} / ${slides.length}`;
+      dots.forEach((dot, index) => dot.toggleAttribute("aria-current", index === activeIndex));
+
+      if (broadcast && syncId) {
+        window.dispatchEvent(new CustomEvent("object-carousel-change", {
+          detail: { syncId, imageSrc: slides[activeIndex]?.images[0]?.src },
+        }));
+      }
+    };
+
+    window.addEventListener("object-carousel-change", ((event: CustomEvent<{ syncId: string; imageSrc?: string }>) => {
+      if (event.detail.syncId !== syncId || !event.detail.imageSrc) return;
+
+      const matchingIndex = slides.findIndex((slide) => slide.images.some((image) => image.src === event.detail.imageSrc));
+      if (matchingIndex >= 0 && matchingIndex !== activeIndex) setSlide(matchingIndex, false);
+    }) as EventListener);
+
+    previousButton?.addEventListener("click", () => setSlide(activeIndex - 1));
+    nextButton?.addEventListener("click", () => setSlide(activeIndex + 1));
+
+    stage?.addEventListener("pointerdown", (event) => {
+      if ((event.target as HTMLElement).closest("button")) return;
+      pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+    });
+
+    stage?.addEventListener("pointerup", (event) => {
+      if (!pointerStart || pointerStart.id !== event.pointerId) return;
+
+      const deltaX = event.clientX - pointerStart.x;
+      const deltaY = event.clientY - pointerStart.y;
+      pointerStart = undefined;
+
+      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
+      if (deltaX > 0 && activeIndex === 0) return;
+      if (deltaX < 0 && activeIndex === slides.length - 1) return;
+      setSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1);
+    });
+
+    stage?.addEventListener("pointercancel", () => {
+      pointerStart = undefined;
+    });
+
+    dots.forEach((dot) => {
+      dot.addEventListener("click", () => setSlide(Number(dot.dataset.objectCarouselDot ?? 0)));
+    });
+  });
+</script>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .object-carousel {
+    @apply w-full overflow-hidden;
+  }
+
+  .object-carousel__stage {
+    @apply relative flex items-center;
+
+    touch-action: pan-y;
+  }
+
+  .object-carousel__frame {
+    @apply m-0 flex w-full items-center justify-center overflow-hidden bg-oat;
+
+    height: auto;
+    border: 0.5px solid var(--color-ink);
+    padding: var(--spacing-32) var(--spacing-20);
+  }
+
+  .object-carousel__slide {
+    @apply flex w-full items-center justify-center;
+
+    gap: var(--spacing-20);
+  }
+
+  :global(.object-carousel__slide-image) {
+    min-width: 0;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    object-fit: contain;
+  }
+
+  .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
+  .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
+    width: calc((100% - var(--spacing-20)) / 2);
+    height: auto;
+    max-height: 100%;
+  }
+
+  .object-carousel__peek,
+  .object-carousel__button {
+    @apply hidden;
+  }
+
+  .object-carousel__pagination {
+    @apply flex flex-col items-center justify-center text-text-secondary;
+
+    height: 100px;
+    gap: var(--spacing-8);
+  }
+
+  .object-carousel__dots {
+    @apply flex items-center;
+
+    gap: var(--spacing-8);
+  }
+
+  .object-carousel__dot {
+    @apply cursor-pointer border-0 p-0;
+
+    width: 6px;
+    height: 6px;
+    background: var(--color-greige);
+  }
+
+  .object-carousel__dot[aria-current] {
+    background: var(--color-ink);
+  }
+
+  .object-carousel__counter {
+    @apply font-sans text-body;
+
+    line-height: var(--text-body--line-height);
+  }
+
+  @media (min-width: 768px) {
+    .object-carousel {
+      --object-carousel-gap: var(--spacing-20);
+      --object-carousel-peek-width: clamp(120px, 16vw, 168px);
+    }
+
+    .object-carousel__stage {
+      gap: var(--object-carousel-gap);
+    }
+
+    .object-carousel__frame {
+      min-width: 0;
+      flex: 1 1 auto;
+      padding-inline: var(--spacing-32);
+    }
+
+    .object-carousel__peek {
+      display: flex;
+      align-self: stretch;
+    }
+
+    .object-carousel__slide {
+      gap: var(--spacing-32);
+    }
+
+    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
+    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
+      width: calc((100% - var(--spacing-32)) / 2);
+    }
+
+    .object-carousel__peek {
+      @apply flex items-center justify-center overflow-hidden bg-oat;
+
+      width: var(--object-carousel-peek-width);
+      flex: 0 0 var(--object-carousel-peek-width);
+      gap: 2px;
+      border: 0.5px solid rgb(38 37 30 / 60%);
+      opacity: 0.8;
+    }
+
+    :global(.object-carousel__peek-image) {
+      min-width: 0;
+      width: 100%;
+      height: 100%;
+      flex: 1 1 0;
+      object-fit: cover;
+      opacity: 0.24;
+    }
+
+    .object-carousel__peek.is-empty :global(.object-carousel__peek-image) {
+      opacity: 0;
+    }
+
+    .object-carousel__button {
+      @apply absolute inline-flex cursor-pointer items-center justify-center;
+
+      z-index: 2;
+      top: 50%;
+      width: 70px;
+      height: 70px;
+      border: 1px solid var(--color-ink);
+      background: var(--color-surface);
+      color: var(--color-ink);
+      transform: translateY(-50%);
+    }
+
+    .object-carousel__button--previous {
+      left: calc((var(--object-carousel-peek-width) - 70px) / 2);
+    }
+
+    .object-carousel__button--next {
+      right: calc((var(--object-carousel-peek-width) - 70px) / 2);
+    }
+
+    .object-carousel__button-icon {
+      width: 24px;
+      height: 24px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2px;
+      stroke-linecap: square;
+      stroke-linejoin: miter;
+    }
+
+    .object-carousel__button:hover:not(:disabled) {
+      background: var(--color-ink);
+      color: var(--color-paper);
+    }
+
+    .object-carousel__button:disabled {
+      @apply cursor-not-allowed;
+
+      border-color: transparent;
+      background: var(--color-oat);
+      color: #cfd3d5;
+    }
+
+    .object-carousel__pagination {
+      height: auto;
+      padding-top: var(--spacing-24);
+      align-items: flex-end;
+    }
+
+    .object-carousel__dots {
+      @apply hidden;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .object-carousel {
+      --object-carousel-peek-width: max(120px, calc((100% - var(--container-content) - var(--spacing-40)) / 2));
+
+      position: relative;
+      overflow: visible;
+    }
+
+    .object-carousel__frame,
+    .object-carousel__peek {
+      height: 1000px;
+    }
+
+    .object-carousel__peek {
+      display: flex;
+    }
+
+    .object-carousel__button--previous {
+      left: calc((var(--object-carousel-peek-width) - 70px) / 2);
+    }
+
+    .object-carousel__button--next {
+      right: calc((var(--object-carousel-peek-width) - 70px) / 2);
+    }
+
+    .object-carousel__slide {
+      height: 100%;
+    }
+
+    :global(.object-carousel__slide-image) {
+      height: 100%;
+    }
+
+    .object-carousel__frame {
+      max-width: var(--container-content);
+      padding-inline: var(--spacing-40);
+    }
+
+    .object-carousel__slide {
+      gap: var(--spacing-40);
+    }
+
+    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
+    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
+      width: calc((100% - var(--spacing-40)) / 2);
+    }
+
+    .object-carousel__counter {
+      font-size: var(--text-lead);
+      line-height: var(--text-lead--line-height);
+    }
+
+    .object-carousel__pagination {
+      position: absolute;
+      top: calc(100% + var(--spacing-64));
+      right: 0;
+      padding-top: 0;
+    }
+  }
+</style>

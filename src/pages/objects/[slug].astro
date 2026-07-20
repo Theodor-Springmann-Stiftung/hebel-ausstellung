@@ -1,8 +1,42 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getObjectRoutes } from '../../lib/content';
+import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+import ObjectDetail from '../../components/object/ObjectDetail.astro';
+import { chapterHref, getObjectRoutes, subchapterHref } from '../../lib/content';
 
 export const getStaticPaths = getObjectRoutes;
+
+const { object, context } = Astro.props;
+const chapter = context.chapter;
+const subchapter = context.subchapter;
+const chapterLabel = chapter ? `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.navTitel}` : undefined;
+const returnLabel = chapter ? `Zurück zu Kapitel ${Number(chapter.data.nummer)}` : 'Zurück zur Startseite';
+const breadcrumbItems = [
+	{ label: 'Startseite', href: '/' },
+	...(chapter ? [{ label: chapterLabel, href: chapterHref(chapter.data.nummer) }] : []),
+	...(subchapter ? [{ label: subchapter.data.navTitel, href: subchapterHref(chapter.data.nummer, subchapter.data.nummer) }] : []),
+	{ label: object.data.titel ?? 'Objekt' },
+];
 ---
 
-<Layout />
+<Layout>
+	<div class="object-breadcrumbs"><Breadcrumbs items={breadcrumbItems} /></div>
+	<ObjectDetail
+		object={object}
+		images={context.images}
+		returnHref={context.returnHref}
+		returnLabel={returnLabel}
+	/>
+</Layout>
+
+<style>
+	.object-breadcrumbs {
+		display: none;
+	}
+
+	@media (min-width: 768px) {
+		.object-breadcrumbs {
+			display: block;
+		}
+	}
+</style>
