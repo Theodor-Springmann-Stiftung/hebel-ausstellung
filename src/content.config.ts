@@ -70,15 +70,26 @@ const galleries = defineCollection({
 
 const images = defineCollection({
   loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
-  schema: z.object({
-    dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
-      message: "Image dateiname must end with a supported image extension",
+  schema: z
+    .object({
+      dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
+        message: "Image dateiname must end with a supported image extension",
+      }),
+      altText: optionalMarkdown,
+      beschriftung: optionalMarkdown,
+      nachweis: optionalMarkdown,
+      objekte: z.array(reference("objects")).optional(),
+      objektPositionen: z.array(z.enum(["Links", "Rechts", "Vorne"])).optional(),
+    })
+    .superRefine((data, context) => {
+      if (data.objektPositionen && data.objektPositionen.length !== data.objekte?.length) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Object positions must match the number and order of objects",
+          path: ["objektPositionen"],
+        });
+      }
     }),
-    altText: optionalMarkdown,
-    beschriftung: optionalMarkdown,
-    nachweis: optionalMarkdown,
-    objekte: z.array(reference("objects")).optional(),
-  }),
 });
 
 const objects = defineCollection({
@@ -86,6 +97,7 @@ const objects = defineCollection({
   schema: z
     .object({
       slug: z.string().optional(),
+      position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
       titel: z.string().optional(),
       untertitel: z.string().optional(),
       urheber: z.string().optional(),

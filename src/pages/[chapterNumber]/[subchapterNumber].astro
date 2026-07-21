@@ -1,12 +1,22 @@
 ---
 import Layout from '../../layouts/Layout.astro';
+import { getCollection } from 'astro:content';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
-import { chapterHref, getSubchapterRoutes } from '../../lib/content';
+import PageNavigation from '../../components/navigation/PageNavigation.astro';
+import SectionGalleries from '../../components/chapter/SectionGalleries.astro';
+import SubchapterHero from '../../components/chapter/SubchapterHero.astro';
+import { chapterHref, getReadingOrder, getSubchapterRoutes, subchapterHref } from '../../lib/content';
 
 export const getStaticPaths = getSubchapterRoutes;
 
 const { chapter, subchapter } = Astro.props;
 const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.navTitel}`;
+const galleryIds = new Set((await getCollection('galleries')).map((gallery) => gallery.id));
+const hasCompleteGallerySet = subchapter.data.galerien.every((reference) => galleryIds.has(reference.id));
+const readingOrder = await getReadingOrder();
+const readingIndex = readingOrder.findIndex((section) => section.kind === 'subchapter' && section.id === subchapter.id);
+const previousSection = readingIndex > 0 ? readingOrder[readingIndex - 1] : undefined;
+const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefined;
 ---
 
 <Layout>
@@ -16,5 +26,11 @@ const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.nav
 			{ label: chapterLabel, href: chapterHref(chapter.data.nummer) },
 			{ label: subchapter.data.navTitel },
 		]}
+	/>
+	<SubchapterHero chapter={chapter} subchapter={subchapter} />
+	{hasCompleteGallerySet && <SectionGalleries section={subchapter} />}
+	<PageNavigation
+		previous={previousSection}
+		next={nextSection}
 	/>
 </Layout>

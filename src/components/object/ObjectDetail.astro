@@ -27,7 +27,9 @@ const details = [
 <article class="object-detail">
   <header class="object-detail__header">
     <p class="object-detail__eyebrow">Objekt</p>
-    <h1 set:html={renderInlineMarkdown(object.data.titel)}></h1>
+    <h1>
+      <span data-object-position>{object.data.position ? `${object.data.position}: ` : ""}</span><span set:html={renderInlineMarkdown(object.data.titel)}></span>
+    </h1>
     {object.data.untertitel && <p class="object-detail__subtitle" set:html={renderInlineMarkdown(object.data.untertitel)}></p>}
   </header>
 
@@ -50,6 +52,16 @@ const details = [
     {hasBody && <div class="object-detail__body"><Content /></div>}
   </div>
 </article>
+
+<script>
+  const position = new URLSearchParams(window.location.search).get("position");
+
+  if (position === "Links" || position === "Rechts" || position === "Vorne") {
+    document.querySelectorAll<HTMLElement>("[data-object-position]").forEach((label) => {
+      label.textContent = `${position}: `;
+    });
+  }
+</script>
 
 <style>
   @reference "../../styles/global.css";

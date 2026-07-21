@@ -1,0 +1,7 @@
+---
+titel: "Maskuliner Revisionismus I: Julius Nisles Lithographie zu *Hans und Verene* (1837)"
+bilder:
+  - "22_05_nisle_hans_und_verene_1837_ssb_augsburg"
+---
+
+Ein Brunnen mit Trog und Wassereimer, Verene mit Tragring in der Hand, ihr gegenüber Hans, die Peitsche auf der Schulter, zwischen beiden ein Rind, im Hintergrund ein großer Baum – Nisles Lithographie ist [Sophie Reinhards Radierung](/2/2.2/#4) verpflichtet. Vieles aber ist anders, (spiegel-)verkehrt. Die Szene ist nicht mehr proaktiver heilsbringender Weiblichkeit unterstellt: Verene *steht* nicht mehr mit einer mächtigen Heiligen in Verbindung, mindestens auf Augenhöhe mit ihrem Hans; sie *sitzt* nun und darf zu ihm (der merklich wohlhabender daherkommt) aufschauen. Diese Diagonale betonen auch der Rücken des jetzt geschlechtsneutralen Hornviehs sowie die Peitsche – und beide verlängern diese Linie hin zur nicht mehr weiblichen, sondern männlichen Erlösungstat, hin zum gekreuzigten Christus, der hinter Hans aufscheint. Das Jesuskind hat sich von der Muttergottes emanzipiert, es ist bei Nisle erwachsen und zum *Herr*gott geworden. Hierzu stimmt, dass Verenes Weiblichkeit nicht mehr künstlerisch-numinos, sondern natürlich-geerdet, vegetabil konzipiert ist: Statt vor einem Heiligenbild sehen wir sie vor einem Baum, der gleichsam wie sie, wiederum diagonal, seinen zartesten Zweig suchend nach dem geliebten Mann und über ihn zum Heiland ausstreckt. So lässt sich Hebel offenbar auch lesen …

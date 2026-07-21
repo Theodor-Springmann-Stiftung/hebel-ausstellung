@@ -1,0 +1,10 @@
+---
+slug: "wolke-sassisge-singedigte-1804"
+titel: "Christian Heinrich Wolke: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels un wunderbare Eventüre sunst nömt Romansen un Balladen*"
+urheber: |-
+  Johann Peter Hebel (Mitautor)
+  Christian Heinrich Wolke (Übersetzer)
+datierung: "1804"
+institution: "Hebel-Archiv Heidelberg"
+inventarnummer: "112690"
+---

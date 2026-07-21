@@ -45,7 +45,41 @@ export const getSubchapterRoutes = async () => {
 		}
 	}
 
-	return routes;
+  return routes;
+};
+
+export const getReadingOrder = async () => {
+	const chapters = await getOrderedChapters();
+	const sections: Array<{
+		kind: 'chapter' | 'subchapter';
+		id: string;
+		label: string;
+		href: string;
+	}> = [];
+
+	for (const chapter of chapters) {
+		sections.push({
+			kind: 'chapter',
+			id: chapter.id,
+			label: chapter.data.navTitel,
+			href: chapterHref(chapter.data.nummer),
+		});
+
+		for (const subchapterReference of chapter.data.unterkapitel ?? []) {
+			const subchapter = await getEntry(subchapterReference);
+
+			if (!subchapter) continue;
+
+			sections.push({
+				kind: 'subchapter',
+				id: subchapter.id,
+				label: subchapter.data.navTitel,
+				href: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
+			});
+		}
+	}
+
+	return sections;
 };
 
 export const getObjectRoutes = async () => {
@@ -112,6 +146,12 @@ export const getObjectRoutes = async () => {
 			const subchapter = await getEntry(subchapterReference);
 
 			if (!subchapter) continue;
+
+			recordImageContext(subchapter.data.hero, {
+				chapter,
+				subchapter,
+				returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
+			});
 
 			for (const [galleryIndex, galleryReference] of subchapter.data.galerien.entries()) {
 				recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);

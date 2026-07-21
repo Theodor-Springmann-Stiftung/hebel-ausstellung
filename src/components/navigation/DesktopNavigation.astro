@@ -7,14 +7,14 @@ type ChapterLink = {
   href: string;
 };
 
-const { chapters, currentPath } = Astro.props as { chapters: ChapterLink[]; currentPath: string };
+const { chapters, currentPath, isHome = false } = Astro.props as { chapters: ChapterLink[]; currentPath: string; isHome?: boolean };
 // INFO: we normalize the path to be able to correctly determine where we are
 const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
 const isUeberActive = normalizedPath === '/ueber/';
 const isKontaktActive = normalizedPath === '/kontakt/';
 ---
 
-<nav class="desktop-navigation" aria-label="Hauptnavigation">
+<nav class:list={{ "desktop-navigation": true, "desktop-navigation--home": isHome }} aria-label="Hauptnavigation">
   <div class="desktop-navigation__inner">
     <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
       <span class="desktop-navigation__brand-kicker">{site.tagline}</span>
@@ -59,6 +59,17 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
+  }
+
+  .desktop-navigation--home {
+    border-bottom-color: transparent;
+    background-color: transparent;
+    color: var(--color-paper);
+  }
+
+  .desktop-navigation--home .desktop-navigation__brand,
+  .desktop-navigation--home .nav-link {
+    color: var(--color-paper);
   }
 
   .desktop-navigation__inner {

@@ -42,15 +42,18 @@ const galleries = await Promise.all(
           alt: imageEntry.data.altText,
           beschriftung: imageEntry.data.beschriftung,
           nachweis: imageEntry.data.nachweis,
-          objekte: objectEntries.filter(Boolean).map((objectEntry) => ({
-            slug: objectEntry.data.slug,
-            titel: objectEntry.data.titel ?? "",
-            urheber: objectEntry.data.urheber,
-            datierung: objectEntry.data.datierung,
-            materialTechnik: objectEntry.data.materialTechnik,
-            institution: objectEntry.data.institution,
-            inventarnummer: objectEntry.data.inventarnummer,
-          })),
+          objekte: objectEntries
+            .map((objectEntry, objectIndex) => objectEntry && ({
+              slug: objectEntry.data.slug,
+              position: imageEntry.data.objektPositionen?.[objectIndex] ?? objectEntry.data.position,
+              titel: objectEntry.data.titel ?? "",
+              urheber: objectEntry.data.urheber,
+              datierung: objectEntry.data.datierung,
+              materialTechnik: objectEntry.data.materialTechnik,
+              institution: objectEntry.data.institution,
+              inventarnummer: objectEntry.data.inventarnummer,
+            }))
+            .filter(Boolean),
         };
       }),
     );
@@ -106,13 +109,29 @@ const galleries = await Promise.all(
     line-height: var(--text-body--line-height);
   }
 
+  .section-gallery__body :global(> p) {
+    hyphens: auto;
+  }
+
   .section-intro__text :global(> p) {
     font-size: var(--text-body);
   }
 
   .section-gallery__body :global(> p) {
-    padding: var(--spacing-48) var(--spacing-20);
+    padding-inline: var(--spacing-20);
     order: 1;
+  }
+
+  .section-gallery__body :global(> p:first-of-type) {
+    padding-top: var(--spacing-48);
+  }
+
+  .section-gallery__body :global(> p + p) {
+    margin-top: var(--spacing-16);
+  }
+
+  .section-gallery__body :global(> p:last-of-type) {
+    padding-bottom: var(--spacing-48);
   }
 
   .section-gallery__body :global(> blockquote) {
@@ -188,8 +207,12 @@ const galleries = await Promise.all(
       padding-inline: var(--spacing-32);
     }
 
-    .section-gallery__body :global(> p) {
-      padding-block: var(--spacing-64);
+    .section-gallery__body :global(> p:first-of-type) {
+      padding-top: var(--spacing-64);
+    }
+
+    .section-gallery__body :global(> p:last-of-type) {
+      padding-bottom: var(--spacing-64);
     }
 
     .section-gallery__body :global(> blockquote) {

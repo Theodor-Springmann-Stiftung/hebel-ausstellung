@@ -1,0 +1,7 @@
+---
+titel: "Maskuliner Revisionismus II: Julius Nisles Lithographie zum *Hexlein* (1845)"
+bilder:
+  - "22_07_nisle_hexlein_1845_tss"
+---
+
+Sie trägt Schie-Hut und Henkelkorb, unter seiner Schneidbank liegt ein schlafender Hund mit abgenagtem Knochen, all das im Rahmen einer Fachwerkkonstruktion – [wieder](/2/2.2/#6) adaptiert Julius Nisle ein Blatt von Sophie Reinhard, und erneut bremst er den protofeministischen Elan seiner Vorlage aus. Deren Hochformat betont, zusammen mit dem starken Vertikalzug der Darstellung, das Tempo der Vorübereilenden. Deren Laufweg wird bei Nisle im Querformat zu einem tendenziell horizontalen, mit nur mäßigem Gefälle: Das verlangsamt die Schöne, die ›eigentlich‹ »uf, und furt enanderno« sein sollte, und zuletzt wird sie schier stillgestellt. Ihre Route reicht nicht mehr bis zum Bildrand (und imaginär darüber hinaus), sondern endet optisch an dem Balken, der rechts den Eingang zur Scheune markiert. An ihm kommt die verführerische Unbekannte nicht vorbei: Zum einen, da sie sich, vor einem festverwurzelten Baum im Hintergrund positioniert, statisch ausnimmt. Zum andern, da infolge ihres Tanzmeisterschritts ihr rechter Fuß in die Scheune hineinzeigt. Und schließlich, da das Tuch über ihrem Korb tatsächlich (und nicht nur fast, wie ihr Rockzipfel bei Sophie Reinhard), über jenen Balken in seine Sphäre hineinweht. Im geschlossenen architektonischen Rahmen des Scheunentors fixiert, erscheint die Frau, der man(n) nicht hinterherkommt, gebändigt, das Hexlein gebannt.

@@ -1,0 +1,38 @@
+---
+slug: "hebel-brief-hitzig-transkription-2026"
+titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite, Transkription"
+urheber: "Andreas Beck"
+datierung: "2026"
+materialTechnik: "Zeilengetreue Transkription"
+institution: "Hebel-Archiv Heidelberg"
+---
+
+# Transkription
+
+Meine Liebhaberey in den Nebenstunden, zur Schad-  
+loshaltung für den Ungenuß mancher Geschäfts  
+stunde hat sich in ein eigenes Fach geworfen.  
+Ich studire unsere oberländische Sprache grammati-  
+kalisch, ich versifi*c*ire sie *herculeum opus!* in  
+allen Arten von *Met*ris, ich suche in diesen  
+zerfallenden Ruinen der altdeutschen Ursprache  
+noch die Spuren ihres Umrißes und Gefüges  
+auf, und gedenke bald eine kleine Sammlung  
+solcher Gedichte mit einer kleinen Grammatik  
+u. einem auf die Derivation weisenden Regi-  
+ster der Idiotismen in die Welt fliegen  
+zu lassen. Wenn du die Idee im Allgemeinen  
+billigest, u. es leiden magst, so werde ich  
+dir mehrers darüber schreiben, und dann über  
+eins und das andre noch deine Gedanken mir  
+ausbitten. Zur Beurtheilung schike ich dir eins-  
+weilen anliegende Jamben, die hiemit dir  
+geeignet sein sollen, und die einschlagenden  
+Artikel aus dem Idiotikon oder Register,  
+als ein Müsterlein von dem letztern. Der-  
+malen arbeite ich am <u>Dengelegeist</u> in Hexa-  
+metern. Soll ich ihn dem Blaurock de-  
+diciren? Es ist nicht mehr als billig. Vor  
+der Hand bitte ich indessen darüber stille zu  
+seyn. Ich weiß nicht, ob ich meinen Namen  
+dazu hergeben werde. Schreibe mir bald

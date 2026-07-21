@@ -5,10 +5,11 @@ import { getChapterNavigation } from "../../lib/content";
 
 const chapters = await getChapterNavigation();
 const currentPath = Astro.url.pathname;
+const isHome = currentPath === '/';
 ---
 
-<header class="top-navigation">
-  <DesktopNavigation chapters={chapters} currentPath={currentPath} />
+<header class:list={{ "top-navigation": true, "top-navigation--home": isHome }}>
+  <DesktopNavigation chapters={chapters} currentPath={currentPath} isHome={isHome} />
   <MobileNavigation chapters={chapters} currentPath={currentPath} />
 </header>
 
@@ -17,5 +18,11 @@ const currentPath = Astro.url.pathname;
 
   .top-navigation {
     @apply relative z-10 w-full;
+  }
+
+  @media (min-width: 1440px) {
+    .top-navigation--home {
+      @apply absolute left-0 top-0;
+    }
   }
 </style>

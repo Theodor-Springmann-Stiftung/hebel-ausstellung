@@ -1,230 +1,330 @@
 ---
-import type { ImageMetadata } from 'astro';
-import { getCollection, getEntry, render } from 'astro:content';
 import Layout from '../layouts/Layout.astro';
-import Gallery from '../components/gallery/Gallery.astro';
+import portrait from '../assets/objects/Hebel_Portraet_Mueller.jpg';
+import heroPortrait from '../assets/objects/Hebel_Portraet_Homepage.png';
+import seal from '../assets/objects/Hebel_Wachssiegel.png';
+import chapter1 from '../assets/objects/1_00_homepage_oberlaender.png';
+import chapter2 from '../assets/objects/2.0_hero_image_Tschoepli_TSS.webp';
+import chapter3 from '../assets/objects/3_00_homepage_hausfreund.png';
+import chapter4 from '../assets/objects/4_00_homepage_theologe.png';
+import chapter5 from '../assets/objects/5_00_homepage_proteuser.png';
+import chapter6 from '../assets/objects/6.1_01_01_Gustave_mit_Hahn_Weil.webp';
+import chapter7 from '../assets/objects/7_00_01_hero_image_An_Koelle_DLA.webp';
 
-const objectImageModules = import.meta.glob('../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}', {
-	eager: true,
-	import: 'default',
-}) as Record<string, ImageMetadata>;
-
-const getObjectImage = (dateiname: string) => {
-	const image = objectImageModules[`../assets/objects/${dateiname}`];
-
-	if (!image) {
-		throw new Error(`Missing object image asset: ${dateiname}`);
-	}
-
-	return image;
-};
-
-const galleries = await Promise.all(
-	(await getCollection('galleries'))
-		.sort((a, b) => a.id.localeCompare(b.id))
-		.map(async (gallery) => {
-			const { Content } = await render(gallery);
-			const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => getEntry(imageReference)));
-			const bilder = await Promise.all(
-				imageEntries.filter(Boolean).map(async (imageEntry) => {
-					const objectEntries = imageEntry.data.objekte?.length
-						? await Promise.all(imageEntry.data.objekte.map((objectReference) => getEntry(objectReference)))
-						: [];
-
-					return {
-						src: getObjectImage(imageEntry.data.dateiname),
-						alt: imageEntry.data.altText,
-						beschriftung: imageEntry.data.beschriftung,
-						nachweis: imageEntry.data.nachweis,
-						objekte: objectEntries.filter(Boolean).map((objectEntry) => ({
-							slug: objectEntry.data.slug,
-							titel: objectEntry.data.titel,
-							urheber: objectEntry.data.urheber,
-							datierung: objectEntry.data.datierung,
-							materialTechnik: objectEntry.data.materialTechnik,
-							institution: objectEntry.data.institution,
-							inventarnummer: objectEntry.data.inventarnummer,
-						})),
-					};
-				}),
-			);
-
-			return {
-				titel: gallery.data.titel,
-				beschriftung: gallery.data.beschriftung,
-				untertitel: gallery.data.untertitel,
-				farbe: gallery.data.farbe,
-				bilder,
-				Content,
-			};
-		}),
-);
+const chapters = [
+  { number: '01', title: 'Der Oberländer', image: chapter1, href: '/1/', modifier: 'featured' },
+  { number: '02', title: 'Der Dichter', image: chapter2, href: '/2/', modifier: 'poet' },
+  { number: '03', title: 'Der Hausfreund', image: chapter3, modifier: 'friend' },
+  { number: '04', title: 'Der Theologe', image: chapter4, modifier: 'theologian' },
+  { number: '05', title: 'Der Proteuser', image: chapter5, modifier: 'proteuser' },
+  { number: '06', title: 'Der Junggeselle', image: chapter6, modifier: 'bachelor' },
+  { number: '07', title: 'Der Briefschreiber', image: chapter7, modifier: 'letter-writer' },
+];
 ---
 
 <Layout>
-	<main class="gallery-samples" aria-label="Beispielgalerien">
-		{galleries.map(({ Content, ...gallery }) => (
-			<section class="gallery-sample">
-				<Gallery {...gallery} />
-				<div class="gallery-sample__body">
-					<Content />
-				</div>
-			</section>
-		))}
-	</main>
+  <main class="home">
+    <section class="home-hero" aria-labelledby="home-title">
+      <img class="home-hero__image" src={heroPortrait.src} alt="Porträt Johann Peter Hebels nach einem Kupferstich von Christian Friedrich Müller" />
+      <div class="home-hero__shade"></div>
+      <div class="home-hero__content">
+        <div class="home-hero__titles">
+          <p>Johann Peter Hebel</p>
+          <h1 id="home-title">Das Nachleben der Worte</h1>
+        </div>
+        <p class="home-hero__subtitle">Eine virtuelle Ausstellung des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg</p>
+      </div>
+    </section>
+
+    <div class="home-caption">
+      <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
+      <p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe, Inventarnr. VII 1634</p>
+    </div>
+
+    <section class="home-introduction" aria-labelledby="introduction-title">
+      <h2 id="introduction-title">Einführung in die Ausstellung</h2>
+      <div class="home-introduction__layout">
+        <figure class="home-introduction__seal">
+          <img src={seal.src} alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
+          <figcaption>Hebels Wachssiegel mit dem <a href="#chapter-05">Proteus-Symbol</a></figcaption>
+        </figure>
+        <div class="home-introduction__copy">
+          <p><strong>Am 22. September 2026</strong> jährt sich der Todestag Johann Peter Hebels zum zweihundertsten Mal. Die Mitarbeiter des Hebel-Archivs in Heidelberg haben dieses Datum zum Anlass genommen, die verschiedenen Facetten seines Schaffens in einer virtuellen Ausstellung näher zu beleuchten.</p>
+          <p>Nahezu vergessen ist das übrige Werk: Die »Allemannischen Gedichte«, mit denen Hebel dazu beitrug, die deutsche Dialektdichtung salonfähig zu machen; seine »Biblischen Geschichten«, die lange Zeit Schullektüre waren; und auch seine Briefe, die einen ganz eigenen Reiz besitzen.</p>
+          <p>Anhand von etwa 120 ausgewählten Manuskripten, Originaldrucken, Bildern und Objekten ruft die Ausstellung Hebels Vermächtnis in Erinnerung. In zahlreichen neuen Lektüren der Texte sichtet und sichert sie das Nachleben seiner Worte.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="home-quote" aria-label="Zitat von Johann Peter Hebel">
+      <blockquote>
+        <div class="home-quote__text">
+          <span aria-hidden="true">»</span>
+          <p>Es ist wohl an der Zeit, daß wir unser Daseyn auf dem Planeten euch wieder einmal beurkunden.</p>
+        </div>
+        <footer class="home-quote__source">
+          <img src={portrait.src} alt="" loading="lazy" decoding="async" />
+          <div>
+            <cite>— JPH</cite>
+            <p>Brief an Sophie Haufe vom 23. August 1826</p>
+          </div>
+        </footer>
+      </blockquote>
+    </section>
+
+    <section class="home-chapters" aria-labelledby="chapters-title">
+      <header class="home-chapters__heading">
+        <p>Die Ausstellung</p>
+        <h2 id="chapters-title">Kapitelübersicht</h2>
+      </header>
+      <ol class="home-chapters__list">
+        {chapters.map((chapter) => (
+          <li class:list={["chapter-card", `chapter-card--${chapter.modifier}`]} id={`chapter-${chapter.number}`}>
+            {chapter.href ? (
+              <a href={chapter.href}>
+                <span class="chapter-card__image">
+                  <img src={chapter.image.src} alt="" loading={chapter.number === '01' ? 'eager' : 'lazy'} decoding="async" />
+                </span>
+                <span class="chapter-card__meta">
+                  <span class="chapter-card__number">Kapitel {chapter.number}</span>
+                  <span class="chapter-card__title">{chapter.title}</span>
+                  <span class="chapter-card__link">Weiterlesen →</span>
+                </span>
+              </a>
+            ) : (
+              <div class="chapter-card__placeholder" aria-label={`${chapter.title}, in Vorbereitung`}>
+                <span class="chapter-card__image">
+                  <img src={chapter.image.src} alt="" loading="lazy" decoding="async" />
+                </span>
+                <span class="chapter-card__meta">
+                  <span class="chapter-card__number">Kapitel {chapter.number}</span>
+                  <span class="chapter-card__title">{chapter.title}</span>
+                  <span class="chapter-card__link chapter-card__link--pending">In Vorbereitung</span>
+                </span>
+              </div>
+            )}
+          </li>
+        ))}
+      </ol>
+    </section>
+  </main>
 </Layout>
 
 <style>
-	@reference "../styles/global.css";
+  @reference "../styles/global.css";
 
-	.gallery-samples {
-		@apply bg-paper;
-	}
+  .home {
+    max-width: 1440px;
+    margin-inline: auto;
+    background: var(--color-paper);
+  }
 
-	.gallery-sample__body {
-    @apply bg-paper;
-	}
+  .home-hero {
+    position: relative;
+    left: 50%;
+    display: flex;
+    width: 100vw;
+    height: 642px;
+    margin-left: -50vw;
+    overflow: hidden;
+    align-items: flex-end;
+    justify-content: center;
+    padding: var(--spacing-40) var(--spacing-20);
+    color: var(--color-paper);
+  }
 
-	.gallery-sample__body :global(> p) {
-		max-width: var(--container-text);
-		margin-inline: auto;
-		padding: var(--spacing-64) var(--spacing-20);
-    @apply font-sans text-body text-text-primary;
+  .home-hero__image {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: 53% center;
+  }
 
-		line-height: var(--text-body--line-height);
-	}
+  .home-hero__shade {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgb(38 37 30 / 0%) 54%, rgb(38 37 30 / 90%) 86%, var(--color-ink) 100%);
+  }
 
-	.gallery-sample__body :global(> blockquote) {
-		max-width: none;
-		margin: var(--spacing-40) var(--spacing-24);
-		border-left: 0.5px solid var(--color-ink);
-    @apply bg-paper;
+  .home-hero__content,
+  .home-hero__titles {
+    position: relative;
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
 
-		padding: 0 0 0 var(--spacing-24);
-	}
+  .home-hero__content { gap: var(--spacing-24); }
+  .home-hero__titles { gap: var(--spacing-8); font-family: var(--font-display); }
+  .home-hero__titles p { font-size: 1.75rem; line-height: 1.25; }
+  .home-hero__titles h1 { color: inherit; font-size: 2.5rem; line-height: 1.25; }
+  .home-hero__subtitle { max-width: 500px; font-size: 0.75rem; line-height: 1.5; }
 
-	.gallery-sample__body :global(> blockquote::before) {
-		@apply block font-display;
+  .home-caption {
+    display: flex;
+    padding: var(--spacing-24) var(--spacing-20);
+    flex-direction: column;
+    gap: var(--spacing-8);
+    font-family: var(--font-mono);
+    line-height: normal;
+  }
 
-		content: '»';
-		font-size: var(--text-display);
-		line-height: 1;
-		margin-bottom: var(--spacing-4);
-	}
+  .home-caption p:first-child { font-size: 0.75rem; }
+  .home-caption p:last-child { color: var(--color-stone); font-size: 0.625rem; letter-spacing: 0.04em; }
 
-	.gallery-sample__body :global(> blockquote > p) {
-		@apply m-0;
-	}
+  .home-introduction {
+    display: flex;
+    padding: var(--spacing-48) var(--spacing-20);
+    flex-direction: column;
+    gap: var(--spacing-48);
+  }
 
-	.gallery-sample__body :global(> blockquote > p) {
-		@apply font-display text-h4 font-normal italic;
+  .home-introduction h2,
+  .home-chapters h2 {
+    font-size: 2.5rem;
+    line-height: 1.25;
+  }
 
-		line-height: normal;
-	}
+  .home-introduction__layout,
+  .home-introduction__copy {
+    display: flex;
+    flex-direction: column;
+  }
 
-	.gallery-sample__body :global(> blockquote > p + p) {
-		margin-top: 0.5em;
-	}
+  .home-introduction__layout { gap: var(--spacing-32); }
+  .home-introduction__copy { gap: var(--spacing-24); font-size: 1.25rem; line-height: 1.35; }
 
-	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-    @apply flex items-center font-display text-lead font-normal not-italic;
+  .home-introduction__seal {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-16);
+  }
 
-		gap: var(--spacing-12);
-		margin-top: var(--spacing-24);
-		line-height: 1.25;
-		letter-spacing: 0.01em;
-	}
+  .home-introduction__seal img { width: min(320px, 100%); aspect-ratio: 1; object-fit: contain; }
+  .home-introduction__seal figcaption { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.04em; text-align: center; }
 
-	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-		@apply block flex-none rounded-full;
+  .home-quote { padding: var(--spacing-40) var(--spacing-24); }
+  .home-quote blockquote { display: flex; margin: 0; border-left: 0.5px solid var(--color-ink); padding-left: var(--spacing-24); flex-direction: column; gap: var(--spacing-24); }
+  .home-quote__text { display: flex; flex-direction: column; gap: var(--spacing-4); }
+  .home-quote__text span { height: 48px; font-family: var(--font-display); font-size: 3rem; line-height: 1; }
+  .home-quote__text p { font-family: var(--font-display); font-size: 1.5rem; font-style: italic; line-height: normal; }
+  .home-quote__source { display: flex; align-items: center; gap: var(--spacing-12); }
+  .home-quote__source img { width: var(--spacing-56); height: var(--spacing-56); border: 0.5px solid var(--color-ink); border-radius: 50%; object-fit: cover; }
+  .home-quote__source div { display: flex; flex-direction: column; gap: 2px; }
+  .home-quote__source cite { font-family: var(--font-display); font-size: 1.25rem; font-style: normal; line-height: 1.25; }
+  .home-quote__source p { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.75rem; line-height: normal; }
 
-		width: var(--spacing-56);
-		height: var(--spacing-56);
-		flex-basis: var(--spacing-56);
-		border: 0.5px solid var(--color-ink);
-		background-image: url('../assets/objects/Hebel_Portraet_Mueller.jpg');
-		background-position: 68% 50%;
-		background-size: auto 100%;
-		content: '';
-	}
+  .home-chapters { display: flex; padding: var(--spacing-48) var(--spacing-20); flex-direction: column; gap: var(--spacing-48); }
+  .home-chapters__heading { display: flex; flex-direction: column; gap: var(--spacing-8); }
+  .home-chapters__heading > p,
+  .chapter-card__number { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.75rem; line-height: normal; }
+  .home-chapters__list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--spacing-48); list-style: none; }
+  .chapter-card a,
+  .chapter-card__placeholder { display: flex; color: var(--color-ink); flex-direction: column; gap: var(--spacing-20); text-decoration: none; }
+  .chapter-card__image { display: flex; width: 100%; height: 280px; overflow: hidden; border: 0.5px solid var(--color-ink); background: var(--color-oat); align-items: center; justify-content: center; }
+  .chapter-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 180ms ease-out; }
+  .chapter-card__meta { display: flex; padding-block: var(--spacing-8); flex-direction: column; gap: var(--spacing-8); }
+  .chapter-card__title { font-family: var(--font-display); font-size: 2rem; line-height: 1.25; }
+  .chapter-card__link { color: var(--color-link); font-size: 1rem; line-height: 1.5; }
+  .chapter-card__link--pending { color: var(--color-stone); }
+  .chapter-card a:hover .chapter-card__image img { transform: scale(1.015); }
+  .chapter-card a:hover .chapter-card__link { text-decoration: underline; }
+  .chapter-card--featured .chapter-card__image img { width: 153%; max-width: none; object-position: left center; }
+  .chapter-card--poet .chapter-card__image { background: #faf8e4; }
+  .chapter-card--poet .chapter-card__image img { width: 69%; height: 88%; object-fit: contain; }
+  .chapter-card--friend .chapter-card__image { background: #d6e1f3; }
+  .chapter-card--friend .chapter-card__image img { width: 57%; height: 86%; object-fit: contain; }
+  .chapter-card--theologian .chapter-card__image img { object-position: center; }
+  .chapter-card--proteuser .chapter-card__image img { width: 112%; max-width: none; object-position: center; }
+  .chapter-card--bachelor .chapter-card__image img { object-position: center 28%; }
+  .chapter-card--letter-writer .chapter-card__image img { mix-blend-mode: multiply; }
 
-	.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-		margin-left: calc(var(--spacing-56) + var(--spacing-12));
-		margin-top: 2px;
-    @apply font-mono text-caption font-normal not-italic text-text-secondary;
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-card__image img { transition: none; }
+  }
 
-		line-height: normal;
-	}
+  @media (min-width: 768px) {
+    .home-hero { height: 640px; padding: var(--spacing-64) var(--spacing-32); }
+    .home-hero__image { object-position: center; }
+    .home-hero__titles p { font-size: 2rem; }
+    .home-hero__titles h1 { font-size: 3.75rem; line-height: 1.1; }
+    .home-hero__subtitle { font-size: 0.875rem; }
+    .home-caption { padding-inline: var(--spacing-32); }
+    .home-caption p:first-child { font-size: 1rem; }
+    .home-introduction { padding: var(--spacing-64) var(--spacing-32); }
+    .home-introduction h2,
+    .home-chapters h2 { font-size: 3.5rem; }
+    .home-introduction__layout { gap: var(--spacing-40); }
+    .home-introduction__layout { display: grid; grid-template-columns: 220px minmax(0, 1fr); }
+    .home-introduction__copy { display: contents; font-size: 1.5rem; }
+    .home-introduction__copy p:first-child { grid-column: 2; grid-row: 1; }
+    .home-introduction__copy p:nth-child(2),
+    .home-introduction__copy p:nth-child(3) { grid-column: 1 / -1; }
+    .home-introduction__seal img { width: 220px; }
+    .home-quote { padding: var(--spacing-80); }
+    .home-quote blockquote { padding-left: var(--spacing-40); gap: 38px; }
+    .home-quote__text span { height: 60px; font-size: 3.75rem; }
+    .home-quote__text p { font-size: 2.25rem; letter-spacing: 0.015em; }
+    .home-quote__source { gap: var(--spacing-16); }
+    .home-quote__source img { width: var(--spacing-48); height: var(--spacing-48); }
+    .home-quote__source cite { font-size: 1.125rem; }
+    .home-quote__source p { font-size: 1rem; }
+    .home-chapters { padding: var(--spacing-64) var(--spacing-32); gap: var(--spacing-64); }
+    .home-chapters__heading > p,
+    .chapter-card__number { font-size: 1rem; }
+    .home-chapters__list { gap: var(--spacing-64); }
+    .chapter-card__image { height: 400px; }
+    .chapter-card__title { font-size: 2rem; }
+    .chapter-card__link { font-size: 1.125rem; }
+    .chapter-card--featured .chapter-card__image img { width: 108%; }
+    .chapter-card--poet .chapter-card__image img { width: 48%; height: 87%; }
+    .chapter-card--friend .chapter-card__image img { width: 42%; height: 87%; }
+  }
 
-	@media (min-width: 768px) {
-		.gallery-sample__body :global(> p) {
-			padding-inline: var(--spacing-32);
-		}
-
-		.gallery-sample__body :global(> blockquote) {
-			max-width: min(var(--container-content), calc(100vw - 72px - 72px - var(--spacing-20) - var(--spacing-20)));
-			margin: var(--spacing-64) auto;
-			padding-left: var(--spacing-48);
-		}
-
-		.gallery-sample__body :global(> blockquote::before) {
-			font-size: 4rem;
-			margin-bottom: var(--spacing-8);
-		}
-
-		.gallery-sample__body :global(> blockquote > p) {
-			font-size: 2.25rem;
-			letter-spacing: 0.015em;
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-			gap: var(--spacing-16);
-			margin-top: var(--spacing-32);
-			font-size: var(--text-h5);
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-			width: var(--spacing-40);
-			height: var(--spacing-40);
-			flex-basis: var(--spacing-40);
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-			margin-left: calc(var(--spacing-40) + var(--spacing-16));
-			font-size: 1rem;
-		}
-	}
-
-	@media (min-width: 1440px) {
-		.gallery-sample__body :global(> p) {
-			padding-inline: 0;
-			font-size: var(--text-body);
-		}
-
-		.gallery-sample__body :global(> blockquote) {
-			max-width: min(var(--container-content), calc(100vw - 168.5px - 168.5px - var(--spacing-20) - var(--spacing-20)));
-			margin: var(--spacing-80) auto;
-			padding-left: 71px;
-		}
-
-		.gallery-sample__body :global(> blockquote::before) {
-			font-size: var(--text-display);
-			line-height: var(--text-display--line-height);
-			margin-bottom: 0;
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-			margin-top: 38px;
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-			width: var(--spacing-48);
-			height: var(--spacing-48);
-			flex-basis: var(--spacing-48);
-		}
-
-		.gallery-sample__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-			margin-left: calc(var(--spacing-48) + var(--spacing-16));
-		}
-	}
+  @media (min-width: 1440px) {
+    .home-hero { height: 800px; padding: var(--spacing-64) var(--spacing-80); }
+    .home-hero__shade {
+      background:
+        linear-gradient(180deg, rgb(0 0 0 / 80%) 0, rgb(0 0 0 / 52%) 110px, rgb(0 0 0 / 20%) 230px, transparent 360px),
+        linear-gradient(180deg, transparent 45%, rgb(38 37 30 / 90%) 85%, var(--color-ink) 100%);
+    }
+    .home-hero__titles h1 { font-size: 5.25rem; }
+    .home-caption { padding: var(--spacing-20) var(--spacing-80); }
+    .home-introduction { padding: var(--spacing-64) var(--spacing-80); gap: var(--spacing-44); }
+    .home-introduction__layout { grid-template-columns: 360px minmax(0, 1fr); gap: var(--spacing-64); }
+    .home-introduction__copy { display: flex; gap: var(--spacing-32); font-size: 1.5rem; }
+    .home-introduction__copy p { grid-column: auto; grid-row: auto; }
+    .home-introduction__seal img { width: 280px; }
+    .home-quote blockquote { width: 1066px; margin-inline: auto; padding-left: 71px; }
+    .home-quote__text span { height: 84px; font-size: 5.25rem; }
+    .home-chapters { padding: var(--spacing-120) var(--spacing-80) var(--spacing-64); gap: var(--spacing-48); }
+    .home-chapters__list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--spacing-80) var(--spacing-20); }
+    .chapter-card--featured { grid-column: 1 / -1; }
+    .chapter-card--poet { grid-column: 1 / span 4; }
+    .chapter-card--friend { grid-column: 5 / span 2; }
+    .chapter-card--theologian { grid-column: 1 / -1; }
+    .chapter-card--proteuser { grid-column: 1 / span 2; }
+    .chapter-card--bachelor { grid-column: 3 / span 2; }
+    .chapter-card--letter-writer { grid-column: 5 / span 2; }
+    .chapter-card__image { height: 280px; }
+    .chapter-card--featured a { position: relative; }
+    .chapter-card--featured .chapter-card__image { height: 680px; }
+    .chapter-card--featured .chapter-card__image img { width: 100%; object-fit: cover; }
+    .chapter-card--featured .chapter-card__meta { position: absolute; right: 0; bottom: 0; width: 524px; padding: var(--spacing-48); border: 0.5px solid var(--color-ink); background: rgb(242 241 237 / 90%); gap: var(--spacing-8); }
+    .chapter-card--featured .chapter-card__link { margin-top: var(--spacing-8); font-size: 1.5rem; }
+    .chapter-card--poet .chapter-card__image,
+    .chapter-card--friend .chapter-card__image { height: 400px; }
+    .chapter-card--theologian > .chapter-card__placeholder { display: grid; grid-template-columns: 1fr 1fr; align-items: center; }
+    .chapter-card--theologian .chapter-card__image { height: 320px; }
+    .chapter-card__meta { padding-block: 0; }
+    .chapter-card__title { font-size: 1.75rem; }
+    .chapter-card__link { font-size: 0.875rem; }
+  }
 </style>

@@ -1,15 +1,20 @@
 ---
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
+import PageNavigation from '../../components/navigation/PageNavigation.astro';
 import ChapterHero from '../../components/chapter/ChapterHero.astro';
 import ChapterSubchapters from '../../components/chapter/ChapterSubchapters.astro';
 import SectionGalleries from '../../components/chapter/SectionGalleries.astro';
-import { getChapterRoutes } from '../../lib/content';
+import { getChapterRoutes, getReadingOrder } from '../../lib/content';
 
 export const getStaticPaths = getChapterRoutes;
 
 const { chapter } = Astro.props;
 const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.navTitel}`;
+const readingOrder = await getReadingOrder();
+const readingIndex = readingOrder.findIndex((section) => section.kind === 'chapter' && section.id === chapter.id);
+const previousSection = readingIndex > 0 ? readingOrder[readingIndex - 1] : undefined;
+const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefined;
 ---
 
 <Layout>
@@ -21,4 +26,8 @@ const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.nav
 	/>
 	<ChapterHero chapter={chapter} />
 	{chapter.data.galerien ? <SectionGalleries section={chapter} /> : <ChapterSubchapters chapter={chapter} />}
+	<PageNavigation
+		previous={previousSection}
+		next={nextSection}
+	/>
 </Layout>
