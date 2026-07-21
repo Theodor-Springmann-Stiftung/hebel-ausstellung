@@ -4,7 +4,7 @@ bilder:
   - "1_09_01_marche_aux_poissons_strasbourg"
 ---
 
-> »O, der seligen Tage, wo ich bey euch und unsern Freunden fühlte, wie sich die übrige Welt von mir abscheelte, wo der ganze Aequator mir vom Calenderthurn bis zum Judenthor gieng, wo meine Wendekreise N. 115. auf dem Fischmarkt u. Nro 5 hinter den Mauren, die Rupprechtsau mein Amerika ienseits des Wassers war, von Mittelhausbergen nichts zu sagen, wo wir auch nie waren, aber in Gravenstaden und Itenheim. Gleichsam als in 2. fremden Planeten. Aber im Sommer kann ich doch warhaftig nirgends hingehn, als ins Oberland über Straßburg, oder nach Straßburg.«
+> O, der seligen Tage, wo ich bey euch und unsern Freunden fühlte, wie sich die übrige Welt von mir abscheelte, wo der ganze Aequator mir vom Calenderthurn bis zum Judenthor gieng, wo meine Wendekreise N. 115. auf dem Fischmarkt u. Nro 5 hinter den Mauren, die Rupprechtsau mein Amerika ienseits des Wassers war, von Mittelhausbergen nichts zu sagen, wo wir auch nie waren, aber in Gravenstaden und Itenheim. Gleichsam als in 2. fremden Planeten. Aber im Sommer kann ich doch warhaftig nirgends hingehn, als ins Oberland über Straßburg, oder nach Straßburg.
 >
 > — JPH
 >

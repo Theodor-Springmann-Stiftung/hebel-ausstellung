@@ -240,8 +240,18 @@ const nextSlide = slides[1];
 
     .object-carousel__frame {
       min-width: 0;
+      height: 1000px;
       flex: 1 1 auto;
       padding-inline: var(--spacing-32);
+    }
+
+    .object-carousel__slide {
+      height: 100%;
+      gap: var(--spacing-32);
+    }
+
+    :global(.object-carousel__slide-image) {
+      height: 100%;
     }
 
     .object-carousel__peek {
@@ -249,13 +259,10 @@ const nextSlide = slides[1];
       align-self: stretch;
     }
 
-    .object-carousel__slide {
-      gap: var(--spacing-32);
-    }
-
     .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
     .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
       width: calc((100% - var(--spacing-32)) / 2);
+      height: 100%;
     }
 
     .object-carousel__peek {

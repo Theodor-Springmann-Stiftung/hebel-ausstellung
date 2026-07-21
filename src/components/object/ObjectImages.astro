@@ -114,17 +114,22 @@ for (const item of imageItems) {
     }
 
     .object-images__frame {
+      height: 1000px;
       gap: var(--spacing-32);
       padding-inline: var(--spacing-32);
     }
 
+    .object-images__frame:not(.object-images__frame--paired) .object-images__image {
+      height: 100%;
+    }
+
     .object-images__frame--paired .object-images__image {
       width: calc((100% - var(--spacing-12)) / 2);
+      height: 100%;
     }
 
     .object-images__frame--paired {
-      height: auto;
-      min-height: 563px;
+      height: 1000px;
       gap: var(--spacing-12);
     }
   }

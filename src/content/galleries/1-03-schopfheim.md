@@ -4,7 +4,7 @@ bilder:
   - "1_03_01_lateinschule_schopfheim_schopfheim"
 ---
 
-> »[...] daß ich manches Pfündlein Fleisch in der Metzg holte, manches Stücklein Kutteln von dem alten Heiri aus der Faust zu essen bekam, daß der Hans Joppeli selig, der in den 60r Jahren an den Menschenpocken starb, mein Liebling war, und der Grasgarten am Teich unter der Metzg manche Kettenblumen oder Leontodon Taraxacum Linnei für mich trug, mehrerer anderer magnetischer Anziehungspunkte nicht zu gedenken, z. B. daß wir Gränznachbarn waren, indem ich das Recht hatte, bis an des Metzger Heinrichs Territorium die Deischen zu schoren, ferner, daß der Husar über der Hausthüre mir den ersten heroischen Muth zum Reiten einflößte, und des Schmiedhansen Hammer in der Nähe mich manchen Abend in den Schlaf hämmerte und manchen Morgen in die lateinische Schule nach Schopfen weckte.«
+> [...] daß ich manches Pfündlein Fleisch in der Metzg holte, manches Stücklein Kutteln von dem alten Heiri aus der Faust zu essen bekam, daß der Hans Joppeli selig, der in den 60r Jahren an den Menschenpocken starb, mein Liebling war, und der Grasgarten am Teich unter der Metzg manche Kettenblumen oder Leontodon Taraxacum Linnei für mich trug, mehrerer anderer magnetischer Anziehungspunkte nicht zu gedenken, z. B. daß wir Gränznachbarn waren, indem ich das Recht hatte, bis an des Metzger Heinrichs Territorium die Deischen zu schoren, ferner, daß der Husar über der Hausthüre mir den ersten heroischen Muth zum Reiten einflößte, und des Schmiedhansen Hammer in der Nähe mich manchen Abend in den Schlaf hämmerte und manchen Morgen in die lateinische Schule nach Schopfen weckte.
 >
 > — JPH
 >

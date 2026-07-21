@@ -258,15 +258,15 @@ const galleries = await Promise.all(
       margin-block: var(--spacing-80);
     }
 
-    .section-gallery + .section-gallery::before {
-      max-width: 1060px;
-      margin-inline: auto;
-    }
-
     .section-gallery__body :global(> blockquote::before) {
       font-size: var(--text-display);
       line-height: var(--text-display--line-height);
       margin-bottom: 0;
+    }
+
+    .section-gallery + .section-gallery::before {
+      max-width: 1060px;
+      margin-inline: auto;
     }
 
     .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {

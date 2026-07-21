@@ -4,7 +4,7 @@ bilder:
   - "1_06_01_loerrach_dreilaendermuseum"
 ---
 
-> »Bald sind es sieben Jahre, daß ich als Präceptorats Vikarius an dem Pädagogium zu Lörrach in Euer Hochfürstlichen Durchlaucht Diensten stehe, und dem Unterricht der Jugend meine Zeit und Kräften widme. Ich wage daher die unterthänigste Bitte, im Fall daß mit dem Prorektorat an diesem Pädagogium eine Veränderung vorgehen sollte, daß Euer Hochfürstlichen Durchlaucht die Stelle eines Prorektors mir in Gnaden zuzuwenden geruhen mögen, da ich zu höchsten Hulden mich unterthänigst empfehle, und in tiefster Ehrfurcht verharre Euer Hochfürstlichen Durchlaucht unterthänigster J. P. Hebel.«
+> Bald sind es sieben Jahre, daß ich als Präceptorats Vikarius an dem Pädagogium zu Lörrach in Euer Hochfürstlichen Durchlaucht Diensten stehe, und dem Unterricht der Jugend meine Zeit und Kräften widme. Ich wage daher die unterthänigste Bitte, im Fall daß mit dem Prorektorat an diesem Pädagogium eine Veränderung vorgehen sollte, daß Euer Hochfürstlichen Durchlaucht die Stelle eines Prorektors mir in Gnaden zuzuwenden geruhen mögen, da ich zu höchsten Hulden mich unterthänigst empfehle, und in tiefster Ehrfurcht verharre Euer Hochfürstlichen Durchlaucht unterthänigster J. P. Hebel.
 >
 > — JPH
 >

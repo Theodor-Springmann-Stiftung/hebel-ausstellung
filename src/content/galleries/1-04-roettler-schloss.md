@@ -4,7 +4,7 @@ bilder:
   - "1_04_01_roettler_schloss_gla"
 ---
 
-> »Fast allmol, Ätti, wenn mer ’s Röttler Schloß
+> Fast allmol, Ätti, wenn mer ’s Röttler Schloß
 > so vor den Auge stoht, se denki dra,
 > öbs üsem Hus echt au e mol so goht.
 > Stohts denn nit dört, so schuderig, wie der Tod
@@ -13,7 +13,7 @@ bilder:
 > es sizt io wie ne Chilchli uffem Berg,
 > und d’ Fenster glitzeren, es isch e Staat.
 > Schwetz Ätti, gohts em echterst au no so?
-> I mein emol, es chönn schier gar nit sy.«
+> I mein emol, es chönn schier gar nit sy.
 >
 > — JPH
 >

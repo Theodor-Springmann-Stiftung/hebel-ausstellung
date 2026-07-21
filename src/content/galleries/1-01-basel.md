@@ -4,7 +4,7 @@ bilder:
   - "1_01_01_hebel_geburtshaus_privat"
 ---
 
-> »Ich bin bekanntlich in Basel daheim, vor dem Sandehansemer Schwiebogen das zweite Haus. Selbiges Häuslein kauf ich alsdann um ein par Gulden – aber ich bin kein Burger! – also miethe ich es, und gehe alle Morgen, wie es alten Leuten geziemt in die Kirche, in die Betstunden u. schreibe fromme Büchlein, Traktätlein, u. Nachmittag nach Weil wie der alte Stickelberger im Schaf.«
+> Ich bin bekanntlich in Basel daheim, vor dem Sandehansemer Schwiebogen das zweite Haus. Selbiges Häuslein kauf ich alsdann um ein par Gulden – aber ich bin kein Burger! – also miethe ich es, und gehe alle Morgen, wie es alten Leuten geziemt in die Kirche, in die Betstunden u. schreibe fromme Büchlein, Traktätlein, u. Nachmittag nach Weil wie der alte Stickelberger im Schaf.
 >
 > — JPH
 >

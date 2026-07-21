@@ -4,7 +4,7 @@ bilder:
   - "1_07_01_karlsruhe_schefold"
 ---
 
-> »Schwer beladen mit 4. Säcken voll Erz u. Steinkohlen, und Kieseln kam ich wieder heim, u. fühle iezt von neuem und erst recht, was für einen Fluch mir der Himmel auflegte, daß er mich nach Karlsruh sendete. Ach es war so lieblich und so heimlich und so ruhig in den verborgenen Thälern und so frey und hehr auf den Anhöhen, wo ich herum kletterte, und alles dem Oberland so ähnlich. Jezt lauf ich wieder in dem Geräusch der Stadt umher allenthalben umgeben von Häusern und Mauern, die doch noch den Vortheil haben, daß sie meinem Auge, die unfreundliche langweilige Sandfläche, das leere todte Wesen der ganzen Gegend verbergen.«
+> Schwer beladen mit 4. Säcken voll Erz u. Steinkohlen, und Kieseln kam ich wieder heim, u. fühle iezt von neuem und erst recht, was für einen Fluch mir der Himmel auflegte, daß er mich nach Karlsruh sendete. Ach es war so lieblich und so heimlich und so ruhig in den verborgenen Thälern und so frey und hehr auf den Anhöhen, wo ich herum kletterte, und alles dem Oberland so ähnlich. Jezt lauf ich wieder in dem Geräusch der Stadt umher allenthalben umgeben von Häusern und Mauern, die doch noch den Vortheil haben, daß sie meinem Auge, die unfreundliche langweilige Sandfläche, das leere todte Wesen der ganzen Gegend verbergen.
 >
 > — JPH
 >
