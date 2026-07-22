@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
-import { getObjectImage } from "../../lib/object-images";
+import { getGalleryImageSource, getObjectImage } from "../../lib/object-images";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
@@ -18,12 +18,13 @@ const galleries = await Promise.all(
     const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => getEntry(imageReference)));
     const bilder = await Promise.all(
       imageEntries.filter(Boolean).map(async (imageEntry) => {
+        const image = getObjectImage(imageEntry.data.dateiname);
         const objectEntries = imageEntry.data.objekte?.length
           ? await Promise.all(imageEntry.data.objekte.map((objectReference) => getEntry(objectReference)))
           : [];
 
         return {
-          src: getObjectImage(imageEntry.data.dateiname),
+          src: await getGalleryImageSource(image),
           alt: imageEntry.data.altText,
           beschriftung: imageEntry.data.beschriftung,
           nachweis: imageEntry.data.nachweis,

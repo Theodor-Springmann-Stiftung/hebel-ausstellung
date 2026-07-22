@@ -1,6 +1,6 @@
 ---
-import type { ImageMetadata } from "astro";
 import { markdownToPlainText, renderInlineMarkdown, serializeForScript } from "../../lib/markdown";
+import type { GalleryImageSource } from "../../lib/object-images";
 
 export type GalleryColor =
   | "lindgrün"
@@ -23,7 +23,7 @@ export type GalleryObject = {
 };
 
 export type GalleryImage = {
-  src: ImageMetadata;
+  src: GalleryImageSource;
   alt?: string;
   beschriftung?: string;
   nachweis?: string;
@@ -93,6 +93,9 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
 const slides = bilder.map((image, index) => ({
   index,
   src: image.src.src,
+  srcset: image.src.srcset,
+  sizes: image.src.sizes,
+  peekSrc: image.src.peekSrc,
   alt: markdownToPlainText(image.alt),
   captions: getCaptionItems(image),
 }));
@@ -117,19 +120,28 @@ const nextSlide = slides[1] ?? firstSlide;
 
     {isMultiImage && (
       <div class="gallery__peek gallery__peek--prev is-empty" aria-hidden="true" data-gallery-peek-prev>
-        <img src={firstSlide.src} alt="" data-gallery-peek-prev-image />
+        <img src={firstSlide.peekSrc} alt="" data-gallery-peek-prev-image />
       </div>
     )}
 
     <figure class="gallery__frame">
       <div class="gallery__mat">
-        <img class="gallery__image" src={firstSlide.src} alt={firstSlide.alt} loading="lazy" decoding="async" data-gallery-image />
+        <img
+          class="gallery__image"
+          src={firstSlide.src}
+          srcset={firstSlide.srcset}
+          sizes={firstSlide.sizes}
+          alt={firstSlide.alt}
+          loading="lazy"
+          decoding="async"
+          data-gallery-image
+        />
       </div>
     </figure>
 
     {isMultiImage && (
       <div class="gallery__peek gallery__peek--next" class:list={{ "is-empty": slides.length < 2 }} aria-hidden="true" data-gallery-peek-next>
-        <img src={nextSlide.src} alt="" data-gallery-peek-next-image />
+        <img src={nextSlide.peekSrc} alt="" data-gallery-peek-next-image />
       </div>
     )}
 
@@ -245,12 +257,14 @@ const nextSlide = slides[1] ?? firstSlide;
       const nextSlide = slides[activeIndex + 1];
 
       if (image) {
+        image.srcset = slide.srcset;
+        image.sizes = slide.sizes;
         image.src = slide.src;
         image.alt = slide.alt;
       }
 
-      if (previousImage && previousSlide) previousImage.src = previousSlide.src;
-      if (nextImage && nextSlide) nextImage.src = nextSlide.src;
+      if (previousImage && previousSlide) previousImage.src = previousSlide.peekSrc;
+      if (nextImage && nextSlide) nextImage.src = nextSlide.peekSrc;
       previousPeek?.classList.toggle("is-empty", !previousSlide);
       nextPeek?.classList.toggle("is-empty", !nextSlide);
       if (previousButton) previousButton.disabled = activeIndex === 0;
