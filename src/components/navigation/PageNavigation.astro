@@ -1,0 +1,85 @@
+---
+type NavigationItem = {
+  label: string;
+  href: string;
+};
+
+const { previous, next } = Astro.props as {
+  previous?: NavigationItem;
+  next?: NavigationItem;
+};
+---
+
+{(previous || next) && (
+  <nav class="page-navigation" aria-label="Vorherige und nächste Seite">
+    <div class="page-navigation__inner">
+      <div class="page-navigation__column page-navigation__column--previous">
+        {previous && <a href={previous.href}>← {previous.label}</a>}
+      </div>
+      <div class="page-navigation__column page-navigation__column--next">
+        {next && <a href={next.href}>{next.label} →</a>}
+      </div>
+    </div>
+  </nav>
+)}
+
+<style>
+  @reference "../../styles/global.css";
+
+  .page-navigation {
+    width: 100%;
+    border-top: 0.5px solid var(--color-ink);
+    background: var(--color-paper);
+  }
+
+  .page-navigation__inner {
+    display: grid;
+    width: 100%;
+    max-width: var(--container-wide);
+    min-height: 100px;
+    margin-inline: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .page-navigation__column {
+    display: flex;
+    min-width: 0;
+    align-items: center;
+    padding: 34px var(--spacing-20);
+  }
+
+  .page-navigation__column--next {
+    justify-content: flex-end;
+    text-align: right;
+  }
+
+  .page-navigation a {
+    color: var(--color-link);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    font-weight: 400;
+    line-height: var(--text-body--line-height);
+    text-decoration: none;
+  }
+
+  .page-navigation a:hover {
+    text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    .page-navigation__column {
+      padding-inline: var(--spacing-32);
+    }
+
+    .page-navigation a {
+      font-size: var(--text-lead);
+      line-height: var(--text-lead--line-height);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .page-navigation__column {
+      padding-inline: 72px;
+    }
+  }
+</style>
