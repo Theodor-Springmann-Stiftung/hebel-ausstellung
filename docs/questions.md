@@ -10,6 +10,44 @@ This file records information that could not be migrated from the questionnaires
 - Several slides request composites or side-by-side groups, while the model only stores an ordered list of images. Should these use prepared montage assets or a new image-group field?
 - Several cross-references identify a chapter or slide in prose but no stable target. Confirm the intended routes before converting them to links.
 
+## Chapter 1: Der Oberländer
+
+Source: `texte/Hebel_Ausstellung/1_Der Oberländer/CONTENT QUESTIONNAIRE_Lebensstationen_2026-06-23.md`
+
+The title `Der Oberländer` and the Wiesental hero are confirmed project decisions. Their difference from the questionnaire is not an open question.
+
+- None of the live chapter 1 hero or gallery image records has authored `altText`. The questionnaire contains only the accessibility prompt, not descriptions. The Wiesental hero currently falls back to the chapter title, which does not describe the image.
+- Two editorial markers remain visible: `[kollationieren]` in `src/content/galleries/1-03-schopfheim.md` and `[mit Anmerkung]` in the Rheinwald caption in `src/content/images/1_05_01_Stammbuch_Rheinwald_BLB.md`.
+- The gallery currently prefers linked object metadata over image `beschriftung` and `nachweis`. This hides detailed credits, URLs, dimensions, and rights statements stored on chapter 1 image records. Confirm whether image credits must also be displayed when objects are linked.
+- Both Swiss-journey records call their asset a `Titelkupfer`. `1_08_01_Ebel_8_Zuerich.webp` is a printed title page and `1_08_02_Ebel_5_Zuerich.webp` is a landscape view. Confirm separate captions for the two images.
+- The two Ebel records each contain both e-rara links concatenated together. Confirm which DOI belongs to which image: `10.3931/e-rara-9810` and `10.3931/e-rara-32257`.
+- The accepted Wiesental hero lacks a holding institution, shelfmark, stable source URL, rights statement, and object association. Confirm whether this metadata is available.
+- The former Karlsruhe-plan hero remains as an unreferenced image, object, and asset. Confirm whether it should remain as archival content or be removed.
+- `n.a.` remains as the inventory number for the Lateinschule object and as the creator of the Strasbourg fish-market object. Should these fields be omitted, displayed as unknown, or replaced with authoritative data?
+- The Karlsruhe object has no institution or inventory number; only a secondary Schefold reproduction citation is supplied.
+- The Widmungsgedicht and Stammbuch transcriptions now contain all text supplied by the questionnaire, but the facsimiles also show deletions, calculations, symbols, and marginal annotations. Confirm whether complete diplomatic transcriptions are required.
+- `src/assets/objects/1_00_homepage_oberlaender.png` contains JPEG data despite its `.png` extension. Confirm whether this should be converted or renamed.
+
+No referenced chapter 1 asset is currently missing.
+
+## Chapter 2: Der Dichter
+
+Sources: all Markdown files under `texte/Hebel_Ausstellung/2_Der Dichter/`.
+
+- The chapter hero questionnaire requests a montage of the original wrapper and title page. The current `2.0_hero_image_Tschoepli_TSS.webp` asset shows only the wrapper, while its image record describes and links both objects. Either create the montage or change the hero caption, alt text, and object relationship to describe only the wrapper.
+- The homepage alt text `Illustration zu den Allemannischen Gedichten` is too generic and does not identify the wrapper.
+- All nine images in section 2.2 lack authored alt text. The source explicitly says `lacking` rather than supplying descriptions.
+- `2.0_srollytelling_image_AG804_schwarzer_Rahmen` is an unreferenced image/asset pair with an empty object template and no alt text, caption, or credit. Confirm whether it is stale or still required by a planned interaction.
+- Subchapters 2.2, 2.3, and 2.4 have no introduction text because the questionnaires leave it blank. Confirm whether an introduction is required before publication.
+- Most chapter 2 object records have no description because the object-detail prompts are blank or placeholders. Confirm which public object pages require curatorial descriptions.
+- Slide 2.1.2 requests three groups with paired side-by-side images. Its current gallery is a flat five-image sequence. Slides 2.1.6 and 2.1.7 also include explicit stacked/scrolling layout instructions that are represented only as ordered image lists. Confirm whether montage assets or an image-group model are needed.
+- The Richter/Gaber image and publication are dated 1851, while the object detail gives 1850. Confirm whether these are creation and publication dates and how both should be displayed.
+- Scheffner's name alternates between `Johann George Scheffner` and `Johann Georg Scheffner` across narrative, captions, alt text, and object metadata. Confirm the authoritative form.
+- The 2.2 and 2.4 questionnaires supply neither hero nor navigation label. Current records infer heroes and labels; confirm those choices.
+- Bibliography references, related-object prompts, and slide-specific design instructions have no structured destination in the current schema.
+
+No referenced chapter 2 asset is currently missing. The standalone transcriptions and requested narrative cross-links are represented.
+
 ## Chapter 3: Der Hausfreund
 
 Source: `texte/Hebel_Ausstellung/3_Der Hausfreund/CONTENT QUESTIONNAIRE_Kapitel 3_2026-07-07.md`
