@@ -1,25 +1,21 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import Quote from '../components/content/Quote.astro';
+import { chapterHref, getOrderedChapters } from '../lib/content';
+import { renderInlineMarkdown } from '../lib/markdown';
+import { getObjectImage } from '../lib/object-images';
 import portrait from '../assets/objects/Hebel_Portraet_Mueller.jpg';
 import heroPortrait from '../assets/objects/Hebel_Portraet_Homepage.png';
 import seal from '../assets/objects/Hebel_Wachssiegel.png';
-import chapter1 from '../assets/objects/1_00_homepage_oberlaender.png';
-import chapter2 from '../assets/objects/2.0_hero_image_Tschoepli_TSS.webp';
-import chapter3 from '../assets/objects/3_00_homepage_hausfreund.png';
-import chapter4 from '../assets/objects/4_00_homepage_theologe.png';
-import chapter5 from '../assets/objects/5_00_homepage_proteuser.png';
-import chapter6 from '../assets/objects/6.1_01_01_Gustave_mit_Hahn_Weil.webp';
-import chapter7 from '../assets/objects/7_00_01_hero_image_An_Koelle_DLA.webp';
 
-const chapters = [
-  { number: '01', title: 'Der Oberländer', image: chapter1, href: '/1/', modifier: 'featured' },
-  { number: '02', title: 'Der Dichter', image: chapter2, href: '/2/', modifier: 'poet' },
-  { number: '03', title: 'Der Hausfreund', image: chapter3, modifier: 'friend' },
-  { number: '04', title: 'Der Theologe', image: chapter4, modifier: 'theologian' },
-  { number: '05', title: 'Der Proteuser', image: chapter5, modifier: 'proteuser' },
-  { number: '06', title: 'Der Junggeselle', image: chapter6, modifier: 'bachelor' },
-  { number: '07', title: 'Der Briefschreiber', image: chapter7, modifier: 'letter-writer' },
-];
+const chapters = (await getOrderedChapters()).map((chapter) => ({
+  number: chapter.data.nummer.padStart(2, '0'),
+  title: chapter.data.navTitel,
+  image: getObjectImage(chapter.data.startseitenBild),
+  imageAlt: chapter.data.startseitenAltText ?? '',
+  href: chapter.data.veroeffentlicht ? chapterHref(chapter.data.nummer) : undefined,
+  modifier: chapter.data.startseitenVariante,
+}));
 ---
 
 <Layout>
@@ -56,21 +52,12 @@ const chapters = [
       </div>
     </section>
 
-    <section class="home-quote" aria-label="Zitat von Johann Peter Hebel">
-      <blockquote>
-        <div class="home-quote__text">
-          <span aria-hidden="true">»</span>
-          <p>Es ist wohl an der Zeit, daß wir unser Daseyn auf dem Planeten euch wieder einmal beurkunden.</p>
-        </div>
-        <footer class="home-quote__source">
-          <img src={portrait.src} alt="" loading="lazy" decoding="async" />
-          <div>
-            <cite>— JPH</cite>
-            <p>Brief an Sophie Haufe vom 23. August 1826</p>
-          </div>
-        </footer>
-      </blockquote>
-    </section>
+    <Quote
+      text="Es ist wohl an der Zeit, daß wir unser Daseyn auf dem Planeten euch wieder einmal beurkunden."
+      attribution="— JPH"
+      source="Brief an Sophie Haufe vom 23. August 1826"
+      portrait={portrait}
+    />
 
     <section class="home-chapters" aria-labelledby="chapters-title">
       <header class="home-chapters__heading">
@@ -83,22 +70,22 @@ const chapters = [
             {chapter.href ? (
               <a href={chapter.href}>
                 <span class="chapter-card__image">
-                  <img src={chapter.image.src} alt="" loading={chapter.number === '01' ? 'eager' : 'lazy'} decoding="async" />
+                  <img src={chapter.image.src} alt={chapter.imageAlt} loading={chapter.number === '01' ? 'eager' : 'lazy'} decoding="async" />
                 </span>
                 <span class="chapter-card__meta">
                   <span class="chapter-card__number">Kapitel {chapter.number}</span>
-                  <span class="chapter-card__title">{chapter.title}</span>
+                  <span class="chapter-card__title" set:html={renderInlineMarkdown(chapter.title)}></span>
                   <span class="chapter-card__link">Weiterlesen →</span>
                 </span>
               </a>
             ) : (
               <div class="chapter-card__placeholder" aria-label={`${chapter.title}, in Vorbereitung`}>
                 <span class="chapter-card__image">
-                  <img src={chapter.image.src} alt="" loading="lazy" decoding="async" />
+                  <img src={chapter.image.src} alt={chapter.imageAlt} loading="lazy" decoding="async" />
                 </span>
                 <span class="chapter-card__meta">
                   <span class="chapter-card__number">Kapitel {chapter.number}</span>
-                  <span class="chapter-card__title">{chapter.title}</span>
+                  <span class="chapter-card__title" set:html={renderInlineMarkdown(chapter.title)}></span>
                   <span class="chapter-card__link chapter-card__link--pending">In Vorbereitung</span>
                 </span>
               </div>
@@ -210,17 +197,6 @@ const chapters = [
   .home-introduction__seal img { width: min(320px, 100%); aspect-ratio: 1; object-fit: contain; }
   .home-introduction__seal figcaption { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.04em; text-align: center; }
 
-  .home-quote { padding: var(--spacing-40) var(--spacing-24); }
-  .home-quote blockquote { display: flex; margin: 0; border-left: 0.5px solid var(--color-ink); padding-left: var(--spacing-24); flex-direction: column; gap: var(--spacing-24); }
-  .home-quote__text { display: flex; flex-direction: column; gap: var(--spacing-4); }
-  .home-quote__text span { height: 48px; font-family: var(--font-display); font-size: 3rem; line-height: 1; }
-  .home-quote__text p { font-family: var(--font-display); font-size: 1.5rem; font-style: italic; line-height: normal; }
-  .home-quote__source { display: flex; align-items: center; gap: var(--spacing-12); }
-  .home-quote__source img { width: var(--spacing-56); height: var(--spacing-56); border: 0.5px solid var(--color-ink); border-radius: 50%; object-fit: cover; }
-  .home-quote__source div { display: flex; flex-direction: column; gap: 2px; }
-  .home-quote__source cite { font-family: var(--font-display); font-size: 1.25rem; font-style: normal; line-height: 1.25; }
-  .home-quote__source p { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.75rem; line-height: normal; }
-
   .home-chapters { display: flex; padding: var(--spacing-48) var(--spacing-20); flex-direction: column; gap: var(--spacing-48); }
   .home-chapters__heading { display: flex; flex-direction: column; gap: var(--spacing-8); }
   .home-chapters__heading > p,
@@ -268,14 +244,6 @@ const chapters = [
     .home-introduction__copy p:nth-child(2),
     .home-introduction__copy p:nth-child(3) { grid-column: 1 / -1; }
     .home-introduction__seal img { width: 220px; }
-    .home-quote { padding: var(--spacing-80); }
-    .home-quote blockquote { padding-left: var(--spacing-40); gap: 38px; }
-    .home-quote__text span { height: 60px; font-size: 3.75rem; }
-    .home-quote__text p { font-size: 2.25rem; letter-spacing: 0.015em; }
-    .home-quote__source { gap: var(--spacing-16); }
-    .home-quote__source img { width: var(--spacing-48); height: var(--spacing-48); }
-    .home-quote__source cite { font-size: 1.125rem; }
-    .home-quote__source p { font-size: 1rem; }
     .home-chapters { padding: var(--spacing-64) var(--spacing-32); gap: var(--spacing-64); }
     .home-chapters__heading > p,
     .chapter-card__number { font-size: 1rem; }
@@ -302,8 +270,6 @@ const chapters = [
     .home-introduction__copy { display: flex; gap: var(--spacing-32); font-size: 1.5rem; }
     .home-introduction__copy p { grid-column: auto; grid-row: auto; }
     .home-introduction__seal img { width: 280px; }
-    .home-quote blockquote { width: 1066px; margin-inline: auto; padding-left: 71px; }
-    .home-quote__text span { height: 84px; font-size: 5.25rem; }
     .home-chapters { padding: var(--spacing-120) var(--spacing-80) var(--spacing-64); gap: var(--spacing-48); }
     .home-chapters__list { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: var(--spacing-80) var(--spacing-20); }
     .chapter-card--featured { grid-column: 1 / -1; }

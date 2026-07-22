@@ -1,5 +1,168 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
+import heroImage from "../assets/objects/ueber-hero.png";
+import sealImage from "../assets/objects/ueber-hebel-siegel.png";
+import lindenplatzLogo from "../assets/objects/ueber-lindenplatz-logo.png";
 ---
 
-<Layout />
+<Layout>
+  <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Über die Ausstellung" }]} />
+
+  <main class="about-page">
+    <header class="about-hero">
+      <h1>Über die Ausstellung</h1>
+      <figure class="about-hero__figure">
+        <img src={heroImage.src} alt="Porträt Johann Peter Hebels nach einem Kupferstich von Christian Friedrich Müller" loading="eager" decoding="async" />
+      </figure>
+      <figcaption class="about-hero__caption">
+        <div class="about-hero__caption-inner container-content">
+          <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
+          <p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe, Inventarnr. VII 1634</p>
+        </div>
+      </figcaption>
+    </header>
+
+    <section class="about-intro" aria-labelledby="about-intro-heading">
+      <h2 class="container-content" id="about-intro-heading">Am 22. September 2026 jährt sich der Todestag Johann Peter Hebels zum zweihundersten Mal.</h2>
+    </section>
+
+    <section class="about-overview page-section" aria-label="Überblick zur Ausstellung">
+      <div class="about-overview__seal">
+        <img src={sealImage.src} alt="Hebels Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
+        <p>Hebels Wachssiegel mit dem <a href="#proteus-symbol">Proteus-Symbol</a></p>
+      </div>
+      <div class="about-overview__text">
+        <p><em>Das Nachleben der Worte</em> zeigt, wie Hebels Werk weit über die Literatur hinauswirkt und gesellschaftliche Realitäten seiner Zeit widerspiegelt. Gerade heute gewinnt sein Blick auf Alltagssprache und Regionales neue Bedeutung angesichts wachsender kultureller Vielfalt und Identitätsdebatten.</p>
+        <p>Im Zentrum steht die Frage, wie Hebel mit seinen Texten Brücken zwischen Hoch- und Umgangssprache schlägt und dabei kulturelle Identitäten formt. Die Schau beleuchtet, warum seine Werke aktuell mehr denn je als Ausdruck eines lebendigen Sprach- und Kulturraums gelesen werden sollten.</p>
+        <p>Anhand von rund 126 Manuskripten, Originaldrucken, Bildern und Objekten entfaltet die Ausstellung in sieben Kapiteln das Nachleben von Hebels Worten.</p>
+      </div>
+    </section>
+
+    <section class="page-section about-section" id="team-partners">
+      <h2>Die Kuratoren</h2>
+      <p>Die Ausstellung wurde von Alexander Knopf, Jakob Brüssermann und Andreas Beck gemeinschaftlich kuratiert. Alle drei sind Mitarbeiter des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg und an der ebendort herausgegebenen historisch-kritischen Gesamtausgabe der Werke Hebels beteiligt.</p>
+    </section>
+
+    <hr class="about-divider" />
+
+    <section class="page-section about-section" id="hebel-archiv">
+      <h2>Das Hebel-Archiv</h2>
+      <p>Das Hebel-Archiv in Heidelberg bewahrt umfangreiche Sammlungen zu Leben und Werk Johann Peter Hebels und unterstützt die wissenschaftliche Forschung.</p>
+      <a class="about-section__link" href="https://www.hebel-archiv.de/">Weiterlesen <span aria-hidden="true">→</span></a>
+    </section>
+
+    <hr class="about-divider" />
+
+    <section class="page-section about-section about-supporters">
+      <h2>Leihgeber &amp; Unterstützer</h2>
+      <p>Unterstützt wurde die Ausstellung insbesondere von der Badischen Landesbibliothek Karlsruhe, dem Dreiländermuseum Lörrach und dem Museum am Lindenplatz in Weil am Rhein.</p>
+      <div class="about-supporters__logos" aria-label="Unterstützende Institutionen">
+        <a href="https://www.blb-karlsruhe.de/" target="_blank" rel="noreferrer"><img src="/images/blb.svg" alt="Badische Landesbibliothek" loading="lazy" decoding="async" /></a>
+        <a href="https://www.dreilaendermuseum.eu/" target="_blank" rel="noreferrer"><img src="/images/dreilaendermuseum-logo.png" alt="Dreiländermuseum Lörrach" loading="lazy" decoding="async" /></a>
+        <a href="https://www.weil-am-rhein.de/" target="_blank" rel="noreferrer"><img src={lindenplatzLogo.src} alt="Stadt Museum am Lindenplatz" loading="lazy" decoding="async" /></a>
+      </div>
+    </section>
+
+    <hr class="about-divider" />
+
+    <section class="page-section about-section" id="zitierweise">
+      <h2>Zitierweise</h2>
+      <p>Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden mitunter auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: Briefe, 2 Bde., Karlsruhe 1957) unter Angabe der Briefnummer zitiert.</p>
+      <div class="about-pending">
+        <span>Inhalt ausstehend</span>
+        <p>“How to cite this exhibition” — a suggested citation string, and a DOI or permanent URL if one exists.</p>
+      </div>
+    </section>
+
+    <hr class="about-divider" />
+
+    <section class="page-section about-section about-credits" id="credits">
+      <h2>Mitwirkende / Credits</h2>
+      <p>Für die Gestaltung und technische Umsetzung sind Christine Suewon Lee und Simon Martens verantwortlich. Ihnen allen sei an dieser Stelle herzlich gedankt.</p>
+      <dl class="about-credits__list">
+        <div><dt>Konzeption &amp; Kuration</dt><dd>Alexander Knopf, Jakob Brüssermann, Andreas Beck</dd></div>
+        <div><dt>Gestaltung</dt><dd>Christine Suewon Lee / <a href="https://hallo-eisi.studio/">Hallo Eisi Studio</a></dd></div>
+        <div><dt>Technische Umsetzung</dt><dd>Simon Martens</dd></div>
+        <div><dt>Fonts/Typographie</dt><dd>Nyght Serif (Maksym Kobuzan, Tunera Type Foundry); Geist / Geist Mono (Vercel)</dd></div>
+        <div><dt>Fotografie</dt><dd>Li-Wen Kuo</dd></div>
+      </dl>
+      <div class="about-pending" id="impressum-datenschutz">
+        <span>Inhalt ausstehend</span>
+        <p>Image rights / licensing statement.</p>
+      </div>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  .about-page { @apply bg-paper text-text-primary; }
+  .about-hero h1 { font-family: var(--font-display); font-size: var(--text-display); font-weight: 400; line-height: var(--text-display--line-height); text-align: center; padding: var(--spacing-40) var(--spacing-20); }
+  .about-hero__figure { margin: 0; height: 220px; border-block: .5px solid var(--color-ink); overflow: hidden; }
+  .about-hero__figure img { width: 100%; height: 100%; object-fit: cover; }
+  .about-hero__caption { padding: var(--spacing-20); }
+  .about-hero__caption-inner { @apply flex flex-col font-mono; gap: var(--spacing-10, 10px); }
+  .about-hero__caption-inner p:first-child { font-size: var(--text-caption); line-height: 1; }
+  .about-hero__caption-inner p:last-child { @apply text-text-secondary; font-size: var(--text-caption-small); line-height: 1; letter-spacing: var(--text-caption-small--letter-spacing); }
+  .page-section { width: calc(100% - var(--spacing-40)); margin-inline: auto; padding-block: var(--spacing-20); }
+  .about-intro { padding: 48px var(--spacing-20); }
+  .about-intro h2 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: 400; line-height: var(--text-h1--line-height); text-align: center; }
+  .about-overview { display: flex; flex-direction: column; gap: var(--spacing-40); padding-block: 48px; }
+  .about-overview__seal { @apply flex flex-col items-center font-mono text-caption-small text-text-secondary; gap: var(--spacing-16); letter-spacing: var(--text-caption-small--letter-spacing); line-height: 1; text-align: center; }
+  .about-overview__seal img { width: 100%; height: 350px; object-fit: contain; }
+  .about-overview__text { @apply flex flex-col; gap: var(--spacing-32); font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
+  .about-section { @apply flex flex-col; gap: var(--spacing-20); }
+  .about-section h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: 400; line-height: var(--text-h2--line-height); }
+  .about-section > p, .about-section__link { font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
+  .about-section__link { @apply text-link no-underline; margin-top: var(--spacing-20); }
+  .about-section__link:hover { @apply underline; }
+  .about-divider { width: calc(100% - var(--spacing-20) * 2); height: 0; margin: var(--spacing-40) auto; border: 0; border-top: .5px solid var(--color-ink); }
+  .about-supporters { gap: var(--spacing-20); }
+  .about-supporters__logos { margin-top: var(--spacing-44); }
+  .about-supporters__logos a { display: flex; width: 100%; justify-content: center; }
+  .about-supporters__logos { @apply flex flex-col items-center; gap: var(--spacing-32); }
+  .about-supporters__logos img { width: 100%; max-width: 346px; max-height: 151px; object-fit: contain; opacity: .5; }
+  .about-pending { @apply flex flex-col; width: 100%; gap: var(--spacing-16); padding: var(--spacing-24); border: 1px solid var(--color-stone); }
+  .about-pending span { @apply bg-ink text-paper; width: fit-content; border-radius: 2px; padding: var(--spacing-4) var(--spacing-8); font-size: var(--text-small); letter-spacing: .05em; line-height: var(--text-body--line-height); }
+  .about-pending p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
+  .about-credits { padding-bottom: var(--spacing-40); }
+  .about-credits__list { @apply flex flex-col; gap: var(--spacing-16); margin: 0; }
+  .about-credits__list div { @apply flex flex-col; gap: var(--spacing-4); }
+  .about-credits__list dt { @apply text-text-secondary; font-family: var(--font-sans); font-size: var(--text-small); font-weight: 400; line-height: var(--text-small--line-height); }
+  .about-credits__list dd { margin: 0; font-family: var(--font-sans); font-size: var(--text-body-medium); font-weight: 400; line-height: var(--text-body-medium--line-height); }
+
+  @media (min-width: 768px) {
+    .about-hero h1 { font-size: var(--text-display); padding-inline: var(--spacing-32); }
+    .about-hero__figure { height: 435px; }
+    .about-hero__caption { padding-inline: var(--spacing-32); }
+    .page-section { width: calc(100% - var(--spacing-64)); }
+    .about-intro { padding: var(--spacing-64) var(--spacing-32); }
+    .about-overview { flex-direction: row; gap: var(--spacing-20); }
+    .about-overview__seal { flex: 0 0 251.5px; align-items: flex-start; }
+    .about-overview__seal img { width: 211.5px; height: 211.5px; }
+    .about-overview__text { flex: 1; }
+    .about-divider { width: calc(100% - var(--spacing-32) * 2); }
+    .about-supporters__logos { flex-direction: row; align-items: center; justify-content: center; }
+    .about-supporters__logos a { width: auto; }
+    .about-supporters__logos img { width: min(200px, calc((100% - var(--spacing-64)) / 3)); }
+    .about-credits__list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--spacing-32); }
+  }
+
+  @media (min-width: 1440px) {
+    .about-hero h1 { padding: var(--spacing-40) var(--spacing-80); }
+    .about-hero__figure { height: 700px; }
+    .about-hero__caption { padding: var(--spacing-20) var(--spacing-80); }
+    .page-section { width: min(var(--container-content), calc(100% - 160px)); }
+    .about-intro { padding: var(--spacing-64) var(--spacing-80); }
+    .about-overview { width: min(var(--container-wide), calc(100% - 160px)); padding-top: var(--spacing-64); padding-bottom: var(--spacing-64); }
+    .about-overview__seal { flex-basis: 360px; align-items: center; }
+    .about-overview__seal img { width: 280px; height: 280px; }
+    .about-divider { width: min(1059.5px, calc(100% - 416px)); }
+    .about-supporters__logos { gap: var(--spacing-40); }
+    .about-supporters__logos img { width: 240px; }
+    .about-credits { padding-bottom: 120px; }
+    .about-credits__list div { grid-template-columns: 180px minmax(0, 1fr); }
+  }
+</style>

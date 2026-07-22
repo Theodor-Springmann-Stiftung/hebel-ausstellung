@@ -6,21 +6,31 @@ export const subchapterSegment = (nummer: string) => nummer;
 
 export const chapterHref = (nummer: string) => `/${chapterSegment(nummer)}/`;
 
+export type ChapterNavigationItem = {
+	nummer: string;
+	titel: string;
+	href: string;
+};
+
+export const normalizePath = (path: string) => (path.endsWith('/') ? path : `${path}/`);
+
+export const isNavigationPathActive = (currentPath: string, href: string) => normalizePath(currentPath).startsWith(href);
+
 export const subchapterHref = (chapterNumber: string, subchapterNumber: string) =>
 	`/${chapterSegment(chapterNumber)}/${subchapterSegment(subchapterNumber)}/`;
 
 export const getOrderedChapters = async () =>
 	(await getCollection('chapters')).sort((a, b) => a.data.reihenfolge - b.data.reihenfolge);
 
-export const getChapterNavigation = async () =>
-	(await getOrderedChapters()).map((chapter) => ({
+export const getChapterNavigation = async (): Promise<ChapterNavigationItem[]> =>
+	(await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht).map((chapter) => ({
 		nummer: chapter.data.nummer,
 		titel: chapter.data.navTitel,
 		href: chapterHref(chapter.data.nummer),
 	}));
 
 export const getChapterRoutes = async () =>
-	(await getOrderedChapters()).map((chapter) => ({
+	(await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht).map((chapter) => ({
 		params: { chapterNumber: chapterSegment(chapter.data.nummer) },
 		props: { chapter },
 	}));
@@ -49,7 +59,7 @@ export const getSubchapterRoutes = async () => {
 };
 
 export const getReadingOrder = async () => {
-	const chapters = await getOrderedChapters();
+	const chapters = (await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht);
 	const sections: Array<{
 		kind: 'chapter' | 'subchapter';
 		id: string;
@@ -133,10 +143,12 @@ export const getObjectRoutes = async () => {
 	};
 
 	for (const chapter of chapters) {
-		recordImageContext(chapter.data.hero, {
-			chapter,
-			returnHref: chapterHref(chapter.data.nummer),
-		});
+		if (chapter.data.hero) {
+			recordImageContext(chapter.data.hero, {
+				chapter,
+				returnHref: chapterHref(chapter.data.nummer),
+			});
+		}
 
 		for (const [galleryIndex, galleryReference] of (chapter.data.galerien ?? []).entries()) {
 			recordGalleryContext(galleryReference, galleryIndex, chapter, undefined);

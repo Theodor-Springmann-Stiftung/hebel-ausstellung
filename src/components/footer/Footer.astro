@@ -5,12 +5,8 @@ import { site } from "../../data/site";
 
 const footerLinks = [
   { label: "Über die Ausstellung", href: "/ueber/" },
-  { label: "Team & Partners", href: "#team-partners" },
-  { label: "Presse Kontakt", href: "#presse-kontakt" },
-  { label: "Kontakt Uns", href: "/kontakt/" },
-  { label: "Mitwirkende / Credits", href: "#credits" },
-  { label: "Impressum & Datenschutz", href: "#impressum-datenschutz" },
-  { label: "Datenschutz / Barrierefreiheit", href: "/datenschutz/" },
+  { label: "Presse / Kontakt", href: "/kontakt/" },
+  { label: "Impressum & Datenschutz", href: "/datenschutz/" },
 ];
 
 const readGitValue = (args: string[]) => {
@@ -39,7 +35,9 @@ const footerTitleParts = site.title.split(" der ");
           <div class="site-footer__title-group">
             <p class="site-footer__kicker">{site.tagline}</p>
             <h2 class="site-footer__title" id="footer-title">
-              {footerTitleParts[0]}{footerTitleParts[1] && <><br />der {footerTitleParts[1]}</>}
+              <a class="site-footer__title-link" href="/">
+                {footerTitleParts[0]}{footerTitleParts[1] && <><br />der {footerTitleParts[1]}</>}
+              </a>
             </h2>
           </div>
           <p class="site-footer__description">{site.footerTagline}</p>
@@ -145,6 +143,14 @@ const footerTitleParts = site.title.split(" der ");
     @apply w-full font-display text-display font-normal text-inherit;
 
     line-height: var(--text-display--line-height);
+  }
+
+  .site-footer__title-link,
+  .site-footer__title-link:visited,
+  .site-footer__title-link:hover,
+  .site-footer__title-link:active {
+    color: var(--color-paper);
+    text-decoration: none;
   }
 
   .site-footer__description {

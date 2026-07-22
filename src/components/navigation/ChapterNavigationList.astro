@@ -1,0 +1,114 @@
+---
+import { isNavigationPathActive, type ChapterNavigationItem } from "../../lib/content";
+
+const { chapters, currentPath, variant } = Astro.props as {
+  chapters: ChapterNavigationItem[];
+  currentPath: string;
+  variant: "desktop" | "mobile";
+};
+---
+
+<ol class:list={["chapter-navigation-list", `chapter-navigation-list--${variant}`]}>
+  {chapters.map((chapter) => (
+    <li class="chapter-navigation-list__item">
+      <a class="chapter-navigation-list__link" href={chapter.href} aria-current={isNavigationPathActive(currentPath, chapter.href) ? "location" : undefined}>
+        <span class="chapter-navigation-list__number">{chapter.nummer}</span>
+        <span class="chapter-navigation-list__title">{chapter.titel}</span>
+      </a>
+    </li>
+  ))}
+</ol>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .chapter-navigation-list {
+    @apply m-0 flex w-full list-none flex-col p-0;
+  }
+
+  .chapter-navigation-list--desktop {
+    gap: var(--spacing-16);
+  }
+
+  .chapter-navigation-list--desktop .chapter-navigation-list__item:not(:last-child) {
+    padding-bottom: var(--spacing-16);
+    border-bottom: 0.5px solid rgb(38 37 30 / 50%);
+  }
+
+  .chapter-navigation-list--desktop .chapter-navigation-list__link {
+    @apply flex items-center text-text-primary no-underline select-none;
+
+    gap: var(--spacing-16);
+  }
+
+  .chapter-navigation-list--desktop .chapter-navigation-list__number {
+    @apply font-mono text-caption-small text-text-secondary;
+
+    width: var(--spacing-24);
+  }
+
+  .chapter-navigation-list--desktop .chapter-navigation-list__title {
+    @apply flex-1 font-sans text-body-medium;
+  }
+
+  .chapter-navigation-list--desktop .chapter-navigation-list__link:hover .chapter-navigation-list__title,
+  .chapter-navigation-list--desktop .chapter-navigation-list__link[aria-current] .chapter-navigation-list__title {
+    @apply text-link underline;
+
+    text-underline-offset: 0.16em;
+  }
+
+  .chapter-navigation-list--mobile {
+    gap: var(--spacing-20);
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__item {
+    border-bottom: 1px solid rgb(247 247 244 / 50%);
+    padding-block: var(--spacing-24);
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__link {
+    @apply flex items-baseline text-paper no-underline select-none;
+
+    gap: var(--spacing-24);
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__number {
+    @apply font-sans text-body-medium;
+
+    min-width: var(--spacing-16);
+    color: rgb(247 247 244 / 50%);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__title {
+    @apply flex-1 font-sans text-lead text-paper;
+
+    line-height: var(--text-lead--line-height);
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__link:hover .chapter-navigation-list__title,
+  .chapter-navigation-list--mobile .chapter-navigation-list__link[aria-current] .chapter-navigation-list__title {
+    opacity: 0.8;
+  }
+
+  .chapter-navigation-list--mobile .chapter-navigation-list__link[aria-current] .chapter-navigation-list__number {
+    color: var(--color-paper);
+  }
+
+  @media (min-width: 768px) {
+    .chapter-navigation-list--mobile .chapter-navigation-list__item {
+      padding-block: 0 var(--spacing-32);
+    }
+
+    .chapter-navigation-list--mobile .chapter-navigation-list__link {
+      gap: var(--spacing-32);
+    }
+
+    .chapter-navigation-list--mobile .chapter-navigation-list__title {
+      @apply font-display text-h2;
+
+      line-height: var(--text-h2--line-height);
+    }
+  }
+</style>

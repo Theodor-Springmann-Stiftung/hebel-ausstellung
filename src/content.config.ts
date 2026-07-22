@@ -21,18 +21,25 @@ const galleryColor = z
   .enum(["lindgrün", "vanille", "hellblau", "mintgrün", "rosa", "himmelblau", "salbeigrün"])
   .default("lindgrün");
 
-const sectionSchema = z.object({
+const sectionFields = {
   nummer: z.string().min(1),
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
-  hero: reference("images"),
-});
+};
+
+const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
 
 const chapters = defineCollection({
   loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
-  schema: sectionSchema
-    .extend({
+  schema: z
+    .object({
+      ...sectionFields,
       reihenfolge: z.number().int().positive(),
+      hero: reference("images").optional(),
+      startseitenBild: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i),
+      startseitenAltText: z.string().optional(),
+      startseitenVariante: homepageImageVariant,
+      veroeffentlicht: z.boolean().default(true),
       unterkapitel: z.array(reference("subchapters")).min(1).optional(),
       galerien: z.array(reference("galleries")).min(1).optional(),
     })
@@ -40,7 +47,15 @@ const chapters = defineCollection({
       const hasSubchapters = Boolean(data.unterkapitel?.length);
       const hasGalleries = Boolean(data.galerien?.length);
 
-      if (hasSubchapters === hasGalleries) {
+      if (data.veroeffentlicht && !data.hero) {
+        context.addIssue({
+          code: z.ZodIssueCode.custom,
+          message: "Published chapter must define a hero image",
+          path: ["hero"],
+        });
+      }
+
+      if (data.veroeffentlicht && hasSubchapters === hasGalleries) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Chapter must define either subchapters or galleries, but not both",
@@ -52,7 +67,9 @@ const chapters = defineCollection({
 
 const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
-  schema: sectionSchema.extend({
+  schema: z.object({
+    ...sectionFields,
+    hero: reference("images"),
     galerien: z.array(reference("galleries")).min(1),
   }),
 });

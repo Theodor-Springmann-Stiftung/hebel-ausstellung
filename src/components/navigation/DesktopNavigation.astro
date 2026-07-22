@@ -1,13 +1,9 @@
 ---
 import { site } from "../../data/site";
+import ChapterNavigationList from "./ChapterNavigationList.astro";
+import { normalizePath, type ChapterNavigationItem } from "../../lib/content";
 
-type ChapterLink = {
-  nummer: string;
-  titel: string;
-  href: string;
-};
-
-const { chapters, currentPath, isHome = false } = Astro.props as { chapters: ChapterLink[]; currentPath: string; isHome?: boolean };
+const { chapters, currentPath, isHome = false } = Astro.props as { chapters: ChapterNavigationItem[]; currentPath: string; isHome?: boolean };
 // INFO: we normalize the path to be able to correctly determine where we are
 const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
 const isUeberActive = normalizedPath === '/ueber/';
@@ -32,16 +28,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
         <div class="desktop-navigation__dropdown-panel">
           <p class="type-caption desktop-navigation__dropdown-label">Kapitel der Ausstellung</p>
-          <ol class="desktop-navigation__chapter-list">
-            {chapters.map((chapter) => (
-              <li class="desktop-navigation__chapter-item">
-                <a class="desktop-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
-                  <span class="type-caption-small desktop-navigation__chapter-number">{chapter.nummer}</span>
-                  <span class="type-body-medium desktop-navigation__chapter-title">{chapter.titel}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
+          <ChapterNavigationList chapters={chapters} currentPath={currentPath} variant="desktop" />
         </div>
       </details>
 
@@ -166,42 +153,8 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     margin-bottom: var(--spacing-24);
   }
 
-  .desktop-navigation__chapter-list {
-    @apply m-0 flex list-none flex-col p-0;
-
-    gap: var(--spacing-16);
-  }
-
-  .desktop-navigation__chapter-item:not(:last-child) {
-    padding-bottom: var(--spacing-16);
-    border-bottom: 0.5px solid rgb(38 37 30 / 50%);
-  }
-
-  .desktop-navigation__chapter-link {
-    @apply flex items-center text-text-primary no-underline select-none;
-
-    gap: var(--spacing-16);
-  }
-
-  .desktop-navigation__chapter-link:hover .desktop-navigation__chapter-title,
-  .desktop-navigation__chapter-link[aria-current] .desktop-navigation__chapter-title {
-    @apply text-link underline;
-
-    text-underline-offset: 0.16em;
-  }
-
   .desktop-navigation__link[aria-current] {
     border-bottom-color: currentColor;
-  }
-
-  .desktop-navigation__chapter-number {
-    @apply text-text-secondary;
-
-    width: var(--spacing-24);
-  }
-
-  .desktop-navigation__chapter-title {
-    @apply flex-1;
   }
 
   @media (min-width: 1440px) {

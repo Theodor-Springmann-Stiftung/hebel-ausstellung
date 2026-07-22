@@ -2,17 +2,12 @@
 import type { ImageMetadata } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { markdownToPlainText } from "../../lib/markdown";
+import { getObjectImage } from "../../lib/object-images";
 import ObjectImageCarousel from "./ObjectImageCarousel.astro";
 
 const { images } = Astro.props as { images: CollectionEntry<"images">[] };
-const objectImageModules = import.meta.glob("../../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
-  eager: true,
-  import: "default",
-}) as Record<string, ImageMetadata>;
 const imageItems = images.map((image) => {
-  const asset = objectImageModules[`../../assets/objects/${image.data.dateiname}`];
-
-  if (!asset) throw new Error(`Missing object image asset: ${image.data.dateiname}`);
+  const asset = getObjectImage(image.data.dateiname);
 
   return { image, asset, isPortrait: asset.height > asset.width };
 });

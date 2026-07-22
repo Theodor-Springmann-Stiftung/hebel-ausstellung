@@ -1,9 +1,13 @@
 ---
 reihenfolge: 1
 nummer: "1"
-titel: "Stationen in Hebels Leben"
-navTitel: "Lebensstationen"
-hero: "1_00_01_hero_image_plan_karlsruhe_blb"
+titel: "Der Oberländer"
+navTitel: "Der Oberländer"
+hero: "1_00_01_hero_image_wiesental_blb"
+startseitenBild: "1_00_homepage_oberlaender.png"
+startseitenAltText: "Historische Ansicht des Wiesentals"
+startseitenVariante: "featured"
+veroeffentlicht: true
 galerien:
   - "1-01-basel"
   - "1-02-hausen"

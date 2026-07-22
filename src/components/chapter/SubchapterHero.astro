@@ -1,8 +1,8 @@
 ---
-import type { ImageMetadata } from "astro";
 import type { CollectionEntry } from "astro:content";
 import { getEntry } from "astro:content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
+import { getObjectImage } from "../../lib/object-images";
 
 const { chapter, subchapter } = Astro.props as {
   chapter: CollectionEntry<"chapters">;
@@ -14,15 +14,7 @@ if (!hero) {
   throw new Error(`Missing hero image entry for subchapter ${subchapter.id}`);
 }
 
-const objectImageModules = import.meta.glob("../../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
-  eager: true,
-  import: "default",
-}) as Record<string, ImageMetadata>;
-const image = objectImageModules[`../../assets/objects/${hero.data.dateiname}`];
-
-if (!image) {
-  throw new Error(`Missing hero image asset: ${hero.data.dateiname}`);
-}
+const image = getObjectImage(hero.data.dateiname);
 ---
 
 <header class="subchapter-hero">

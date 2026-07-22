@@ -1,13 +1,9 @@
 ---
 import { site } from "../../data/site";
+import ChapterNavigationList from "./ChapterNavigationList.astro";
+import { normalizePath, type ChapterNavigationItem } from "../../lib/content";
 
-type ChapterLink = {
-  nummer: string;
-  titel: string;
-  href: string;
-};
-
-const { chapters, currentPath } = Astro.props as { chapters: ChapterLink[]; currentPath: string };
+const { chapters, currentPath } = Astro.props as { chapters: ChapterNavigationItem[]; currentPath: string };
 const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
 const isUeberActive = normalizedPath === '/ueber/';
 const isKontaktActive = normalizedPath === '/kontakt/';
@@ -52,16 +48,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
         <div class="mobile-navigation__chapter-section">
           <p class="mobile-navigation__chapter-label">Kapitel der Ausstellung</p>
-          <ol class="mobile-navigation__chapter-list">
-            {chapters.map((chapter) => (
-              <li class="mobile-navigation__chapter-item">
-                <a class="mobile-navigation__chapter-link" href={chapter.href} aria-current={normalizedPath.startsWith(chapter.href) ? 'location' : undefined}>
-                  <span class="mobile-navigation__chapter-number">{chapter.nummer}</span>
-                  <span class="mobile-navigation__chapter-title">{chapter.titel}</span>
-                </a>
-              </li>
-            ))}
-          </ol>
+          <ChapterNavigationList chapters={chapters} currentPath={currentPath} variant="mobile" />
         </div>
       </div>
     </div>
@@ -75,7 +62,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     const showChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-show-chapters]");
     const hideChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-hide-chapters]");
     const chaptersView = navigation.querySelector<HTMLElement>("#mobile-navigation-chapters-view");
-    const closeLinks = navigation.querySelectorAll<HTMLAnchorElement>(".mobile-navigation__panel-link[href], .mobile-navigation__chapter-link");
+    const closeLinks = navigation.querySelectorAll<HTMLAnchorElement>(".mobile-navigation__panel-link[href], .chapter-navigation-list__link");
 
     const setChaptersOpen = (isOpen: boolean) => {
       panel?.toggleAttribute("data-chapters-open", isOpen);
@@ -269,12 +256,9 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     @apply opacity-80;
   }
 
-  .mobile-navigation__chapter-section,
-  .mobile-navigation__chapter-list {
-    @apply flex w-full flex-col;
-  }
-
   .mobile-navigation__chapter-section {
+    @apply flex w-full flex-col;
+
     gap: var(--spacing-32);
   }
 
@@ -282,44 +266,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     @apply font-mono text-caption text-paper;
 
     line-height: var(--text-caption--line-height);
-  }
-
-  .mobile-navigation__chapter-list {
-    @apply m-0 list-none p-0;
-  }
-
-  .mobile-navigation__chapter-item {
-    border-bottom: 1px solid rgb(247 247 244 / 50%);
-    padding-block: var(--spacing-24);
-  }
-
-  .mobile-navigation__chapter-link {
-    @apply flex items-baseline text-paper no-underline select-none;
-
-    gap: var(--spacing-24);
-  }
-
-  .mobile-navigation__chapter-link:hover .mobile-navigation__chapter-title,
-  .mobile-navigation__chapter-link[aria-current] .mobile-navigation__chapter-title {
-    opacity: 0.8;
-  }
-
-  .mobile-navigation__chapter-link[aria-current] .mobile-navigation__chapter-number {
-    color: var(--color-paper);
-  }
-
-  .mobile-navigation__chapter-number {
-    min-width: var(--spacing-16);
-    color: rgb(247 247 244 / 50%);
-    @apply font-sans text-body-medium;
-
-    line-height: var(--text-body-medium--line-height);
-  }
-
-  .mobile-navigation__chapter-title {
-    @apply flex-1 font-sans text-lead text-paper;
-
-    line-height: var(--text-lead--line-height);
   }
 
   @media (min-width: 768px) {
@@ -375,27 +321,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
       gap: var(--spacing-20);
     }
 
-    .mobile-navigation__chapter-list {
-      gap: var(--spacing-20);
-    }
-
-    .mobile-navigation__chapter-item {
-      padding-block: 0 var(--spacing-32);
-    }
-
-    .mobile-navigation__chapter-link {
-      gap: var(--spacing-32);
-    }
-
-    .mobile-navigation__chapter-number {
-      min-width: var(--spacing-16);
-    }
-
-    .mobile-navigation__chapter-title {
-      @apply font-display text-h2;
-
-      line-height: var(--text-h2--line-height);
-    }
   }
 
   @media (min-width: 1440px) {

@@ -1,0 +1,148 @@
+---
+import type { ImageMetadata } from "astro";
+
+const { text, attribution, source, portrait } = Astro.props as {
+  text: string;
+  attribution: string;
+  source: string;
+  portrait: ImageMetadata;
+};
+---
+
+<section class="quote" aria-label={`Zitat von ${attribution}`}>
+  <blockquote class="quote__body">
+    <div class="quote__text">
+      <span aria-hidden="true">»</span>
+      <p>{text}</p>
+    </div>
+    <footer class="quote__source">
+      <img src={portrait.src} alt="" loading="lazy" decoding="async" />
+      <div>
+        <cite>{attribution}</cite>
+        <p>{source}</p>
+      </div>
+    </footer>
+  </blockquote>
+</section>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .quote {
+    padding: var(--spacing-40) var(--spacing-24);
+  }
+
+  .quote__body {
+    display: flex;
+    margin: 0;
+    border-left: 0.5px solid var(--color-ink);
+    padding-left: var(--spacing-24);
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
+  .quote__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-4);
+  }
+
+  .quote__text span {
+    height: 48px;
+    font-family: var(--font-display);
+    font-size: 3rem;
+    line-height: 1;
+  }
+
+  .quote__text p {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-style: italic;
+    line-height: normal;
+  }
+
+  .quote__source {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-12);
+  }
+
+  .quote__source img {
+    width: var(--spacing-56);
+    height: var(--spacing-56);
+    border: 0.5px solid var(--color-ink);
+    border-radius: 50%;
+    object-fit: cover;
+  }
+
+  .quote__source div {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .quote__source cite {
+    font-family: var(--font-display);
+    font-size: 1.25rem;
+    font-style: normal;
+    line-height: 1.25;
+  }
+
+  .quote__source p {
+    color: var(--color-stone);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    line-height: normal;
+  }
+
+  @media (min-width: 768px) {
+    .quote {
+      padding: var(--spacing-80);
+    }
+
+    .quote__body {
+      padding-left: var(--spacing-40);
+      gap: 38px;
+    }
+
+    .quote__text span {
+      height: 60px;
+      font-size: 3.75rem;
+    }
+
+    .quote__text p {
+      font-size: 2.25rem;
+      letter-spacing: 0.015em;
+    }
+
+    .quote__source {
+      gap: var(--spacing-16);
+    }
+
+    .quote__source img {
+      width: var(--spacing-48);
+      height: var(--spacing-48);
+    }
+
+    .quote__source cite {
+      font-size: 1.125rem;
+    }
+
+    .quote__source p {
+      font-size: 1rem;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .quote__body {
+      width: 1066px;
+      margin-inline: auto;
+      padding-left: 71px;
+    }
+
+    .quote__text span {
+      height: 84px;
+      font-size: 5.25rem;
+    }
+  }
+</style>
