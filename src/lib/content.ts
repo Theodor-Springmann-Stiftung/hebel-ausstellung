@@ -1,4 +1,5 @@
 import { getCollection, getEntry } from 'astro:content';
+import { findObjectImage, imageReferenceId, type ObjectDisplayImage } from './object-images';
 
 export const chapterSegment = (nummer: string) => nummer;
 
@@ -113,7 +114,7 @@ export const getObjectRoutes = async () => {
 	}
 
 	const recordImageContext = (imageReference, context) => {
-		const image = imageById.get(imageReference.id);
+		const image = imageById.get(imageReferenceId(imageReference));
 
 		if (!image) return;
 
@@ -175,6 +176,16 @@ export const getObjectRoutes = async () => {
 		.filter((object) => object.data.slug)
 		.map((object) => {
 			const context = contextByObject.get(object.id);
+			const linkedImages = imagesByObject.get(object.id) ?? [];
+			const objectImages: ObjectDisplayImage[] = linkedImages.map((image) => ({
+				id: image.id,
+				dateiname: image.data.dateiname,
+				altText: image.data.altText,
+			}));
+
+			if (objectImages.length === 0 && findObjectImage(object.id)) {
+				objectImages.push({ id: object.id });
+			}
 
 			return {
 				params: { slug: object.data.slug },
@@ -182,7 +193,7 @@ export const getObjectRoutes = async () => {
 					object,
 					context: {
 						...(context ?? { returnHref: '/' }),
-						images: imagesByObject.get(object.id) ?? [],
+						images: objectImages,
 					},
 				},
 			};

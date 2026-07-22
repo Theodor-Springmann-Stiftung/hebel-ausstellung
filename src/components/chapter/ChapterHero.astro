@@ -1,17 +1,12 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getEntry } from "astro:content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getObjectImage } from "../../lib/object-images";
+import { resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
-const hero = await getEntry(chapter.data.hero);
-
-if (!hero) {
-  throw new Error(`Missing hero image entry for chapter ${chapter.id}`);
-}
-
-const image = getObjectImage(hero.data.dateiname);
+const hero = await resolveContentImage(chapter.data.hero);
+const image = hero.asset;
+const metadata = hero.entry?.data;
 ---
 
 <header class="chapter-hero">
@@ -24,7 +19,7 @@ const image = getObjectImage(hero.data.dateiname);
     <img
       class="chapter-hero__image"
       src={image.src}
-      alt={markdownToPlainText(hero.data.altText)}
+      alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
       width={image.width}
       height={image.height}
       loading="eager"
@@ -32,11 +27,11 @@ const image = getObjectImage(hero.data.dateiname);
     />
   </div>
 
-  {(hero.data.beschriftung || hero.data.nachweis) && (
+  {(metadata?.beschriftung || metadata?.nachweis) && (
     <div class="chapter-hero__caption">
       <div class="chapter-hero__caption-inner">
-        {hero.data.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(hero.data.beschriftung)}></p>}
-        {hero.data.nachweis && <p class="chapter-hero__caption-credit" set:html={renderInlineMarkdown(hero.data.nachweis)}></p>}
+        {metadata?.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(metadata.beschriftung)}></p>}
+        {metadata?.nachweis && <p class="chapter-hero__caption-credit" set:html={renderInlineMarkdown(metadata.nachweis)}></p>}
       </div>
     </div>
   )}

@@ -2,7 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
-import { getGalleryImageSource, getObjectImage } from "../../lib/object-images";
+import { getGalleryImageSource, resolveContentImage } from "../../lib/object-images";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
@@ -15,23 +15,23 @@ const galleries = await Promise.all(
     if (!gallery) return undefined;
 
     const { Content: GalleryContent } = await render(gallery);
-    const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => getEntry(imageReference)));
+    const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => resolveContentImage(imageReference)));
     const bilder = await Promise.all(
-      imageEntries.filter(Boolean).map(async (imageEntry) => {
-        const image = getObjectImage(imageEntry.data.dateiname);
-        const objectEntries = imageEntry.data.objekte?.length
-          ? await Promise.all(imageEntry.data.objekte.map((objectReference) => getEntry(objectReference)))
+      imageEntries.map(async (imageEntry) => {
+        const metadata = imageEntry.entry?.data;
+        const objectEntries = metadata?.objekte?.length
+          ? await Promise.all(metadata.objekte.map((objectReference) => getEntry(objectReference)))
           : [];
 
         return {
-          src: await getGalleryImageSource(image),
-          alt: imageEntry.data.altText,
-          beschriftung: imageEntry.data.beschriftung,
-          nachweis: imageEntry.data.nachweis,
+          src: await getGalleryImageSource(imageEntry.asset),
+          alt: metadata?.altText,
+          beschriftung: metadata?.beschriftung,
+          nachweis: metadata?.nachweis,
           objekte: objectEntries
             .map((objectEntry, objectIndex) => objectEntry && ({
               slug: objectEntry.data.slug,
-              position: imageEntry.data.objektPositionen?.[objectIndex] ?? objectEntry.data.position,
+              position: metadata?.objektPositionen?.[objectIndex] ?? objectEntry.data.position,
               titel: objectEntry.data.titel ?? "",
               urheber: objectEntry.data.urheber,
               datierung: objectEntry.data.datierung,

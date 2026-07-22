@@ -28,6 +28,7 @@ const sectionFields = {
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
+const imageReference = z.string().min(1);
 
 const chapters = defineCollection({
   loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
@@ -35,7 +36,7 @@ const chapters = defineCollection({
     .object({
       ...sectionFields,
       reihenfolge: z.number().int().positive(),
-      hero: reference("images").optional(),
+      hero: imageReference.optional(),
       startseitenBild: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i),
       startseitenAltText: z.string().optional(),
       startseitenVariante: homepageImageVariant,
@@ -69,7 +70,7 @@ const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
   schema: z.object({
     ...sectionFields,
-    hero: reference("images"),
+    hero: imageReference,
     galerien: z.array(reference("galleries")).min(1),
   }),
 });
@@ -81,7 +82,7 @@ const galleries = defineCollection({
     beschriftung: optionalMarkdown,
     untertitel: optionalMarkdown,
     farbe: galleryColor,
-    bilder: z.array(reference("images")).min(1),
+    bilder: z.array(imageReference).min(1),
   }),
 });
 
@@ -91,7 +92,7 @@ const images = defineCollection({
     .object({
       dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
         message: "Image dateiname must end with a supported image extension",
-      }),
+      }).optional(),
       altText: optionalMarkdown,
       beschriftung: optionalMarkdown,
       nachweis: optionalMarkdown,

@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import { subchapterHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getObjectImage } from "../../lib/object-images";
+import { resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
 const { Content } = await render(chapter);
@@ -13,13 +13,8 @@ const subchapters = await Promise.all(
 
     if (!subchapter) return undefined;
 
-    const hero = await getEntry(subchapter.data.hero);
-
-    if (!hero) {
-      throw new Error(`Missing hero image entry for subchapter ${subchapter.id}`);
-    }
-
-    const image = getObjectImage(hero.data.dateiname);
+    const hero = await resolveContentImage(subchapter.data.hero);
+    const image = hero.asset;
 
     return { subchapter, hero, image };
   }),
@@ -44,7 +39,7 @@ const subchapters = await Promise.all(
             >
               <img
                 src={image.src}
-                alt={markdownToPlainText(hero.data.altText || subchapter.data.titel)}
+                alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
                 width={image.width}
                 height={image.height}
                 loading="lazy"

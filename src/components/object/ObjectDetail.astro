@@ -2,11 +2,12 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { renderInlineMarkdown } from "../../lib/markdown";
+import type { ObjectDisplayImage } from "../../lib/object-images";
 import ObjectImages from "./ObjectImages.astro";
 
 type Props = {
   object: CollectionEntry<"objects">;
-  images: CollectionEntry<"images">[];
+  images: ObjectDisplayImage[];
   returnHref: string;
   returnLabel: string;
 };

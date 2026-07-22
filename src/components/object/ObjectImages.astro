@@ -1,20 +1,18 @@
 ---
-import type { ImageMetadata } from "astro";
-import type { CollectionEntry } from "astro:content";
 import { markdownToPlainText } from "../../lib/markdown";
-import { getObjectImage } from "../../lib/object-images";
+import { getObjectImage, type ObjectDisplayImage } from "../../lib/object-images";
 import ObjectImageCarousel from "./ObjectImageCarousel.astro";
 
-const { images } = Astro.props as { images: CollectionEntry<"images">[] };
+const { images } = Astro.props as { images: ObjectDisplayImage[] };
 const imageItems = images.map((image) => {
-  const asset = getObjectImage(image.data.dateiname);
+  const asset = getObjectImage(image.dateiname ?? image.id);
 
   return { image, asset, isPortrait: asset.height > asset.width };
 });
 const imageGroups: typeof imageItems[] = [];
 const hasMultipleImages = imageItems.length > 1;
 const shouldUseCarousel = hasMultipleImages && !(imageItems.length === 2 && imageItems.every((item) => item.isPortrait));
-const carouselImages = imageItems.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.data.altText) }));
+const carouselImages = imageItems.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.altText) }));
 
 for (const item of imageItems) {
   const previousGroup = imageGroups.at(-1);
@@ -35,7 +33,7 @@ for (const item of imageItems) {
 
 {shouldUseCarousel && (
   <div class="object-images object-images--desktop-only">
-    <ObjectImageCarousel slides={imageGroups.map((group) => group.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.data.altText) })))} syncId="responsive-object-images" />
+    <ObjectImageCarousel slides={imageGroups.map((group) => group.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.altText) })))} syncId="responsive-object-images" />
   </div>
 )}
 
@@ -47,7 +45,7 @@ for (const item of imageItems) {
           <img
             class="object-images__image"
             src={asset.src}
-            alt={markdownToPlainText(image.data.altText)}
+            alt={markdownToPlainText(image.altText)}
             width={asset.width}
             height={asset.height}
             loading={groupIndex === 0 ? "eager" : "lazy"}

@@ -43,7 +43,7 @@ Pfad: `src/content/chapters/*.md`
 | `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
+| `hero` | Bild-ID | ja | ID eines optionalen Bild-Eintrags oder Basisname einer Bilddatei in `src/assets/objects`. |
 | `unterkapitel` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | `galerien` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | Inhalt | Body-Markdown | nein | Kapiteltext unterhalb des Frontmatters. |
@@ -103,7 +103,7 @@ Pfad: `src/content/subchapters/*.md`
 | `nummer` | String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Referenz auf `images` | ja | ID des Hero-Bild-Eintrags. |
+| `hero` | Bild-ID | ja | ID eines optionalen Bild-Eintrags oder Basisname einer Bilddatei in `src/assets/objects`. |
 | `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
@@ -137,7 +137,7 @@ Pfad: `src/content/galleries/*.md`
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
-| `bilder` | Array von Referenzen auf `images` | ja | Mindestens 1 Bild. |
+| `bilder` | Array von Bild-IDs | ja | Mindestens 1 Bild. Eine ID kann auf Bild-Metadaten oder direkt auf den Basisnamen eines Assets verweisen. |
 | Inhalt | Body-Markdown | ja | Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
@@ -184,7 +184,7 @@ Pfad: `src/content/images/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `dateiname` | String | ja | Dateiname des Assets. Muss auf `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` oder `.webp` enden. |
+| `dateiname` | String | nein | Abweichender Dateiname des Assets. Ohne dieses Feld wird ein Asset mit demselben Basisnamen wie der Bild-Eintrag gesucht. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
@@ -253,6 +253,12 @@ Kurzbeschreibung: Die sichtbaren Bildunterschriften kommen zuerst aus Objekt-Dat
 | 1 | Metadaten aus `objects` | Wird genutzt, wenn ein Bild ein oder mehrere Objekte referenziert. |
 | 2 | `images.beschriftung` und `images.nachweis` | Wird genutzt, wenn Bildmetadaten vorhanden sind, aber keine Objektmetadaten. |
 | 3 | `galleries.beschriftung` und `galleries.untertitel` | Galerie-weiter Ersatzwert. |
+
+## Bilddatei-Ersatzlogik
+
+Bild-Metadaten in `src/content/images` sind optional. Kapitel, Unterkapitel und Galerien dürfen direkt den Basisnamen einer Datei aus `src/assets/objects` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`; Groß- und Kleinschreibung sowie die Dateiendung müssen in der Referenz nicht übereinstimmen.
+
+Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, Alternativtext, Beschriftung, Nachweis und Objektverweise verwendet. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz.
 
 ## Grafik
 

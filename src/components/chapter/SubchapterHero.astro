@@ -1,27 +1,21 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getEntry } from "astro:content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getObjectImage } from "../../lib/object-images";
+import { resolveContentImage } from "../../lib/object-images";
 
 const { chapter, subchapter } = Astro.props as {
   chapter: CollectionEntry<"chapters">;
   subchapter: CollectionEntry<"subchapters">;
 };
-const hero = await getEntry(subchapter.data.hero);
-
-if (!hero) {
-  throw new Error(`Missing hero image entry for subchapter ${subchapter.id}`);
-}
-
-const image = getObjectImage(hero.data.dateiname);
+const hero = await resolveContentImage(subchapter.data.hero);
+const image = hero.asset;
 ---
 
 <header class="subchapter-hero">
   <img
     class="subchapter-hero__image"
     src={image.src}
-    alt={markdownToPlainText(hero.data.altText || subchapter.data.titel)}
+    alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
     width={image.width}
     height={image.height}
     loading="eager"

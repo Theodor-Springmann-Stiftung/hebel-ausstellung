@@ -1,4 +1,4 @@
-import { access, readdir, readFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
@@ -61,6 +61,9 @@ async function validateGalleries() {
 
 async function validateImages() {
   const files = await listMarkdownFiles(path.join(contentDir, "images"));
+  const assetEntries = await readdir(assetObjectsDir, { withFileTypes: true });
+  const assetNames = new Set(assetEntries.filter((entry) => entry.isFile()).map((entry) => entry.name.toLowerCase()));
+  const assetStems = new Set([...assetNames].map((name) => path.parse(name).name));
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
@@ -68,7 +71,10 @@ async function validateImages() {
     const fileName = getFrontmatterString(frontmatter, "dateiname");
 
     if (!fileName) {
-      errors.push(`${relative(file)} must define dateiname`);
+      const inferredStem = path.basename(file, path.extname(file)).toLowerCase();
+      if (!assetStems.has(inferredStem)) {
+        errors.push(`${relative(file)} must define dateiname or match an image asset basename`);
+      }
       continue;
     }
 
@@ -77,9 +83,7 @@ async function validateImages() {
       continue;
     }
 
-    try {
-      await access(path.join(assetObjectsDir, fileName));
-    } catch {
+    if (!assetNames.has(fileName.toLowerCase())) {
       errors.push(`${relative(file)} references missing image asset: src/assets/objects/${fileName}`);
     }
   }
