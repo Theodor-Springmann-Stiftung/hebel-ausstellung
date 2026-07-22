@@ -1,6 +1,5 @@
 ---
 slug: "gespenst-fruehe-version"
-position: "Links"
 titel: "Eigenhändiges Manuskript einer frühen Version des *Gespensts an der Kanderer Straße*, erste Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1801"

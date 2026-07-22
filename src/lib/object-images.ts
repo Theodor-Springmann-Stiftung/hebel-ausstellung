@@ -36,7 +36,7 @@ export const imageReferenceId = (reference: ImageReference) => typeof reference 
 
 export const findObjectImage = (name: string) => {
   const filename = name.split("/").at(-1) ?? name;
-  return assetByFilename.get(filename.toLowerCase()) ?? assetByStem.get(filename.replace(/\.[^.]+$/, "").toLowerCase());
+  return assetByFilename.get(filename.toLowerCase()) ?? assetByStem.get(filename.replace(/\.(avif|gif|jpe?g|png|webp)$/i, "").toLowerCase());
 };
 
 export const getObjectImage = (name: string) => {

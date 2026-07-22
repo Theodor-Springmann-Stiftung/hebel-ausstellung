@@ -1,6 +1,5 @@
 ---
 slug: "freude-in-ehren-satzmanuskript-seite-3"
-position: "Links"
 titel: "Eigenhändiges Satzmanuskript zu *Freude in Ehren*, dritte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

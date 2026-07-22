@@ -1,6 +1,5 @@
 ---
 slug: "spinne-satzmanuskript-seite-1"
-position: "Rechts"
 titel: "Eigenhändiges Satzmanuskript zur *Spinne*, erste Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

@@ -70,7 +70,7 @@ const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
   schema: z.object({
     ...sectionFields,
-    hero: imageReference,
+    hero: imageReference.optional(),
     galerien: z.array(reference("galleries")).min(1),
   }),
 });

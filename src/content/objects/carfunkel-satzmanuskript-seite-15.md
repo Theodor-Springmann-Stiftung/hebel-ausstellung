@@ -1,6 +1,5 @@
 ---
 slug: "carfunkel-satzmanuskript-seite-15"
-position: "Rechts"
 titel: "Eigenhändiges Satzmanuskript des *Carfunkel*, fünfzehnte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

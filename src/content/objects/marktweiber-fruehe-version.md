@@ -1,6 +1,5 @@
 ---
 slug: "marktweiber-fruehe-version"
-position: "Rechts"
 titel: "Eigenhändiges Manuskript einer frühen Version der *Marktweiber in der Stadt*, erste Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1801"

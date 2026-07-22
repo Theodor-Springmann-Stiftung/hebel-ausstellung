@@ -4,9 +4,9 @@ import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
-const hero = await resolveContentImage(chapter.data.hero);
-const image = hero.asset;
-const metadata = hero.entry?.data;
+const hero = chapter.data.hero ? await resolveContentImage(chapter.data.hero) : undefined;
+const image = hero?.asset;
+const metadata = hero?.entry?.data;
 ---
 
 <header class="chapter-hero">
@@ -15,17 +15,19 @@ const metadata = hero.entry?.data;
     <span set:html={renderInlineMarkdown(chapter.data.titel)}></span>
   </h1>
 
-  <div class="chapter-hero__image-frame">
-    <img
-      class="chapter-hero__image"
-      src={image.src}
-      alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
-      width={image.width}
-      height={image.height}
-      loading="eager"
-      decoding="async"
-    />
-  </div>
+  {image && (
+    <div class="chapter-hero__image-frame">
+      <img
+        class="chapter-hero__image"
+        src={image.src}
+        alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
+        width={image.width}
+        height={image.height}
+        loading="eager"
+        decoding="async"
+      />
+    </div>
+  )}
 
   {(metadata?.beschriftung || metadata?.nachweis) && (
     <div class="chapter-hero__caption">

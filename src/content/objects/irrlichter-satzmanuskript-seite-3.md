@@ -1,6 +1,5 @@
 ---
 slug: "irrlichter-satzmanuskript-seite-3"
-position: "Links"
 titel: "Eigenhändiges Satzmanuskript der *Irrlichter*, dritte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

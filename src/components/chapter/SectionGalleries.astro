@@ -1,13 +1,25 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getEntry, render } from "astro:content";
+import { getCollection, getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
-import { getGalleryImageSource, resolveContentImage } from "../../lib/object-images";
+import { findObjectImage, getGalleryImageSource, imageReferenceId } from "../../lib/object-images";
+import { renderInlineMarkdown } from "../../lib/markdown";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
 const { section } = Astro.props as { section: Section };
 const { Content } = await render(section);
+const imageEntriesById = new Map((await getCollection("images")).map((entry) => [entry.id, entry]));
+
+const resolveAvailableImage = (reference) => {
+  const id = imageReferenceId(reference);
+  const normalizedId = id.toLowerCase().replaceAll(".", "");
+  const entry = imageEntriesById.get(id) ?? imageEntriesById.get(normalizedId);
+  const asset = findObjectImage(entry?.data.dateiname ?? id);
+
+  return asset ? { id, asset, entry } : undefined;
+};
+
 const galleries = await Promise.all(
   (section.data.galerien ?? []).map(async (galleryReference) => {
     const gallery = await getEntry(galleryReference);
@@ -15,7 +27,7 @@ const galleries = await Promise.all(
     if (!gallery) return undefined;
 
     const { Content: GalleryContent } = await render(gallery);
-    const imageEntries = await Promise.all(gallery.data.bilder.map((imageReference) => resolveContentImage(imageReference)));
+    const imageEntries = gallery.data.bilder.map(resolveAvailableImage).filter(Boolean);
     const bilder = await Promise.all(
       imageEntries.map(async (imageEntry) => {
         const metadata = imageEntry.entry?.data;
@@ -55,13 +67,21 @@ const galleries = await Promise.all(
 
 {galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
   <section class="section-gallery" id={String(index + 1)}>
-    <Gallery
-      titel={gallery.data.titel}
-      beschriftung={gallery.data.beschriftung}
-      untertitel={gallery.data.untertitel}
-      farbe={gallery.data.farbe}
-      bilder={bilder}
-    />
+    {bilder.length > 0 ? (
+      <Gallery
+        titel={gallery.data.titel}
+        beschriftung={gallery.data.beschriftung}
+        untertitel={gallery.data.untertitel}
+        farbe={gallery.data.farbe}
+        bilder={bilder}
+      />
+    ) : (
+      <header class="section-gallery__text-header">
+        <h2 set:html={renderInlineMarkdown(gallery.data.titel)}></h2>
+        {gallery.data.beschriftung && <p set:html={renderInlineMarkdown(gallery.data.beschriftung)}></p>}
+        {gallery.data.untertitel && <p set:html={renderInlineMarkdown(gallery.data.untertitel)}></p>}
+      </header>
+    )}
     <div class="section-gallery__body"><GalleryContent /></div>
   </section>
 ))}
@@ -72,6 +92,27 @@ const galleries = await Promise.all(
   .section-intro,
   .section-gallery__body {
     @apply bg-paper;
+  }
+
+  .section-gallery__text-header {
+    display: flex;
+    padding: var(--spacing-48) var(--spacing-20) var(--spacing-24);
+    background: var(--color-oat);
+    flex-direction: column;
+    gap: var(--spacing-12);
+  }
+
+  .section-gallery__text-header h2 {
+    font-family: var(--font-display);
+    font-size: var(--text-h2);
+    font-weight: normal;
+    line-height: var(--text-h2--line-height);
+  }
+
+  .section-gallery__text-header p {
+    max-width: var(--container-text);
+    font-family: var(--font-mono);
+    font-size: var(--text-caption);
   }
 
   .section-gallery__body {
@@ -121,8 +162,9 @@ const galleries = await Promise.all(
   }
 
   .section-gallery__body :global(> blockquote) {
+    width: calc(100% - var(--spacing-48));
     max-width: var(--container-content);
-    margin: var(--spacing-40) var(--spacing-24);
+    margin: var(--spacing-40) auto;
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
     order: 2;
@@ -202,6 +244,7 @@ const galleries = await Promise.all(
     }
 
     .section-gallery__body :global(> blockquote) {
+      width: calc(100% - var(--spacing-64));
       margin-block: var(--spacing-64);
       margin-inline: auto;
       padding-left: var(--spacing-48);

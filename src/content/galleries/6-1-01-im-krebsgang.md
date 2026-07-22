@@ -1,0 +1,7 @@
+---
+titel: "Im Krebsgang"
+bilder:
+  - "61_01_01_gustave_mit_hahn_weil"
+---
+
+»Allerwerteste Jungfer Gustave« – so lautet die Anrede der in Weil Zurückgelassenen in Hebels erstem Brief aus Karlsruhe. Weiter heißt es: »So nenn ich Sie denn iezt [...] das erstemal wieder, seit ich einst an einem Sontag Nachts in H[errn] Pror[ektors] Haus beim Blindemausspiel war, und mit Schneeballen gerieben wurde, und den andern Tag etwas hörte, was ich niemand sage« (Z 5). Hebel geht hier, nach der Trennung von Gustave, an den Anfang ihrer Bekanntschaft zurück. Tobias Günttert, bis 1790 Prorektor des Lörracher Pädagogiums, an dem auch Hebel als Präzeptoratsvikar tätig war [Querverweis zu Kap. 1, Folie 6], hatte 1788 seine Schwiegermutter und deren zweite Tochter Gustave Fecht bei sich aufgenommen. In diesem Haus war Hebel ihr zuerst begegnet, hatten sich die ersten Bande geknüpft, ehe Günttert seinen Wohnsitz nach Weil verlegte, um dort das Amt des Pfarrers zu übernehmen. Es hat den Anschein, als wollte Hebel mit seinem Brief räumliche und zeitliche Distanz gleichschalten. Als sollte die Entfernung, die sich durch seinen Umzug zwischen den beiden aufgetan hatte, in der vorsichtig-förmlichen Anrede ihrer ersten gemeinsamen Zeit aufgefangen werden. Als seien beide wieder an den Punkt zurückgekehrt, an dem die wechselseitige Neigung noch unausgesprochen zwischen ihnen stand. »[D]aß es mit mir leider immer rückwärts geht«, bezeichnet Hebel als »fatale[n] Umstand«. Er mache ihn »zu einem ziemlich Krebsartigen Wesen«.

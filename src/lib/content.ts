@@ -24,14 +24,14 @@ export const getOrderedChapters = async () =>
 	(await getCollection('chapters')).sort((a, b) => a.data.reihenfolge - b.data.reihenfolge);
 
 export const getChapterNavigation = async (): Promise<ChapterNavigationItem[]> =>
-	(await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht).map((chapter) => ({
+	(await getOrderedChapters()).map((chapter) => ({
 		nummer: chapter.data.nummer,
 		titel: chapter.data.navTitel,
 		href: chapterHref(chapter.data.nummer),
 	}));
 
 export const getChapterRoutes = async () =>
-	(await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht).map((chapter) => ({
+	(await getOrderedChapters()).map((chapter) => ({
 		params: { chapterNumber: chapterSegment(chapter.data.nummer) },
 		props: { chapter },
 	}));
@@ -60,7 +60,7 @@ export const getSubchapterRoutes = async () => {
 };
 
 export const getReadingOrder = async () => {
-	const chapters = (await getOrderedChapters()).filter((chapter) => chapter.data.veroeffentlicht);
+	const chapters = await getOrderedChapters();
 	const sections: Array<{
 		kind: 'chapter' | 'subchapter';
 		id: string;
@@ -160,11 +160,13 @@ export const getObjectRoutes = async () => {
 
 			if (!subchapter) continue;
 
-			recordImageContext(subchapter.data.hero, {
-				chapter,
-				subchapter,
-				returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
-			});
+			if (subchapter.data.hero) {
+				recordImageContext(subchapter.data.hero, {
+					chapter,
+					subchapter,
+					returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
+				});
+			}
 
 			for (const [galleryIndex, galleryReference] of subchapter.data.galerien.entries()) {
 				recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);

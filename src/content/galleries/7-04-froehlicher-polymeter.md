@@ -1,0 +1,8 @@
+---
+titel: "Fröhlicher Polymeter"
+beschriftung: "Hebel bedankt sich bei dem von ihm verehrten Jean Paul Richter für dessen Besprechung der *Allemannischen Gedichte*"
+bilder:
+  - "7_04_01_an_jean_paul_tss"
+---
+
+Kein anderer Schriftsteller wird in Hebels Briefen so oft erwähnt wie Jean Paul. Hebel übernimmt manche Redewendung von ihm und imitiert seinen Stil ( er schreibt Jean Paul’sche Polymeter [Querverweis zu Kap. 6, subsection Sophie Haufe, Fol. 4]). Er empfiehlt den Freundinnen seine Romane, ja er ist ihnen sogar bei der Beschaffung der Bücher behilflich. »Seine Schilderungen der Natur, des menschlichen Herzens, der menschlichen Freuden u. Leiden übertreffen alles ähnliche, nur die Natur selber nicht« (Z 63), und so muss jedes Dichtwerk sich an »J. Pauls Geist« (Z 138) messen lassen, nur um im Vergleich mit ihm stets zu verlieren. Umso größere Genugtuung bereitete Hebel die Besprechung der *Allemannischen Gedichte*, die Jean Paul im November 1803 in der *Zeitung für die elegante Welt* einrücken ließ und 1809 in *Dr. Katzenbergers Badereise* wiederveröffentlichte. Die Gedichte hätten »nicht höher geehrt und der Verfasser nicht inniger erfreut werden« können, schreibt Hebel in dem hier abgebildeten Brief, mit dem er Jean Paul das *Schatzkästlerin* übersandte. Bis ins hohe Alter bewahrte sich Hebel seine Dankbarkeit. Noch 1823 schrieb er von dem großen Wert, den »ein Blatt von Jean Paul, dem herrlichen«, für ihn besitze. Ein Blatt, »das nicht jeder gedruckt lesen kann. Von einem solchen Mann so gewürdigt zu seyn, ist eine große ehrenvolle Würdigung.« (Z 496) Offenbar hatte Jean Paul eine an Hebel adressierte Grußbotschaft einem Brief beigelegt, mit dem sein Bayreuther Landsmann Christian Kapp eines seiner Bücher nach Karlsruhe schickte.

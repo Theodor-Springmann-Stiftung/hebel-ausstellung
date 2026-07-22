@@ -1,6 +1,5 @@
 ---
 slug: "ag-1803-titelblatt"
-position: "Links"
 titel: "*Allemannische Gedichte*, Erstdruck, Titelblatt"
 urheber: "Johann Peter Hebel"
 datierung: "1803"

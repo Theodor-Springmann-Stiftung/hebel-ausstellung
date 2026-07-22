@@ -1,6 +1,5 @@
 ---
 slug: "marktweiber-satzmanuskript-seite-3"
-position: "Links"
 titel: "Eigenhändiges Satzmanuskript der *Marktweiber in der Stadt*, dritte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

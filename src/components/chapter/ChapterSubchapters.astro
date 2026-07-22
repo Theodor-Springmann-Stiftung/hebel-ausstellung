@@ -13,48 +13,53 @@ const subchapters = await Promise.all(
 
     if (!subchapter) return undefined;
 
-    const hero = await resolveContentImage(subchapter.data.hero);
-    const image = hero.asset;
+    const hero = subchapter.data.hero ? await resolveContentImage(subchapter.data.hero) : undefined;
+    const image = hero?.asset;
 
     return { subchapter, hero, image };
   }),
 );
+const availableSubchapters = subchapters.filter(Boolean);
 ---
 
 <section class="chapter-overview">
   <div class="chapter-overview__text"><Content /></div>
 
-  <nav class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
-    <h2>Unterkapitel</h2>
-    <ol class="chapter-overview__list">
-      {subchapters.filter(Boolean).map(({ subchapter, hero, image }) => (
-        <li class="chapter-overview__card">
-          <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>
-            <span
-              class:list={{
-                "chapter-overview__image-frame": true,
-                "chapter-overview__image-frame--texture": image.height > image.width * 1.25,
-              }}
-              style={image.height > image.width * 1.25 ? `background-image: url(${image.src})` : undefined}
-            >
-              <img
-                src={image.src}
-                alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
-                width={image.width}
-                height={image.height}
-                loading="lazy"
-                decoding="async"
-              />
-            </span>
-            <span class="chapter-overview__meta">
-              <span class="chapter-overview__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></span>
-              <span class="chapter-overview__link">Weiterlesen →</span>
-            </span>
-          </a>
-        </li>
-      ))}
-    </ol>
-  </nav>
+  {availableSubchapters.length > 0 && (
+    <nav class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
+      <h2>Unterkapitel</h2>
+      <ol class="chapter-overview__list">
+        {availableSubchapters.map(({ subchapter, hero, image }) => (
+          <li class="chapter-overview__card">
+            <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>
+              {image && hero && (
+                <span
+                  class:list={{
+                    "chapter-overview__image-frame": true,
+                    "chapter-overview__image-frame--texture": image.height > image.width * 1.25,
+                  }}
+                  style={image.height > image.width * 1.25 ? `background-image: url(${image.src})` : undefined}
+                >
+                  <img
+                    src={image.src}
+                    alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+                    width={image.width}
+                    height={image.height}
+                    loading="lazy"
+                    decoding="async"
+                  />
+                </span>
+              )}
+              <span class="chapter-overview__meta">
+                <span class="chapter-overview__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></span>
+                <span class="chapter-overview__link">Weiterlesen →</span>
+              </span>
+            </a>
+          </li>
+        ))}
+      </ol>
+    </nav>
+  )}
 </section>
 
 <style>

@@ -1,0 +1,9 @@
+---
+titel: "Ein heimlicher Heiratsantrag?"
+bilder:
+  - "63_02_01a_portrait_hendel_peroux_ub_frankfurt"
+  - "63_02_01b_hendel_caryatide_peroux_ub_frankfurt"
+  - "63_02_01c_hebel_stammbucheintrag_oenb_wien"
+---
+
+Geschult an Rehbergs Zeichnungen der Lady Hamilton trat sie Ende 1808 in Frankfurt erstmals öffentlich mit eigenen Attituden auf: »Henriette Hendel […] eine schöne, kraftvolle Frau, jugendlichen Ansehens und von üppiger Form«. So beginnt im *Morgenblatt für gebildete Stände* die Rezension jener Auftritte, »welche jedem Gebildeten unvergeßlich seyn werden« (Nr. 30, 4. Februar 1809). Unvergesslich waren sie wohl auch für Hebel, der zu »einer kleinen Zahl von Erwählten« gehörte, vor denen »Mad. Händel« bereits kurz zuvor in Karlsruhe »Pantomime[n], Attitüden u. Gruppirungen« gegeben hatte (an Sophie Haufe, Mitte November 1808). Zudem fühlte er sich »für die allem. Gedichte […] noch nie so geehrt […], als durch die feine Attention u. Auszeichnung mit der mich diese Frau während ihres Hierseyns behandelt hat« (ebd.). Natürlich war Hebel in sie »nicht vernarrt, sondern nur entzückt« (ebd.), und darum machte er der zweifach geschiedenen sowie einmal verwitweten Schauspielerin mit seinem Stammbucheintrag auch (k)einen Heiratsantrag: Seine Verse alemannisieren ein Lied, das Henriette Hendel einige Tage vorher auf dem Karlsruher Theater gesungen hatte, als »Margrethe in den Hagestolzen« (ebd.), gerichtet an die Figur des Hofrats Reinhold. Der ist, wie der Kirchenrat Hebel, ein unverheirateter Endvierziger, und er ist in das naive Landmädchen verliebt – wie sein Karlsruher Pendant in deren gewandte Darstellerin? In Ifflands Lustspiel kriegen sich die beiden, ganz gattungskonform – und übers Jahr erhielt auch der alemannische Dichter vom »Margrethli« eine überraschende Antwort auf seine leisen Avancen.

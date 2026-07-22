@@ -1,6 +1,5 @@
 ---
 slug: "carfunkel-satzmanuskript-seite-9"
-position: "Links"
 titel: "Eigenhändiges Satzmanuskript des *Carfunkel*, neunte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

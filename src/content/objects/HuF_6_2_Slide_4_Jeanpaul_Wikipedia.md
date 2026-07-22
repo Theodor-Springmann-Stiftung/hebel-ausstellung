@@ -1,10 +1,10 @@
 ---
-slug: ""
-titel: ""
-untertitel: ""
-urheber: ""
-datierung: ""
-materialTechnik: ""
-institution: ""
-inventarnummer: ""
+slug: "pfenninger-portraet-jean-paul-richter"
+titel: "Porträt von Jean Paul Richter"
+urheber: "Heinrich Pfenninger"
+institution: "Gleimhaus Halberstadt"
 ---
+
+# Beschreibung
+
+Porträt von Jean Paul.

@@ -13,7 +13,7 @@ const chapters = (await getOrderedChapters()).map((chapter) => ({
   title: chapter.data.navTitel,
   image: getObjectImage(chapter.data.startseitenBild),
   imageAlt: chapter.data.startseitenAltText ?? '',
-  href: chapter.data.veroeffentlicht ? chapterHref(chapter.data.nummer) : undefined,
+  href: chapterHref(chapter.data.nummer),
   modifier: chapter.data.startseitenVariante,
 }));
 ---
