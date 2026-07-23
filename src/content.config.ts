@@ -29,6 +29,7 @@ const sectionFields = {
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
 const imageReference = z.string().min(1);
+const contentFileId = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, "");
 
 const chapters = defineCollection({
   loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
@@ -102,7 +103,7 @@ const images = defineCollection({
 });
 
 const objects = defineCollection({
-  loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
+  loader: glob({ base: "./src/content/objects", pattern: "**/*.md", generateId: contentFileId }),
   schema: z
     .object({
       slug: urlSafeAsciiSlug,
