@@ -1,5 +1,5 @@
 ---
-slug: "4-biblische-geschichten-umschlag-recto"
+slug: "biblische-geschichten-umschlag-recto"
 titel: "Recto-Umschlag der Biblischen Geschichten"
 urheber: "unbekannt"
 datierung: "1824"

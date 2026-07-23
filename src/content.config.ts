@@ -16,6 +16,9 @@ const optionalMarkdown = z
 const urlSafeAsciiSlug = z.string().regex(/^[A-Za-z0-9-]+$/, {
   message: "Slug must use only ASCII letters, digits, and hyphens",
 });
+const objectSlug = urlSafeAsciiSlug.refine((slug) => !/^[1-7]-/.test(slug), {
+  message: "Object slug must not start with a chapter number",
+});
 
 const galleryColor = z
   .enum(["lindgrün", "vanille", "hellblau", "mintgrün", "rosa", "himmelblau", "salbeigrün"])
@@ -106,7 +109,7 @@ const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md", generateId: contentFileId }),
   schema: z
     .object({
-      slug: urlSafeAsciiSlug,
+      slug: objectSlug,
       position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
       titel: requiredMarkdown,
       untertitel: optionalMarkdown,

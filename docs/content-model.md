@@ -204,7 +204,7 @@ objekte:
 ---
 ```
 
-Die Referenz unter `objekte` bezeichnet immer den Basisnamen der Objektdatei. Wenn zum Beispiel `src/content/objects/1_01_01_hebel_geburtshaus_privat.md` den Slug `1-01-01-hebel-geburtshaus-privat` definiert, lautet die Bildreferenz `"1_01_01_hebel_geburtshaus_privat"`. Der Slug wird ausschließlich für die öffentliche Objekt-URL verwendet.
+Die Referenz unter `objekte` bezeichnet immer den Basisnamen der Objektdatei. Wenn zum Beispiel `src/content/objects/1_01_01_hebel_geburtshaus_privat.md` den Slug `hebel-geburtshaus-privat` definiert, lautet die Bildreferenz `"1_01_01_hebel_geburtshaus_privat"`. Der Slug wird ausschließlich für die öffentliche Objekt-URL verwendet und darf nicht mit einer Kapitelnummer beginnen.
 
 ### Sammlung: `objects`
 

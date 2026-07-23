@@ -1,5 +1,5 @@
 ---
-slug: "4-titelblatt-rheinlaendischer-hausfreund"
+slug: "titelblatt-rheinlaendischer-hausfreund"
 titel: "Titelblatt des Rheinländischen Hausfreunds (Detail)"
 urheber: "unbekannt"
 datierung: "1815"

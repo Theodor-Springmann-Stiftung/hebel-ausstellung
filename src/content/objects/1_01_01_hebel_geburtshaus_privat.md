@@ -1,7 +1,8 @@
 ---
-slug: "1-01-01-hebel-geburtshaus-privat"
-titel: "Getuschte Pinselzeichnung von Hebels Basler Geburtshaus"
+slug: "hebel-geburtshaus-privat"
+titel: "Hebels Geburtshaus am Basler Totentanz"
 urheber: "Emanuel Büchel"
 datierung: "Um 1770"
-institution: "Privatbesitz Basel"
+materialTechnik: "Getuschte Pinselzeichnung"
+institution: "[Privatbesitz Basel](https://hausen.pcom.de/jphebel/hebelbilderleben/geburtshaus.htm)"
 ---

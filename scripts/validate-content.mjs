@@ -131,6 +131,8 @@ async function validateObjects() {
       errors.push(`${relative(file)} must define slug`);
     } else if (!urlSafeAsciiSlugPattern.test(slug)) {
       errors.push(`${relative(file)} slug must use only ASCII letters, digits, and hyphens`);
+    } else if (/^[1-7]-/.test(slug)) {
+      errors.push(`${relative(file)} object slug must not start with a chapter number`);
     }
 
     if (!title) {

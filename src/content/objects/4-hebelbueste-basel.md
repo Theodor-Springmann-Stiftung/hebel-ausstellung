@@ -1,5 +1,5 @@
 ---
-slug: "4-hebelbueste-basel"
+slug: "hebelbueste-basel"
 titel: "Fotografie der Hebelbüste vor der Peterskirche, Basel"
 urheber: "Max Leu (Bildhauer), EinDao (Fotograf)"
 datierung: "2020"

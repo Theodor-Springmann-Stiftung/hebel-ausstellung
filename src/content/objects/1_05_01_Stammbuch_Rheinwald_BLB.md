@@ -1,5 +1,5 @@
 ---
-slug: "1-05-01-stammbuch-rheinwald-blb"
+slug: "stammbuch-rheinwald-blb"
 titel: "Hebels Stammbuch"
 urheber: "div."
 datierung: "1777-1781"

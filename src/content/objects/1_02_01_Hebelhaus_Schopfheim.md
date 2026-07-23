@@ -1,8 +1,9 @@
 ---
-slug: "1-02-01-hebelhaus-schopfheim"
+slug: "hebelhaus-schopfheim"
 titel: "Zeichnung vom Hebel-Haus in Hausen"
 urheber: "Gustav Wilhelm Friesenegger"
 datierung: "1840/50"
+materialTechnik: "Bleistift; 20 x 33,2 cm"
 institution: "Museum Schopfheim"
 inventarnummer: "GFRH 35"
 ---

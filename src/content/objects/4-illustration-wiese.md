@@ -1,5 +1,5 @@
 ---
-slug: "4-illustration-wiese"
+slug: "illustration-wiese"
 titel: "Illustration zur Wiese aus den Allemannischen Gedichten"
 urheber: "K. Kögler"
 datierung: "unbekannt"

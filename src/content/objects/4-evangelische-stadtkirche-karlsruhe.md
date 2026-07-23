@@ -1,5 +1,5 @@
 ---
-slug: "4-evangelische-stadtkirche-karlsruhe"
+slug: "evangelische-stadtkirche-karlsruhe"
 titel: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe"
 urheber: "Georg Moller"
 datierung: "ca. 1830"

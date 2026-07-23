@@ -1,8 +1,9 @@
 ---
-slug: "1-02-02-widmungsgedicht1-blb"
+slug: "widmungsgedicht1-blb"
 titel: "Handschriftliche Widmung der *Allemannischen Gedichte*"
 urheber: "Johann Peter Hebel"
 datierung: "Um 1803"
+materialTechnik: "Handschrift"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "K 3391"
 ---

@@ -19,7 +19,6 @@ export type GalleryObject = {
   datierung?: string;
   materialTechnik?: string;
   institution?: string;
-  inventarnummer?: string;
 };
 
 export type GalleryImage = {
@@ -55,7 +54,6 @@ const objectMetadata = (object: GalleryObject) =>
     object.datierung,
     object.materialTechnik,
     object.institution,
-    object.inventarnummer ? `Inv. Nr. ${object.inventarnummer}` : undefined,
   ]
     .filter(Boolean)
     .map((value) => renderInlineMarkdown(value))

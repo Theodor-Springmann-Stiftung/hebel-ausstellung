@@ -1,5 +1,5 @@
 ---
-slug: "4-biblische-geschichten-umschlag-verso"
+slug: "biblische-geschichten-umschlag-verso"
 titel: "Verso-Umschlag der Biblischen Geschichten"
 urheber: "unbekannt"
 datierung: "1824"

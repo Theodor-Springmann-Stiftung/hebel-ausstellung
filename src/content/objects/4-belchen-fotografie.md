@@ -1,5 +1,5 @@
 ---
-slug: "4-belchen-fotografie"
+slug: "belchen-fotografie"
 titel: "Fotografie des Belchen"
 urheber: "Andreas Schwarzkopf"
 datierung: "2013"
