@@ -11,6 +11,8 @@
 ## Programmierung
 - White borders/background removal from multi-object things
 - Formatierung Transkription etc.
+- Links im Text deutlicher
+- Links in den Objektmetadaten deutlicher
 
 ## Gernal
 - Alt texts generation
@@ -29,3 +31,4 @@
 - Gallierie 3 -- Kollationieren-Kommentar
 - Gallerie 4 -- Z-Quellen, Links deutlicher
 - Gallerie 5 -- Zitat ist von. jmd anders, mit siehe versehen
+- Gallerie 6 -- Transkription scuffed, aber es fehlt auch was -Todt

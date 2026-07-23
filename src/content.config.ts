@@ -119,6 +119,7 @@ const objects = defineCollection({
       materialTechnik: optionalMarkdown,
       institution: optionalMarkdown,
       inventarnummer: optionalMarkdown,
+      quelle: optionalMarkdown,
     }),
 });
 

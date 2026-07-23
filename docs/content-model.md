@@ -236,6 +236,7 @@ Pfad: `src/content/objects/*.md`
 | `materialTechnik` | String | nein | Material und Technik. Darf nicht leer sein, wenn gesetzt. |
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
+| `quelle` | Markdown-String | nein | Quelle oder Quellenangabe zum Objekt. |
 | Inhalt | Body-Markdown | nein | Objektbeschreibung unterhalb des Frontmatters. |
 
 Beispiel:
@@ -252,6 +253,7 @@ datierung: "1806"
 materialTechnik: "Kupferstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412284"
+quelle: "https://example.com/object/412284"
 ---
 
 # Beschreibung
@@ -336,6 +338,7 @@ erDiagram
     string materialTechnik "optional"
     markdown institution "optionalMarkdown"
     markdown inventarnummer "optionalMarkdown"
+    markdown quelle "optionalMarkdown"
     markdown body "optional"
   }
 ```

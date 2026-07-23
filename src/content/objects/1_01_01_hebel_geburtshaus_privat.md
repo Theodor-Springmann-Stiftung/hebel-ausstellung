@@ -4,5 +4,6 @@ titel: "Hebels Geburtshaus am Basler Totentanz"
 urheber: "Emanuel Büchel"
 datierung: "Um 1770"
 materialTechnik: "Getuschte Pinselzeichnung"
-institution: "[Privatbesitz Basel](https://hausen.pcom.de/jphebel/hebelbilderleben/geburtshaus.htm)"
+institution: "Privatbesitz Basel"
+quelle: "[hausen.pcom.de](https://hausen.pcom.de/jphebel/hebelbilderleben/geburtshaus.htm)"
 ---
