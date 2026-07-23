@@ -1,4 +1,5 @@
 ---
+quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-267797) / Public Domain Mark 1.0"
 slug: "johann-jacob-hebels-rechenbuch"
 transkription: true
 titel: "Johann Jacob Hebels Rechenbuch"

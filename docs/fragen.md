@@ -32,3 +32,4 @@
 - Gallerie 4 -- Z-Quellen, Links deutlicher
 - Gallerie 5 -- Zitat ist von. jmd anders, mit siehe versehen
 - Gallerie 6 -- Transkription scuffed, aber es fehlt auch was -Todt
+- Gallerie Schweitzer Reise -- Zei Quellen? Selbes Buch?

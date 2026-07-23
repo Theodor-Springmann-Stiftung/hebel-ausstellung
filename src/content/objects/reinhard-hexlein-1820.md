@@ -1,4 +1,5 @@
 ---
+quelle: "Enthalten in: *Zehn Blätter nach Hebels Alemannischen Gedichten, componirt und radirt von Sophie Reinhard.* Heidelberg: Mohr und Winter, 1820."
 slug: "reinhard-hexlein-1820"
 titel: "Radierung zum *Hexlein*"
 urheber: "Sophie Reinhard"

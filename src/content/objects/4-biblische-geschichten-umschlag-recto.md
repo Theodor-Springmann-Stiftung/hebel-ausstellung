@@ -1,4 +1,5 @@
 ---
+quelle: "Foto: Li-Wen Kuo"
 slug: "biblische-geschichten-umschlag-recto"
 titel: "Recto-Umschlag der Biblischen Geschichten"
 urheber: "unbekannt"

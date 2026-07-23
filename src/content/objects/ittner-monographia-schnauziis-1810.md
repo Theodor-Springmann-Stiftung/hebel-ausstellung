@@ -1,4 +1,5 @@
 ---
+quelle: "[Johann Albrecht Ittner]: *Monographia de Schnauziis*. Oiopoli 1810"
 slug: "ittner-monographia-schnauziis-1810"
 titel: "Ittners *Monographia de Schnauziis*"
 urheber: "Johann Albrecht Ittner"

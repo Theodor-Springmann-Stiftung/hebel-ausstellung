@@ -1,4 +1,5 @@
 ---
+quelle: "Vorlage: [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
 slug: "hebel-brief-hitzig-transkription-2026"
 transkription: true
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite, Transkription"

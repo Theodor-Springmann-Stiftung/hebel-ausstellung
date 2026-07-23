@@ -1,4 +1,5 @@
 ---
+quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-106389) / Public Domain Mark 1.0"
 slug: "brief-an-koelle-1814"
 titel: "Brief an Kölle, 25. Oktober 1814"
 urheber: "Johann Peter Hebel"

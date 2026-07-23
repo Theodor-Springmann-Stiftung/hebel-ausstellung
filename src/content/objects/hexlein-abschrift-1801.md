@@ -1,4 +1,5 @@
 ---
+quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
 materialTechnik: "Handschriftliche Abschrift"
 slug: "hexlein-abschrift-1801"
 titel: "Zeitgenössische Abschrift einer frühen Version von Hebels *Hexlein* unter dem Titel *E verhexte Burst*"

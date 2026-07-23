@@ -1,4 +1,5 @@
 ---
+quelle: "*Der Rheinländische Hausfreund oder Neuer Kalender*. Lahr/Pforzheim: Geiger und Katz"
 materialTechnik: "Unkorrigierter Probedruck"
 slug: "rheinlaendischer-hausfreund-1814-korrekturexemplar"
 titel: "Der Rheinländische Hausfreund auf das Jahr 1814"

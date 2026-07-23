@@ -1,4 +1,5 @@
 ---
+quelle: "J[ohann] P[eter] Hebel: *Allemannische Gedichte*. Carlsruhe: Macklots Hofbuchhandlung, 1806"
 materialTechnik: "Eigenhändig eingebundenes Titelblatt"
 slug: "widmungsexemplar-allemannische-gedichte-jaeck-1806"
 titel: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"

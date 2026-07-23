@@ -1,4 +1,5 @@
 ---
+quelle: "J. P. Hebels *Alemannische Gedichte*. Mit Einleitung von B. Albrecht. Karlsruhe, o. J."
 slug: "illustration-wiese"
 titel: "Illustration zur Wiese aus den Allemannischen Gedichten"
 urheber: "K. Kögler"

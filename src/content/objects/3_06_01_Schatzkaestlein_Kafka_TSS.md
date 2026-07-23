@@ -1,4 +1,5 @@
 ---
+quelle: "*Schatzkästlein des rheinischen Hausfreundes*. Stuttgart/Augsburg: Cotta"
 materialTechnik: "Druck mit handschriftlicher Widmung"
 slug: "schatzkaestlein-kafka-hardt"
 titel: "Schatzkästlein des rheinischen Hausfreundes (1859) mit handschriftlicher Widmung von Franz Kafka"

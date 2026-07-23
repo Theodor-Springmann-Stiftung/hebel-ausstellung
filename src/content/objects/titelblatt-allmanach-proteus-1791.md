@@ -1,4 +1,5 @@
 ---
+quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/90960)"
 materialTechnik: "Bleistiftzeichnung"
 slug: "titelblatt-allmanach-proteus-1791"
 titel: "Titelblatt des *Allmanach des Proteus-Zeichens*"
