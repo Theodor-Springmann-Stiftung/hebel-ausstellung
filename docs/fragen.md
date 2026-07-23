@@ -19,6 +19,8 @@
 ## Vorlage / Content
 
 
-### Kapitel 1: Der Oberläder
+### Kapitel 1: Der Oberländer
 - Falsche Angeben im Content Quesionaire / aber ok
-    -> Christine Design ist nicht maßgeblich source of truth
+    -> Figma Design Files ist nicht maßgeblich source of truth
+- Quellen/Zitate bei Quotes
+

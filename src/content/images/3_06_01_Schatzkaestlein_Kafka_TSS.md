@@ -6,5 +6,5 @@ nachweis: |-
 
   Sign. 800 390
 objekte:
-  - "schatzkaestlein-kafka-hardt"
+  - "3_06_01_Schatzkaestlein_Kafka_TSS"
 ---

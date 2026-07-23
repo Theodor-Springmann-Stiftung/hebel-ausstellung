@@ -46,6 +46,12 @@ function getFrontmatterString(frontmatter, key) {
   return match?.[1]?.trim();
 }
 
+function getFrontmatterList(frontmatter, key) {
+  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+-.*(?:\\r?\\n|$))*)`, "m"));
+
+  return [...(match?.[1] ?? "").matchAll(/^\s*-\s*["']?(.+?)["']?\s*$/gm)].map((item) => item[1].trim());
+}
+
 async function validateGalleries() {
   const files = await listMarkdownFiles(path.join(contentDir, "galleries"));
 
@@ -61,14 +67,36 @@ async function validateGalleries() {
 
 async function validateImages() {
   const files = await listMarkdownFiles(path.join(contentDir, "images"));
+  const objectFiles = await listMarkdownFiles(path.join(contentDir, "objects"));
   const assetEntries = await readdir(assetObjectsDir, { withFileTypes: true });
   const assetNames = new Set(assetEntries.filter((entry) => entry.isFile()).map((entry) => entry.name.toLowerCase()));
   const assetStems = new Set([...assetNames].map((name) => path.parse(name).name));
+  const objectIds = new Set(objectFiles.map((file) => path.basename(file, path.extname(file))));
+  const objectIdBySlug = new Map();
+
+  for (const objectFile of objectFiles) {
+    const source = await readFile(objectFile, "utf8");
+    const { frontmatter } = splitMarkdownFile(objectFile, source);
+    const slug = getFrontmatterString(frontmatter, "slug");
+
+    if (slug) objectIdBySlug.set(slug, path.basename(objectFile, path.extname(objectFile)));
+  }
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
     const { frontmatter } = splitMarkdownFile(file, source);
     const fileName = getFrontmatterString(frontmatter, "dateiname");
+
+    for (const objectReference of getFrontmatterList(frontmatter, "objekte")) {
+      if (objectIds.has(objectReference)) continue;
+
+      const objectId = objectIdBySlug.get(objectReference);
+      errors.push(
+        objectId
+          ? `${relative(file)} object reference must use the object filename "${objectId}", not its slug "${objectReference}"`
+          : `${relative(file)} references missing object file: src/content/objects/${objectReference}.md`,
+      );
+    }
 
     if (!fileName) {
       const inferredStem = path.basename(file, path.extname(file)).toLowerCase();

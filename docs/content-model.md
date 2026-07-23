@@ -188,7 +188,7 @@ Pfad: `src/content/images/*.md`
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
-| `objekte` | Array von Referenzen auf `objects` | nein | Objekte, die auf diesem Bild gezeigt werden. Ein Bild kann mehrere Objekte zeigen; ein Objekt kann in mehreren Bildern dargestellt sein. |
+| `objekte` | Array von Referenzen auf `objects` | nein | IDs der gezeigten Objektdateien: der Dateiname aus `src/content/objects` ohne `.md`, nicht der öffentliche `slug`. Ein Bild kann mehrere Objekte zeigen; ein Objekt kann in mehreren Bildern dargestellt sein. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
 
 Beispiel:
@@ -203,6 +203,8 @@ objekte:
   - "zix-carfunkel-1806"
 ---
 ```
+
+Die Referenz unter `objekte` bezeichnet immer den Basisnamen der Objektdatei. Wenn zum Beispiel `src/content/objects/1_01_01_hebel_geburtshaus_privat.md` den Slug `1-01-01-hebel-geburtshaus-privat` definiert, lautet die Bildreferenz `"1_01_01_hebel_geburtshaus_privat"`. Der Slug wird ausschließlich für die öffentliche Objekt-URL verwendet.
 
 ### Sammlung: `objects`
 

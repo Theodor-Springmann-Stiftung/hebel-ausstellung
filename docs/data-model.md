@@ -53,7 +53,7 @@ Dateiname: String, Required
 Alt-Text: String (MARKDOWN), Optional
 Beschriftung: String (MARKDOWN), Optional
 Nachweis: String (MARKDOWN), Optional
-Objekte: ->Objects, Optional, InOrder as seen on Picture
+Objekte: ->Objects, Optional, InOrder as seen on Picture. References use the object Markdown filename without `.md`, never the public slug.
 
 
 ### Objects

@@ -7,6 +7,6 @@ nachweis: |-
 
   Kurfürstlich-badischer gnädigst privilegierter Land-Kalender für die badische Markgrafschaft protestantischen Antheils : auf das Jahr nach Christi Geburt .... Carlsruhe : Verl. des Kurfürstl. Gymnasiums, 1805, 1805-1805 : (1805). Badische Landesbibliothek Karlsruhe, <https://nbn-resolving.org/urn:nbn:de:bsz:31-257642> / Public Domain Mark 1.0
 objekte:
-  - "johann-jacob-hebels-rechenbuch"
-  - "badischer-landkalender-1805"
+  - "3_02_01_Rechenbuch_TSS"
+  - "3_02_02_Hebel_K05_Neue_Aufgaben_TSS"
 ---
