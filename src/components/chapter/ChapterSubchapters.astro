@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import { subchapterHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { resolveContentImage } from "../../lib/object-images";
+import { getNavigationImageSource, resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
 const { Content } = await render(chapter);
@@ -13,10 +13,14 @@ const subchapters = await Promise.all(
 
     if (!subchapter) return undefined;
 
-    const hero = subchapter.data.hero ? await resolveContentImage(subchapter.data.hero) : undefined;
-    const image = hero?.asset;
+    const hero = await resolveContentImage(subchapter.data.hero);
+    const image = hero.asset;
+    const imageSource = await getNavigationImageSource(
+      image,
+      "(min-width: 1440px) 624px, (min-width: 768px) calc((100vw - 84px) / 2), calc(100vw - 40px)",
+    );
 
-    return { subchapter, hero, image };
+    return { subchapter, hero, image, imageSource };
   }),
 );
 const availableSubchapters = subchapters.filter(Boolean);
@@ -29,27 +33,27 @@ const availableSubchapters = subchapters.filter(Boolean);
     <nav class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
       <h2>Unterkapitel</h2>
       <ol class="chapter-overview__list">
-        {availableSubchapters.map(({ subchapter, hero, image }) => (
+        {availableSubchapters.map(({ subchapter, hero, image, imageSource }) => (
           <li class="chapter-overview__card">
             <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>
-              {image && hero && (
-                <span
-                  class:list={{
-                    "chapter-overview__image-frame": true,
-                    "chapter-overview__image-frame--texture": image.height > image.width * 1.25,
-                  }}
-                  style={image.height > image.width * 1.25 ? `background-image: url(${image.src})` : undefined}
-                >
-                  <img
-                    src={image.src}
-                    alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
-                    width={image.width}
-                    height={image.height}
-                    loading="lazy"
-                    decoding="async"
-                  />
-                </span>
-              )}
+              <span
+                class:list={{
+                  "chapter-overview__image-frame": true,
+                  "chapter-overview__image-frame--texture": image.height > image.width * 1.25,
+                }}
+                style={image.height > image.width * 1.25 ? `background-image: url(${imageSource.smallestSrc})` : undefined}
+              >
+                <img
+                  src={imageSource.src}
+                  srcset={imageSource.srcset}
+                  sizes={imageSource.sizes}
+                  alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+                  width={image.width}
+                  height={image.height}
+                  loading="lazy"
+                  decoding="async"
+                />
+              </span>
               <span class="chapter-overview__meta">
                 <span class="chapter-overview__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></span>
                 <span class="chapter-overview__link">Weiterlesen →</span>

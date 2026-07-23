@@ -1,29 +1,31 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { resolveContentImage } from "../../lib/object-images";
+import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
 const { chapter, subchapter } = Astro.props as {
   chapter: CollectionEntry<"chapters">;
   subchapter: CollectionEntry<"subchapters">;
 };
-const hero = subchapter.data.hero ? await resolveContentImage(subchapter.data.hero) : undefined;
-const image = hero?.asset;
+const hero = await resolveContentImage(subchapter.data.hero);
+const image = hero.asset;
+const imageSource = await getHeroImageSource(image);
 ---
 
-<header class:list={["subchapter-hero", { "subchapter-hero--text-only": !image }]}>
-  {image && hero && (
-    <img
-      class="subchapter-hero__image"
-      src={image.src}
-      alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
-      width={image.width}
-      height={image.height}
-      loading="eager"
-      decoding="async"
-    />
-  )}
-  {image && <div class="subchapter-hero__gradient"></div>}
+<header class="subchapter-hero">
+  <img
+    class="subchapter-hero__image"
+    src={imageSource.src}
+    srcset={imageSource.srcset}
+    sizes={imageSource.sizes}
+    alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+    width={image.width}
+    height={image.height}
+    loading="eager"
+    decoding="async"
+    fetchpriority="high"
+  />
+  <div class="subchapter-hero__gradient"></div>
   <div class="subchapter-hero__content">
     <p class="subchapter-hero__chapter">Kapitel {chapter.data.nummer}: {chapter.data.navTitel}</p>
     <h1 class="subchapter-hero__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></h1>
@@ -69,14 +71,6 @@ const image = hero?.asset;
     color: var(--color-paper);
     flex-direction: column;
     gap: var(--spacing-20);
-  }
-
-  .subchapter-hero--text-only {
-    height: auto;
-  }
-
-  .subchapter-hero--text-only .subchapter-hero__content {
-    color: var(--color-ink);
   }
 
   .subchapter-hero__chapter {

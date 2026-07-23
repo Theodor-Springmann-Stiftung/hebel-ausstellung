@@ -96,19 +96,17 @@ async function validateObjects() {
   for (const file of files) {
     const source = await readFile(file, "utf8");
     const { frontmatter, body } = splitMarkdownFile(file, source);
-    const objectFields = ["slug", "titel", "untertitel", "urheber", "datierung", "materialTechnik", "institution", "inventarnummer"];
-    const isEmptyTemplate = !body.trim() && objectFields.every((field) => !getFrontmatterString(frontmatter, field));
-
-    if (isEmptyTemplate) {
-      continue;
-    }
-
     const slug = getFrontmatterString(frontmatter, "slug");
+    const title = getFrontmatterString(frontmatter, "titel");
 
     if (!slug) {
       errors.push(`${relative(file)} must define slug`);
     } else if (!urlSafeAsciiSlugPattern.test(slug)) {
       errors.push(`${relative(file)} slug must use only ASCII letters, digits, and hyphens`);
+    }
+
+    if (!title) {
+      errors.push(`${relative(file)} must define titel`);
     }
 
     if (!body.trim()) {

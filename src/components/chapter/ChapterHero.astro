@@ -1,12 +1,13 @@
 ---
 import type { CollectionEntry } from "astro:content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { resolveContentImage } from "../../lib/object-images";
+import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
 const hero = chapter.data.hero ? await resolveContentImage(chapter.data.hero) : undefined;
 const image = hero?.asset;
 const metadata = hero?.entry?.data;
+const imageSource = image ? await getHeroImageSource(image) : undefined;
 ---
 
 <header class="chapter-hero">
@@ -15,16 +16,19 @@ const metadata = hero?.entry?.data;
     <span set:html={renderInlineMarkdown(chapter.data.titel)}></span>
   </h1>
 
-  {image && (
+  {image && imageSource && (
     <div class="chapter-hero__image-frame">
       <img
         class="chapter-hero__image"
-        src={image.src}
+        src={imageSource.src}
+        srcset={imageSource.srcset}
+        sizes={imageSource.sizes}
         alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
         width={image.width}
         height={image.height}
         loading="eager"
         decoding="async"
+        fetchpriority="high"
       />
     </div>
   )}

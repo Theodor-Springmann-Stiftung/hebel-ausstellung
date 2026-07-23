@@ -7,7 +7,6 @@ hero: "3_00_01_hebel_k11_unverhofftes_wiedersehen_tss"
 startseitenBild: "3_00_homepage_hausfreund.png"
 startseitenAltText: "Illustration zum Rheinländischen Hausfreund"
 startseitenVariante: "friend"
-veroeffentlicht: false
 galerien:
   - "3-01-badische-kalenderkrise"
   - "3-02-des-hausfreunds-zutraeger"

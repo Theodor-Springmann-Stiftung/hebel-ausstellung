@@ -7,7 +7,6 @@ hero: "7_00_01_hero_image_an_koelle_dla"
 startseitenBild: "7_00_01_hero_image_An_Koelle_DLA.webp"
 startseitenAltText: "Brief Johann Peter Hebels an Christoph Friedrich Karl von Kölle"
 startseitenVariante: "letter-writer"
-veroeffentlicht: false
 galerien:
   - "7-01-werkpolitik"
   - "7-02-lateiner-unter-sich"

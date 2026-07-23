@@ -36,11 +36,10 @@ const chapters = defineCollection({
     .object({
       ...sectionFields,
       reihenfolge: z.number().int().positive(),
-      hero: imageReference.optional(),
+      hero: imageReference,
       startseitenBild: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i),
       startseitenAltText: z.string().optional(),
       startseitenVariante: homepageImageVariant,
-      veroeffentlicht: z.boolean().default(true),
       unterkapitel: z.array(reference("subchapters")).min(1).optional(),
       galerien: z.array(reference("galleries")).min(1).optional(),
     })
@@ -48,15 +47,7 @@ const chapters = defineCollection({
       const hasSubchapters = Boolean(data.unterkapitel?.length);
       const hasGalleries = Boolean(data.galerien?.length);
 
-      if (data.veroeffentlicht && !data.hero) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Published chapter must define a hero image",
-          path: ["hero"],
-        });
-      }
-
-      if (data.veroeffentlicht && hasSubchapters === hasGalleries) {
+      if (hasSubchapters === hasGalleries) {
         context.addIssue({
           code: z.ZodIssueCode.custom,
           message: "Chapter must define either subchapters or galleries, but not both",
@@ -70,7 +61,7 @@ const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
   schema: z.object({
     ...sectionFields,
-    hero: imageReference.optional(),
+    hero: imageReference,
     galerien: z.array(reference("galleries")).min(1),
   }),
 });
@@ -114,39 +105,15 @@ const objects = defineCollection({
   loader: glob({ base: "./src/content/objects", pattern: "**/*.md" }),
   schema: z
     .object({
-      slug: z.string().optional(),
+      slug: urlSafeAsciiSlug,
       position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
-      titel: z.string().optional(),
-      untertitel: z.string().optional(),
-      urheber: z.string().optional(),
-      datierung: z.string().optional(),
-      materialTechnik: z.string().optional(),
-      institution: z.string().optional(),
-      inventarnummer: z.string().optional(),
-    })
-    .superRefine((data, context) => {
-      const fields = Object.entries(data);
-
-      // Generated templates remain valid until an object has been populated.
-      if (fields.every(([, value]) => !value?.trim())) {
-        return;
-      }
-
-      if (!data.slug?.trim()) {
-        context.addIssue({ code: z.ZodIssueCode.custom, message: "Slug is required", path: ["slug"] });
-      } else if (!urlSafeAsciiSlug.safeParse(data.slug).success) {
-        context.addIssue({ code: z.ZodIssueCode.custom, message: "Slug must use only ASCII letters, digits, and hyphens", path: ["slug"] });
-      }
-
-      if (!data.titel?.trim()) {
-        context.addIssue({ code: z.ZodIssueCode.custom, message: "Title is required", path: ["titel"] });
-      }
-
-      for (const field of ["untertitel", "urheber", "datierung", "materialTechnik", "institution", "inventarnummer"] as const) {
-        if (data[field] !== undefined && !data[field].trim()) {
-          context.addIssue({ code: z.ZodIssueCode.custom, message: "Optional field must not be empty when provided", path: [field] });
-        }
-      }
+      titel: requiredMarkdown,
+      untertitel: optionalMarkdown,
+      urheber: optionalMarkdown,
+      datierung: optionalMarkdown,
+      materialTechnik: optionalMarkdown,
+      institution: optionalMarkdown,
+      inventarnummer: optionalMarkdown,
     }),
 });
 

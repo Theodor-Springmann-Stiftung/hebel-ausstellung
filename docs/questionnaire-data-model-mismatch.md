@@ -20,7 +20,7 @@ Long transcriptions and descriptions can live in an object's Markdown body when 
 
 ## Edge cases and editorial review
 
-Placeholder text must not become published metadata. Blank template prompts, “none”, and instructions such as “Short description for accessibility” should be omitted; genuinely unknown values and uncertain dates should be retained only when they are intentional catalog information. Empty generated object templates may remain during asset preparation, but published images should reference populated records.
+Placeholder text must not become published metadata. Blank template prompts, “none”, and instructions such as “Short description for accessibility” should be omitted; genuinely unknown values and uncertain dates should be retained only when they are intentional catalog information. Object records must always contain their required metadata; asset preparation must not create empty object templates.
 
 Conflicts require editorial decisions rather than arbitrary normalization. Compare institution, inventory number, source URL, credit, and image content before deduplicating records. Preserve historical spelling in quotations and transcriptions, while correcting clear errors in newly written narrative or metadata. Mark unresolved dates, names, truncated transcriptions, and copied identifiers for review instead of guessing.
 

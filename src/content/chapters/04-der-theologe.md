@@ -3,11 +3,10 @@ reihenfolge: 4
 nummer: "4"
 titel: "Hebel der Theologe"
 navTitel: "Der Theologe"
-hero: "4_00_homepage_theologe"
+hero: "theo_4_hero_image_hebelbueste_basel_max_leu"
 startseitenBild: "4_00_homepage_theologe.png"
 startseitenAltText: "Studierender Putto mit einem aufgeschlagenen Buch"
 startseitenVariante: "theologian"
-veroeffentlicht: false
 galerien:
   - "4-eschatologie-bei-hebel"
   - "4-der-polytheismusbrief"

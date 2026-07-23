@@ -7,7 +7,6 @@ hero: "1_00_01_hero_image_wiesental_blb"
 startseitenBild: "1_00_homepage_oberlaender.png"
 startseitenAltText: "Historische Ansicht des Wiesentals"
 startseitenVariante: "featured"
-veroeffentlicht: true
 galerien:
   - "1-01-basel"
   - "1-02-hausen"
