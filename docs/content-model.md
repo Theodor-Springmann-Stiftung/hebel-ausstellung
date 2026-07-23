@@ -263,7 +263,7 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 ## Bildunterschrift-Ersatzlogik
 
-Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel des referenzierten Objekts verwendet. Wenn das Bild kein Objekt referenziert, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden; zuletzt dienen `galleries.beschriftung` und `galleries.untertitel` als galerie-weite Ersatzwerte.
+Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel des referenzierten Objekts verwendet. Zeigt ein Bild mehrere referenzierte Objekte, wird stattdessen für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus `images.objektPositionen` und dem jeweiligen Objekttitel erzeugt. Wenn das Bild kein Objekt referenziert, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden; zuletzt dienen `galleries.beschriftung` und `galleries.untertitel` als galerie-weite Ersatzwerte.
 
 Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangig aus dessen Metadaten `urheber`, `datierung`, `materialTechnik` und `institution` zusammengesetzt.
 

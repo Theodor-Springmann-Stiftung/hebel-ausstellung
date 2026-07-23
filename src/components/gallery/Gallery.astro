@@ -62,9 +62,13 @@ const objectMetadata = (object: GalleryObject) =>
 
 const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
   if (image.objekte?.length) {
+    const hasMultipleObjects = image.objekte.length > 1;
+
     return image.objekte.map((object) => {
+      const objectTitle = object.position ? `${object.position}: ${object.titel}` : object.titel;
+
       return {
-        titleHtml: renderInlineMarkdown(image.beschriftung ?? (object.position ? `${object.position}: ${object.titel}` : object.titel)),
+        titleHtml: renderInlineMarkdown(hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle)),
         textHtml: objectMetadata(object),
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? "Zum Objekt (mit Transkription)" : "Zum Objekt",

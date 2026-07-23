@@ -32,4 +32,12 @@
 - Gallerie 4 -- Z-Quellen, Links deutlicher
 - Gallerie 5 -- Zitat ist von. jmd anders, mit siehe versehen
 - Gallerie 6 -- Transkription scuffed, aber es fehlt auch was -Todt
-- Gallerie Schweitzer Reise -- Zei Quellen? Selbes Buch?
+- Gallerie Schweitzer Reise -- Zei Quellen? Selbes Buch? Titelkupfer?
+- Hero image: Quelle, Objekt etc
+- Karlsruhe-Plan -- unverlinkt? 
+
+
+### Kapitel 2: Der Dichter
+- Zwei Objekte, gefällig zu einem Bild montiert: bisher ungeschehen
+- Subchapter hero: keine Caption vorhergesehen
+- Links rechts
