@@ -1,5 +1,5 @@
 ---
-slug: "hebelhaus-schopfheim"
+slug: "hebelhaus-hausen"
 titel: "Zeichnung vom Hebel-Haus in Hausen"
 urheber: "Gustav Wilhelm Friesenegger"
 datierung: "1840/50"

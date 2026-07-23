@@ -1,8 +1,8 @@
 ---
-slug: "stammbuch-rheinwald-blb"
+slug: "stammbuch-blb"
 transkription: true
-titel: "Hebels Stammbuch"
-urheber: "div."
+titel: "Stammbuch des Johann Peter Hebel, 1777–1781"
+urheber: "versch. Urheber"
 datierung: "1777-1781"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "Cod. Donaueschingen 909"
@@ -32,9 +32,7 @@ schribs f der Flucht<br>
 dein Freund Walch<br>
 Erlang im September 1778.
 
-Machte sich, nach dem er einen Mos. tödlich<br>
-verwundet, aus dem / Staub, und wurde, da er<br>
-auf / öffentliche Zitation nicht erschien auf 10<br>
-Jare relegirt. – Gieng alsdan nach Jena um<br>
-Rechte zu studiren / wurde aber auch da wider<br>
-fortgeschikt.
+Machte sich, nach dem er einen Mos. tödlich verwundet, aus dem<br>
+Staub, und wurde, da er auf öffentliche Zitation nicht erschien auf<br>
+10 Jare relegirt. – Gieng alsdan nach Jena um Rechte zu studiren<br>
+wurde aber auch da wider fortgeschikt.

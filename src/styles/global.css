@@ -304,6 +304,10 @@
     font-weight: 400;
   }
 
+  blockquote {
+    hyphens: auto;
+  }
+
   a {
     color: var(--color-link);
     text-decoration-thickness: 0.08em;

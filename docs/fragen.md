@@ -24,6 +24,8 @@
 ### Kapitel 1: Der Oberländer
 - Falsche Angeben im Content Quesionaire / aber ok
     -> Figma Design Files ist nicht maßgeblich source of truth
-- Quellen/Zitate bei Quotes: 1 & 2 Quote
-- Link zur Quelle / Gallery 2, Folie 1
-
+- Blockzitate 1 & 2: Quellen bei Quotes
+- Gallerie 2, Folie 1 -- Link zur Wiki-Quelle
+- Gallierie 3 -- Kollationieren-Kommentar
+- Gallerie 4 -- Z-Quellen, Links deutlicher
+- Gallerie 5 -- Zitat ist von. jmd anders, mit siehe versehen

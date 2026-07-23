@@ -4,15 +4,15 @@ bilder:
   - "1_04_01_roettler_schloss_gla"
 ---
 
-> Fast allmol, Ätti, wenn mer ’s Röttler Schloß
-> so vor den Auge stoht, se denki dra,
-> öbs üsem Hus echt au e mol so goht.
-> Stohts denn nit dört, so schuderig, wie der Tod
-> im Basler Todtetanz? Es gruset mer,
-> wie länger aßi ’s bschau. Und üser Hus,
-> es sizt io wie ne Chilchli uffem Berg,
-> und d’ Fenster glitzeren, es isch e Staat.
-> Schwetz Ätti, gohts em echterst au no so?
+> Fast allmol, Ätti, wenn mer ’s Röttler Schloß<br>
+> so vor den Auge stoht, se denki dra,<br>
+> öbs üsem Hus echt au e mol so goht.<br>
+> Stohts denn nit dört, so schuderig, wie der Tod<br>
+> im Basler Todtetanz? Es gruset mer,<br>
+> wie länger aßi ’s bschau. Und üser Hus,<br>
+> es sizt io wie ne Chilchli uffem Berg,<br>
+> und d’ Fenster glitzeren, es isch e Staat.<br>
+> Schwetz Ätti, gohts em echterst au no so?<br>
 > I mein emol, es chönn schier gar nit sy.
 >
 > — JPH

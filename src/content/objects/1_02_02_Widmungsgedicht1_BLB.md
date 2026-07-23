@@ -1,7 +1,7 @@
 ---
-slug: "widmungsgedicht1-blb"
+slug: "widmungsgedicht-blb"
 transkription: true
-titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen"
+titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen und Widmungsgedicht"
 urheber: "Johann Peter Hebel"
 datierung: "Um 1803"
 materialTechnik: "Handschrift"
