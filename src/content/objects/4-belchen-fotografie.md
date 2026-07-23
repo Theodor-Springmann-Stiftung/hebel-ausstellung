@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Fotografie"
 slug: "belchen-fotografie"
 titel: "Fotografie des Belchen"
 urheber: "Andreas Schwarzkopf"

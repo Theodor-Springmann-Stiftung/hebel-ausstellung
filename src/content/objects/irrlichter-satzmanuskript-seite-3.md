@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "irrlichter-satzmanuskript-seite-3"
 titel: "Eigenhändiges Satzmanuskript der *Irrlichter*, dritte Seite"
 urheber: "Johann Peter Hebel"

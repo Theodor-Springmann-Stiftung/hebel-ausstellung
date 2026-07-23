@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Manuskript"
 slug: "gedichtverzeichnis-1802"
 titel: "Eigenhändiges Gedichtverzeichnis (Titel, Verszahl und potenzieller Druckumfang)"
 urheber: "Johann Peter Hebel"

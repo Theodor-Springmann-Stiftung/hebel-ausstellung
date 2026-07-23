@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "spinne-satzmanuskript-seite-1"
 titel: "Eigenhändiges Satzmanuskript zur *Spinne*, erste Seite"
 urheber: "Johann Peter Hebel"

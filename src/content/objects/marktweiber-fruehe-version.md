@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Manuskript auf dünnem, mehrfach gefaltetem Briefpapier"
 slug: "marktweiber-fruehe-version"
 titel: "Eigenhändiges Manuskript einer frühen Version der *Marktweiber in der Stadt*, erste Seite"
 urheber: "Johann Peter Hebel"

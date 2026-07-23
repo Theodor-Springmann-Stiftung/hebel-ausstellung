@@ -1,4 +1,5 @@
 ---
+materialTechnik: "2 Bl., davon drei Seiten beschrieben; Blumenranke als Wasserzeichen"
 slug: "brief-jaeck-hebel-1810"
 titel: "Brief von Marcus Fidelis Jäck an Hebel"
 urheber: "Marcus Fidelis Jäck"

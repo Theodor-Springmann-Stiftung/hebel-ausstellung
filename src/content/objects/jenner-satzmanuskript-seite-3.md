@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "jenner-satzmanuskript-seite-3"
 titel: "Eigenhändiges Satzmanuskript zum *Jenner*, dritte Seite"
 urheber: "Johann Peter Hebel"

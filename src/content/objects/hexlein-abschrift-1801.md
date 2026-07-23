@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Handschriftliche Abschrift"
 slug: "hexlein-abschrift-1801"
 titel: "Zeitgenössische Abschrift einer frühen Version von Hebels *Hexlein* unter dem Titel *E verhexte Burst*"
 urheber: |-

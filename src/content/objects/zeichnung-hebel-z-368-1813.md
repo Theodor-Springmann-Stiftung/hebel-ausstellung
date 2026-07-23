@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Zeichnung"
 slug: "zeichnung-hebel-z-368-1813"
 titel: "Zeichnung Hebels aus Z 368"
 urheber: "Johann Peter Hebel"

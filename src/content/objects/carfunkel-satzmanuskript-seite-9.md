@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript; Klebung mit Lackstreifen"
 slug: "carfunkel-satzmanuskript-seite-9"
 titel: "Eigenhändiges Satzmanuskript des *Carfunkel*, neunte Seite"
 urheber: "Johann Peter Hebel"

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Manuskript"
 slug: "brief-hebel-haufe-dezember-1815"
 titel: "Hebel an Haufe vom Dezember 1815 (Z 401)"
 urheber: "Johann Peter Hebel"

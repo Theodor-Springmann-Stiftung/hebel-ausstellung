@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Zeichnung"
 slug: "zeichnung-sophie-haufe"
 titel: "Zeichnung von Sophie Haufe"
 urheber: "unbekannt"

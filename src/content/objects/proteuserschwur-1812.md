@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Aquarellierte Federzeichnung"
 slug: "proteuserschwur-1812"
 titel: "Der Proteuserschwur"
 urheber: "Christian Meichelt"

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Druck in Fraktur"
 slug: "allemannische-gedichte-maecken-1821"
 titel: "*Allemannische Gedichte. Neueste vollständige Ausgabe*, Titelblatt"
 urheber: "Verlag Johann Jakob Mäcken"

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "irrlichter-satzmanuskript-seite-1"
 titel: "Eigenhändiges Satzmanuskript zu den *Irrlichtern*, erste Seite"
 urheber: "Johann Peter Hebel"

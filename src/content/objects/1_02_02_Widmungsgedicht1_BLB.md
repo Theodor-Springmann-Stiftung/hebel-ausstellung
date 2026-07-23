@@ -1,11 +1,11 @@
 ---
 slug: "widmungsgedicht1-blb"
-titel: "Handschriftliche Widmung der *Allemannischen Gedichte*"
+titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen"
 urheber: "Johann Peter Hebel"
 datierung: "Um 1803"
 materialTechnik: "Handschrift"
 institution: "Badische Landesbibliothek, Karlsruhe"
-inventarnummer: "K 3391"
+inventarnummer: "Hebeliana, Konvolut »Concepte u. Abschriften zu Gedichten u. Aufsätzen«, K 3391"
 ---
 
 # Transkription

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript; aufgeklebter Papierstreifen"
 slug: "wiese-satzmanuskript-seite-6"
 titel: "Eigenhändiges Satzmanuskript der *Wiese*, sechste Seite"
 urheber: "Johann Peter Hebel"

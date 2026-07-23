@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "marktweiber-satzmanuskript-seite-3"
 titel: "Eigenhändiges Satzmanuskript der *Marktweiber in der Stadt*, dritte Seite"
 urheber: "Johann Peter Hebel"

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Fotografie"
 slug: "alz-rezension-1790-lupe"
 titel: "Photograph of the review in the ALZ 1790 with magnifying glass"
 urheber: "Li Wen Kuo, TSS"

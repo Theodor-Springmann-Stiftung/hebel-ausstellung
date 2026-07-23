@@ -1,4 +1,5 @@
 ---
+materialTechnik: "1 Bl., zwei Seiten beschrieben; besonders dünnes Papier"
 slug: "brief-hebel-koelle-1822"
 titel: "Brief Hebels an Christoph Friedrich Karl von Kölle"
 urheber: "Johann Peter Hebel"

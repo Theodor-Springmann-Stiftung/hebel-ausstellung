@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Druck in Antiqua"
 slug: "allemannische-gedichte-ensslin-1822"
 titel: "*Allemannische Gedichte. Neueste vollständige Ausgabe*, Titelblatt"
 urheber: "Verlag Johann Jakob Noah Enßlin"

@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Eigenhändig eingebundenes Titelblatt"
 slug: "widmungsexemplar-allemannische-gedichte-jaeck-1806"
 titel: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"
 urheber: "Johann Peter Hebel"

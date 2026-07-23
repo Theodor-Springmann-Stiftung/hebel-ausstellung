@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Veröffentlichter Druck"
 slug: "rheinlaendischer-hausfreund-1814-druckexemplar"
 titel: "Der Rheinländische Hausfreund auf das Jahr 1814"
 untertitel: "Druckexemplar"

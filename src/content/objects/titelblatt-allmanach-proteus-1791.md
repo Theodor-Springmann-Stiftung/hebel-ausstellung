@@ -1,4 +1,5 @@
 ---
+materialTechnik: "Bleistiftzeichnung"
 slug: "titelblatt-allmanach-proteus-1791"
 titel: "Titelblatt des *Allmanach des Proteus-Zeichens*"
 urheber: "Johann Peter Hebel"
