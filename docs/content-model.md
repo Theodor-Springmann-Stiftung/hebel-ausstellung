@@ -228,6 +228,7 @@ Pfad: `src/content/objects/*.md`
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
 | `position` | Enum | nein | Standardposition des Objekts. Erlaubt sind `Links`, `Rechts` und `Vorne`. Bildspezifische Angaben unter `images.objektPositionen` haben Vorrang. |
+| `transkription` | Boolean | nein | Gibt an, ob der Body eine Transkription enthält. Standardwert ist `false`. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `untertitel` | Markdown-String | nein | Objektuntertitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |
@@ -242,6 +243,7 @@ Beispiel:
 ```md
 ---
 slug: "zix-carfunkel-1806"
+transkription: false
 titel: "Dritte Auflage der *Allemannischen Gedichte* mit einem Titelkupfer von Benjamin Zix"
 urheber: |-
   Benjamin Zix (Künstler)
@@ -332,6 +334,7 @@ erDiagram
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
     enum position "optional Links/Rechts/Vorne"
+    boolean transkription "default false"
     markdown titel "requiredMarkdown"
     markdown untertitel "optionalMarkdown"
     markdown urheber "optionalMarkdown"

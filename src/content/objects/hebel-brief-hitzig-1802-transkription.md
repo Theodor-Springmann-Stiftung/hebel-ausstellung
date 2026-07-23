@@ -1,5 +1,6 @@
 ---
 slug: "hebel-brief-hitzig-1802-transkription"
+transkription: true
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, [5. Dezember 1802], zeilengetreue Transkription"
 urheber: "Andreas Beck"
 datierung: "2026"

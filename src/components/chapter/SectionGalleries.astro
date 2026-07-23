@@ -44,6 +44,7 @@ const galleries = await Promise.all(
             .map((objectEntry, objectIndex) => objectEntry && ({
               slug: objectEntry.data.slug,
               position: metadata?.objektPositionen?.[objectIndex] ?? objectEntry.data.position,
+              transkription: objectEntry.data.transkription,
               titel: objectEntry.data.titel ?? "",
               urheber: objectEntry.data.urheber,
               datierung: objectEntry.data.datierung,

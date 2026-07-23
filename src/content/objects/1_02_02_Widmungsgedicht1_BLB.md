@@ -1,5 +1,6 @@
 ---
 slug: "widmungsgedicht1-blb"
+transkription: true
 titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen"
 urheber: "Johann Peter Hebel"
 datierung: "Um 1803"
@@ -30,6 +31,7 @@ hat lächelnd und mit ungezwungner Hand<br>
 des Feldes Muse sie in diesen Kranz<br>
 gewunden und der reine Freundessinn,<br>
 der dir ihn bietet, sey allein sein Werth.<br>
+
 Und hieng er nun hier unterm Spiegel schön,<br>
 so schwankt er schöner doch am Lindenast<br>
 in freier Weitung, leichter Weste Spiel.<br>

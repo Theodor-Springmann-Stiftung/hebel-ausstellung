@@ -14,6 +14,7 @@ export type GalleryColor =
 export type GalleryObject = {
   slug?: string;
   position?: "Links" | "Rechts" | "Vorne";
+  transkription: boolean;
   titel: string;
   urheber?: string;
   datierung?: string;
@@ -66,7 +67,7 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
         titleHtml: renderInlineMarkdown(object.position ? `${object.position}: ${object.titel}` : object.titel),
         textHtml: objectMetadata(object),
         href: object.slug ? `/objects/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
-        linkLabel: `Zum Objekt`,
+        linkLabel: object.transkription ? "Zum Objekt (mit Transkription)" : "Zum Objekt",
       };
     });
   }

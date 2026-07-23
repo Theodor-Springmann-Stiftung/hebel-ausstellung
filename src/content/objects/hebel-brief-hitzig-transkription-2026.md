@@ -1,5 +1,6 @@
 ---
 slug: "hebel-brief-hitzig-transkription-2026"
+transkription: true
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite, Transkription"
 urheber: "Andreas Beck"
 datierung: "2026"

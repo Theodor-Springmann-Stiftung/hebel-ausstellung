@@ -1,5 +1,6 @@
 ---
 slug: "brief-hebel-ittner-1811"
+transkription: true
 titel: "Brief an Johann Albrecht Ittner"
 urheber: "Johann Peter Hebel"
 datierung: "19. Mai [1811]"

@@ -111,6 +111,7 @@ const objects = defineCollection({
     .object({
       slug: objectSlug,
       position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
+      transkription: z.boolean().default(false),
       titel: requiredMarkdown,
       untertitel: optionalMarkdown,
       urheber: optionalMarkdown,

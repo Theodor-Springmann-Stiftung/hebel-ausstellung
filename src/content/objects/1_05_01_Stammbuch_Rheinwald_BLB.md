@@ -1,5 +1,6 @@
 ---
 slug: "stammbuch-rheinwald-blb"
+transkription: true
 titel: "Hebels Stammbuch"
 urheber: "div."
 datierung: "1777-1781"

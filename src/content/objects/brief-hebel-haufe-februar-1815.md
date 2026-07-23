@@ -1,5 +1,6 @@
 ---
 slug: "brief-hebel-haufe-februar-1815"
+transkription: true
 titel: "Hebel an Haufe vom Februar 1815"
 urheber: "Johann Peter Hebel"
 datierung: "Februar 1815"

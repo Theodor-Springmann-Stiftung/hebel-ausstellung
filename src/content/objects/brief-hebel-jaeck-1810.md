@@ -1,6 +1,7 @@
 ---
 materialTechnik: "2 Bl., davon 3 Seiten beschrieben"
 slug: "brief-hebel-jaeck-1810"
+transkription: true
 titel: "Brief von Hebel an Marcus Fidelis Jäck"
 urheber: "Johann Peter Hebel"
 datierung: "12.3.1810"

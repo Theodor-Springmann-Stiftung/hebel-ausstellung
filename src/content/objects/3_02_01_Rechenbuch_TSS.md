@@ -1,5 +1,6 @@
 ---
 slug: "johann-jacob-hebels-rechenbuch"
+transkription: true
 titel: "Johann Jacob Hebels Rechenbuch"
 urheber: "Johann Jacob Hebel"
 datierung: "1743"
