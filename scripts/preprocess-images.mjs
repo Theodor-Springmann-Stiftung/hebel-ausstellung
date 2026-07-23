@@ -1,12 +1,13 @@
 #!/usr/bin/env node
 
-import { mkdir, readdir, stat } from "node:fs/promises";
+import { mkdir, readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 import sharp from "sharp";
 
 const SUPPORTED_EXTENSIONS = new Set([
   ".avif",
+  ".bmp",
   ".gif",
   ".jpeg",
   ".jpg",
@@ -142,14 +143,65 @@ function outputPathFor(inputFile, inputDir, outputDir, flat) {
   return path.join(outputDir, outputDirname, `${outputBasename}.webp`);
 }
 
+async function openImage(inputFile) {
+  if (path.extname(inputFile).toLowerCase() !== ".bmp") {
+    return sharp(inputFile, {
+      failOn: "none",
+      limitInputPixels: false,
+      unlimited: true,
+    });
+  }
+
+  const source = await readFile(inputFile);
+  if (source.toString("ascii", 0, 2) !== "BM" || source.length < 54) {
+    throw new Error("Invalid BMP file.");
+  }
+
+  const pixelOffset = source.readUInt32LE(10);
+  const dibHeaderSize = source.readUInt32LE(14);
+  const width = source.readInt32LE(18);
+  const signedHeight = source.readInt32LE(22);
+  const bitsPerPixel = source.readUInt16LE(28);
+  const compression = source.readUInt32LE(30);
+
+  if (dibHeaderSize < 40 || width < 1 || signedHeight === 0) {
+    throw new Error("Unsupported BMP header.");
+  }
+  if (compression !== 0 || (bitsPerPixel !== 24 && bitsPerPixel !== 32)) {
+    throw new Error("Only uncompressed 24-bit and 32-bit BMP files are supported.");
+  }
+
+  const height = Math.abs(signedHeight);
+  const channels = bitsPerPixel / 8;
+  const rowSize = Math.ceil((width * bitsPerPixel) / 32) * 4;
+  const requiredSize = pixelOffset + rowSize * height;
+  if (requiredSize > source.length) {
+    throw new Error("BMP pixel data is truncated.");
+  }
+
+  const pixels = Buffer.allocUnsafe(width * height * channels);
+  for (let y = 0; y < height; y += 1) {
+    const sourceY = signedHeight > 0 ? height - y - 1 : y;
+    const sourceRow = pixelOffset + sourceY * rowSize;
+    const targetRow = y * width * channels;
+
+    for (let x = 0; x < width; x += 1) {
+      const sourcePixel = sourceRow + x * channels;
+      const targetPixel = targetRow + x * channels;
+      pixels[targetPixel] = source[sourcePixel + 2];
+      pixels[targetPixel + 1] = source[sourcePixel + 1];
+      pixels[targetPixel + 2] = source[sourcePixel];
+      if (channels === 4) pixels[targetPixel + 3] = source[sourcePixel + 3];
+    }
+  }
+
+  return sharp(pixels, { raw: { width, height, channels } });
+}
+
 async function processImage(inputFile, inputDir, outputDir, maxEdge, flat) {
   const outputFile = outputPathFor(inputFile, inputDir, outputDir, flat);
   const inputStats = await stat(inputFile);
-  const image = sharp(inputFile, {
-    failOn: "none",
-    limitInputPixels: false,
-    unlimited: true,
-  });
+  const image = await openImage(inputFile);
   const metadata = await image.metadata();
 
   if (!metadata.width || !metadata.height) {
