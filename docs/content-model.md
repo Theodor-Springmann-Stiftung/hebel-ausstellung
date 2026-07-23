@@ -44,6 +44,9 @@ Pfad: `src/content/chapters/*.md`
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Bild-ID | ja | ID eines optionalen Bild-Eintrags oder Basisname einer Bilddatei in `src/assets/objects`. |
+| `startseitenBild` | String | ja | Dateiname eines Bildes für die Startseite. Erlaubt sind `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`. |
+| `startseitenAltText` | String | nein | Alternativtext für das Startseitenbild. |
+| `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
 | `unterkapitel` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | `galerien` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | Inhalt | Body-Markdown | nein | Kapiteltext unterhalb des Frontmatters. |
@@ -59,6 +62,9 @@ nummer: "02"
 titel: "Der Dichter"
 navTitel: "Der Dichter"
 hero: "tschopli-hero"
+startseitenBild: "2.0_hero_image_Tschoepli_TSS.webp"
+startseitenAltText: "Illustration zu den Allemannischen Gedichten"
+startseitenVariante: "poet"
 unterkapitel:
   - "allemannische-gedichte-von-1803"
   - "allemannische-gedichte-im-bild"
@@ -82,6 +88,9 @@ nummer: "01"
 titel: "Der Oberländer"
 navTitel: "Der Oberländer"
 hero: "oberland-1833"
+startseitenBild: "1_00_homepage_oberlaender.png"
+startseitenAltText: "Historische Ansicht des Wiesentals"
+startseitenVariante: "featured"
 galerien:
   - "basel"
   - "hausen"
@@ -138,7 +147,7 @@ Pfad: `src/content/galleries/*.md`
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
 | `bilder` | Array von Bild-IDs | ja | Mindestens 1 Bild. Eine ID kann auf Bild-Metadaten oder direkt auf den Basisnamen eines Assets verweisen. |
-| Inhalt | Body-Markdown | ja | Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
+| Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
 
@@ -189,6 +198,7 @@ Pfad: `src/content/images/*.md`
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
 | `objekte` | Array von Referenzen auf `objects` | nein | IDs der gezeigten Objektdateien: der Dateiname aus `src/content/objects` ohne `.md`, nicht der öffentliche `slug`. Ein Bild kann mehrere Objekte zeigen; ein Objekt kann in mehreren Bildern dargestellt sein. |
+| `objektPositionen` | Array von Enum-Werten | nein | Positionen der unter `objekte` referenzierten Objekte im Bild. Erlaubt sind `Links`, `Rechts` und `Vorne`. Anzahl und Reihenfolge müssen mit `objekte` übereinstimmen. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
 
 Beispiel:
@@ -201,6 +211,8 @@ beschriftung: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer 
 nachweis: "Hebel-Archiv Heidelberg"
 objekte:
   - "zix-carfunkel-1806"
+objektPositionen:
+  - "Links"
 ---
 ```
 
@@ -215,6 +227,7 @@ Pfad: `src/content/objects/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
+| `position` | Enum | nein | Standardposition des Objekts. Erlaubt sind `Links`, `Rechts` und `Vorne`. Bildspezifische Angaben unter `images.objektPositionen` haben Vorrang. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `untertitel` | Markdown-String | nein | Objektuntertitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |
@@ -280,6 +293,9 @@ erDiagram
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
     reference hero "reference images required"
+    string startseitenBild "required image extension"
+    string startseitenAltText "optional"
+    enum startseitenVariante "required homepage variant"
     reference_array unterkapitel "reference subchapters optional min 1"
     reference_array galerien "reference galleries optional min 1"
     markdown body "optional"
@@ -300,20 +316,22 @@ erDiagram
     markdown untertitel "optionalMarkdown"
     enum farbe "galleryColor default lindgrün"
     reference_array bilder "reference images required min 1"
-    markdown body "required by validator"
+    markdown body "optional"
   }
 
   IMAGE {
-    string dateiname "required image extension"
+    string dateiname "optional image extension"
     markdown altText "optionalMarkdown"
     markdown beschriftung "optionalMarkdown"
     markdown nachweis "optionalMarkdown"
     reference_array objekte "optional"
+    enum_array objektPositionen "optional; matches objekte order and length"
     markdown body "optional unused"
   }
 
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
+    enum position "optional Links/Rechts/Vorne"
     markdown titel "requiredMarkdown"
     markdown untertitel "optionalMarkdown"
     markdown urheber "optionalMarkdown"

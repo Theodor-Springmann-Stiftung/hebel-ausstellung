@@ -150,14 +150,23 @@ const details = [
   .object-detail__body {
     @apply flex flex-col font-sans text-body text-text-primary;
 
-    gap: var(--spacing-64);
     line-height: var(--text-body--line-height);
   }
 
   .object-detail__body :global(h1) {
-    @apply mb-6 font-display text-h3 font-normal text-text-primary;
+    @apply font-display text-h3 font-normal text-text-primary;
 
+    margin-block: var(--spacing-32) var(--spacing-12);
     line-height: var(--text-h3--line-height);
+  }
+
+  .object-detail__body :global(h2) {
+    margin-block: var(--spacing-24) var(--spacing-8);
+  }
+
+  .object-detail__body :global(h1:first-child),
+  .object-detail__body :global(h2:first-child) {
+    margin-top: 0;
   }
 
   .object-detail__body :global(p + p) {
@@ -196,5 +205,9 @@ const details = [
       padding: var(--spacing-64) var(--spacing-80) var(--spacing-120);
     }
 
+    .object-detail__body {
+      width: 100%;
+      max-width: 80ch;
+    }
   }
 </style>
