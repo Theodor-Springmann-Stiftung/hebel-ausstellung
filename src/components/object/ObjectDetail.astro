@@ -30,7 +30,7 @@ const details = [
   <header class="object-detail__header">
     <p class="object-detail__eyebrow">Objekt</p>
     <h1>
-      <span data-object-position>{object.data.position ? `${object.data.position}: ` : ""}</span><span set:html={renderInlineMarkdown(object.data.titel)}></span>
+      <span data-object-position></span><span set:html={renderInlineMarkdown(object.data.titel)}></span>
     </h1>
     {object.data.untertitel && <p class="object-detail__subtitle" set:html={renderInlineMarkdown(object.data.untertitel)}></p>}
   </header>

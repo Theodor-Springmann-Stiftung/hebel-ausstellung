@@ -6,4 +6,6 @@ urheber: "Johann Friedrich Cotta"
 datierung: "8. Januar 1810"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "104510"
+bilder:
+  - bild: "3_05_01_Morgenblatt_TSS"
 ---

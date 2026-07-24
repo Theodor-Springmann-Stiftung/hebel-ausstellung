@@ -5,6 +5,8 @@ slug: "pfenninger-portraet-jean-paul-richter"
 titel: "Porträt von Jean Paul Richter"
 urheber: "Heinrich Pfenninger"
 institution: "Gleimhaus Halberstadt"
+bilder:
+  - bild: "HuF_6_2_Slide_4_Jeanpaul_Wikipedia"
 ---
 
 # Beschreibung

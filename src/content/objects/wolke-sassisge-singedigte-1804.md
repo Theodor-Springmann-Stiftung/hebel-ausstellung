@@ -7,4 +7,8 @@ urheber: |-
 datierung: "1804"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "112690"
+bilder:
+  - bild: "2.3_02_1_Wolke_TSS"
+  - bild: "2.3_02_2_Wolke_TSS"
+  - bild: "2.3_02_3_Wolke_TSS"
 ---

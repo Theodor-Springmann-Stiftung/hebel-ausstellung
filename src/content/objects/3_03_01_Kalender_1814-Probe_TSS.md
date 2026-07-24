@@ -8,4 +8,6 @@ urheber: "Johann Peter Hebel"
 datierung: "1814"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "800449"
+bilder:
+  - bild: "3_03_01_Kalender_1814-Probe_TSS"
 ---

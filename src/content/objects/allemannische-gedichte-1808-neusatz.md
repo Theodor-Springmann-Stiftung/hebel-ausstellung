@@ -6,4 +6,8 @@ urheber: "Macklots Hofbuchhandlung, Karlsruhe"
 datierung: "wohl nicht vor 1810"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412292"
+bilder:
+  - bild: "2.4_03_01_AG_D4_TSS"
+    position: "Rechts"
+    objektReihenfolge: 2
 ---

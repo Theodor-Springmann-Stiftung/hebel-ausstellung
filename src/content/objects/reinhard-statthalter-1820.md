@@ -7,4 +7,6 @@ datierung: "1820"
 materialTechnik: "Radierung"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "Keine Signatur"
+bilder:
+  - bild: "2.2_08_Reinhard_Statthalter_1820_TSS"
 ---

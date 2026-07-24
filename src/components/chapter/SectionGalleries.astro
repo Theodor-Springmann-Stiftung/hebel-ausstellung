@@ -1,24 +1,16 @@
 ---
 import type { CollectionEntry } from "astro:content";
-import { getCollection, getEntry, render } from "astro:content";
+import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
-import { findObjectImage, getGalleryImageSource, imageReferenceId } from "../../lib/object-images";
+import { findContentImage, getGalleryImageSource } from "../../lib/object-images";
+import { getObjectRelationshipsByImage } from "../../lib/content";
 import { renderInlineMarkdown } from "../../lib/markdown";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
 const { section } = Astro.props as { section: Section };
 const { Content } = await render(section);
-const imageEntriesById = new Map((await getCollection("images")).map((entry) => [entry.id, entry]));
-
-const resolveAvailableImage = (reference) => {
-  const id = imageReferenceId(reference);
-  const normalizedId = id.toLowerCase().replaceAll(".", "");
-  const entry = imageEntriesById.get(id) ?? imageEntriesById.get(normalizedId);
-  const asset = findObjectImage(entry?.data.dateiname ?? id);
-
-  return asset ? { id, asset, entry } : undefined;
-};
+const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
 const galleries = await Promise.all(
   (section.data.galerien ?? []).map(async (galleryReference) => {
@@ -27,31 +19,28 @@ const galleries = await Promise.all(
     if (!gallery) return undefined;
 
     const { Content: GalleryContent } = await render(gallery);
-    const imageEntries = gallery.data.bilder.map(resolveAvailableImage).filter(Boolean);
+    const imageEntries = (await Promise.all(gallery.data.bilder.map(findContentImage))).filter(Boolean);
     const bilder = await Promise.all(
       imageEntries.map(async (imageEntry) => {
         const metadata = imageEntry.entry?.data;
-        const objectEntries = metadata?.objekte?.length
-          ? await Promise.all(metadata.objekte.map((objectReference) => getEntry(objectReference)))
-          : [];
+        const objectRelationships = objectRelationshipsByImage.get(imageEntry.asset.src) ?? [];
 
         return {
           src: await getGalleryImageSource(imageEntry.asset),
           alt: metadata?.altText,
           beschriftung: metadata?.beschriftung,
           nachweis: metadata?.nachweis,
-          objekte: objectEntries
-            .map((objectEntry, objectIndex) => objectEntry && ({
-              slug: objectEntry.data.slug,
-              position: metadata?.objektPositionen?.[objectIndex] ?? objectEntry.data.position,
-              transkription: objectEntry.data.transkription,
-              titel: objectEntry.data.titel ?? "",
-              urheber: objectEntry.data.urheber,
-              datierung: objectEntry.data.datierung,
-              materialTechnik: objectEntry.data.materialTechnik,
-              institution: objectEntry.data.institution,
-            }))
-            .filter(Boolean),
+          objekte: objectRelationships
+            .map(({ object, position }) => ({
+              slug: object.data.slug,
+              position,
+              transkription: object.data.transkription,
+              titel: object.data.titel ?? "",
+              urheber: object.data.urheber,
+              datierung: object.data.datierung,
+              materialTechnik: object.data.materialTechnik,
+              institution: object.data.institution,
+            })),
         };
       }),
     );

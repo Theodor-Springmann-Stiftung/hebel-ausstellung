@@ -6,6 +6,8 @@ titel: "Fotografie der Hebelbüste vor der Peterskirche, Basel"
 urheber: "Max Leu (Bildhauer), EinDao (Fotograf)"
 datierung: "2020"
 institution: "Wikipedia"
+bilder:
+  - bild: "Theo_4_Hero_Image_Hebelbueste_Basel_Max_Leu"
 ---
 
 # Beschreibung

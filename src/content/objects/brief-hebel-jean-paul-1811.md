@@ -6,6 +6,8 @@ titel: "Brief Hebels an Jean Paul Richter"
 urheber: "Johann Peter Hebel"
 datierung: "2.6.1811"
 institution: "Hebel-Archiv Heidelberg"
+bilder:
+  - bild: "7_04_01_An_Jean_Paul_TSS"
 ---
 
 # Beschreibung

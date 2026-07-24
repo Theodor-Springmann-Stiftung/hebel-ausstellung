@@ -6,4 +6,6 @@ urheber: "Andreas Beck"
 datierung: "2026"
 materialTechnik: "Faksimile"
 institution: "Hebel-Archiv Heidelberg"
+bilder:
+  - bild: "2.1_02_03b_Brief_Hexlein_Faltung_AB"
 ---

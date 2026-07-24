@@ -7,6 +7,8 @@ urheber: "Johann Peter Hebel"
 datierung: "1813"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "K1216"
+bilder:
+  - bild: "BuP_2_2_Zeichnung_Z_368_BLB"
 ---
 
 # Beschreibung

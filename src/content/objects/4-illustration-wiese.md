@@ -6,6 +6,8 @@ urheber: "K. Kögler"
 datierung: "unbekannt"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "400589"
+bilder:
+  - bild: "Theo_4_1_Theo_Slide_2_Illustr_Wiese_TSS"
 ---
 
 # Beschreibung

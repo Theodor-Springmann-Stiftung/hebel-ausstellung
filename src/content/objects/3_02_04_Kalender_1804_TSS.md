@@ -5,4 +5,6 @@ urheber: "Mitautor: Johann Peter Hebel"
 datierung: "1804"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "105500"
+bilder:
+  - bild: "3_02_04_Kalender_1804_TSS"
 ---

@@ -7,4 +7,7 @@ urheber: "Johann Peter Hebel"
 datierung: "1815"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "800451"
+bilder:
+  - bild: "3_04_02_Kalender_1815_TSS"
+  - bild: "3_04_03_Kalender_1815_TSS"
 ---

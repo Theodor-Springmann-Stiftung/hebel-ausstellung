@@ -8,8 +8,8 @@
     - Without Subchapter -- contains galleries
 - Subchapters -- contains gallieries
 - Galleries (combination of (multiple) images with text and blockquote)
-- Images (image meta data, contains object(s) shown)
-- Objects
+- Images (optional image metadata only)
+- Objects (contain references to the images in which they are shown)
 
 
 ## Entities
@@ -49,11 +49,11 @@ Text: String (MARKDOWN), Required, Long
 
 ### Image
 
-Dateiname: String, Required
+Dateiname: String, Optional (falls nicht gesetzt, wird der Basisname der Bild-Metadatendatei verwendet)
 Alt-Text: String (MARKDOWN), Optional
 Beschriftung: String (MARKDOWN), Optional
 Nachweis: String (MARKDOWN), Optional
-Objekte: ->Objects, Optional, InOrder as seen on Picture. References use the object Markdown filename without `.md`, never the public slug.
+Image records do not contain object references.
 
 
 ### Objects
@@ -68,4 +68,6 @@ Material-Technik: String, Optional
 Institution: String (MARKDOWN), Optional
 Inventarnummer: String (MARKDOWN), Optional
 Transkription: String (MARKDOWN), Optional, Long
-NOTE: Backlinks to images are given via Image type
+Bilder: Array of image associations, Optional, In order for the object page
+Each image association contains Bild (image metadata ID or asset filename/basename), optional Position (Links/Rechts/Vorne), and optional Objekt-Reihenfolge for shared images.
+NOTE: Object-to-image references are authoritative. Image metadata contains no backlink.

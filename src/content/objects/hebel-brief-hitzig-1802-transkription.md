@@ -7,6 +7,8 @@ urheber: "Andreas Beck"
 datierung: "2026"
 materialTechnik: "Zeilengetreue Transkription"
 institution: "Hebel-Archiv Heidelberg"
+bilder:
+  - bild: "2.4_02_01b_Hebel_an_Hitzig_Transkription_TSS"
 ---
 
 # Transkription

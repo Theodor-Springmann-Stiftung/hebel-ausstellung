@@ -7,6 +7,9 @@ urheber: "Johann Peter Hebel"
 datierung: "1806"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "800410"
+bilder:
+  - bild: "7_03_01_AG3-Jaeck1_TSS"
+  - bild: "7_03_02_AG3-Jaeck2_TSS"
 ---
 
 # Beschreibung

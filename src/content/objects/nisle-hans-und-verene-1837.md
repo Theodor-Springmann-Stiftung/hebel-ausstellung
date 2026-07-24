@@ -9,4 +9,6 @@ datierung: "1837"
 materialTechnik: "Lithographie"
 institution: "Staats- und Stadtbibliothek Augsburg"
 inventarnummer: "Sign. 4 LD 162"
+bilder:
+  - bild: "2.2_05_Nisle_Hans_und_Verene_1837_SSB_Augsburg"
 ---

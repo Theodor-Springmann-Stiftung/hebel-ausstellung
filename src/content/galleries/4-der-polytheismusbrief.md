@@ -2,7 +2,7 @@
 titel: "Der Polytheismusbrief"
 beschriftung: "Schlägt man die Allemannischen Gedichte auf, begibt man sich in einen von Geistern und Engeln erfüllten Kosmos."
 bilder:
-  - "Theo_4_1_Theo_Slide_2_Illustr_Wiese_TSS"
+  - "Theo_4_1_Slide_2_Illustr_Wiese_TSS"
 ---
 
 Im April 1809 schreibt Hebel an Friedrich Wilhelm Hitzig. Als „eine Beicht unter Freunden“, deklariert er selbst seinen Brief, „so heilig … als die am Altar.“ Der Polytheismus, die heidnische Vielgötterei hat es ihm angetan, eröffnet Hebel seinem engsten Vertrauten, denn dessen Götter sind „uns näher … als der einzige, ewige unerfaßbare über den Sternen“ (Z 252).

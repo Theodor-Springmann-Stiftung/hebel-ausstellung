@@ -1,5 +1,12 @@
 import { getCollection, getEntry } from 'astro:content';
-import { findObjectImage, imageReferenceId, type ObjectDisplayImage } from './object-images';
+import type { CollectionEntry } from 'astro:content';
+import {
+	findObjectImage,
+	findContentImage,
+	resolveContentImage,
+	type ImageReference,
+	type ObjectDisplayImage,
+} from './object-images';
 
 export const chapterSegment = (nummer: string) => nummer;
 
@@ -93,39 +100,68 @@ export const getReadingOrder = async () => {
 	return sections;
 };
 
+export type ObjectImageRelationship = {
+	object: CollectionEntry<'objects'>;
+	position?: 'Links' | 'Rechts' | 'Vorne';
+	objektReihenfolge?: number;
+};
+
+let objectRelationshipsByImagePromise: Promise<Map<string, ObjectImageRelationship[]>> | undefined;
+
+export const getObjectRelationshipsByImage = () => {
+	objectRelationshipsByImagePromise ??= (async () => {
+		const relationshipsByImage = new Map<string, ObjectImageRelationship[]>();
+		const objects = await getCollection('objects');
+
+		for (const object of objects) {
+			for (const association of object.data.bilder ?? []) {
+				const image = await resolveContentImage(association.bild);
+				const relationships = relationshipsByImage.get(image.asset.src) ?? [];
+				relationships.push({
+					object,
+					position: association.position,
+					objektReihenfolge: association.objektReihenfolge,
+				});
+				relationshipsByImage.set(image.asset.src, relationships);
+			}
+		}
+
+		for (const relationships of relationshipsByImage.values()) {
+			relationships.sort(
+				(left, right) =>
+					(left.objektReihenfolge ?? Number.MAX_SAFE_INTEGER) -
+					(right.objektReihenfolge ?? Number.MAX_SAFE_INTEGER),
+			);
+		}
+
+		return relationshipsByImage;
+	})();
+
+	return objectRelationshipsByImagePromise;
+};
+
 export const getObjectRoutes = async () => {
-	const [objects, images, galleries, chapters] = await Promise.all([
+	const [objects, galleries, chapters, relationshipsByImage] = await Promise.all([
 		getCollection('objects'),
-		getCollection('images'),
 		getCollection('galleries'),
 		getOrderedChapters(),
+		getObjectRelationshipsByImage(),
 	]);
-	const imageById = new Map(images.map((image) => [image.id, image]));
 	const galleryById = new Map(galleries.map((gallery) => [gallery.id, gallery]));
-	const imagesByObject = new Map();
 	const contextByObject = new Map();
 
-	for (const image of images) {
-		for (const objectReference of image.data.objekte ?? []) {
-			const objectImages = imagesByObject.get(objectReference.id) ?? [];
-			objectImages.push(image);
-			imagesByObject.set(objectReference.id, objectImages);
-		}
-	}
-
-	const recordImageContext = (imageReference, context) => {
-		const image = imageById.get(imageReferenceId(imageReference));
-
+	const recordImageContext = async (imageReference: ImageReference, context) => {
+		const image = await findContentImage(imageReference);
 		if (!image) return;
 
-		for (const objectReference of image.data.objekte ?? []) {
-			if (!contextByObject.has(objectReference.id)) {
-				contextByObject.set(objectReference.id, context);
+		for (const relationship of relationshipsByImage.get(image.asset.src) ?? []) {
+			if (!contextByObject.has(relationship.object.id)) {
+				contextByObject.set(relationship.object.id, context);
 			}
 		}
 	};
 
-	const recordGalleryContext = (galleryReference, galleryIndex, chapter, subchapter) => {
+	const recordGalleryContext = async (galleryReference, galleryIndex, chapter, subchapter) => {
 		const gallery = galleryById.get(galleryReference.id);
 
 		if (!gallery) return;
@@ -135,7 +171,7 @@ export const getObjectRoutes = async () => {
 			: chapterHref(chapter.data.nummer);
 
 		for (const imageReference of gallery.data.bilder) {
-			recordImageContext(imageReference, {
+			await recordImageContext(imageReference, {
 				chapter,
 				subchapter,
 				returnHref: `${sectionHref}#${galleryIndex + 1}`,
@@ -145,14 +181,14 @@ export const getObjectRoutes = async () => {
 
 	for (const chapter of chapters) {
 		if (chapter.data.hero) {
-			recordImageContext(chapter.data.hero, {
+			await recordImageContext(chapter.data.hero, {
 				chapter,
 				returnHref: chapterHref(chapter.data.nummer),
 			});
 		}
 
 		for (const [galleryIndex, galleryReference] of (chapter.data.galerien ?? []).entries()) {
-			recordGalleryContext(galleryReference, galleryIndex, chapter, undefined);
+			await recordGalleryContext(galleryReference, galleryIndex, chapter, undefined);
 		}
 
 		for (const subchapterReference of chapter.data.unterkapitel ?? []) {
@@ -161,7 +197,7 @@ export const getObjectRoutes = async () => {
 			if (!subchapter) continue;
 
 			if (subchapter.data.hero) {
-				recordImageContext(subchapter.data.hero, {
+				await recordImageContext(subchapter.data.hero, {
 					chapter,
 					subchapter,
 					returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
@@ -169,21 +205,25 @@ export const getObjectRoutes = async () => {
 			}
 
 			for (const [galleryIndex, galleryReference] of subchapter.data.galerien.entries()) {
-				recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);
+				await recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);
 			}
 		}
 	}
 
-	return objects
+	return Promise.all(objects
 		.filter((object) => object.data.slug)
-		.map((object) => {
+		.map(async (object) => {
 			const context = contextByObject.get(object.id);
-			const linkedImages = imagesByObject.get(object.id) ?? [];
-			const objectImages: ObjectDisplayImage[] = linkedImages.map((image) => ({
-				id: image.id,
-				dateiname: image.data.dateiname,
-				altText: image.data.altText,
-			}));
+			const objectImages: ObjectDisplayImage[] = await Promise.all(
+				(object.data.bilder ?? []).map(async (association) => {
+					const image = await resolveContentImage(association.bild);
+					return {
+						id: image.id,
+						dateiname: image.entry?.data.dateiname,
+						altText: image.entry?.data.altText,
+					};
+				}),
+			);
 
 			if (objectImages.length === 0 && findObjectImage(object.id)) {
 				objectImages.push({ id: object.id });
@@ -199,5 +239,5 @@ export const getObjectRoutes = async () => {
 					},
 				},
 			};
-		});
+		}));
 };

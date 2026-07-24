@@ -6,4 +6,6 @@ urheber: "Johann Peter Hebel"
 datierung: "1802"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "Sign. K 3357 (vormals K 57 bzw. K 57 I)"
+bilder:
+  - bild: "2.1_07_01_Marktweiber_H2_BLB"
 ---

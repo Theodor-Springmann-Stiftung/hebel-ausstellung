@@ -9,4 +9,6 @@ urheber: |-
 datierung: "1859/1921"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "800390"
+bilder:
+  - bild: "3_06_01_Schatzkaestlein_Kafka_TSS"
 ---

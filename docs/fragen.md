@@ -40,4 +40,6 @@
 ### Kapitel 2: Der Dichter
 - Zwei Objekte, gefällig zu einem Bild montiert: bisher ungeschehen
 - Subchapter hero: keine Caption vorhergesehen
-- Links rechts
+- Links rechts -- am liebsten auseinander scheiden und angeben welche Dinge zusammen gehören oder nebeneinander gehören
+// Evtl. Möglichkeit, Bild u. Text nebeneinander zu montieren?
+// Personenverzeichnis?

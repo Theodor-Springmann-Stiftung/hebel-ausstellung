@@ -5,6 +5,9 @@ slug: "proteuserschwur-1812"
 titel: "Der Proteuserschwur"
 urheber: "Christian Meichelt"
 datierung: "1812"
+bilder:
+  - bild: "5_00_homepage_proteuser"
+  - bild: "BuP_2_1_Chr_Meichelt_Prot_Bund"
 ---
 
 # Beschreibung

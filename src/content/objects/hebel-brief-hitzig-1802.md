@@ -6,4 +6,6 @@ urheber: "Johann Peter Hebel"
 datierung: "1802"
 institution: "BLB Karlsruhe"
 inventarnummer: "Sign. K 1216, urn:nbn:de:bsz:31-6660"
+bilder:
+  - bild: "2.4_02_01a_Hebel_an_Hitzig_BLB"
 ---

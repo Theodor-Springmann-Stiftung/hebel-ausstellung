@@ -1,7 +1,7 @@
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
-import { getEntry } from "astro:content";
+import { getCollection } from "astro:content";
 
 const objectImageModules = import.meta.glob("../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
@@ -49,12 +49,50 @@ export const getObjectImage = (name: string) => {
   return image;
 };
 
-export const resolveContentImage = async (reference: ImageReference): Promise<ResolvedContentImage> => {
-  const id = imageReferenceId(reference);
-  const entry = await getEntry("images", id);
-  const asset = getObjectImage(entry?.data.dateiname ?? id);
+let imageEntriesByIdPromise: Promise<Map<string, CollectionEntry<"images">>> | undefined;
 
-  return { id, asset, entry };
+const getImageEntriesById = () => {
+  imageEntriesByIdPromise ??= getCollection("images").then((entries) => {
+    const entriesById = new Map<string, CollectionEntry<"images">>();
+
+    for (const entry of entries) {
+      entriesById.set(entry.id, entry);
+      entriesById.set(entry.id.toLowerCase(), entry);
+      entriesById.set(entry.id.toLowerCase().replaceAll(".", ""), entry);
+    }
+
+    for (const entry of entries) {
+      if (!entry.data.dateiname) continue;
+
+      const filename = entry.data.dateiname.toLowerCase();
+      const stem = filename.replace(/\.[^.]+$/, "");
+      if (!entriesById.has(filename)) entriesById.set(filename, entry);
+      if (!entriesById.has(stem)) entriesById.set(stem, entry);
+    }
+
+    return entriesById;
+  });
+
+  return imageEntriesByIdPromise;
+};
+
+export const findContentImage = async (reference: ImageReference): Promise<ResolvedContentImage | undefined> => {
+  const id = imageReferenceId(reference);
+  const entriesById = await getImageEntriesById();
+  const entry = entriesById.get(id) ?? entriesById.get(id.toLowerCase()) ?? entriesById.get(id.toLowerCase().replaceAll(".", ""));
+  const asset = findObjectImage(entry?.data.dateiname ?? id);
+
+  return asset ? { id, asset, entry } : undefined;
+};
+
+export const resolveContentImage = async (reference: ImageReference): Promise<ResolvedContentImage> => {
+  const image = await findContentImage(reference);
+
+  if (!image) {
+    throw new Error(`Missing object image asset matching: ${imageReferenceId(reference)}`);
+  }
+
+  return image;
 };
 
 const galleryWidths = [480, 768, 1060, 1440, 2120];

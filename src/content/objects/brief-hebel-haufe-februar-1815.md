@@ -6,6 +6,8 @@ urheber: "Johann Peter Hebel"
 datierung: "Februar 1815"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "K 1217"
+bilder:
+  - bild: "7_6_1_Z_392_an_Haufe_BLB"
 ---
 
 # Transkription

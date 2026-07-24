@@ -5,4 +5,8 @@ urheber: "Johann Peter Hebel"
 datierung: "1803"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "408049"
+bilder:
+  - bild: "2.1_05_01a_Irrlichter_H2_u_D1"
+    position: "Rechts"
+    objektReihenfolge: 2
 ---

@@ -3,7 +3,7 @@ reihenfolge: 5
 nummer: "5"
 titel: "Der Proteuser"
 navTitel: "Der Proteuser"
-hero: "bup_5_hero_image_pi_z_335_blb"
+hero: "BuP_5_Hero_Image_Pi_Z_335_BLB.webp"
 startseitenBild: "5_00_homepage_proteuser.png"
 startseitenAltText: "Detail aus Christian Meichelts aquarellierter Federzeichnung des Proteuserbunds von 1812"
 startseitenVariante: "proteuser"

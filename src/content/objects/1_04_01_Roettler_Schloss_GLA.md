@@ -7,4 +7,6 @@ materialTechnik: "Kupferätzung; Bildgröße 27 x 38,5 cm, Plattengröße 35,5 x
 institution: "Generallandesarchiv, Karlsruhe"
 inventarnummer: "J-B Rötteln 2"
 quelle: "[Wikimedia Commons](https://commons.wikimedia.org/wiki/Category%3AHistoric_illustration_of_R%C3%B6tteln_Castle#/media/File:Landesarchiv_Baden-Wuerttemberg_Generallandesarchiv_Karlsruhe_J-B_Roetteln_2_Bild_1_(4-1575980-1).jpg)"
+bilder:
+  - bild: "1_04_01_Roettler_Schloss_GLA"
 ---

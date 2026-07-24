@@ -6,4 +6,6 @@ urheber: "Johann Peter Hebel"
 datierung: "1801"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "Sign. K 1216, urn:nbn:de:bsz:31-6660"
+bilder:
+  - bild: "2.1_02_1a_Hebel_Hitzig_Meine_Liebhaberey_BLB"
 ---

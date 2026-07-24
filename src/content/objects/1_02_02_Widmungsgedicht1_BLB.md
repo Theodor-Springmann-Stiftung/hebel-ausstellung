@@ -7,6 +7,9 @@ datierung: "Um 1803"
 materialTechnik: "Handschrift"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "Hebeliana, Konvolut »Concepte u. Abschriften zu Gedichten u. Aufsätzen«, K 3391"
+bilder:
+  - bild: "1_02_02_Widmungsgedicht1_BLB"
+  - bild: "1_02_03_Widmungsgedicht2_BLB"
 ---
 
 # Transkription

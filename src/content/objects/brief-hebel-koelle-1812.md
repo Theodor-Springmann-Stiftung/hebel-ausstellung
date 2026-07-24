@@ -5,4 +5,6 @@ urheber: "Johann Peter Hebel"
 datierung: "5. Juli 1812"
 institution: "DLA Marbach"
 inventarnummer: "A:Hauff-Kölle (Morgenblatt)°Kölle, Christoph Friedrich Karl von"
+bilder:
+  - bild: "7_00_01_hero_image_An_Koelle_DLA"
 ---

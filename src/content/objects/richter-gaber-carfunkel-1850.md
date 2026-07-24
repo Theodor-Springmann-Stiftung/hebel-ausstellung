@@ -9,4 +9,6 @@ datierung: "1850"
 materialTechnik: "Holzstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "112040"
+bilder:
+  - bild: "2.2_03_Richter_Karfunkel_Holzstich_1851_TSS"
 ---

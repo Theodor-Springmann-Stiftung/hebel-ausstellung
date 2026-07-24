@@ -7,4 +7,6 @@ datierung: "1845"
 materialTechnik: "Lithographie"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412305"
+bilder:
+  - bild: "2.2_07_Nisle_Hexlein_1845_TSS"
 ---

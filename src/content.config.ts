@@ -32,6 +32,11 @@ const sectionFields = {
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
 const imageReference = z.string().min(1);
+const objectImageAssociation = z.object({
+  bild: imageReference,
+  position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
+  objektReihenfolge: z.number().int().positive().optional(),
+});
 const contentFileId = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, "");
 
 const chapters = defineCollection({
@@ -83,26 +88,14 @@ const galleries = defineCollection({
 
 const images = defineCollection({
   loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
-  schema: z
-    .object({
-      dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
-        message: "Image dateiname must end with a supported image extension",
-      }).optional(),
-      altText: optionalMarkdown,
-      beschriftung: optionalMarkdown,
-      nachweis: optionalMarkdown,
-      objekte: z.array(reference("objects")).optional(),
-      objektPositionen: z.array(z.enum(["Links", "Rechts", "Vorne"])).optional(),
-    })
-    .superRefine((data, context) => {
-      if (data.objektPositionen && data.objektPositionen.length !== data.objekte?.length) {
-        context.addIssue({
-          code: z.ZodIssueCode.custom,
-          message: "Object positions must match the number and order of objects",
-          path: ["objektPositionen"],
-        });
-      }
-    }),
+  schema: z.object({
+    dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
+      message: "Image dateiname must end with a supported image extension",
+    }).optional(),
+    altText: optionalMarkdown,
+    beschriftung: optionalMarkdown,
+    nachweis: optionalMarkdown,
+  }),
 });
 
 const objects = defineCollection({
@@ -110,7 +103,6 @@ const objects = defineCollection({
   schema: z
     .object({
       slug: objectSlug,
-      position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
       transkription: z.boolean().default(false),
       titel: requiredMarkdown,
       untertitel: optionalMarkdown,
@@ -120,6 +112,7 @@ const objects = defineCollection({
       institution: optionalMarkdown,
       inventarnummer: optionalMarkdown,
       quelle: optionalMarkdown,
+      bilder: z.array(objectImageAssociation).min(1).optional(),
     }),
 });
 

@@ -6,7 +6,9 @@ const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "src", "content");
 const assetObjectsDir = path.join(rootDir, "src", "assets", "objects");
 const errors = [];
+const warnings = [];
 const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
+const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;
 
 async function listMarkdownFiles(directory) {
   try {
@@ -52,6 +54,69 @@ function getFrontmatterList(frontmatter, key) {
   return [...(match?.[1] ?? "").matchAll(/^\s*-\s*["']?(.+?)["']?\s*$/gm)].map((item) => item[1].trim());
 }
 
+function getFrontmatterObjectList(frontmatter, key) {
+  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+.*(?:\\r?\\n|$))*)`, "m"));
+  const block = match?.[1] ?? "";
+  const entries = [];
+  let current;
+
+  for (const line of block.split(/\r?\n/)) {
+    const item = line.match(/^\s{2}-\s+([A-Za-z][A-Za-z0-9]*):\s*["']?(.+?)["']?\s*$/);
+    const property = line.match(/^\s{4}([A-Za-z][A-Za-z0-9]*):\s*["']?(.+?)["']?\s*$/);
+
+    if (item) {
+      current = { [item[1]]: item[2] };
+      entries.push(current);
+    } else if (property && current) {
+      current[property[1]] = property[2];
+    }
+  }
+
+  return entries;
+}
+
+const stripImageExtension = (value) => value.replace(imageExtensionPattern, "");
+
+async function getImageCatalog() {
+  const imageFiles = await listMarkdownFiles(path.join(contentDir, "images"));
+  const assetEntries = await readdir(assetObjectsDir, { withFileTypes: true });
+  const assetNames = assetEntries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+  const assetByReference = new Map();
+
+  for (const assetName of assetNames) {
+    const normalizedName = assetName.toLowerCase();
+    assetByReference.set(normalizedName, normalizedName);
+    assetByReference.set(stripImageExtension(normalizedName), normalizedName);
+  }
+
+  for (const imageFile of imageFiles) {
+    const source = await readFile(imageFile, "utf8");
+    const { frontmatter } = splitMarkdownFile(imageFile, source);
+    const imageId = path.basename(imageFile, path.extname(imageFile));
+    const fileName = getFrontmatterString(frontmatter, "dateiname") ?? imageId;
+    const assetName = assetByReference.get(fileName.toLowerCase())
+      ?? assetByReference.get(stripImageExtension(fileName.toLowerCase()));
+
+    if (!assetName) continue;
+
+    for (const reference of [imageId, imageId.toLowerCase(), imageId.toLowerCase().replaceAll(".", ""), fileName.toLowerCase(), stripImageExtension(fileName.toLowerCase())]) {
+      if (!assetByReference.has(reference)) assetByReference.set(reference, assetName);
+    }
+  }
+
+  return {
+    assetNames: new Set(assetNames.map((name) => name.toLowerCase())),
+    assetStems: new Set(assetNames.map((name) => stripImageExtension(name.toLowerCase()))),
+    resolve(reference) {
+      const normalized = reference.toLowerCase();
+      return assetByReference.get(reference)
+        ?? assetByReference.get(normalized)
+        ?? assetByReference.get(normalized.replaceAll(".", ""))
+        ?? assetByReference.get(stripImageExtension(normalized));
+    },
+  };
+}
+
 async function validateGalleries() {
   const files = await listMarkdownFiles(path.join(contentDir, "galleries"));
 
@@ -67,35 +132,15 @@ async function validateGalleries() {
 
 async function validateImages() {
   const files = await listMarkdownFiles(path.join(contentDir, "images"));
-  const objectFiles = await listMarkdownFiles(path.join(contentDir, "objects"));
-  const assetEntries = await readdir(assetObjectsDir, { withFileTypes: true });
-  const assetNames = new Set(assetEntries.filter((entry) => entry.isFile()).map((entry) => entry.name.toLowerCase()));
-  const assetStems = new Set([...assetNames].map((name) => path.parse(name).name));
-  const objectIds = new Set(objectFiles.map((file) => path.basename(file, path.extname(file))));
-  const objectIdBySlug = new Map();
-
-  for (const objectFile of objectFiles) {
-    const source = await readFile(objectFile, "utf8");
-    const { frontmatter } = splitMarkdownFile(objectFile, source);
-    const slug = getFrontmatterString(frontmatter, "slug");
-
-    if (slug) objectIdBySlug.set(slug, path.basename(objectFile, path.extname(objectFile)));
-  }
+  const { assetNames, assetStems } = await getImageCatalog();
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
     const { frontmatter } = splitMarkdownFile(file, source);
     const fileName = getFrontmatterString(frontmatter, "dateiname");
 
-    for (const objectReference of getFrontmatterList(frontmatter, "objekte")) {
-      if (objectIds.has(objectReference)) continue;
-
-      const objectId = objectIdBySlug.get(objectReference);
-      errors.push(
-        objectId
-          ? `${relative(file)} object reference must use the object filename "${objectId}", not its slug "${objectReference}"`
-          : `${relative(file)} references missing object file: src/content/objects/${objectReference}.md`,
-      );
+    if (/^(objekte|objektPositionen):/m.test(frontmatter)) {
+      errors.push(`${relative(file)} must not define object relationships; use objects.bilder instead`);
     }
 
     if (!fileName) {
@@ -119,6 +164,8 @@ async function validateImages() {
 
 async function validateObjects() {
   const files = await listMarkdownFiles(path.join(contentDir, "objects"));
+  const imageCatalog = await getImageCatalog();
+  const relationshipsByImage = new Map();
   const allowedHeadings = new Set(["Beschreibung", "Transkription"]);
 
   for (const file of files) {
@@ -137,6 +184,31 @@ async function validateObjects() {
 
     if (!title) {
       errors.push(`${relative(file)} must define titel`);
+    }
+
+    for (const association of getFrontmatterObjectList(frontmatter, "bilder")) {
+      const imageReference = association.bild;
+
+      if (!imageReference) {
+        errors.push(`${relative(file)} contains a bilder entry without bild`);
+        continue;
+      }
+
+      const assetName = imageCatalog.resolve(imageReference);
+
+      if (!assetName) {
+        errors.push(`${relative(file)} references missing image metadata or asset: ${imageReference}`);
+      }
+
+      if (association.objektReihenfolge && !/^[1-9]\d*$/.test(association.objektReihenfolge)) {
+        errors.push(`${relative(file)} objektReihenfolge must be a positive integer`);
+      }
+
+      if (assetName) {
+        const relationships = relationshipsByImage.get(assetName) ?? [];
+        relationships.push({ file, order: association.objektReihenfolge });
+        relationshipsByImage.set(assetName, relationships);
+      }
     }
 
     if (!body.trim()) {
@@ -163,11 +235,56 @@ async function validateObjects() {
       }
     }
   }
+
+  for (const [image, relationships] of relationshipsByImage) {
+    if (relationships.length < 2) continue;
+
+    const orders = relationships.map((relationship) => relationship.order);
+    if (orders.some((order) => !order)) {
+      errors.push(`Objects sharing image ${image} must all define objektReihenfolge`);
+      continue;
+    }
+
+    if (new Set(orders).size !== orders.length) {
+      errors.push(`Objects sharing image ${image} must define unique objektReihenfolge values`);
+    }
+  }
+}
+
+async function validateDisplayImageReferences() {
+  const imageCatalog = await getImageCatalog();
+
+  for (const collection of ["chapters", "subchapters"]) {
+    const files = await listMarkdownFiles(path.join(contentDir, collection));
+
+    for (const file of files) {
+      const source = await readFile(file, "utf8");
+      const { frontmatter } = splitMarkdownFile(file, source);
+      const hero = getFrontmatterString(frontmatter, "hero");
+
+      if (hero && !imageCatalog.resolve(hero)) {
+        errors.push(`${relative(file)} references missing hero image metadata or asset: ${hero}`);
+      }
+    }
+  }
+
+  const galleryFiles = await listMarkdownFiles(path.join(contentDir, "galleries"));
+  for (const file of galleryFiles) {
+    const source = await readFile(file, "utf8");
+    const { frontmatter } = splitMarkdownFile(file, source);
+
+    for (const imageReference of getFrontmatterList(frontmatter, "bilder")) {
+      if (!imageCatalog.resolve(imageReference)) {
+        warnings.push(`${relative(file)} references unavailable gallery image metadata or asset: ${imageReference}`);
+      }
+    }
+  }
 }
 
 await validateGalleries();
 await validateImages();
 await validateObjects();
+await validateDisplayImageReferences();
 
 if (errors.length > 0) {
   console.error("Content validation failed:");
@@ -175,6 +292,13 @@ if (errors.length > 0) {
     console.error(`- ${error}`);
   }
   process.exit(1);
+}
+
+if (warnings.length > 0) {
+  console.warn("Content validation warnings:");
+  for (const warning of warnings) {
+    console.warn(`- ${warning}`);
+  }
 }
 
 console.log("Content validation passed.");

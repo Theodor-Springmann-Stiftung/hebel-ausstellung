@@ -6,4 +6,6 @@ urheber: "Julius Nisle"
 datierung: "1845"
 materialTechnik: "Lithographie"
 institution: "Privatbesitz"
+bilder:
+  - bild: "2.2_09_Nisle_Statthalter_1845_AB"
 ---

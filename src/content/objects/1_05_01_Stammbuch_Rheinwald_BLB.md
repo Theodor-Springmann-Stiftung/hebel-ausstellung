@@ -7,6 +7,9 @@ datierung: "1777-1781"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "Cod. Donaueschingen 909"
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-54223) / Public Domain Mark 1.0"
+bilder:
+  - bild: "1_05_01_Stammbuch_Rheinwald_BLB"
+  - bild: "1_05_02_Stammbuch_Walch_BLB"
 ---
 
 # Transkription

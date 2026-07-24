@@ -7,6 +7,8 @@ urheber: "Marcus Fidelis Jäck"
 datierung: "5.4.1810"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "K 3392"
+bilder:
+  - bild: "7_03_04_Von_Jaeck4_BLB"
 ---
 
 # Beschreibung

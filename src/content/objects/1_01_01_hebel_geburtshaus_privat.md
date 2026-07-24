@@ -6,4 +6,6 @@ datierung: "Um 1770"
 materialTechnik: "Getuschte Pinselzeichnung"
 institution: "Privatbesitz Basel"
 quelle: "[hausen.pcom.de](https://hausen.pcom.de/jphebel/hebelbilderleben/geburtshaus.htm)"
+bilder:
+  - bild: "1_01_01_hebel_geburtshaus_privat"
 ---

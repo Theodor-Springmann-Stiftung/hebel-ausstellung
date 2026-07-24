@@ -4,6 +4,8 @@ slug: "portraet-jakob-i-von-haiti"
 titel: "Porträt von Jakob I. von Haiti"
 urheber: "unbekannt"
 institution: "Wikipedia"
+bilder:
+  - bild: "HuF_6_2_Slide_3_Portrait_de_lempereur_Jacques_dHaiti_Wikipedia"
 ---
 
 # Beschreibung

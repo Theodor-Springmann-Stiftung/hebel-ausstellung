@@ -7,6 +7,8 @@ urheber: "Johann Peter Hebel"
 datierung: "19. Mai [1811]"
 institution: "UB Basel"
 inventarnummer: "UBH G IV 49, 4"
+bilder:
+  - bild: "7_02_01_An_Ittner_UB_Basel"
 ---
 
 # Transkription

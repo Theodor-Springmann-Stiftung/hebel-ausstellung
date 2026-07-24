@@ -6,6 +6,8 @@ urheber: "Johann Albrecht Ittner"
 datierung: "1810"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "402817"
+bilder:
+  - bild: "7_02_02_Ittner_Monographia_Schnauziae_TSS"
 ---
 
 # Beschreibung

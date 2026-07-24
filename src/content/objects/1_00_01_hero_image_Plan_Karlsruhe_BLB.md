@@ -6,4 +6,6 @@ datierung: "1817"
 materialTechnik: "Lithographie (auf Stein gestochen)"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "MP 609 R"
+bilder:
+  - bild: "1_00_01_hero_image_Plan_Karlsruhe_BLB"
 ---

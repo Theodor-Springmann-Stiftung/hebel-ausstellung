@@ -7,6 +7,8 @@ urheber: "Johann Peter Hebel"
 datierung: "2.3.1822"
 institution: "UB Leipzig"
 inventarnummer: "Slg. Nebauer/L/Ha-Le/L276"
+bilder:
+  - bild: "7_05_01_An_Koelle_UB_Leipzig"
 ---
 
 # Beschreibung

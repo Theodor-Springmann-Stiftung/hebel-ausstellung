@@ -9,8 +9,8 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Kapitel | Ein Kapitel beschreibt einen großen Ausstellungsabschnitt und enthält entweder Unterkapitel oder direkt Galerien. |
 | Unterkapitel | Ein Unterkapitel beschreibt einen kleineren Abschnitt innerhalb eines Kapitels und enthält die zugehörigen Galerien. |
 | Galerie | Eine Galerie verbindet ein oder mehrere Bilder mit Bildunterschriftsdaten und einem begleitenden Markdown-Text. |
-| Bild | Ein Bild beschreibt die Bilddatei, Alternativtext, Bildunterschriften und optional die darauf gezeigten Objekte. |
-| Objekt | Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit Titel, Urheber, Datierung, Institution und weiteren Metadaten. |
+| Bild | Ein optionaler Bild-Metadatensatz beschreibt Dateiname, Alternativtext, Bildunterschrift und Nachweis. |
+| Objekt | Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit seinen Metadaten und verweist auf die Bilder, in denen es gezeigt wird. |
 
 ## Feldtypen
 
@@ -43,7 +43,7 @@ Pfad: `src/content/chapters/*.md`
 | `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Bild-ID | ja | ID eines optionalen Bild-Eintrags oder Basisname einer Bilddatei in `src/assets/objects`. |
+| `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
 | `startseitenBild` | String | ja | Dateiname eines Bildes für die Startseite. Erlaubt sind `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`. |
 | `startseitenAltText` | String | nein | Alternativtext für das Startseitenbild. |
 | `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
@@ -112,7 +112,7 @@ Pfad: `src/content/subchapters/*.md`
 | `nummer` | String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Bild-ID | ja | ID eines optionalen Bild-Eintrags oder Basisname einer Bilddatei in `src/assets/objects`. |
+| `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
 | `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
@@ -146,7 +146,7 @@ Pfad: `src/content/galleries/*.md`
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
-| `bilder` | Array von Bild-IDs | ja | Mindestens 1 Bild. Eine ID kann auf Bild-Metadaten oder direkt auf den Basisnamen eines Assets verweisen. |
+| `bilder` | Array von Bildreferenzen | ja | Mindestens 1 Bild. Jede Referenz kann eine Bild-Metadaten-ID oder der Basisname/Dateiname eines Assets sein. Die Dateiendung ist optional. |
 | Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
@@ -187,7 +187,7 @@ Beifall fand die Sammlung als kunstfertig inszenierte naive Dichtung: in der Tra
 
 ### Sammlung: `images`
 
-Ein Bild beschreibt eine Bilddatei mit Alternativtext, Bildunterschrift, Bildnachweis und optionalen Objektverweisen.
+Ein Bild-Metadatensatz beschreibt optional eine Bilddatei mit Alternativtext, Bildunterschrift und Bildnachweis. Objektverweise werden ausschließlich in der Sammlung `objects` gespeichert.
 
 Pfad: `src/content/images/*.md`
 
@@ -197,8 +197,6 @@ Pfad: `src/content/images/*.md`
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
-| `objekte` | Array von Referenzen auf `objects` | nein | IDs der gezeigten Objektdateien: der Dateiname aus `src/content/objects` ohne `.md`, nicht der öffentliche `slug`. Ein Bild kann mehrere Objekte zeigen; ein Objekt kann in mehreren Bildern dargestellt sein. |
-| `objektPositionen` | Array von Enum-Werten | nein | Positionen der unter `objekte` referenzierten Objekte im Bild. Erlaubt sind `Links`, `Rechts` und `Vorne`. Anzahl und Reihenfolge müssen mit `objekte` übereinstimmen. |
 | Inhalt | Body-Markdown | nein | Wird aktuell nicht für die Galerie-Darstellung genutzt. |
 
 Beispiel:
@@ -209,14 +207,10 @@ dateiname: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 altText: "Dritte Auflage der Allemannischen Gedichte mit Titelkupfer von Benjamin Zix"
 beschriftung: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
 nachweis: "Hebel-Archiv Heidelberg"
-objekte:
-  - "zix-carfunkel-1806"
-objektPositionen:
-  - "Links"
 ---
 ```
 
-Die Referenz unter `objekte` bezeichnet immer den Basisnamen der Objektdatei. Wenn zum Beispiel `src/content/objects/1_01_01_hebel_geburtshaus_privat.md` den Slug `hebel-geburtshaus-privat` definiert, lautet die Bildreferenz `"1_01_01_hebel_geburtshaus_privat"`. Der Slug wird ausschließlich für die öffentliche Objekt-URL verwendet und darf nicht mit einer Kapitelnummer beginnen.
+Bild-Metadatensätze enthalten keine Objektbeziehungen. Die Verknüpfung wird ausschließlich vom Objekt aus über `objects.bilder` definiert.
 
 ### Sammlung: `objects`
 
@@ -227,7 +221,6 @@ Pfad: `src/content/objects/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
-| `position` | Enum | nein | Standardposition des Objekts. Erlaubt sind `Links`, `Rechts` und `Vorne`. Bildspezifische Angaben unter `images.objektPositionen` haben Vorrang. |
 | `transkription` | Boolean | nein | Gibt an, ob der Body eine Transkription enthält. Standardwert ist `false`. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `untertitel` | Markdown-String | nein | Objektuntertitel. Unterstützt Inline-Markdown. |
@@ -237,7 +230,16 @@ Pfad: `src/content/objects/*.md`
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
 | `quelle` | Markdown-String | nein | Quelle oder Quellenangabe zum Objekt. |
+| `bilder` | Array von Bildzuordnungen | nein | Geordnete Bilder des Objekts. Jede Zuordnung enthält `bild` und optional `position` sowie `objektReihenfolge`. |
 | Inhalt | Body-Markdown | nein | Objektbeschreibung unterhalb des Frontmatters. |
+
+Eine Bildzuordnung hat folgende Felder:
+
+| Feld | Typ | Pflicht | Hinweise |
+|---|---|---:|---|
+| `bild` | Bild-ID oder Bilddateiname | ja | ID eines optionalen Eintrags in `src/content/images`, oder Basisname/Dateiname eines Assets in `src/assets/objects`. Die Dateiendung ist optional. |
+| `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
+| `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
 
 Beispiel:
 
@@ -254,6 +256,8 @@ materialTechnik: "Kupferstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412284"
 quelle: "https://example.com/object/412284"
+bilder:
+  - bild: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS"
 ---
 
 # Beschreibung
@@ -263,7 +267,7 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 ## Bildunterschrift-Ersatzlogik
 
-Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel des referenzierten Objekts verwendet. Zeigt ein Bild mehrere referenzierte Objekte, wird stattdessen für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus `images.objektPositionen` und dem jeweiligen Objekttitel erzeugt. Wenn das Bild kein Objekt referenziert, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden; zuletzt dienen `galleries.beschriftung` und `galleries.untertitel` als galerie-weite Ersatzwerte.
+Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel eines Objekts verwendet, dessen `bilder`-Zuordnung auf dieses Bild verweist. Verweisen mehrere Objekte auf dasselbe Bild, wird für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus der jeweiligen Objekt-Bild-Zuordnung erzeugt. Wenn kein Objekt auf das Bild verweist, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden; zuletzt dienen `galleries.beschriftung` und `galleries.untertitel` als galerie-weite Ersatzwerte.
 
 Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangig aus dessen Metadaten `urheber`, `datierung`, `materialTechnik` und `institution` zusammengesetzt.
 
@@ -271,7 +275,17 @@ Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangi
 
 Bild-Metadaten in `src/content/images` sind optional. Kapitel, Unterkapitel und Galerien dürfen direkt den Basisnamen einer Datei aus `src/assets/objects` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`; Groß- und Kleinschreibung sowie die Dateiendung müssen in der Referenz nicht übereinstimmen.
 
-Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, Alternativtext, Beschriftung, Nachweis und Objektverweise verwendet. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz.
+Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, Alternativtext, Beschriftung und Nachweis verwendet. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz. Objektbeziehungen werden unabhängig davon über `objects.bilder` anhand des aufgelösten Assets ermittelt.
+
+### Bildidentität
+
+Für Kapitel-Heroes, Unterkapitel-Heroes, Galerien und `objects.bilder` gelten dieselben Referenzformen:
+
+- ID einer Datei in `src/content/images`, ohne `.md`
+- Basisname eines Assets in `src/assets/objects`, ohne Dateiendung
+- vollständiger Asset-Dateiname mit unterstützter Dateiendung
+
+Entscheidend für die Identität ist immer die aufgelöste Bilddatei in `src/assets/objects`, nicht der geschriebene Referenzwert. Verweist zum Beispiel eine Galerie über eine Bild-Metadaten-ID auf ein Asset und ein Objekt direkt über dessen Dateinamen auf dasselbe Asset, werden beide als dasselbe Bild behandelt. Das Objekt wird deshalb an diesem Galerie-Bild angezeigt. Dies gilt ebenso in der umgekehrten Richtung und unabhängig davon, ob die Dateiendung angegeben ist.
 
 ## Grafik
 
@@ -283,7 +297,7 @@ erDiagram
   SUBCHAPTER ||--|{ GALLERY : "contains"
   SUBCHAPTER ||--|| IMAGE : "hero"
   GALLERY ||--|{ IMAGE : "contains"
-  IMAGE }o--o{ OBJECT : "contains / is depicted by"
+  OBJECT }o--o{ IMAGE : "references / is shown in"
 
   CHAPTER {
     number reihenfolge "int positive required"
@@ -322,14 +336,11 @@ erDiagram
     markdown altText "optionalMarkdown"
     markdown beschriftung "optionalMarkdown"
     markdown nachweis "optionalMarkdown"
-    reference_array objekte "optional"
-    enum_array objektPositionen "optional; matches objekte order and length"
     markdown body "optional unused"
   }
 
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
-    enum position "optional Links/Rechts/Vorne"
     boolean transkription "default false"
     markdown titel "requiredMarkdown"
     markdown untertitel "optionalMarkdown"
@@ -339,6 +350,7 @@ erDiagram
     markdown institution "optionalMarkdown"
     markdown inventarnummer "optionalMarkdown"
     markdown quelle "optionalMarkdown"
+    object_array bilder "optional image associations"
     markdown body "optional"
   }
 ```
