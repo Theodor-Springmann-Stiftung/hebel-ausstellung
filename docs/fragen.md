@@ -73,9 +73,21 @@
 - G1: Hebräer etc. Mögklichekeit zum Link
 - G2: Datum "unbekannt" auch hier weglassen -- oder zeigen? Was tun, wenn N.A., n.a. oder unkebenntes Datum?  
 - G2 könnte auch eine gute Stelle für eine Transkription sein
+- G4 - F2: Ehernpromotion Datum Juli/August
 - G5: Nicht ganz klar, was dargestellt werden soll
 - Wieder Punkte in den Überschriften
+- Material/Technik fehlt für alle Objekte
+
 
 
 ### Kapitel 5: Der Proteseur
-- Hero Image Quelle
+- Hero Image Quelle, Hero Image unscharf
+- G1: Allmanach oder Almanach? 
+- G1 ua. dreigebalktes Pi im Text
+    - Kapitelintro: 3 Nennungen
+    - Hero: Alt-Text und Beschriftung
+    - G1: Titel, Text und Bildmetadaten
+    - G2: 2 Nennungen im Text (im Fragebogen `media/image1.tiff`)
+    - G3: 1 Nennung im Text
+    - Objekt Allmanach: Titel und Beschreibung
+- G1: uhranfänglich/uhrähnlich??

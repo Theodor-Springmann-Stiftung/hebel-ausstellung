@@ -76,7 +76,6 @@ Sources:
 - `texte/Hebel_Ausstellung/4_Der Theologe/CONTENT QUESTIONNAIRE_4_Biblische_Geschichten.md`
 
 - The *Biblische Geschichten* cover credit names the Hebel-Archiv Heidelberg on the slide, but both object details name Li-Wen Kuo.
-- The Ehrenpromotion is dated `Juli 1821` in the object detail and `2. August 1821` in its credit. The structured date is omitted pending confirmation.
 - Material and technique are missing for most objects. `Radierung/Aquatinta` is explicit only for the Stadtkirche image.
 
 ## Chapter 5: Der Proteuser
