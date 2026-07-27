@@ -91,3 +91,10 @@
     - G3: 1 Nennung im Text
     - Objekt Allmanach: Titel und Beschreibung
 - G1: uhranfänglich/uhrähnlich??
+- G2: Bild ersetzt. In der Object-Page gibt es ein zusätzliches Bild. Wahrscheinlich stimmt auch nun die Bildquelle nicht mehr?
+- G3: Bild fehlt ganz
+- G3: Li Kuo is not the creator
+- The ALZ photograph concerns a 1790 review, but its object block gives 1813, BLB Karlsruhe, and `K1216`, apparently copied from the preceding object. Those fields were omitted.
+
+
+### Kaptiel 6: Der Junggeselle

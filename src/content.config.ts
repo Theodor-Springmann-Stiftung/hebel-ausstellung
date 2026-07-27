@@ -28,6 +28,7 @@ const sectionFields = {
   nummer: z.string().min(1),
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
+  vposition: z.number().int().default(0),
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);

@@ -37,13 +37,10 @@ const availableSubchapters = subchapters.filter(Boolean);
           <li class="chapter-overview__card">
             <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>
               <span
-                class:list={{
-                  "chapter-overview__image-frame": true,
-                  "chapter-overview__image-frame--texture": image.height > image.width * 1.25,
-                }}
-                style={image.height > image.width * 1.25 ? `background-image: url(${imageSource.smallestSrc})` : undefined}
+                class="chapter-overview__image-frame"
               >
                 <img
+                  style={`--hero-vposition: ${subchapter.data.vposition}%`}
                   src={imageSource.src}
                   srcset={imageSource.srcset}
                   sizes={imageSource.sizes}
@@ -188,17 +185,8 @@ const availableSubchapters = subchapters.filter(Boolean);
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center calc(50% + var(--hero-vposition));
     transition: transform 180ms ease-out;
-  }
-
-  .chapter-overview__image-frame--texture {
-    background-position: left center;
-    background-repeat: repeat;
-    background-size: auto 80%;
-  }
-
-  .chapter-overview__image-frame--texture img {
-    opacity: 0;
   }
 
   .chapter-overview__meta {

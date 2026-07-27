@@ -44,6 +44,7 @@ Pfad: `src/content/chapters/*.md`
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
+| `vposition` | Ganzzahl | nein | Vertikale Position des Hero-Bildausschnitts in Prozentpunkten relativ zur Mitte. Standardwert `0`; negative Werte verschieben den Fokus nach oben, positive nach unten. |
 | `startseitenBild` | String | ja | Dateiname eines Bildes für die Startseite. Erlaubt sind `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`. |
 | `startseitenAltText` | String | nein | Alternativtext für das Startseitenbild. |
 | `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
@@ -113,6 +114,7 @@ Pfad: `src/content/subchapters/*.md`
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
 | `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
+| `vposition` | Ganzzahl | nein | Vertikale Position des Hero-Bildausschnitts in Prozentpunkten relativ zur Mitte. Standardwert `0`; negative Werte verschieben den Fokus nach oben, positive nach unten. |
 | `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
@@ -305,6 +307,7 @@ erDiagram
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
     reference hero "reference images required"
+    int vposition "default 0; percentage-point offset from center"
     string startseitenBild "required image extension"
     string startseitenAltText "optional"
     enum startseitenVariante "required homepage variant"
@@ -318,6 +321,7 @@ erDiagram
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
     reference hero "reference images required"
+    int vposition "default 0; percentage-point offset from center"
     reference_array galerien "reference galleries required min 1"
     markdown body "optional"
   }

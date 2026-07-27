@@ -20,6 +20,7 @@ const imageSource = image ? await getHeroImageSource(image) : undefined;
     <div class="chapter-hero__image-frame">
       <img
         class="chapter-hero__image"
+        style={`--hero-vposition: ${chapter.data.vposition}%`}
         src={imageSource.src}
         srcset={imageSource.srcset}
         sizes={imageSource.sizes}
@@ -70,6 +71,7 @@ const imageSource = image ? await getHeroImageSource(image) : undefined;
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center calc(50% + var(--hero-vposition));
   }
 
   .chapter-hero__caption {
