@@ -5,7 +5,7 @@ titel: "Holzstich zum *Karfunkel* nach einer Zeichnung von Ludwig Richter"
 urheber: |-
   Zeichnung: Ludwig Richter
   Stich: August Gaber
-datierung: "1850"
+datierung: "1851"
 materialTechnik: "Holzstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "112040"

@@ -23,6 +23,8 @@
 // Insgesamt: Mehr Transkriptionen?
 
 ## Vorlage / Content
+- Zitierweise: Nutzungshinweise vor Kuratoren
+- Ziterweise: Hg. Andreas, jakob, 
 
 
 ### Kapitel 1: Der Oberländer
@@ -30,13 +32,14 @@
     -> Figma Design Files ist nicht maßgeblich source of truth
 - Blockzitate 1 & 2: Quellen bei Quotes
 - Gallerie 2, Folie 1 -- Link zur Wiki-Quelle
-- Gallierie 3 -- Kollationieren-Kommentar
-- Gallerie 4 -- Z-Quellen, Links deutlicher
+++ Links untersteichen im Text
+- Gallerie 4 -- Z-Quellen, Links deutlicher, Untersteichungen
 - Gallerie 5 -- Zitat ist von. jmd anders, mit siehe versehen
++++ Sonderfall
 - Gallerie 6 -- Transkription scuffed, aber es fehlt auch was -Todt
 - Gallerie Schweitzer Reise -- Zei Quellen? Selbes Buch? Titelkupfer?
++++ Zum Objekt
 - Hero image: Quelle, Objekt etc
-- Karlsruhe-Plan -- unverlinkt? 
 
 
 ### Kapitel 2: Der Dichter
@@ -47,6 +50,7 @@
 - Links rechts -- am liebsten auseinander scheiden und angeben welche Dinge zusammen gehören oder nebeneinander gehören
 // Evtl. Möglichkeit, Bild u. Text nebeneinander zu montieren?
 - UK1 - G2 - F2 -- Transkription: entweder Buchseite, oder als Text
++++ Transkription: gehört zu Bild 1
 - UK1 - G4 - F2 -- ?? Montage etwas unverständlich
 - UK2 - G3 - F1 -- 1850 oder 1851?? Zwei verschiedene Daten
 - UK3 - G1 -- "Hebels einzige Übersetzung" missverständlich
@@ -61,6 +65,7 @@
 - G2 -- Hebels Rechenbuch -- unterschiedliche Quellen Hebl-Archiv UND Badische Landesbibliothek Karlsruhe. Bilder sind auch verschiedene Objekte
 - G2 -- Transkription für was??
 - G2 - F3 -- Vade mecum: wie mit n.a. als Auto. Explizit angeben oder weglassen? 
++++ o.J. oder N.A.
 -- Links sind noch unklar [Link zu Fol 3] etc.
 // Unterschied Objekte -- Bilder
 // Datum fehlt oft in Quelle. Ausserdem Unterschied zw. Quelle und Vorlage
@@ -84,6 +89,7 @@
 - Hero Image Quelle, Hero Image unscharf
 - G1: Allmanach oder Almanach? 
 - G1 ua. dreigebalktes Pi im Text
+  +++ Zwei Mal Pi mit negativem Zeichenabstand
     - Kapitelintro: 3 Nennungen
     - Hero: Alt-Text und Beschriftung
     - G1: Titel, Text und Bildmetadaten
@@ -110,3 +116,13 @@
 
 #### Kaptel 7: Der Briefeschreiber
 - Querverweise
+
+
+
+1: Alex
+2: Andreas
+3: Alex
+4: Jakob (bad. Kircheunion Andreas)
+5: Jakob
+6: Fecht: alex, Haufe: Jakob, Hendel: Andreas
+7: Alex, Jakob
