@@ -98,3 +98,15 @@
 
 
 ### Kaptiel 6: Der Junggeselle
+// Subchapter heros mit Caption?
+- U1 -- Cover image I dont get it. Ausserdem: Quelle und Objektinformation?
+- U1 - Quelle im Einführungstext -- anders formatieren?
+- U1 - Hoffmans Flora -- 1796 oder 1795?
+- U1 - G3: The relevant Kupferstich cannot be identified with certainty according to the questionnaire.
+- U2 hero taucht im Text nicht auf -- braucht eine Caption
+- U2 - Inv. Number for Hero / Folie 1
+- U3 -- Kein Hero image // Kein Intro
+
+
+#### Kaptel 7: Der Briefeschreiber
+- Querverweise

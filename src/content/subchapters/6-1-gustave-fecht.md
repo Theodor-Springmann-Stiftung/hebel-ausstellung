@@ -3,7 +3,7 @@ nummer: "6.1"
 titel: "Gustave Fecht"
 navTitel: "Gustave Fecht"
 hero: "61_00_01_jungfer_g_blb"
-vposition: -40
+vposition: -50
 galerien:
   - "6-1-01-im-krebsgang"
   - "6-1-02-anfechtungen"
