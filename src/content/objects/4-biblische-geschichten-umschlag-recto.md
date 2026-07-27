@@ -2,9 +2,10 @@
 quelle: "Foto: Li-Wen Kuo"
 slug: "biblische-geschichten-umschlag-recto"
 titel: "Recto-Umschlag der Biblischen Geschichten"
-urheber: "unbekannt"
 datierung: "1824"
 institution: "Hebel-Archiv Heidelberg"
+bilder:
+  - bild: "Theo_4_2_Slide_1_Umschlag_recto_BG_TSS"
 ---
 
 # Beschreibung

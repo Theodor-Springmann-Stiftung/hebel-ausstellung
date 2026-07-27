@@ -6,7 +6,6 @@ urheber: "Sophie Reinhard"
 datierung: "1820"
 materialTechnik: "Radierung"
 institution: "Hebel-Archiv Heidelberg"
-inventarnummer: "Keine Signatur"
 bilder:
   - bild: "2.2_06_Reinhard_Hexlein_1820_TSS"
 ---

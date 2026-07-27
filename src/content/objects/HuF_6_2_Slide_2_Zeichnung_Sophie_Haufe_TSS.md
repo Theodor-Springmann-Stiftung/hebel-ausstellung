@@ -3,7 +3,6 @@ quelle: "Sophie Haufe: *Zeit und Hebelerinnerungen der Straßburger Hebelfreundi
 materialTechnik: "Zeichnung"
 slug: "zeichnung-sophie-haufe"
 titel: "Zeichnung von Sophie Haufe"
-urheber: "unbekannt"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "101B07"
 bilder:

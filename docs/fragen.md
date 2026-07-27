@@ -19,6 +19,8 @@
 - Colors
 - No bmp (!!) Format-Schulung
 - Subtitel: Urheber, Format, Jahr, Institution, Inventar No
+// Personenverzeichnis?
+// Insgesamt: Mehr Transkriptionen?
 
 ## Vorlage / Content
 
@@ -39,7 +41,41 @@
 
 ### Kapitel 2: Der Dichter
 - Zwei Objekte, gefällig zu einem Bild montiert: bisher ungeschehen
+// Evtl. Silideshow? Oder sich wechselnde Bilder?
+// Unterschrift: Links: Rechts: so korrekt? 
 - Subchapter hero: keine Caption vorhergesehen
 - Links rechts -- am liebsten auseinander scheiden und angeben welche Dinge zusammen gehören oder nebeneinander gehören
 // Evtl. Möglichkeit, Bild u. Text nebeneinander zu montieren?
-// Personenverzeichnis?
+- UK1 - G2 - F2 -- Transkription: entweder Buchseite, oder als Text
+- UK1 - G4 - F2 -- ?? Montage etwas unverständlich
+- UK2 - G3 - F1 -- 1850 oder 1851?? Zwei verschiedene Daten
+- UK3 - G1 -- "Hebels einzige Übersetzung" missverständlich
+- UK4 - Titelblatt hat falsches Format u. ist zu klein aufgelöst für den Titel. UK2 und UK4 haben kein Hero angegeben, daher wsh die Verwirrung
+- UK4 -- Punkte nach den Übershcriften
+- UK4 - G2 - F2: Wieder Text als Scan. Wenn das der Point ist, isr es ok
+- Johann George Scheffner od. Johann Georg Scheffner
+// Evtl. Möglichkeit zur inline-Vergrößerung?
+// Bildunterschriften nicht genutzt -- stattdessen Objektbeschreibung? f. zusammengesetzte Bilder
+
+### Kapitel 3: Badischer Hausfreund
+- G2 -- Hebels Rechenbuch -- unterschiedliche Quellen Hebl-Archiv UND Badische Landesbibliothek Karlsruhe. Bilder sind auch verschiedene Objekte
+- G2 -- Transkription für was??
+- G2 - F3 -- Vade mecum: wie mit n.a. als Auto. Explizit angeben oder weglassen? 
+-- Links sind noch unklar [Link zu Fol 3] etc.
+// Unterschied Objekte -- Bilder
+// Datum fehlt oft in Quelle. Ausserdem Unterschied zw. Quelle und Vorlage
+// Hero images: Object Links
+
+
+### Kapitel 4: Hebel der Tehologe
+- Hero image, Quelle
+- Einleidungstext und alle anderen texte -- andere Anführungssstriche
+- G1: Hebräer etc. Mögklichekeit zum Link
+- G2: Datum "unbekannt" auch hier weglassen -- oder zeigen? Was tun, wenn N.A., n.a. oder unkebenntes Datum?  
+- G2 könnte auch eine gute Stelle für eine Transkription sein
+- G5: Nicht ganz klar, was dargestellt werden soll
+- Wieder Punkte in den Überschriften
+
+
+### Kapitel 5: Der Proteseur
+- Hero Image Quelle

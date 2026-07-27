@@ -1,6 +1,6 @@
 ---
 titel: "Eine Freude für Hebel"
-beschriftung: "Kafkas Exemplar des Schatzkästleins, das er 1821 dem Rezitator Ludwig Hardt mit handschriftlicher Widmung zum Geschenk machte"
+beschriftung: "Kafkas Exemplar des Schatzkästleins, das er 1921 dem Rezitator Ludwig Hardt mit handschriftlicher Widmung zum Geschenk machte"
 bilder:
   - "3_06_01_schatzkaestlein_kafka_tss"
 ---

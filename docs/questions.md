@@ -75,10 +75,6 @@ Sources:
 - `texte/Hebel_Ausstellung/4_Der Theologe/CONTENT QUESTIONNAIRE_2026-06-18_Kirchenunion.md`
 - `texte/Hebel_Ausstellung/4_Der Theologe/CONTENT QUESTIONNAIRE_4_Biblische_Geschichten.md`
 
-- The hierarchy is contradictory. The main questionnaire calls its content section 4.1, while *Biblische Geschichten* says chapter 4 has no subchapters. Decide whether chapter 4 contains direct galleries or subchapters.
-- The Kirchenunion questionnaire contains `Slide $$ of $$` and no section number, so its position in the chapter is unknown.
-- *Biblische Geschichten* announces two slides but supplies only one slide block containing two images.
-- *Biblische Geschichten* is labeled section 4.3, while its filenames use `Theo_4_2`.
 - The *Biblische Geschichten* cover credit names the Hebel-Archiv Heidelberg on the slide, but both object details name Li-Wen Kuo.
 - The Ehrenpromotion is dated `Juli 1821` in the object detail and `2. August 1821` in its credit. The structured date is omitted pending confirmation.
 - Material and technique are missing for most objects. `Radierung/Aquatinta` is explicit only for the Stadtkirche image.
