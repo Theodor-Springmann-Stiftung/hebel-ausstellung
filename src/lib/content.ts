@@ -170,7 +170,7 @@ export const getObjectRoutes = async () => {
 			? subchapterHref(chapter.data.nummer, subchapter.data.nummer)
 			: chapterHref(chapter.data.nummer);
 
-		for (const imageReference of gallery.data.bilder) {
+		for (const imageReference of gallery.data.bilder.flat()) {
 			await recordImageContext(imageReference, {
 				chapter,
 				subchapter,

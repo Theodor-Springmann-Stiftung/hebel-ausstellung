@@ -7,7 +7,5 @@ datierung: "1801"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "Sign. K 3357 (vormals K 57 bzw. K 57 II)"
 bilder:
-  - bild: "2.1_03_01_Gespenst_u_Marktweiber_H1_BLB"
-    position: "Links"
-    objektReihenfolge: 1
+  - bild: "2.1_03_01a_Gespenst_H1_BLB"
 ---

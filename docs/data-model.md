@@ -7,7 +7,7 @@
     - With Subchapter -- contains subchapters
     - Without Subchapter -- contains galleries
 - Subchapters -- contains gallieries
-- Galleries (combination of (multiple) images with text and blockquote)
+- Galleries (ordered slides containing one or more images, with text and blockquote)
 - Images (optional image metadata only)
 - Objects (contain references to the images in which they are shown)
 
@@ -45,7 +45,7 @@ Titel: String (MARKDOWN), Required
 Beschriftung: String (MARKDOWN), Optional
 Untertitel: String (MARKDOWN), Optional
 Farbe: String, Optional
-Bilder: ->Images, Required, In Order
+Bilder: Array of non-empty image-reference arrays, Required. The outer order defines slides; the inner order defines images displayed next to each other on a slide.
 Text: String (MARKDOWN), Required, Long
 
 

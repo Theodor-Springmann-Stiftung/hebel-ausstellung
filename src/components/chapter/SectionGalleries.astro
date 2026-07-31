@@ -19,31 +19,38 @@ const galleries = await Promise.all(
     if (!gallery) return undefined;
 
     const { Content: GalleryContent } = await render(gallery);
-    const imageEntries = (await Promise.all(gallery.data.bilder.map(findContentImage))).filter(Boolean);
-    const bilder = await Promise.all(
-      imageEntries.map(async (imageEntry) => {
-        const metadata = imageEntry.entry?.data;
-        const objectRelationships = objectRelationshipsByImage.get(imageEntry.asset.src) ?? [];
+    const bilder = (
+      await Promise.all(
+        gallery.data.bilder.map(async (imageReferences) => {
+          const imageEntries = (await Promise.all(imageReferences.map(findContentImage))).filter(Boolean);
 
-        return {
-          src: await getGalleryImageSource(imageEntry.asset),
-          alt: metadata?.altText,
-          beschriftung: metadata?.beschriftung,
-          nachweis: metadata?.nachweis,
-          objekte: objectRelationships
-            .map(({ object, position }) => ({
-              slug: object.data.slug,
-              position,
-              transkription: object.data.transkription,
-              titel: object.data.titel ?? "",
-              urheber: object.data.urheber,
-              datierung: object.data.datierung,
-              materialTechnik: object.data.materialTechnik,
-              institution: object.data.institution,
-            })),
-        };
-      }),
-    );
+          return Promise.all(
+            imageEntries.map(async (imageEntry) => {
+              const metadata = imageEntry.entry?.data;
+              const objectRelationships = objectRelationshipsByImage.get(imageEntry.asset.src) ?? [];
+
+              return {
+                src: await getGalleryImageSource(imageEntry.asset),
+                alt: metadata?.altText,
+                beschriftung: metadata?.beschriftung,
+                nachweis: metadata?.nachweis,
+                objekte: objectRelationships
+                  .map(({ object, position }) => ({
+                    slug: object.data.slug,
+                    position,
+                    transkription: object.data.transkription,
+                    titel: object.data.titel ?? "",
+                    urheber: object.data.urheber,
+                    datierung: object.data.datierung,
+                    materialTechnik: object.data.materialTechnik,
+                    institution: object.data.institution,
+                  })),
+              };
+            }),
+          );
+        }),
+      )
+    ).filter((images) => images.length > 0);
 
     return { gallery, GalleryContent, bilder };
   }),

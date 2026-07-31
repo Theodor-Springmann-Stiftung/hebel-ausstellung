@@ -6,7 +6,5 @@ datierung: "1803"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "408049"
 bilder:
-  - bild: "2.1_07_04_Marktweiber"
-    position: "Rechts"
-    objektReihenfolge: 2
+  - bild: "AG_07_04b_Marktweiber_D1_78"
 ---

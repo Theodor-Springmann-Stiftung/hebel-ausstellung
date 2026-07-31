@@ -8,7 +8,7 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 |---|---|
 | Kapitel | Ein Kapitel beschreibt einen großen Ausstellungsabschnitt und enthält entweder Unterkapitel oder direkt Galerien. |
 | Unterkapitel | Ein Unterkapitel beschreibt einen kleineren Abschnitt innerhalb eines Kapitels und enthält die zugehörigen Galerien. |
-| Galerie | Eine Galerie verbindet ein oder mehrere Bilder mit Bildunterschriftsdaten und einem begleitenden Markdown-Text. |
+| Galerie | Eine Galerie verbindet eine geordnete Folge von Folien mit Bildunterschriftsdaten und einem begleitenden Markdown-Text. Jede Folie enthält ein oder mehrere Bilder. |
 | Bild | Ein optionaler Bild-Metadatensatz beschreibt Dateiname, Alternativtext, Bildunterschrift und Nachweis. |
 | Objekt | Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit seinen Metadaten und verweist auf die Bilder, in denen es gezeigt wird. |
 
@@ -24,6 +24,7 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Array | Eine Liste mehrerer Werte. Die Reihenfolge kann je nach Verwendugn relevant sein. |
 | Referenz | Verweis auf einen anderen Content-Eintrag, angegeben über dessen ID, zum Beispiel `"carfunkel-kupfer"`. |
 | Array von Referenzen | Eine Liste von Referenzen, zum Beispiel mehrere Bilder in einer Galerie. |
+| Array von Referenz-Arrays | Eine geordnete Liste von Gruppen. Bei `galleries.bilder` ist jede äußere Gruppe eine Folie und jedes innere Element ein Bild auf dieser Folie. |
 | Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel nur  die Farbnamen `lindgrün`, `vanille` oder `rosa`. |
 | URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-` oder `_`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
 
@@ -148,7 +149,7 @@ Pfad: `src/content/galleries/*.md`
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
-| `bilder` | Array von Bildreferenzen | ja | Mindestens 1 Bild. Jede Referenz kann eine Bild-Metadaten-ID oder der Basisname/Dateiname eines Assets sein. Die Dateiendung ist optional. |
+| `bilder` | Array von Bildreferenz-Arrays | ja | Mindestens 1 Folie mit mindestens 1 Bild. Das äußere Array bestimmt die Folienreihenfolge; die inneren Arrays bestimmen die Reihenfolge der nebeneinander dargestellten Bilder. Jede Referenz kann eine Bild-Metadaten-ID oder der Basisname/Dateiname eines Assets sein. Die Dateiendung ist optional. |
 | Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
@@ -172,8 +173,8 @@ beschriftung: "Hebel-Haus in Hausen"
 untertitel: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
 farbe: "vanille"
 bilder:
-  - "hebelhaus-hausen-1840"
-  - "allemannische-gedichte-1803-titel"
+  - - "hebelhaus-hausen-1840"
+  - - "allemannische-gedichte-1803-titel"
 ---
 
 Die *Allemannischen Gedichte*, von denen rasch eine weitere Auflage auf den Markt kam, waren umgehend nicht nur regional erfolgreich; mit seinem literarischen Debüt war Hebel „im Begriff sich einen eigenen Platz auf dem deutschen Parnaß zu erwerben“ (Goethe).
@@ -185,6 +186,15 @@ Beifall fand die Sammlung als kunstfertig inszenierte naive Dichtung: in der Tra
 > — JPH, Z 54
 >
 > Brief an Johann Jeremias Herbster, 14. Dezember 1800
+```
+
+Beispiel für eine Folie mit zwei Bildern und eine weitere Folie mit einem Bild:
+
+```yaml
+bilder:
+  - - "brief-vorderseite"
+    - "brief-rueckseite"
+  - - "brief-detail"
 ```
 
 ### Sammlung: `images`
@@ -269,7 +279,7 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 ## Bildunterschrift-Ersatzlogik
 
-Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel eines Objekts verwendet, dessen `bilder`-Zuordnung auf dieses Bild verweist. Verweisen mehrere Objekte auf dasselbe Bild, wird für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus der jeweiligen Objekt-Bild-Zuordnung erzeugt. Wenn kein Objekt auf das Bild verweist, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden; zuletzt dienen `galleries.beschriftung` und `galleries.untertitel` als galerie-weite Ersatzwerte.
+Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel eines Objekts verwendet, dessen `bilder`-Zuordnung auf dieses Bild verweist. Verweisen mehrere Objekte auf dasselbe Bild, wird für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus der jeweiligen Objekt-Bild-Zuordnung erzeugt. Wenn kein Objekt auf das Bild verweist, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden. Bei einer Folie mit mehreren Bildern werden deren bild- und objektspezifische Beschriftungen in der Reihenfolge der inneren Bildliste ausgegeben. Nur wenn kein Bild der Folie spezifische Beschriftungsdaten besitzt, dienen `galleries.beschriftung` und `galleries.untertitel` einmalig als galerie-weite Ersatzwerte.
 
 Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangig aus dessen Metadaten `urheber`, `datierung`, `materialTechnik` und `institution` zusammengesetzt.
 
@@ -331,7 +341,7 @@ erDiagram
     markdown beschriftung "optionalMarkdown"
     markdown untertitel "optionalMarkdown"
     enum farbe "galleryColor default lindgrün"
-    reference_array bilder "reference images required min 1"
+    reference_array_array bilder "ordered slides; each slide contains reference images min 1"
     markdown body "optional"
   }
 

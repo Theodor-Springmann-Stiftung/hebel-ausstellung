@@ -9,5 +9,6 @@ datierung: "1814"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "102412"
 bilder:
-  - bild: "3_03_02_Kalender_1814-Druck_TSS"
+  - bild: "3_03_02_Kalender_1814-Druck_TSS_0"
+  - bild: "3_03_02_Kalender_1814-Druck_TSS_1"
 ---

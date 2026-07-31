@@ -1,8 +1,8 @@
 ---
 titel: "Das Schreiben wird beschwerlich, das Leben wird beschwerlich"
 bilder:
-  - "7_6_1_z_392_an_haufe_blb"
-  - "7_6_2_z_401_an_haufe_blb"
+  - - "7_6_1_z_392_an_haufe_blb"
+  - - "7_6_2_z_401_an_haufe_blb"
 ---
 
 »Sie sehen diesem Brief an liebe Freunde, warum ich die andern alle seit Jahresfrist nicht geschrieben habe«, so Hebel im Dezember 1815 an Haufes. »Das Schreiben fängt an, dem Rath Ruf u. mir gar beschwerlich zu werden. Er erklärt es seinerseits von einem intermittirenden Puls, das ist einfältig. Ich berufe mich auf rheumatische Schmerzen im Arm. Genug ich bedarf manchmal zu einer Seite eine Stunde, u. sollte oft in einem Tag 10. Seiten schreiben …« (Z 401). Vergleicht man das Manuskript dieses Briefs mit dem letzten Brief, den Hebel davor an Haufe geschickt hat, dann fallen die Unterschiede tatsächlich ins Auge: in dem späteren Brief setzt die Feder häufig aus, die Buchstaben werden eher angedeutet als ausgeführt, das ganze Schriftbild wirkt durchschossen. Man vergleiche etwa die zwei Ausführungen des Worts »Freund«, das in dem früheren Brief in der Anrede und in dem späteren am Ende der ersten Zeile vorkommt.

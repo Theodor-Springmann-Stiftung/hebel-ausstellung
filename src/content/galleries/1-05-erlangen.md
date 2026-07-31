@@ -1,8 +1,8 @@
 ---
 titel: "Erlangen"
 bilder:
-  - "1_05_01_stammbuch_rheinwald_blb"
-  - "1_05_02_stammbuch_walch_blb"
+  - - "1_05_01_stammbuch_rheinwald_blb"
+  - - "1_05_02_stammbuch_walch_blb"
 ---
 
 > Als Student war er Amicist, schlug sich zu Erlangen und hatte den verstorbenen K[öniglich] bair[ischen] G[eheimen] R[ath] von Reinwald zum Sekundanten. Er verbarg sein Herzklopfen so gut er konnte und kam mit einer leichten Wunde im Arm davon. Er wiederholte nach mehreren Jahren Reinwalds pathetische Anrede auf unnachahmliche Weise.

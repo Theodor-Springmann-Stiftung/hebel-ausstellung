@@ -8,9 +8,9 @@ datierung: "1743"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "K 3382"
 bilder:
-  - bild: "3_02_01_Rechenbuch_TSS"
-  - bild: "3_02_02_Hebel_K05_Neue_Aufgaben_TSS"
-    objektReihenfolge: 1
+  - bild: "3_02_01_Rechenbuch_TSS_0"
+  - bild: "3_02_01_Rechenbuch_TSS_1"
+  - bild: "3_02_02_Hebel_K05_Neue_Aufgaben_TSS_0"
 ---
 
 # Transkription

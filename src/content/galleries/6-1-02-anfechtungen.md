@@ -2,8 +2,9 @@
 titel: "Anf(l)echtungen"
 beschriftung: "Der *lichen pubescens* (behaarte/mannbare Flechte) dient Gmelin zu einem Witz, der Hebel verstimmt"
 bilder:
-  - "61_02_02_hoffmann_flora2_titel"
-  - "61_02_03_hoffmann_flora2-136"
+  - - "61_02_02_hoffmann_flora2_titel_0"
+    - "61_02_02_hoffmann_flora2_titel_1"
+  - - "61_02_03_hoffmann_flora2-136"
 ---
 
 Zum Jahreswechsel auf 1797 kam es zu einer Verstimmung zwischen Hebel und dem Direktor des Karlsruher Naturalienkabinetts sowie der botanischen Gärten, dem Naturforscher Carl Christian Gmelin [link zu Kap. 7, Fol. 2]. Gmelin war 1794 vor den französischen Revolutionstruppen nach Ansbach ausgewichen. Während seiner Abwesenheit übernahm Hebel von ihm den Naturkundeunterricht am Gymnasium illustre. Hebels Briefe aus dieser Zeit zeigen, wie sich zwischen beiden ein vertrauliches, auf gemeinsamen Interessen beruhendes Verhältnis entwickelte. Wie aber kam es zu der Verstimmung? Wohl in Antwort auf Hebels Mitteilung, er habe im Oberland einige Pflanzen gesehen, die ihm noch fehlten, weshalb er keine Ruhe mehr in Karlsruhe habe (Z 32), hatte sich Gmelin einen Scherz erlaubt. In welche Richtung dieser Scherz zielte, lässt sich Hebels Reaktion entnehmen: »Mit meiner oberländer Botanisirung haben Sie Ihren lieben Spaß, wozu ich mich einem Freund gern hergebe; doch muß ich, um dem *Lichen pubescens* seine Ehre u. Gerechtigkeit, ungefährdet widerfahren zu laßen, bemerken, daß ich nicht wegen ihm in Weil gewesen bin, und daß mir wohl besagter *Lichen*, so ehrenwerth er mir ist, unberührt sein u. bleiben wird, so lange ich lebe.« (Z 34)

@@ -1,9 +1,9 @@
 ---
 titel: "Hausen"
 bilder:
-  - "1_02_01_hebelhaus_schopfheim"
-  - "1_02_02_widmungsgedicht1_blb"
-  - "1_02_03_widmungsgedicht2_blb"
+  - - "1_02_01_hebelhaus_schopfheim"
+  - - "1_02_02_widmungsgedicht1_blb"
+  - - "1_02_03_widmungsgedicht2_blb"
 ---
 
 > Es ist für mich wahr und bleibt für mich wahr, der Himmel ist nirgends so blau, und die Luft nirgends so rein, und alles so lieblich und so heimlich als zwischen den Bergen von Hausen [...]

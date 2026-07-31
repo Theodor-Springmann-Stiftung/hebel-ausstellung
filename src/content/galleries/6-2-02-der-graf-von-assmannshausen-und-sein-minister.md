@@ -2,7 +2,7 @@
 titel: "Der Graf von Assmannshausen und sein Minister"
 beschriftung: "Vorbild für den Wild- und Rheinkönig zu Assmanshausen und Kaub: Jakob I., Kaiser von Haiti."
 bilder:
-  - "huf_6_2_slide_3_portrait_de_lempereur_jacques_dhaiti_wikipedia"
+  - - "huf_6_2_slide_3_portrait_de_lempereur_jacques_dhaiti_wikipedia"
 ---
 
 Hebels Vorliebe für das Rollenspiel äußert sich in seiner Beziehung zu den Eheleuten Haufes in der von ihm selbst so genannten »Assmannshausische[n] Ministercomödie« (Z 160). Unauffällig genug beginnt es mit einem vereinzelten und nicht weiter kommentierten Majestätsplural in einem Brief vom März 1805: »Zur neuen willkommenen Bürgerinn der Welt und des französischen Kayserthums wollen wir denn vor allen Dingen und auf alle Fälle uns als Pathe freudig bekennen« (Z 132), schreibt Hebel, als er die Patenschaft für Sophies erste Tochter übernimmt. Wenig später ernennt Hebel Sophie zu seinem »Minister in auswärtigen Angelegenheiten und Intendanten im Fach der schönen Künste und Wissenschaften«. Und da »Sie einen höheren Rang und Posten verdienen«, wie er ihr im August 1805 schreibt, »als der Minister bey einem blosen schlechten Edelmann zu sein, habe ich beschlossen, nach dem Vorgang u. Beyspiel Jakobs des Isten, Kaysers von Haity Liebden, mich nach und nach in einen höhern Rang zu versetzen, und einsweilen den Titel Peter der Iste Grav von Assmanshausen u. Kaub, des hohen Ordens vom heiligen Proteus Heermeister, anzunehmen« (Z 150).

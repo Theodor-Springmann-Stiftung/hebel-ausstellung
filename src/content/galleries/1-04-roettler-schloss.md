@@ -1,7 +1,7 @@
 ---
 titel: "Röttler Schloss"
 bilder:
-  - "1_04_01_roettler_schloss_gla"
+  - - "1_04_01_roettler_schloss_gla"
 ---
 
 > Fast allmol, Ätti, wenn mer ’s Röttler Schloß<br>

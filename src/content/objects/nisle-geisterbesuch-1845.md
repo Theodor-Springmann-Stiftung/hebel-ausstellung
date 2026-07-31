@@ -8,7 +8,5 @@ materialTechnik: "Lithographie"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412305"
 bilder:
-  - bild: "2.1_06_02_Jenner_u_Spinne_u_Nisle"
-    position: "Vorne"
-    objektReihenfolge: 3
+  - bild: "2.1_06_02b_JNisle_Geisterbesuch"
 ---

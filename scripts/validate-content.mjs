@@ -48,10 +48,34 @@ function getFrontmatterString(frontmatter, key) {
   return match?.[1]?.trim();
 }
 
-function getFrontmatterList(frontmatter, key) {
-  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+-.*(?:\\r?\\n|$))*)`, "m"));
+function unquoteFrontmatterValue(value) {
+  const trimmed = value.trim();
+  const quote = trimmed[0];
+  return (quote === '"' || quote === "'") && trimmed.at(-1) === quote
+    ? trimmed.slice(1, -1)
+    : trimmed;
+}
 
-  return [...(match?.[1] ?? "").matchAll(/^\s*-\s*["']?(.+?)["']?\s*$/gm)].map((item) => item[1].trim());
+function getFrontmatterNestedList(frontmatter, key) {
+  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+.*(?:\\r?\\n|$))*)`, "m"));
+  const groups = [];
+  let current;
+
+  for (const line of (match?.[1] ?? "").split(/\r?\n/)) {
+    const outer = line.match(/^[ \t]{2}-[ \t]*(.*)$/);
+    const inner = line.match(/^[ \t]{4}-[ \t]+(.+?)\s*$/);
+
+    if (outer) {
+      current = [];
+      groups.push(current);
+      const firstItem = outer[1].match(/^-[ \t]+(.+?)\s*$/);
+      if (firstItem) current.push(unquoteFrontmatterValue(firstItem[1]));
+    } else if (inner && current) {
+      current.push(unquoteFrontmatterValue(inner[1]));
+    }
+  }
+
+  return groups;
 }
 
 function getFrontmatterObjectList(frontmatter, key) {
@@ -273,9 +297,16 @@ async function validateDisplayImageReferences() {
     const source = await readFile(file, "utf8");
     const { frontmatter } = splitMarkdownFile(file, source);
 
-    for (const imageReference of getFrontmatterList(frontmatter, "bilder")) {
-      if (!imageCatalog.resolve(imageReference)) {
-        warnings.push(`${relative(file)} references unavailable gallery image metadata or asset: ${imageReference}`);
+    const imageGroups = getFrontmatterNestedList(frontmatter, "bilder");
+    if (imageGroups.length === 0 || imageGroups.some((group) => group.length === 0)) {
+      errors.push(`${relative(file)} must define bilder as a non-empty array of non-empty image arrays`);
+    }
+
+    for (const [slideIndex, imageGroup] of imageGroups.entries()) {
+      for (const [imageIndex, imageReference] of imageGroup.entries()) {
+        if (!imageCatalog.resolve(imageReference)) {
+          warnings.push(`${relative(file)} references unavailable gallery image metadata or asset at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
+        }
       }
     }
   }

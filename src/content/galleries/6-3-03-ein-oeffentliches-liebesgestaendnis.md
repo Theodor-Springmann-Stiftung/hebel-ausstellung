@@ -1,8 +1,8 @@
 ---
 titel: "Ein öffentliches Liebesgeständnis."
 bilder:
-  - "63_03_01a_theater_weinbrenner_buehne_kunsthalle_ka"
-  - "63_03_01b_theater_weinbrenner_loge_kunsthalle_ka"
+  - - "63_03_01a_theater_weinbrenner_buehne_kunsthalle_ka"
+    - "63_03_01b_theater_weinbrenner_loge_kunsthalle_ka"
 ---
 
 Die hintergründig-schüchternen Stammbuchverse blieben zunächst verborgen – während Henriette Hendel sich Hebel auf offener Bühne erklärte. Im Oktober 1809 war sie erneut im prachtvollen neuen Karlsruher Theater zu erleben, und eines Abends »deklamirte« sie dort aus den *Allemannischen Gedichten* »Hans u. Verene zweimal hinter einander mit ungemeinem Beifall. Das war gut.« Aber es kam noch besser, nämlich nach dem Muster besagter Verene, die angesichts ihres zurückhaltenden Liebhabers die Initiative ergreift:

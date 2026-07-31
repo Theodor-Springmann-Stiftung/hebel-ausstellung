@@ -35,6 +35,7 @@ type CaptionItem = {
   textHtml: string;
   href?: string;
   linkLabel?: string;
+  objectKey?: string;
 };
 
 export type GalleryProps = {
@@ -42,12 +43,12 @@ export type GalleryProps = {
   beschriftung?: string;
   untertitel?: string;
   farbe?: GalleryColor;
-  bilder: GalleryImage[];
+  bilder: GalleryImage[][];
 };
 
 const props = Astro.props as GalleryProps;
 const { titel, beschriftung, untertitel, farbe = "lindgrün", bilder } = props;
-const isMultiImage = bilder.length > 1;
+const isMultiSlide = bilder.length > 1;
 
 const objectMetadata = (object: GalleryObject) =>
   [
@@ -60,7 +61,7 @@ const objectMetadata = (object: GalleryObject) =>
     .map((value) => renderInlineMarkdown(value))
     .join(", ");
 
-const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
+const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
   if (image.objekte?.length) {
     const hasMultipleObjects = image.objekte.length > 1;
 
@@ -72,6 +73,7 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
         textHtml: objectMetadata(object),
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? "Zum Objekt (mit Transkription)" : "Zum Objekt",
+        objectKey: object.slug,
       };
     });
   }
@@ -85,71 +87,94 @@ const getCaptionItems = (image: GalleryImage): CaptionItem[] => {
     ];
   }
 
-  return [
-    {
-      titleHtml: renderInlineMarkdown(beschriftung),
-      textHtml: renderInlineMarkdown(untertitel),
-    },
-  ];
+  return [];
 };
 
-const slides = bilder.map((image, index) => ({
+const getSlideCaptionItems = (images: GalleryImage[]) => {
+  const seenObjects = new Set<string>();
+  const imageCaptions = images.flatMap((image, imageIndex) =>
+    getImageCaptionItems(image)
+      .filter((caption) => {
+        if (!caption.objectKey) return true;
+        if (seenObjects.has(caption.objectKey)) return false;
+        seenObjects.add(caption.objectKey);
+        return true;
+      })
+      .map((caption) => ({ ...caption, imageIndex })),
+  );
+
+  if (images.length > 1 && imageCaptions.length === 2) {
+    return imageCaptions.map(({ imageIndex: _imageIndex, ...caption }, captionIndex) => ({
+      ...caption,
+      titleHtml: `${captionIndex === 0 ? "Links" : "Rechts"}: ${caption.titleHtml}`,
+    }));
+  }
+
+  return imageCaptions.length > 0
+    ? imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption)
+    : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: renderInlineMarkdown(untertitel) }];
+};
+
+const slides = bilder.map((images, index) => ({
   index,
-  src: image.src.src,
-  srcset: image.src.srcset,
-  sizes: image.src.sizes,
-  peekSrc: image.src.peekSrc,
-  alt: markdownToPlainText(image.alt),
-  captions: getCaptionItems(image),
+  images: images.map((image) => ({
+    src: image.src.src,
+    srcset: image.src.srcset,
+    sizes: image.src.sizes,
+    peekSrc: image.src.peekSrc,
+    alt: markdownToPlainText(image.alt),
+  })),
+  captions: getSlideCaptionItems(images),
 }));
 
 const firstSlide = slides[0];
 const nextSlide = slides[1] ?? firstSlide;
 ---
 
-<section class:list={["gallery", isMultiImage ? "gallery--multi" : "gallery--single"]} data-gallery data-color={farbe} aria-roledescription={isMultiImage ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
+<section class:list={["gallery", isMultiSlide ? "gallery--multi" : "gallery--single"]} data-gallery data-color={farbe} aria-roledescription={isMultiSlide ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
   <div class="gallery__title-section">
     <h2 class="gallery__title" set:html={renderInlineMarkdown(titel)}></h2>
   </div>
 
   <div class="gallery__stage">
-    {isMultiImage && (
-      <button class="gallery__button gallery__button--prev" type="button" data-gallery-prev aria-label="Vorheriges Bild" disabled>
+    {isMultiSlide && (
+      <button class="gallery__button gallery__button--prev" type="button" data-gallery-prev aria-label="Vorherige Folie" disabled>
         <svg class="gallery__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M19 12H5m6-6-6 6 6 6" />
         </svg>
       </button>
     )}
 
-    {isMultiImage && (
+    {isMultiSlide && (
       <div class="gallery__peek gallery__peek--prev is-empty" aria-hidden="true" data-gallery-peek-prev>
-        <img src={firstSlide.peekSrc} alt="" data-gallery-peek-prev-image />
+        <img src={firstSlide.images[0].peekSrc} alt="" data-gallery-peek-prev-image />
       </div>
     )}
 
     <figure class="gallery__frame">
-      <div class="gallery__mat">
-        <img
-          class="gallery__image"
-          src={firstSlide.src}
-          srcset={firstSlide.srcset}
-          sizes={firstSlide.sizes}
-          alt={firstSlide.alt}
-          loading="lazy"
-          decoding="async"
-          data-gallery-image
-        />
+      <div class="gallery__mat" data-gallery-images data-image-count={firstSlide.images.length}>
+        {firstSlide.images.map((image) => (
+          <img
+            class="gallery__image"
+            src={image.src}
+            srcset={image.srcset}
+            sizes={image.sizes}
+            alt={image.alt}
+            loading="lazy"
+            decoding="async"
+          />
+        ))}
       </div>
     </figure>
 
-    {isMultiImage && (
+    {isMultiSlide && (
       <div class="gallery__peek gallery__peek--next" class:list={{ "is-empty": slides.length < 2 }} aria-hidden="true" data-gallery-peek-next>
-        <img src={nextSlide.peekSrc} alt="" data-gallery-peek-next-image />
+        <img src={nextSlide.images[0].peekSrc} alt="" data-gallery-peek-next-image />
       </div>
     )}
 
-    {isMultiImage && (
-      <button class="gallery__button gallery__button--next" type="button" data-gallery-next aria-label="Nächstes Bild">
+    {isMultiSlide && (
+      <button class="gallery__button gallery__button--next" type="button" data-gallery-next aria-label="Nächste Folie">
         <svg class="gallery__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
           <path d="M5 12h14m-6-6 6 6-6 6" />
         </svg>
@@ -158,10 +183,10 @@ const nextSlide = slides[1] ?? firstSlide;
   </div>
 
   <div class="gallery__caption-section" data-gallery-caption aria-live="polite">
-    {isMultiImage && (
+    {isMultiSlide && (
       <div class="gallery__pagination">
         <div class="gallery__dots" data-gallery-dots>
-          {slides.map((slide) => <button class="gallery__dot" type="button" data-gallery-dot={slide.index} aria-label={`Bild ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
+          {slides.map((slide) => <button class="gallery__dot" type="button" data-gallery-dot={slide.index} aria-label={`Folie ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
         </div>
         <p class="gallery__counter" data-gallery-counter>1 / {slides.length}</p>
       </div>
@@ -233,13 +258,33 @@ const nextSlide = slides[1] ?? firstSlide;
     container.replaceChildren(...[pagination, captionList].filter(Boolean));
   };
 
+  const renderImages = (
+    container: HTMLElement,
+    images: Array<{ src: string; srcset: string; sizes: string; alt: string }>,
+  ) => {
+    container.dataset.imageCount = String(images.length);
+    const elements = images.map((image) => {
+      const element = document.createElement("img");
+      element.className = "gallery__image";
+      element.srcset = image.srcset;
+      element.sizes = image.sizes;
+      element.src = image.src;
+      element.alt = image.alt;
+      element.loading = "lazy";
+      element.decoding = "async";
+      return element;
+    });
+
+    container.replaceChildren(...elements);
+  };
+
   document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
     const script = gallery.querySelector<HTMLScriptElement>("[data-gallery-slides]");
     const slides = script?.textContent ? JSON.parse(script.textContent) : [];
 
     if (slides.length <= 1) return;
 
-    const image = gallery.querySelector<HTMLImageElement>("[data-gallery-image]");
+    const images = gallery.querySelector<HTMLElement>("[data-gallery-images]");
     const previousImage = gallery.querySelector<HTMLImageElement>("[data-gallery-peek-prev-image]");
     const nextImage = gallery.querySelector<HTMLImageElement>("[data-gallery-peek-next-image]");
     const counter = gallery.querySelector<HTMLElement>("[data-gallery-counter]");
@@ -259,15 +304,10 @@ const nextSlide = slides[1] ?? firstSlide;
       const previousSlide = slides[activeIndex - 1];
       const nextSlide = slides[activeIndex + 1];
 
-      if (image) {
-        image.srcset = slide.srcset;
-        image.sizes = slide.sizes;
-        image.src = slide.src;
-        image.alt = slide.alt;
-      }
+      if (images) renderImages(images, slide.images);
 
-      if (previousImage && previousSlide) previousImage.src = previousSlide.peekSrc;
-      if (nextImage && nextSlide) nextImage.src = nextSlide.peekSrc;
+      if (previousImage && previousSlide) previousImage.src = previousSlide.images[0].peekSrc;
+      if (nextImage && nextSlide) nextImage.src = nextSlide.images[0].peekSrc;
       previousPeek?.classList.toggle("is-empty", !previousSlide);
       nextPeek?.classList.toggle("is-empty", !nextSlide);
       if (previousButton) previousButton.disabled = activeIndex === 0;
@@ -379,11 +419,28 @@ const nextSlide = slides[1] ?? firstSlide;
 
     height: 280px;
     background: var(--gallery-mat-bg);
+    gap: var(--spacing-8);
     padding: var(--spacing-20);
   }
 
-  .gallery__image {
-    @apply h-full w-full object-contain;
+  .gallery__mat :global(.gallery__image) {
+    @apply h-full min-w-0 object-contain;
+
+    width: auto;
+    max-width: 100%;
+    flex: 0 1 auto;
+  }
+
+  .gallery__mat[data-image-count="2"] :global(.gallery__image) {
+    max-width: calc((100% - var(--spacing-8)) / 2);
+  }
+
+  .gallery__mat[data-image-count="3"] :global(.gallery__image) {
+    max-width: calc((100% - var(--spacing-16)) / 3);
+  }
+
+  .gallery__mat[data-image-count="4"] :global(.gallery__image) {
+    max-width: calc((100% - var(--spacing-24)) / 4);
   }
 
   .gallery__peek,

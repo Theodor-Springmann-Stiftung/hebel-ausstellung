@@ -7,7 +7,5 @@ datierung: "1808"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412291"
 bilder:
-  - bild: "2.4_03_01_AG_D4_TSS"
-    position: "Links"
-    objektReihenfolge: 1
+  - bild: "Raubdrucke_03_1a_AG_D4_S._110a"
 ---

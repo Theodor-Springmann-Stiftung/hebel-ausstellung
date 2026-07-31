@@ -1,8 +1,8 @@
 ---
 titel: "Ein Geistlicher von Fleisch und Bein."
 bilder:
-  - "63_05_1a_hebel_an_schuetz_tss"
-  - "63_05_1b_hebel_an_haufe_blb"
+  - - "63_05_1a_hebel_an_schuetz_tss"
+    - "63_05_1b_hebel_an_haufe_blb"
 ---
 
 »Sie freieten (nur ich nicht) und ließen sich freien«, dieses Herrenwort (Mt 24,38) mit resignativem persönlichem Einschub findet sich im Brief an Henriette Hendel vom Oktober 1813; da hat Hebel sich mit seinem Junggesellentum und »Ihre[m] Herrn Gemahl« wohl abgefunden (Z 375). Anfangs gab es indes bibel- und handfeste Anfechtungen – und vielleicht die ganz leise Hoffnung auf mehr als eine Korrespondenz, besorgt durch die ›Post (Tausig-)Sappermost‹.

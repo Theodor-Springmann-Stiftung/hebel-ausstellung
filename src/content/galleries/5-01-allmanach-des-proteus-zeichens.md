@@ -1,7 +1,7 @@
 ---
 titel: "Der Allmanach des Proteus-Zeichens"
 bilder:
-  - "BuP_1_1_Titel_Allm_Pi_BLB"
+  - - "BuP_1_1_Titel_Allm_Pi_BLB"
 ---
 
 Wie kann Hebel Hitzig brieflich im Dezember zum neuen Jahr gratulieren? Die Proteuser hatten ihre eigene Zeitrechnung, die Hebel im *Allmanach des Proteus-Zeichens* (s. Abb.) niedergelegt hat. Laut ihr beginnt das Proteusische Jahr am Andreastag, dem 30. November des gregorianischen Kalenders.

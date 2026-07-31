@@ -1,7 +1,7 @@
 ---
 titel: "Zukunftsträchtige Weiblichkeit: Sophie Reinhards Radierung zu *Hans und Verene* (1820)"
 bilder:
-  - "22_04_reinhard_hans_und_verene_1820_tss"
+  - - "22_04_reinhard_hans_und_verene_1820_tss"
 ---
 
 Warum bekrönt eine Madonna dieses Blatt zu einem Gedicht aus lutherischer Feder? Weil, so Hebel, die »aufmerksame Künstlerin« *Hans und Verene* genau gelesen hat und »zu dem Heiligenbilde auf dem Brunnen durch die Stelle: „Du hast mich aus dem Fegfeuer geholt“ sich veranlaßt sah«. Sophie Reinhard versteht »De hesch mi usem Fegfüür gholt« als konfessionellen Wink: Mit diesem Vers, im Protestantismus lodert ja kein Fegefeuer, gibt sich Hans, durch Vrenelis Geständnis ihrer Gegenliebe ›erlöst‹, als Katholik zu erkennen. Daher ist es würdig und recht, den Brunnen mit einer Muttergottes zu zieren – und durch sie einen politischen Aspekt sichtbar zu machen, den die Zeitläufte dem Text eingeschrieben haben.

@@ -7,10 +7,6 @@ datierung: "1821"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "111707"
 bilder:
-  - bild: "2.4_04_01_D5_TSS"
-    position: "Rechts"
-    objektReihenfolge: 2
-  - bild: "2.4_05_D5_TSS"
-    position: "Links"
-    objektReihenfolge: 1
+  - bild: "Raubdrucke_04_1b_D5_Reutlingen1821"
+  - bild: "Raubdrucke_05_1a_D5_Reutlingen1821"
 ---

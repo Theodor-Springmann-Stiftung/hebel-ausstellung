@@ -83,7 +83,7 @@ const galleries = defineCollection({
     beschriftung: optionalMarkdown,
     untertitel: optionalMarkdown,
     farbe: galleryColor,
-    bilder: z.array(imageReference).min(1),
+    bilder: z.array(z.array(imageReference).min(1)).min(1),
   }),
 });
 
