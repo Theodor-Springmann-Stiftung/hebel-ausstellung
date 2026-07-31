@@ -2,7 +2,7 @@
 titel: "Johann George Scheffner"
 bilder:
   - - "23_03_1_scheffner_tss"
-  - - "23_03_2_scheffner_tss"
+    - "23_03_2_scheffner_tss"
   - - "23_03_3_scheffner_tss"
 ---
 

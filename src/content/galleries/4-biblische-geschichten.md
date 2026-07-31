@@ -2,7 +2,7 @@
 titel: "»Ich suche dismal meine Recensenten in der Kinderwelt«. Hebels Biblische Geschichten."
 bilder:
   - - "Theo_4_2_Slide_1_Umschlag_recto_BG_TSS"
-  - - "Theo_4_2_Slide_2_Umschlag_verso_BG_TSS"
+    - "Theo_4_2_Slide_2_Umschlag_verso_BG_TSS"
 ---
 
 1813 entschied man in Baden, Johann Hübners 1714 erschienene *Biblische Historien* nicht mehr im Schulunterricht einzusetzen. In die Debatte um den Nachfolger schaltete Hebel sich mit zwei Gutachten ein – ähnlich wie 1806, als es um die Neuausrichtung des Badischen Landkalenders ging. Am Ende wurde Hebel aufgetragen, das biblische Lesebuch für den Schulgebrauch selbst zu verfassen – ähnlich wie ihm einige Jahre zuvor die Redaktion des Landkalenders übertragen worden war.
