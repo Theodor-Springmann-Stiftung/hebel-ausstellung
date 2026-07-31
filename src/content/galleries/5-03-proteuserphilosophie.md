@@ -3,7 +3,7 @@ titel: "Die Proteuserphilosophie"
 beschriftung: "Nicht mit der Lupe, dafür mit reichlich freigeistiger Parodierlust hat Hebel diese Rezension gelesen"
 untertitel: "Li Wen Kuo, TSS"
 bilder:
-  - - "BuP_3_review_ALZ_magn_glass_TSS"
+  - - "Leeres_Nichts_Parmenides_Lupe"
 ---
 
 Unter den Dokumenten zum Proteusertum findet sich ein »Verzeichnis der berühmtesten Proteologen älterer u[nd] neuerer Zeiten«. Unter diesen wird nicht ohne Grund zuerst Parmenides genannt. In seinem berühmten Lehrgedicht unterscheidet Parmenides zwei Wege: den der Wahrheit und der Erkenntnis, der sich an das Sein hält, und den der Unwahrheit und der Täuschung, der sich an das Nicht-Seiende (*mē on*) verliert. Hebel dreht Parmenides auf links, indem er gerade jenes *mē on*, das Nichts, zum Zentralbegriff der Proteuserphilosophie macht und ihm all die Vollkommenheiten zuschreibt, die Parmenides dem Sein vorbehält: unendlich, nie geworden und nie vergehend, ungeteilt und unbeweglich ist das mit dem Proteus-Zeichen identifizierte Nichts laut den »Grundstrichen des Proteus’schen Lehrsystems«, die in ihrer Anlage die Form des gelehrten Traktats parodieren.

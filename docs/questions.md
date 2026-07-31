@@ -14,11 +14,10 @@ This file records information that could not be migrated from the questionnaires
 
 Status after comparing chapters 3–7 with `src/content/images`, `src/assets/objects`, and the source files under `import/Hebel_Ausstellung/`:
 
-- **Referenced and missing:** `BuP_3_review_ALZ_magn_glass_TSS` in chapter 5, slide 3 (*Die Proteuserphilosophie*). No matching source or normalized asset was found. This gallery currently has no displayable image.
 - **Requested but not currently referenced:** the Karl Christian Gmelin portrait for chapter 6.1, slide 2. The questionnaire explicitly says that one image is missing and supplies neither a filename nor a usable credit. Confirm whether it should be supplied and added as a third image, or whether the slide should remain limited to the two *Flora* images.
 - **Requested but not currently referenced:** `6.3_04_1d_Schwarzwälder_D5_TSS` for chapter 6.3, slide 4. The questionnaire marks the scan, filename, and inventory number as unfinished. Confirm whether it will be supplied or whether the slide is complete without it.
 - **Missing inline symbol asset:** `media/image1.tiff` from the chapter 5 questionnaire. It represents the custom three-stroke Pi used within running text, not a gallery image. Confirm whether this should be supplied as an SVG/web image, a font glyph, or remain textualized as `dreigebalktes Pi`.
-- All currently referenced chapter 3, 4, 6, and 7 images resolve to existing assets. Chapter 5 resolves except for the ALZ image above.
+- All currently referenced chapter 3–7 images resolve to existing assets. The formerly missing chapter 5 ALZ photograph is available as `Leeres_Nichts_Parmenides_Lupe.webp`.
 
 ## Chapter 1: Der Oberländer
 
