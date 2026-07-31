@@ -3,7 +3,7 @@ titel: "Bilderrätsel"
 beschriftung: "Die Hebel-Porträts von Karl Josef Agricola und Christian Friedrich Müller in verschiedenen Ausführungen"
 bilder:
   - - "61_03_01_agricola_abzug_erste_serie_tss"
-  - - "61_03_02_agricola_abzug_dritte_serie_tss"
+    - "61_03_02_agricola_abzug_dritte_serie_tss"
   - - "61_03_03_mueller-kupferstich_kunsthalle_ka"
 ---
 
