@@ -1,5 +1,5 @@
 ---
-titel: "Zukunftsträchtige Weiblichkeit: Sophie Reinhards Radierung zu *Hans und Verene* (1820)"
+titel: "Zukunftsträchtige Weiblichkeit"
 bilder:
   - - "22_04_reinhard_hans_und_verene_1820_tss"
 ---

@@ -1,5 +1,5 @@
 ---
-titel: "Maskuliner Revisionismus I: Julius Nisles Lithographie zu *Hans und Verene* (1837)"
+titel: "Maskuliner Revisionismus I"
 bilder:
   - - "22_05_nisle_hans_und_verene_1837_ssb_augsburg"
 ---

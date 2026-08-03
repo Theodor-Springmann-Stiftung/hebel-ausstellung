@@ -1,5 +1,7 @@
 ---
 titel: "Besser als das Original."
+folienbeschriftung: "Zwei Ausgaben im Vergleich: Der Raubdruck (rechts) macht’s besser."
+positionsangaben: false
 bilder:
   - - "Raubdrucke_04_1a_D5_1820"
     - "Raubdrucke_04_1b_D5_Reutlingen1821"

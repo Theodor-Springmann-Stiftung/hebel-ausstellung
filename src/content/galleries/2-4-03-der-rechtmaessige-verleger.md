@@ -1,5 +1,8 @@
 ---
 titel: "Der rechtmäßige Verleger als erster Nachdrucker?"
+folienbeschriftung: "Der Text einer Seite in zwei Exemplaren der vermeintlich selben Auflage: links gedruckt vom ›alten‹, rechts von einem neuerlichen Satz."
+bildabstand: "weit"
+positionsangaben: false
 bilder:
   - - "Raubdrucke_03_1a_AG_D4_S._110a"
     - "Raubdrucke_03_1b_AG_D4_S._110b"

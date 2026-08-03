@@ -1,5 +1,5 @@
 ---
-quelle: "Enthalten in: *Allemanische Gedichte. Für Freunde ländlicher Natur und Sitten.* 3. Auflage mit Verbesserungen und Kupfern. Karlsruhe: Macklot, 1806."
+quelle: "B.[enjamin] Zix: [Kupferstich zum *Carfunkel*, als Frontispiz eingebunden in]: J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Dritte Auflage mit Verbesserungen und Kupfern.* Karlsruhe: Macklot, 1806."
 slug: "zix-carfunkel-1806"
 titel: "Kupferstich von Benjamin Zix zum *Carfunkel*"
 urheber: |-

@@ -1,7 +1,7 @@
 ---
-quelle: "Enthalten in: *Dreißig Umrisse zu J. P. Hebels allemannischen Gedichten.* 3., mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 32."
+quelle: "»Der Statthalter von Schopfheim. N<sup>o</sup> IV.« In: *Dreißig Umrisse zu J. P. Hebel’s allemannischen Gedichten* […]. Von Julius Nisle. Mit einer Einleitung und Lebensbeschreibung. Dritte, mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 32 (frühere Version zuerst [1837])."
 slug: "nisle-statthalter-1845"
-titel: "Lithographie zum *Statthalter von Schopfheim*"
+titel: "Lithographie zum *Statthalter von Schopfheim* von Julius Nisle"
 urheber: "Julius Nisle"
 datierung: "1845"
 materialTechnik: "Lithographie"

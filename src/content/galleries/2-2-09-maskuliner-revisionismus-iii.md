@@ -1,5 +1,5 @@
 ---
-titel: "Maskuliner Revisionismus III: Julius Nisles Lithographie zum *Statthalter von Schopfheim* (1845)"
+titel: "Maskuliner Revisionismus III"
 bilder:
   - - "22_09_nisle_statthalter_1845_ab"
 ---

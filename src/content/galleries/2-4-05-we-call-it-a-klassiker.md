@@ -1,5 +1,7 @@
 ---
 titel: "We call it a Klassiker."
+folienbeschriftung: "Dasselbe Buch bei zwei Reutlinger Verlegern: Der zweite verwendet die klassizistische Antiquaschrift."
+positionsangaben: false
 bilder:
   - - "Raubdrucke_05_1a_D5_Reutlingen1821"
     - "Raubdrucke_05_1b_D5_Reutlingen1822"

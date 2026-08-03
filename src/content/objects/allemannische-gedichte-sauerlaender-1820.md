@@ -1,6 +1,6 @@
 ---
 slug: "allemannische-gedichte-sauerlaender-1820"
-titel: "*Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*, Titelblatt"
+titel: "*Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*, Aarau: Heinrich Remigius Sauerländer, 1820"
 urheber: "Johann Peter Hebel"
 datierung: "1820"
 institution: "Hebel-Archiv Heidelberg"

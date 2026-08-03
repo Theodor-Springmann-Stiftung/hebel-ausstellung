@@ -1,5 +1,5 @@
 ---
-quelle: "Enthalten in: *Dreißig Umrisse zu J. P. Hebels allemannischen Gedichten.* 3., mit beigedrucktem Text vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 10."
+quelle: "»Der Karfunkel N<sup>o</sup> I.« In: *Dreißig Umrisse zu J. P. Hebel’s allemannischen Gedichten* […]. Von Julius Nisle. Mit einer Einleitung und Lebensbeschreibung. Dritte, mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 10."
 slug: "nisle-karfunkel-1845"
 titel: "Lithographie von Julius Nisle zum *Karfunkel*"
 urheber: "Julius Nisle"

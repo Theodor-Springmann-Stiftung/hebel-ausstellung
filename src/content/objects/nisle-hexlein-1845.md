@@ -1,7 +1,7 @@
 ---
-quelle: "Enthalten in: *Dreißig Umrisse zu J. P. Hebels allemannischen Gedichten.* 3., mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 12."
+quelle: "»Das Hexlein«. In: *Dreißig Umrisse zu J. P. Hebel’s allemannischen Gedichten* […]. Von Julius Nisle. Mit einer Einleitung und Lebensbeschreibung. Dritte, mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 12 (frühere Version zuerst [1837])."
 slug: "nisle-hexlein-1845"
-titel: "Lithographie zum *Hexlein*"
+titel: "Lithographie zum *Hexlein* von Julius Nisle"
 urheber: "Julius Nisle"
 datierung: "1845"
 materialTechnik: "Lithographie"

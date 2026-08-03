@@ -1,5 +1,5 @@
 ---
-titel: "Maskuliner Revisionismus II: Julius Nisles Lithographie zum *Hexlein* (1845)"
+titel: "Maskuliner Revisionismus II"
 bilder:
   - - "22_07_nisle_hexlein_1845_tss"
 ---

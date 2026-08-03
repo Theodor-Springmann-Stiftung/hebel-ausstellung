@@ -42,12 +42,24 @@ export type GalleryProps = {
   titel: string;
   beschriftung?: string;
   untertitel?: string;
+  folienbeschriftung?: string;
+  bildabstand?: "normal" | "weit";
+  positionsangaben?: boolean;
   farbe?: GalleryColor;
   bilder: GalleryImage[][];
 };
 
 const props = Astro.props as GalleryProps;
-const { titel, beschriftung, untertitel, farbe = "lindgrün", bilder } = props;
+const {
+  titel,
+  beschriftung,
+  untertitel,
+  folienbeschriftung,
+  bildabstand = "normal",
+  positionsangaben = true,
+  farbe = "lindgrün",
+  bilder,
+} = props;
 const isMultiSlide = bilder.length > 1;
 
 const objectMetadata = (object: GalleryObject) =>
@@ -103,15 +115,22 @@ const getSlideCaptionItems = (images: GalleryImage[]) => {
       .map((caption) => ({ ...caption, imageIndex })),
   );
 
-  if (images.length > 1 && imageCaptions.length === 2) {
-    return imageCaptions.map(({ imageIndex: _imageIndex, ...caption }, captionIndex) => ({
+  const captions = images.length > 1 && imageCaptions.length === 2 && positionsangaben
+    ? imageCaptions.map(({ imageIndex: _imageIndex, ...caption }, captionIndex) => ({
       ...caption,
       titleHtml: `${captionIndex === 0 ? "Links" : "Rechts"}: ${caption.titleHtml}`,
-    }));
+    }))
+    : imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption);
+
+  if (folienbeschriftung) {
+    return [
+      { titleHtml: renderInlineMarkdown(folienbeschriftung), textHtml: "" },
+      ...captions,
+    ];
   }
 
-  return imageCaptions.length > 0
-    ? imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption)
+  return captions.length > 0
+    ? captions
     : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: renderInlineMarkdown(untertitel) }];
 };
 
@@ -131,7 +150,7 @@ const firstSlide = slides[0];
 const nextSlide = slides[1] ?? firstSlide;
 ---
 
-<section class:list={["gallery", isMultiSlide ? "gallery--multi" : "gallery--single"]} data-gallery data-color={farbe} aria-roledescription={isMultiSlide ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
+<section class:list={["gallery", isMultiSlide ? "gallery--multi" : "gallery--single", { "gallery--wide-image-gap": bildabstand === "weit" }]} data-gallery data-color={farbe} aria-roledescription={isMultiSlide ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
   <div class="gallery__title-section">
     <h2 class="gallery__title" set:html={renderInlineMarkdown(titel)}></h2>
   </div>
@@ -433,6 +452,14 @@ const nextSlide = slides[1] ?? firstSlide;
 
   .gallery__mat[data-image-count="2"] :global(.gallery__image) {
     max-width: calc((100% - var(--spacing-8)) / 2);
+  }
+
+  .gallery--wide-image-gap .gallery__mat {
+    gap: var(--spacing-24);
+  }
+
+  .gallery--wide-image-gap .gallery__mat[data-image-count="2"] :global(.gallery__image) {
+    max-width: calc((100% - var(--spacing-24)) / 2);
   }
 
   .gallery__mat[data-image-count="3"] :global(.gallery__image) {

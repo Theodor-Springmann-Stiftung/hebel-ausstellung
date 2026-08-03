@@ -1,5 +1,5 @@
 ---
-titel: "Wegweisende Weiblichkeit: Sophie Reinhards Radierung zum *Statthalter von Schopfheim* (1820)"
+titel: "Wegweisende Weiblichkeit"
 bilder:
   - - "22_08_reinhard_statthalter_1820_tss"
 ---
