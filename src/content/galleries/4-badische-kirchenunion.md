@@ -1,6 +1,11 @@
 ---
 titel: "Die badische Kirchenunion von 1821"
 beschriftung: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe, in der die badische Kirchenunion im Sommer 1821 beraten und feierlich vollzogen wurde. – Urkunde der Ehrenpromotion Johann Peter Hebels durch die Theologische Fakultät der Universität Heidelberg."
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe, in der die badische Kirchenunion im Sommer 1821 beraten und feierlich vollzogen wurde."
+  - folie: 2
+    beschriftung: "Urkunde der Ehrenpromotion Johann Peter Hebels."
 bilder:
   - - "4.X_01a_Stadtkirche_KA_Kunsthalle_KA"
   - - "4.X_01b_Urkunde_Ehrenpromotion_Uni_Archiv_HD"

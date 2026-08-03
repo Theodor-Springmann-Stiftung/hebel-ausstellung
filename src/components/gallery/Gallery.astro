@@ -35,6 +35,7 @@ type CaptionItem = {
   textHtml: string;
   href?: string;
   linkLabel?: string;
+  links?: Array<{ href: string; label: string }>;
   objectKey?: string;
 };
 
@@ -43,6 +44,11 @@ export type GalleryProps = {
   beschriftung?: string;
   untertitel?: string;
   folienbeschriftung?: string;
+  folienbeschriftungen?: Array<{
+    folie: number;
+    beschriftung: string;
+    unterbeschriftungen: string[];
+  }>;
   bildabstand?: "normal" | "weit";
   positionsangaben?: boolean;
   farbe?: GalleryColor;
@@ -55,12 +61,14 @@ const {
   beschriftung,
   untertitel,
   folienbeschriftung,
+  folienbeschriftungen = [],
   bildabstand = "normal",
   positionsangaben = true,
   farbe = "lindgrün",
   bilder,
 } = props;
 const isMultiSlide = bilder.length > 1;
+const slideCaptionsByIndex = new Map(folienbeschriftungen.map((caption) => [caption.folie - 1, caption]));
 
 const objectMetadata = (object: GalleryObject) =>
   [
@@ -102,7 +110,7 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
   return [];
 };
 
-const getSlideCaptionItems = (images: GalleryImage[]) => {
+const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
   const seenObjects = new Set<string>();
   const imageCaptions = images.flatMap((image, imageIndex) =>
     getImageCaptionItems(image)
@@ -121,6 +129,22 @@ const getSlideCaptionItems = (images: GalleryImage[]) => {
       titleHtml: `${captionIndex === 0 ? "Links" : "Rechts"}: ${caption.titleHtml}`,
     }))
     : imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption);
+
+  const slideCaption = slideCaptionsByIndex.get(slideIndex);
+  if (slideCaption) {
+    const seenLinks = new Set<string>();
+    const links = captions.flatMap((caption) => {
+      if (!caption.href || seenLinks.has(caption.href)) return [];
+      seenLinks.add(caption.href);
+      return [{ href: caption.href, label: caption.linkLabel ?? "Zum Objekt" }];
+    });
+
+    return [{
+      titleHtml: renderInlineMarkdown(slideCaption.beschriftung),
+      textHtml: slideCaption.unterbeschriftungen.map((caption) => renderInlineMarkdown(caption)).join("<br>"),
+      links,
+    }];
+  }
 
   if (folienbeschriftung) {
     return [
@@ -143,7 +167,7 @@ const slides = bilder.map((images, index) => ({
     peekSrc: image.src.peekSrc,
     alt: markdownToPlainText(image.alt),
   })),
-  captions: getSlideCaptionItems(images),
+  captions: getSlideCaptionItems(images, index),
 }));
 
 const firstSlide = slides[0];
@@ -222,6 +246,12 @@ const nextSlide = slides[1] ?? firstSlide;
               <span class="gallery__object-link-arrow" aria-hidden="true">→</span>
             </a>
           )}
+          {item.links?.map((link) => (
+            <a class="gallery__object-link" href={link.href}>
+              <span>{link.label}</span>
+              <span class="gallery__object-link-arrow" aria-hidden="true">→</span>
+            </a>
+          ))}
         </div>
       ))}
     </div>
@@ -231,7 +261,7 @@ const nextSlide = slides[1] ?? firstSlide;
 </section>
 
 <script>
-  const renderCaption = (container: HTMLElement, captions: Array<{ titleHtml?: string; textHtml?: string; href?: string; linkLabel?: string }>) => {
+  const renderCaption = (container: HTMLElement, captions: Array<{ titleHtml?: string; textHtml?: string; href?: string; linkLabel?: string; links?: Array<{ href: string; label: string }> }>) => {
     const captionList = document.createElement("div");
     captionList.className = "gallery__caption-list";
 
@@ -269,6 +299,23 @@ const nextSlide = slides[1] ?? firstSlide;
         link.append(label, arrow);
         item.append(link);
       }
+
+      caption.links?.forEach((captionLink) => {
+        const link = document.createElement("a");
+        link.className = "gallery__object-link";
+        link.href = captionLink.href;
+
+        const label = document.createElement("span");
+        label.textContent = captionLink.label;
+
+        const arrow = document.createElement("span");
+        arrow.className = "gallery__object-link-arrow";
+        arrow.setAttribute("aria-hidden", "true");
+        arrow.textContent = "→";
+
+        link.append(label, arrow);
+        item.append(link);
+      });
 
       captionList.append(item);
     });

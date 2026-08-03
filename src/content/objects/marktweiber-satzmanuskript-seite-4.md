@@ -1,4 +1,5 @@
 ---
+quelle: "[Hebel, Johann Peter]: [eigenhändiges Satzmanuskript der *Marktweiber in der Stadt*], [S. 4]. Badische Landesbibliothek Karlsruhe, Sign. K 3357 (vormals K 57 bzw. K 57 I)."
 materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "marktweiber-satzmanuskript-seite-4"
 titel: "Eigenhändiges Satzmanuskript der *Marktweiber in der Stadt*, vierte Seite"

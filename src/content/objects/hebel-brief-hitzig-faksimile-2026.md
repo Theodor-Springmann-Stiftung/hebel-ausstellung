@@ -1,5 +1,5 @@
 ---
-quelle: "Vorlage: [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
+quelle: "Faksimile des Briefs an Hitzig vom 6. Februar [1801]; Rekonstruktion der früheren Faltung, Andreas Beck. Vorlage: [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
 slug: "hebel-brief-hitzig-faksimile-2026"
 titel: "Gefaltetes Faksimile von Hebels Brief an Friedrich Wilhelm Hitzig vom 6. Februar [1801]"
 urheber: "Andreas Beck"

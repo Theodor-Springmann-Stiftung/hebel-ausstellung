@@ -23,6 +23,11 @@ const objectSlug = urlSafeAsciiSlug.refine((slug) => !/^[1-7]-/.test(slug), {
 const galleryColor = z
   .enum(["lindgrün", "vanille", "hellblau", "mintgrün", "rosa", "himmelblau", "salbeigrün"])
   .default("lindgrün");
+const gallerySlideCaption = z.object({
+  folie: z.number().int().positive(),
+  beschriftung: requiredMarkdown,
+  unterbeschriftungen: z.array(requiredMarkdown).default([]),
+});
 
 const sectionFields = {
   nummer: z.string().min(1),
@@ -82,6 +87,7 @@ const galleries = defineCollection({
     beschriftung: optionalMarkdown,
     untertitel: optionalMarkdown,
     folienbeschriftung: optionalMarkdown,
+    folienbeschriftungen: z.array(gallerySlideCaption).default([]),
     bildabstand: z.enum(["normal", "weit"]).default("normal"),
     positionsangaben: z.boolean().default(true),
     farbe: galleryColor,
