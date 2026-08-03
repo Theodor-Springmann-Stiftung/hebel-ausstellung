@@ -1,7 +1,7 @@
 ---
 materialTechnik: "Fotografie"
 slug: "alz-rezension-1790-lupe"
-titel: "Photograph of the review in the ALZ 1790 with magnifying glass"
+titel: "Fotografie der Rezension in der ALZ 1790 mit Lupe"
 urheber: "Li Wen Kuo, TSS"
 bilder:
   - bild: "Leeres_Nichts_Parmenides_Lupe"

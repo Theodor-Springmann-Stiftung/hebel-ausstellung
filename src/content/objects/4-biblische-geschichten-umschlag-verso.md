@@ -5,7 +5,6 @@ titel: "Verso-Umschlag der Biblischen Geschichten"
 datierung: "1824"
 institution: "Hebel-Archiv Heidelberg"
 bilder:
-  - bild: "4_00_homepage_theologe"
   - bild: "Theo_4_2_Slide_2_Umschlag_verso_BG_TSS"
 ---
 

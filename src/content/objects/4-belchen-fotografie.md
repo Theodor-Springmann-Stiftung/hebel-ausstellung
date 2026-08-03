@@ -12,4 +12,4 @@ bilder:
 
 # Beschreibung
 
-View of the Belchen from the Münstertal
+Ansicht des Belchen vom Münstertal aus

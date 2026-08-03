@@ -9,7 +9,7 @@ Hebels Vorliebe für das Rollenspiel äußert sich in seiner Beziehung zu den Eh
 
 Inspiration hierfür lieferte der kuriose Fall des ehemaligen Sklaven Jean-Jacques Dessaline, der 1804 die Unabhängigkeit Haitis von der Kolonialmacht Frankreich ausrief und sich als Jakob I. zum Kaiser von Haiti erklärte.
 
-Ähnlich dem Markgraf von Baden, der mittlerweile Großherzog ist, rückt auch der Graf von Assmannshausen Anfang 1806 auf. Er beschließt, »den Titel eines Wild u Rheinkönigs zu A. u. C. anzunehmen« und im Zuge dessen Sophie »zu einem Wild u. Rheinminister, u. Intendanten der schönen Wild u. Rheinkünste zu erheben« (Z 160).
+Ähnlich dem Markgraf von Baden, der mittlerweile Großherzog ist, rückt auch Hebel alias der Graf von Assmannshausen Anfang 1806 auf. Er beschließt, »den Titel eines Wild u Rheinkönigs zu A. u. C. anzunehmen« und im Zuge dessen Sophie »zu einem Wild u. Rheinminister, u. Intendanten der schönen Wild u. Rheinkünste zu erheben« (Z 160).
 
 Das scherzhafte Machtgefälle zwischen Regent und Minister spiegelt dabei durchaus die Realität der Verhältnisse zwischen Hebel und Sophie Haufe: Er lässt seine Ministerin allerlei Dinge für ihn erledigen oder an ihren Mann delegieren, die ihm tatsächlich wichtig sind. So soll Haufe bspw. für Hebel mit dem Straßburger Kupferstecher Benjamin Zix unterhandeln, der Illustrationen für die *Allemannischen Gedichte* fertigen soll. In dem Zusammenhang kommt die Idee auf, »einen ganzen weiblichen Anzug aus d. Oberland nach Straßburg zu schicken, und mein Minister könnte ihn anziehen u. dem Künstler zum Original stehn«.
 
