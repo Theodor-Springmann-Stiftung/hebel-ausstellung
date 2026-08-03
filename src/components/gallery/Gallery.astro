@@ -47,7 +47,7 @@ export type GalleryProps = {
   folienbeschriftungen?: Array<{
     folie: number;
     beschriftung: string;
-    unterbeschriftungen: string[];
+    unterbeschriftungen: Array<string | { bild: number; beschriftung: string }>;
   }>;
   bildabstand?: "normal" | "weit";
   positionsangaben?: boolean;
@@ -69,6 +69,11 @@ const {
 } = props;
 const isMultiSlide = bilder.length > 1;
 const slideCaptionsByIndex = new Map(folienbeschriftungen.map((caption) => [caption.folie - 1, caption]));
+const imagePositionLabel = (imageIndex: number, imageCount: number) => {
+  if (imageCount === 2) return imageIndex === 0 ? "Links" : "Rechts";
+  if (imageCount === 3) return ["Links", "Mitte", "Rechts"][imageIndex];
+  return `Bild ${imageIndex + 1}`;
+};
 
 const objectMetadata = (object: GalleryObject) =>
   [
@@ -123,15 +128,17 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
       .map((caption) => ({ ...caption, imageIndex })),
   );
 
-  const captions = images.length > 1 && imageCaptions.length === 2 && positionsangaben
-    ? imageCaptions.map(({ imageIndex: _imageIndex, ...caption }, captionIndex) => ({
+  const captions = images.length > 1 && positionsangaben
+    ? imageCaptions.map(({ imageIndex, ...caption }) => ({
       ...caption,
-      titleHtml: `${captionIndex === 0 ? "Links" : "Rechts"}: ${caption.titleHtml}`,
+      titleHtml: `${imagePositionLabel(imageIndex, images.length)}: ${caption.titleHtml}`,
     }))
     : imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption);
 
   const slideCaption = slideCaptionsByIndex.get(slideIndex);
   if (slideCaption) {
+    const sharedSubcaptions = slideCaption.unterbeschriftungen.filter((caption): caption is string => typeof caption === "string");
+    const imageSubcaptions = slideCaption.unterbeschriftungen.filter((caption): caption is { bild: number; beschriftung: string } => typeof caption !== "string");
     const seenLinks = new Set<string>();
     const links = captions.flatMap((caption) => {
       if (!caption.href || seenLinks.has(caption.href)) return [];
@@ -139,11 +146,28 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
       return [{ href: caption.href, label: caption.linkLabel ?? "Zum Objekt" }];
     });
 
-    return [{
+    const mainCaption: CaptionItem = {
       titleHtml: renderInlineMarkdown(slideCaption.beschriftung),
-      textHtml: slideCaption.unterbeschriftungen.map((caption) => renderInlineMarkdown(caption)).join("<br>"),
-      links,
-    }];
+      textHtml: sharedSubcaptions.map((caption) => renderInlineMarkdown(caption)).join("<br>"),
+      links: imageSubcaptions.length === 0 ? links : [],
+    };
+    const positionedCaptions = imageSubcaptions.map((caption): CaptionItem => {
+      const imageIndex = caption.bild - 1;
+      const image = images[imageIndex];
+      const imageLinks = image
+        ? getImageCaptionItems(image).flatMap((item) =>
+            item.href ? [{ href: item.href, label: item.linkLabel ?? "Zum Objekt" }] : [],
+          )
+        : [];
+
+      return {
+        titleHtml: images.length > 1 ? imagePositionLabel(imageIndex, images.length) : "",
+        textHtml: renderInlineMarkdown(caption.beschriftung),
+        links: imageLinks,
+      };
+    });
+
+    return [mainCaption, ...positionedCaptions];
   }
 
   if (folienbeschriftung) {

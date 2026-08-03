@@ -12,12 +12,17 @@ folienbeschriftungen:
   - folie: 3
     beschriftung: "Seitenwechsel mit Schere und Lack. Blätter aus der eigenhändigen Satzvorlage des *Carfunkel*."
     unterbeschriftungen:
-      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
+      - bild: 1
+        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
+      - bild: 2
+        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 4
     beschriftung: "Fahnenkorrektur. Seite der eigenhändigen Satzvorlage sowie des Erstdrucks der *Marktweiber in der Stadt*."
     unterbeschriftungen:
-      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
-      - "Johann Peter Hebel, 1803, Hebel-Archiv Heidelberg"
+      - bild: 1
+        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
+      - bild: 2
+        beschriftung: "Johann Peter Hebel, 1803, Hebel-Archiv Heidelberg"
 bilder:
   - - "21_07_01_marktweiber_h2_blb"
   - - "21_07_02a_wiese_h2_01_blb"

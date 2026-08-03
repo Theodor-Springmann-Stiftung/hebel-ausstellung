@@ -26,7 +26,13 @@ const galleryColor = z
 const gallerySlideCaption = z.object({
   folie: z.number().int().positive(),
   beschriftung: requiredMarkdown,
-  unterbeschriftungen: z.array(requiredMarkdown).default([]),
+  unterbeschriftungen: z.array(z.union([
+    requiredMarkdown,
+    z.object({
+      bild: z.number().int().positive(),
+      beschriftung: requiredMarkdown,
+    }),
+  ])).default([]),
 });
 
 const sectionFields = {
