@@ -1,4 +1,5 @@
 ---
+quelle: "Hebel’s *Allemannische Gedichte für Freunde ländlicher Natur und Sitten* nach der fünften Originalausgabe ins Hochdeutsche übergetragen von Friedrich Girardet. Leipzig: Johann Friedrich Hartknoch, 1821. Quelle: Hebel-Archiv Heidelberg. — Hebel-Archiv Heidelberg"
 slug: "girardet-allemannische-gedichte-1821"
 titel: "Friedrich Girardet: Hebel’s *Allemannische Gedichte*"
 urheber: |-

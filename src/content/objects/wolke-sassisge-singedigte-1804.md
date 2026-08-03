@@ -1,4 +1,5 @@
 ---
+quelle: "»Freude in Ehren«, »Wächterruf«, in: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels [...]*, 1804, Hebel-Archiv Heidelberg"
 slug: "wolke-sassisge-singedigte-1804"
 titel: "Christian Heinrich Wolke: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels un wunderbare Eventüre sunst nömt Romansen un Balladen*"
 urheber: |-

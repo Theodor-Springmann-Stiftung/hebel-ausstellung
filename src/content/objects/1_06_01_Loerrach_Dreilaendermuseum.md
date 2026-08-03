@@ -6,7 +6,7 @@ datierung: "Um 1910"
 materialTechnik: "Fotografie"
 institution: "Dreiländermuseum Lörrach"
 inventarnummer: "Fo 0112"
-quelle: "[Dreiländermuseum Lörrach Online](https://loerrach.iserver-online2.de/objekt_start.fau?prj=loerrach&dm=Sammlung&ref=22378)"
+quelle: "Basler Straße mit Hebelgymnasium, Stadtkirche und Pfarrhaus (v. l. n. r.), ca. 1910. Fotografie von Eduard Hügin. Dreiländermuseum Lörrach, Inventarnummer Fo 0112. [Dreiländermuseum Lörrach Online](https://loerrach.iserver-online2.de/objekt_start.fau?prj=loerrach&dm=Sammlung&ref=22378)"
 bilder:
   - bild: "1_06_01_Loerrach_Dreilaendermuseum"
 ---

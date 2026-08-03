@@ -1,4 +1,5 @@
 ---
+quelle: "»Der Abendstern«, in: *Iris. Ein Taschenbuch für 1804*, Hebel-Archiv Heidelberg"
 slug: "iris-taschenbuch-1804"
 titel: "*Iris. Ein Taschenbuch für 1804*"
 urheber: |-

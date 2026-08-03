@@ -1,4 +1,5 @@
 ---
+quelle: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Neueste vollständige Ausgabe*. Reutlingen: Mäcken, 1821, Titelblatt. Hebel-Archiv Heidelberg."
 slug: "allemannische-gedichte-maecken-1821"
 titel: "*Allemannische Gedichte. Neueste vollständige Ausgabe*, Reutlingen: Johann Jakob Mäcken, 1821"
 urheber: "Verlag Johann Jakob Mäcken"

@@ -1,4 +1,5 @@
 ---
+quelle: "Brief von J. P. Hebel an C. F. K. Kölle, 5. Juli 1812, DLA Marbach"
 slug: "brief-hebel-koelle-1812"
 titel: "Brief an Christoph Friedrich Karl von Kölle"
 urheber: "Johann Peter Hebel"

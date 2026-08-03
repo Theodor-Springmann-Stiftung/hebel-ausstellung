@@ -1,4 +1,5 @@
 ---
+quelle: "Dreiländermuseum Lörrach"
 slug: "hebel-briefmarken-1947-48"
 titel: "Hebel-Briefmarken"
 urheber: "Vytautas Kazys Jonynas"

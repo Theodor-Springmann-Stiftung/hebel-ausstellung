@@ -1,4 +1,5 @@
 ---
+quelle: "[Hebel, Johann Peter]: [frühe eigenhändige Version des *Gespensts an der Kanderer Straße*], [S. 1]. Badische Landesbibliothek Karlsruhe, Handschriftenkonvolut K 3357 (vormals K 57 bzw. K 57 II)."
 materialTechnik: "Eigenhändiges Manuskript"
 slug: "gespenst-fruehe-version"
 titel: "Eigenhändiges Manuskript einer frühen Version des *Gespensts an der Kanderer Straße*, erste Seite"

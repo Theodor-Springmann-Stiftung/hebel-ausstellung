@@ -1,5 +1,5 @@
 ---
-quelle: "[e-manuscripta](https://doi.org/10.7891/e-manuscripta-102431) / Public Domain Mark"
+quelle: "Johann Peter Hebel: Brief an [J. A. Ittner], [s. l.], 19. Mai [1811]. Universitätsbibliothek Basel, UBH G IV 49, 4. [e-manuscripta](https://doi.org/10.7891/e-manuscripta-102431) / Public Domain Mark"
 slug: "brief-hebel-ittner-1811"
 transkription: true
 titel: "Brief an Johann Albrecht Ittner"

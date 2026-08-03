@@ -1,4 +1,5 @@
 ---
+quelle: "Hebeliana, Konvolut »Concepte u. Abschriften zu Gedichten u. Aufsätzen«, Sign. K 3391, BLB Karlsruhe"
 slug: "widmungsgedicht-blb"
 transkription: true
 titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen und Widmungsgedicht"

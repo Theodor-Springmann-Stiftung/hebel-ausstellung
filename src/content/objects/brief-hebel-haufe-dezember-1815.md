@@ -1,4 +1,5 @@
 ---
+quelle: "BLB Karlsruhe"
 materialTechnik: "Manuskript"
 slug: "brief-hebel-haufe-dezember-1815"
 transkription: true

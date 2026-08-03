@@ -1,4 +1,5 @@
 ---
+quelle: "Badischer Landkalender auf das Jahr 1804, Hebel-Archiv Heidelberg"
 slug: "badischer-landkalender-1804"
 titel: "Badischer Landkalender auf das Jahr 1804"
 urheber: "Mitautor: Johann Peter Hebel"

@@ -13,6 +13,12 @@ const image = hero.asset;
 const imageSource = await getHeroImageSource(image);
 const object = (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
+const objectMetadata = object
+  ? [object.data.urheber, object.data.datierung, object.data.materialTechnik, object.data.institution]
+      .filter(Boolean)
+      .map((value) => renderInlineMarkdown(value))
+      .join(", ")
+  : "";
 const vposition = subchapter.data.vposition;
 ---
 
@@ -39,10 +45,10 @@ const vposition = subchapter.data.vposition;
   </div>
 </header>
 
-{(hero.entry?.data.beschriftung || hero.entry?.data.nachweis || objectHref) && (
+{(hero.entry?.data.beschriftung || objectMetadata || objectHref) && (
   <div class="subchapter-hero-caption">
     {hero.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(hero.entry.data.beschriftung)}></p>}
-    {hero.entry?.data.nachweis && <p class="subchapter-hero-caption__credit" set:html={renderInlineMarkdown(hero.entry.data.nachweis)}></p>}
+    {objectMetadata && <p class="subchapter-hero-caption__credit" set:html={objectMetadata}></p>}
     {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
   </div>
 )}

@@ -1,4 +1,5 @@
 ---
+quelle: "UB Leipzig"
 materialTechnik: "1 Bl., zwei Seiten beschrieben; besonders dünnes Papier"
 slug: "brief-hebel-koelle-1822"
 transkription: true

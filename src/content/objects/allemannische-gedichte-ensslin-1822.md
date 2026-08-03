@@ -1,4 +1,5 @@
 ---
+quelle: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Neueste vollständige Ausgabe*. Reutlingen: Enßlin, 1822, Titelblatt. Hebel-Archiv Heidelberg."
 slug: "allemannische-gedichte-ensslin-1822"
 titel: "*Allemannische Gedichte. Neueste vollständige Ausgabe*, Reutlingen: Johann Jakob Noah Enßlin, 1822"
 urheber: "Verlag Johann Jakob Noah Enßlin"

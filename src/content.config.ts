@@ -109,7 +109,6 @@ const images = defineCollection({
     }).optional(),
     altText: optionalMarkdown,
     beschriftung: optionalMarkdown,
-    nachweis: optionalMarkdown,
   }),
 });
 

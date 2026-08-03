@@ -1,4 +1,5 @@
 ---
+quelle: "Landolin Ohmacht"
 slug: "ohmacht-alabasterrelief-sophie-haufe"
 titel: "Alabasterrelief von Sophie Haufe"
 urheber: "Landolin Ohmacht"

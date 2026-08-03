@@ -33,7 +33,6 @@ const galleries = await Promise.all(
                 src: await getGalleryImageSource(imageEntry.asset),
                 alt: metadata?.altText,
                 beschriftung: metadata?.beschriftung,
-                nachweis: metadata?.nachweis,
                 objekte: objectRelationships
                   .map(({ object, position }) => ({
                     slug: object.data.slug,

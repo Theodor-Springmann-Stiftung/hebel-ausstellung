@@ -1,4 +1,5 @@
 ---
+quelle: "[Hebel, Johann Peter]: [eigenhändiges Satzmanuskript von *Freude in Ehren*], [S. 3]. Badische Landesbibliothek Karlsruhe, Sign. K 3357 (vormals K 57 bzw. K 57 I)."
 materialTechnik: "Eigenhändiges Satzmanuskript"
 slug: "freude-in-ehren-satzmanuskript-seite-3"
 titel: "Eigenhändiges Satzmanuskript zu *Freude in Ehren*, dritte Seite"

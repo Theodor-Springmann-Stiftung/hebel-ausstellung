@@ -1,4 +1,5 @@
 ---
+quelle: "Der Rheinländische Hausfreund oder Neuer Kalender auf das Jahr 1811. Hebel-Archiv Heidelberg"
 slug: "rheinlaendischer-hausfreund-1811"
 titel: "Der Rheinländische Hausfreund auf das Jahr 1811"
 urheber: |-
