@@ -215,14 +215,16 @@ export const getObjectRoutes = async () => {
 		.map(async (object) => {
 			const context = contextByObject.get(object.id);
 			const objectImages: ObjectDisplayImage[] = await Promise.all(
-				(object.data.bilder ?? []).map(async (association) => {
-					const image = await resolveContentImage(association.bild);
-					return {
-						id: image.id,
-						dateiname: image.entry?.data.dateiname,
-						altText: image.entry?.data.altText,
-					};
-				}),
+				(object.data.bilder ?? [])
+					.filter((association) => association.inObjektansicht)
+					.map(async (association) => {
+						const image = await resolveContentImage(association.bild);
+						return {
+							id: image.id,
+							dateiname: image.entry?.data.dateiname,
+							altText: image.entry?.data.altText,
+						};
+					}),
 			);
 
 			if (objectImages.length === 0 && findObjectImage(object.id)) {

@@ -37,6 +37,7 @@ const objectImageAssociation = z.object({
   bild: imageReference,
   position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
   objektReihenfolge: z.number().int().positive().optional(),
+  inObjektansicht: z.boolean().default(true),
 });
 const contentFileId = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, "");
 

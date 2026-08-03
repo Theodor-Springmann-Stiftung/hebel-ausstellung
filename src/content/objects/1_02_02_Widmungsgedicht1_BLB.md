@@ -41,4 +41,4 @@ in freier Weitung, leichter Weste Spiel.<br>
 Dort schwank’ er denn! Und sammelt um sich her<br>
 die Linde unterm SontagsHimmelblau<br>
 das frohe Völklein aus dem nahen Dorf,<br>
-das gute Völklein, das dich liebt und ehrt
+das gute Völklein, das dich liebt und ehrt [...]
