@@ -29,6 +29,7 @@ const sectionFields = {
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
   vposition: z.number().int().default(0),
+  heroFit: z.enum(["cover", "contain"]).default("cover"),
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);

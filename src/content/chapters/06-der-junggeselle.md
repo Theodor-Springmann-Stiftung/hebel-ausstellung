@@ -13,3 +13,7 @@ unterkapitel:
   - "6-2-sophie-haufe"
   - "6-3-henriette-hendel"
 ---
+
+Drei Frauen spielten in Hebels Leben eine bedeutsame Rolle. Die Beziehungen, die Hebel zu jeder von ihnen unterhält, sind von ganz verschiedener Art.
+
+Hebel wahrte Zurückhaltung auch in Liebesangelegenheiten. Das offene Wort, mit dem er sich vielleicht Gustave Fecht hätte verbinden können, blieb ungesagt. Die Leidenschaft für die Schauspielerin Henriette Hendel rumorte im Verborgenen. Und die väterliche Neigung zu Sophie Haufe äußerte sich in einem liebevoll-ironischen Spiel.

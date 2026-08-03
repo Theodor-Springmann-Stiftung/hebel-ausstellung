@@ -1,4 +1,5 @@
 ---
 dateiname: "3_05_01_Morgenblatt_TSS.webp"
-nachweis: "Anzeige im Morgenblatt für gebildete Stände, Nr. 7, Montag, 8. Januar 1810. Tübingen: J. G. Cotta’sche Buchhandlung, S. 26. Quelle: Hebel-Archiv Heidelberg"
+beschriftung: "Cottas Anzeige von einem »Schatzkästlein des deutschen Hausfreundes« im *Morgenblatt*"
+nachweis: "Johann Friedrich Cotta, *Morgenblatt für gebildete Stände*, 8. Januar 1810, Hebel-Archiv Heidelberg"
 ---

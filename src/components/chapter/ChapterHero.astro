@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getObjectRelationshipsByImage } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -8,6 +9,10 @@ const hero = chapter.data.hero ? await resolveContentImage(chapter.data.hero) : 
 const image = hero?.asset;
 const metadata = hero?.entry?.data;
 const imageSource = image ? await getHeroImageSource(image) : undefined;
+const object = image
+  ? (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object
+  : undefined;
+const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const vposition = chapter.data.vposition;
 const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition)}%)`;
 ---
@@ -22,7 +27,7 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     <div class="chapter-hero__image-frame">
       <img
         class="chapter-hero__image"
-        style={`--hero-position: ${heroPosition}`}
+        style={`--hero-position: ${heroPosition}; --hero-fit: ${chapter.data.heroFit}`}
         src={imageSource.src}
         srcset={imageSource.srcset}
         sizes={imageSource.sizes}
@@ -36,11 +41,12 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     </div>
   )}
 
-  {(metadata?.beschriftung || metadata?.nachweis) && (
+  {(metadata?.beschriftung || metadata?.nachweis || objectHref) && (
     <div class="chapter-hero__caption">
       <div class="chapter-hero__caption-inner">
         {metadata?.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(metadata.beschriftung)}></p>}
         {metadata?.nachweis && <p class="chapter-hero__caption-credit" set:html={renderInlineMarkdown(metadata.nachweis)}></p>}
+        {objectHref && <a class="chapter-hero__object-link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
       </div>
     </div>
   )}
@@ -72,7 +78,7 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
   .chapter-hero__image {
     width: 100%;
     height: 100%;
-    object-fit: cover;
+    object-fit: var(--hero-fit);
     object-position: center var(--hero-position);
   }
 
@@ -103,6 +109,17 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
 
   .chapter-hero__caption :global(a) {
     overflow-wrap: anywhere;
+  }
+
+  .chapter-hero__object-link {
+    @apply w-fit font-sans text-link no-underline;
+
+    margin-top: var(--spacing-8);
+    font-size: var(--text-body);
+  }
+
+  .chapter-hero__object-link:hover {
+    text-decoration: underline;
   }
 
   @media (min-width: 768px) {

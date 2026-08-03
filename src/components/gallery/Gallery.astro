@@ -70,7 +70,7 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
 
       return {
         titleHtml: renderInlineMarkdown(hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle)),
-        textHtml: objectMetadata(object),
+        textHtml: image.nachweis ? renderInlineMarkdown(image.nachweis) : objectMetadata(object),
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? "Zum Objekt (mit Transkription)" : "Zum Objekt",
         objectKey: object.slug,

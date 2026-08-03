@@ -1,5 +1,6 @@
 ---
 import type { CollectionEntry } from "astro:content";
+import { getObjectRelationshipsByImage } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -10,6 +11,8 @@ const { chapter, subchapter } = Astro.props as {
 const hero = await resolveContentImage(subchapter.data.hero);
 const image = hero.asset;
 const imageSource = await getHeroImageSource(image);
+const object = (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object;
+const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const vposition = subchapter.data.vposition;
 const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition)}%)`;
 ---
@@ -17,7 +20,7 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
 <header class="subchapter-hero">
   <img
     class="subchapter-hero__image"
-    style={`--hero-position: ${heroPosition}`}
+    style={`--hero-position: ${heroPosition}; --hero-fit: ${subchapter.data.heroFit}`}
     src={imageSource.src}
     srcset={imageSource.srcset}
     sizes={imageSource.sizes}
@@ -34,6 +37,14 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     <h1 class="subchapter-hero__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></h1>
   </div>
 </header>
+
+{(hero.entry?.data.beschriftung || hero.entry?.data.nachweis || objectHref) && (
+  <div class="subchapter-hero-caption">
+    {hero.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(hero.entry.data.beschriftung)}></p>}
+    {hero.entry?.data.nachweis && <p class="subchapter-hero-caption__credit" set:html={renderInlineMarkdown(hero.entry.data.nachweis)}></p>}
+    {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
+  </div>
+)}
 
 <style>
   @reference "../../styles/global.css";
@@ -57,7 +68,7 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
   }
 
   .subchapter-hero__image {
-    object-fit: cover;
+    object-fit: var(--hero-fit);
     object-position: center var(--hero-position);
   }
 
@@ -74,6 +85,27 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     color: var(--color-paper);
     flex-direction: column;
     gap: var(--spacing-20);
+  }
+
+  .subchapter-hero-caption {
+    display: flex;
+    padding: var(--spacing-16) var(--spacing-20);
+    flex-direction: column;
+    gap: var(--spacing-4);
+    font-family: var(--font-mono);
+  }
+
+  .subchapter-hero-caption__title { font-size: var(--text-caption); }
+  .subchapter-hero-caption__credit { color: var(--color-stone); font-size: var(--text-caption-small); }
+  .subchapter-hero-caption__link { width: fit-content; margin-top: var(--spacing-8); color: var(--color-link); font-family: var(--font-sans); text-decoration: none; }
+  .subchapter-hero-caption__link:hover { text-decoration: underline; }
+
+  @media (min-width: 768px) {
+    .subchapter-hero-caption { padding: var(--spacing-24) var(--spacing-32); }
+  }
+
+  @media (min-width: 1440px) {
+    .subchapter-hero-caption { padding-inline: var(--spacing-80); }
   }
 
   .subchapter-hero__chapter {

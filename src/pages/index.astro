@@ -61,6 +61,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
     <div class="home-caption">
       <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
       <p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe</p>
+      <a href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span aria-hidden="true">→</span></a>
     </div>
 
     <section class="home-introduction" aria-labelledby="introduction-title">
@@ -74,6 +75,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
           <p><strong>Am 22. September 2026</strong> jährt sich der Todestag Johann Peter Hebels zum zweihundertsten Mal. Die Mitarbeiter des Hebel-Archivs in Heidelberg haben dieses Datum zum Anlass genommen, die verschiedenen Facetten seines Schaffens in einer virtuellen Ausstellung näher zu beleuchten.</p>
           <p>Hebel ist einem größeren Publikum heute vor allem als Autor einiger Kalendergeschichten bekannt. Nahezu vergessen ist das übrige Werk: Die »Allemannischen Gedichte«, mit denen Hebel dazu beitrug, die deutsche Dialektdichtung salonfähig zu machen; seine »Biblischen Geschichten«, die lange Zeit Schullektüre waren; und auch seine Briefe, die einen ganz eigenen Reiz besitzen.</p>
           <p>Anhand von etwa 120 ausgewählten Manuskripten, Originaldrucken, Bildern und Objekten ruft die Ausstellung Hebels Vermächtnis in Erinnerung. In zahlreichen neuen Lektüren der Texte sichtet und sichert sie das Nachleben seiner Worte.</p>
+          <p class="home-introduction__citation-note">Zum Nachweis von Zitaten: Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: <em>Briefe</em>, 2 Bde., Karlsruhe 1957) mit der Sigle Z und unter Angabe der Briefnummer zitiert.</p>
         </div>
       </div>
     </section>
@@ -81,7 +83,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
     <Quote
       text="Es ist wohl an der Zeit, daß wir unser Daseyn auf dem Planeten euch wieder einmal beurkunden."
       attribution="— JPH"
-      source="Brief an Sophie Haufe vom 23. August 1826"
+      source="Brief an Sophie Haufe vom 23. August 1826 – Z 578"
       portrait={portrait}
     />
 
@@ -183,7 +185,9 @@ const heroSource = await getHeroImageSource(heroPortrait);
   }
 
   .home-caption p:first-child { font-size: 0.75rem; }
-  .home-caption p:last-child { color: var(--color-stone); font-size: 0.625rem; letter-spacing: 0.04em; }
+  .home-caption p:nth-child(2) { color: var(--color-stone); font-size: 0.625rem; letter-spacing: 0.04em; }
+  .home-caption a { width: fit-content; margin-top: var(--spacing-8); color: var(--color-link); font-family: var(--font-sans); font-size: 1rem; text-decoration: none; }
+  .home-caption a:hover { text-decoration: underline; }
 
   .home-introduction {
     display: flex;
@@ -206,6 +210,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
 
   .home-introduction__layout { gap: var(--spacing-32); }
   .home-introduction__copy { gap: var(--spacing-24); font-size: 1.25rem; line-height: 1.35; }
+  .home-introduction__citation-note { font-size: 0.875rem; line-height: 1.5; }
 
   .home-introduction__seal {
     display: flex;
@@ -262,7 +267,8 @@ const heroSource = await getHeroImageSource(heroPortrait);
     .home-introduction__copy { display: contents; font-size: 1.5rem; }
     .home-introduction__copy p:first-child { grid-column: 2; grid-row: 1; }
     .home-introduction__copy p:nth-child(2),
-    .home-introduction__copy p:nth-child(3) { grid-column: 1 / -1; }
+    .home-introduction__copy p:nth-child(3),
+    .home-introduction__copy p:nth-child(4) { grid-column: 1 / -1; }
     .home-introduction__seal img { width: 220px; }
     .home-chapters { padding: var(--spacing-64) var(--spacing-32); gap: var(--spacing-64); }
     .home-chapters__heading > p,

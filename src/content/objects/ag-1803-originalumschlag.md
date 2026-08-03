@@ -8,3 +8,10 @@ bilder:
   - bild: "2.0_hero_image_Tschoepli_TSS"
   - bild: "2.1_00_AG_1803_Tschoepli_TSS"
 ---
+
+# Beschreibung
+
+**Zitatnachweis**
+
+Johann Peter Hebel<br>
+Brief an Friedrich Wilhelm Hitzig vom März 1803 – Z 90
