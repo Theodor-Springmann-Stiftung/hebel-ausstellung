@@ -4,8 +4,7 @@ nummer: "5"
 titel: "Der Proteuser"
 navTitel: "Der Proteuser"
 hero: "BuP_5_Hero_Image_Pi_Z_335_BLB"
-startseitenBild: "5_00_homepage_proteuser.png"
-startseitenAltText: "Detail aus Christian Meichelts aquarellierter Federzeichnung des Proteuserbunds von 1812"
+vposition: -50
 startseitenVariante: "proteuser"
 galerien:
   - "5-01-allmanach-des-proteus-zeichens"

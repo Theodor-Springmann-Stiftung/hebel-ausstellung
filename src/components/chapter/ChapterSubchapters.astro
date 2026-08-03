@@ -40,7 +40,8 @@ const availableSubchapters = subchapters.filter(Boolean);
                 class="chapter-overview__image-frame"
               >
                 <img
-                  style={`--hero-position: calc(50% ${subchapter.data.vposition < 0 ? "-" : "+"} ${Math.abs(subchapter.data.vposition)}%)`}
+                  class:list={[image.width > image.height ? "chapter-overview__image--landscape" : "chapter-overview__image--portrait"]}
+                  style={`--hero-offset: ${subchapter.data.vposition}%`}
                   src={imageSource.src}
                   srcset={imageSource.srcset}
                   sizes={imageSource.sizes}
@@ -174,19 +175,30 @@ const availableSubchapters = subchapters.filter(Boolean);
   }
 
   .chapter-overview__image-frame {
-    display: block;
+    display: flex;
     height: 200px;
     overflow: hidden;
     border: 0.5px solid var(--color-ink);
     background: #faf8e4;
+    align-items: center;
   }
 
   .chapter-overview__image-frame img {
     width: 100%;
+    max-width: none;
+    flex: none;
+  }
+
+  .chapter-overview__image--landscape {
     height: 100%;
     object-fit: cover;
-    object-position: center var(--hero-position);
-    transition: transform 180ms ease-out;
+    object-position: center calc(50% + var(--hero-offset));
+  }
+
+  .chapter-overview__image--portrait {
+    height: 100%;
+    object-fit: cover;
+    object-position: center calc(50% + var(--hero-offset));
   }
 
   .chapter-overview__meta {
@@ -210,22 +222,12 @@ const availableSubchapters = subchapters.filter(Boolean);
     line-height: 1.5;
   }
 
-  .chapter-overview__card a:hover .chapter-overview__image-frame img {
-    transform: scale(1.015);
-  }
-
   .chapter-overview__card a:hover .chapter-overview__link {
     text-decoration: underline;
   }
 
   .chapter-overview__card a:focus-visible {
     outline-offset: var(--spacing-4);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chapter-overview__image-frame img {
-      transition: none;
-    }
   }
 
   @media (min-width: 768px) {

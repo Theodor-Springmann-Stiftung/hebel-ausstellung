@@ -3,29 +3,31 @@ import Layout from '../layouts/Layout.astro';
 import Quote from '../components/content/Quote.astro';
 import { chapterHref, getOrderedChapters } from '../lib/content';
 import { renderInlineMarkdown } from '../lib/markdown';
-import { getHeroImageSource, getNavigationImageSource, getObjectImage } from '../lib/object-images';
+import { getHeroImageSource, getNavigationImageSource, resolveContentImage } from '../lib/object-images';
 import portrait from '../assets/objects/Hebel_Portraet_Mueller.jpg';
 import heroPortrait from '../assets/objects/Hebel_Portraet_Homepage.png';
 import seal from '../assets/objects/Hebel_Wachssiegel.png';
 
 const homepageCardSizes = {
-  featured: '(min-width: 1440px) 1280px, (min-width: 768px) calc(100vw - 64px), 153vw',
-  poet: '(min-width: 1440px) 410px, (min-width: 768px) 48vw, 69vw',
-  friend: '(min-width: 1440px) 174px, (min-width: 768px) 42vw, 57vw',
+  featured: '(min-width: 1440px) 1280px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
+  poet: '(min-width: 1440px) 847px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
+  friend: '(min-width: 1440px) 413px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
   theologian: '(min-width: 1440px) 1280px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
   proteuser: '(min-width: 1440px) 460px, (min-width: 768px) calc(100vw - 64px), 112vw',
   bachelor: '(min-width: 1440px) 413px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
   'letter-writer': '(min-width: 1440px) 413px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
 } as const;
 const chapters = await Promise.all((await getOrderedChapters()).map(async (chapter) => {
-  const image = getObjectImage(chapter.data.startseitenBild);
+  const hero = await resolveContentImage(chapter.data.hero);
+  const image = hero.asset;
 
   return {
     number: chapter.data.nummer.padStart(2, '0'),
     title: chapter.data.navTitel,
     image,
     imageSource: await getNavigationImageSource(image, homepageCardSizes[chapter.data.startseitenVariante]),
-    imageAlt: chapter.data.startseitenAltText ?? '',
+    imageAlt: hero.entry?.data.altText ?? '',
+    vposition: chapter.data.vposition,
     href: chapterHref(chapter.data.nummer),
     modifier: chapter.data.startseitenVariante,
   };
@@ -102,6 +104,8 @@ const heroSource = await getHeroImageSource(heroPortrait);
                   srcset={chapter.imageSource.srcset}
                   sizes={chapter.imageSource.sizes}
                   alt={chapter.imageAlt}
+                  class:list={[chapter.image.width > chapter.image.height ? "chapter-card__image--landscape" : "chapter-card__image--portrait"]}
+                  style={`--thumbnail-vposition: ${chapter.vposition}%`}
                   width={chapter.image.width}
                   height={chapter.image.height}
                   loading="lazy"
@@ -231,25 +235,15 @@ const heroSource = await getHeroImageSource(heroPortrait);
   .home-chapters__list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--spacing-48); list-style: none; }
   .chapter-card a { display: flex; color: var(--color-ink); flex-direction: column; gap: var(--spacing-20); text-decoration: none; }
   .chapter-card__image { display: flex; width: 100%; height: 280px; overflow: hidden; border: 0.5px solid var(--color-ink); background: var(--color-oat); align-items: center; justify-content: center; }
-  .chapter-card__image img { width: 100%; height: 100%; object-fit: cover; transition: transform 180ms ease-out; }
+  .chapter-card__image img { width: 100%; max-width: none; flex: none; }
+  .chapter-card__image--landscape { height: 100%; object-fit: cover; object-position: center calc(50% + var(--thumbnail-vposition)); }
+  .chapter-card__image--portrait { height: 100%; object-fit: cover; object-position: center calc(50% + var(--thumbnail-vposition)); }
   .chapter-card__meta { display: flex; padding-block: var(--spacing-8); flex-direction: column; gap: var(--spacing-8); }
   .chapter-card__title { font-family: var(--font-display); font-size: 2rem; line-height: 1.25; }
   .chapter-card__link { color: var(--color-link); font-size: 1rem; line-height: 1.5; }
-  .chapter-card a:hover .chapter-card__image img { transform: scale(1.015); }
   .chapter-card a:hover .chapter-card__link { text-decoration: underline; }
-  .chapter-card--featured .chapter-card__image img { width: 153%; max-width: none; object-position: left center; }
   .chapter-card--poet .chapter-card__image { background: #faf8e4; }
-  .chapter-card--poet .chapter-card__image img { width: 69%; height: 88%; object-fit: contain; }
   .chapter-card--friend .chapter-card__image { background: #d6e1f3; }
-  .chapter-card--friend .chapter-card__image img { width: 57%; height: 86%; object-fit: contain; }
-  .chapter-card--theologian .chapter-card__image img { object-position: center; }
-  .chapter-card--proteuser .chapter-card__image img { width: 112%; max-width: none; object-position: center; }
-  .chapter-card--bachelor .chapter-card__image img { object-position: center 28%; }
-  .chapter-card--letter-writer .chapter-card__image img { mix-blend-mode: multiply; }
-
-  @media (prefers-reduced-motion: reduce) {
-    .chapter-card__image img { transition: none; }
-  }
 
   @media (min-width: 768px) {
     .home-hero { height: 640px; padding: var(--spacing-64) var(--spacing-32); }
@@ -277,9 +271,6 @@ const heroSource = await getHeroImageSource(heroPortrait);
     .chapter-card__image { height: 400px; }
     .chapter-card__title { font-size: 2rem; }
     .chapter-card__link { font-size: 1.125rem; }
-    .chapter-card--featured .chapter-card__image img { width: 108%; }
-    .chapter-card--poet .chapter-card__image img { width: 48%; height: 87%; }
-    .chapter-card--friend .chapter-card__image img { width: 42%; height: 87%; }
   }
 
   @media (min-width: 1440px) {
@@ -308,7 +299,6 @@ const heroSource = await getHeroImageSource(heroPortrait);
     .chapter-card__image { height: 280px; }
     .chapter-card--featured a { position: relative; }
     .chapter-card--featured .chapter-card__image { height: 680px; }
-    .chapter-card--featured .chapter-card__image img { width: 100%; object-fit: cover; }
     .chapter-card--featured .chapter-card__meta { position: absolute; right: 0; bottom: 0; width: 524px; padding: var(--spacing-48); border: 0.5px solid var(--color-ink); background: rgb(242 241 237 / 90%); gap: var(--spacing-8); }
     .chapter-card--featured .chapter-card__link { margin-top: var(--spacing-8); font-size: 1.5rem; }
     .chapter-card--poet .chapter-card__image,

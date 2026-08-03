@@ -14,7 +14,6 @@ const object = image
   : undefined;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const vposition = chapter.data.vposition;
-const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition)}%)`;
 ---
 
 <header class="chapter-hero">
@@ -26,8 +25,8 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
   {image && imageSource && (
     <div class="chapter-hero__image-frame">
       <img
-        class="chapter-hero__image"
-        style={`--hero-position: ${heroPosition}; --hero-fit: ${chapter.data.heroFit}`}
+        class:list={["chapter-hero__image", image.width > image.height ? "chapter-hero__image--landscape" : "chapter-hero__image--portrait"]}
+        style={`--hero-offset: ${vposition}%`}
         src={imageSource.src}
         srcset={imageSource.srcset}
         sizes={imageSource.sizes}
@@ -70,16 +69,29 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
   }
 
   .chapter-hero__image-frame {
+    display: flex;
     width: 100%;
     height: 360px;
     overflow: hidden;
+    align-items: center;
   }
 
   .chapter-hero__image {
     width: 100%;
+    max-width: none;
+    flex: none;
+  }
+
+  .chapter-hero__image--landscape {
     height: 100%;
-    object-fit: var(--hero-fit);
-    object-position: center var(--hero-position);
+    object-fit: cover;
+    object-position: center calc(50% + var(--hero-offset));
+  }
+
+  .chapter-hero__image--portrait {
+    height: 100%;
+    object-fit: cover;
+    object-position: center calc(50% + var(--hero-offset));
   }
 
   .chapter-hero__caption {

@@ -29,7 +29,6 @@ const sectionFields = {
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
   vposition: z.number().int().default(0),
-  heroFit: z.enum(["cover", "contain"]).default("cover"),
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
@@ -49,8 +48,6 @@ const chapters = defineCollection({
       ...sectionFields,
       reihenfolge: z.number().int().positive(),
       hero: imageReference,
-      startseitenBild: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i),
-      startseitenAltText: z.string().optional(),
       startseitenVariante: homepageImageVariant,
       unterkapitel: z.array(reference("subchapters")).min(1).optional(),
       galerien: z.array(reference("galleries")).min(1).optional(),

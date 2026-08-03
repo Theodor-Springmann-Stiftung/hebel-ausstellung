@@ -14,23 +14,24 @@ const imageSource = await getHeroImageSource(image);
 const object = (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const vposition = subchapter.data.vposition;
-const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition)}%)`;
 ---
 
 <header class="subchapter-hero">
-  <img
-    class="subchapter-hero__image"
-    style={`--hero-position: ${heroPosition}; --hero-fit: ${subchapter.data.heroFit}`}
-    src={imageSource.src}
-    srcset={imageSource.srcset}
-    sizes={imageSource.sizes}
-    alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
-    width={image.width}
-    height={image.height}
-    loading="eager"
-    decoding="async"
-    fetchpriority="high"
-  />
+  <div class="subchapter-hero__image-frame">
+    <img
+      class:list={["subchapter-hero__image", image.width > image.height ? "subchapter-hero__image--landscape" : "subchapter-hero__image--portrait"]}
+      style={`--hero-offset: ${vposition}%`}
+      src={imageSource.src}
+      srcset={imageSource.srcset}
+      sizes={imageSource.sizes}
+      alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+      width={image.width}
+      height={image.height}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
   <div class="subchapter-hero__gradient"></div>
   <div class="subchapter-hero__content">
     <p class="subchapter-hero__chapter">Kapitel {chapter.data.nummer}: {chapter.data.navTitel}</p>
@@ -59,7 +60,7 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     background: var(--color-oat);
   }
 
-  .subchapter-hero__image,
+  .subchapter-hero__image-frame,
   .subchapter-hero__gradient {
     position: absolute;
     inset: 0;
@@ -67,9 +68,28 @@ const heroPosition = `calc(50% ${vposition < 0 ? "-" : "+"} ${Math.abs(vposition
     height: 100%;
   }
 
+  .subchapter-hero__image-frame {
+    display: flex;
+    overflow: hidden;
+    align-items: center;
+  }
+
   .subchapter-hero__image {
-    object-fit: var(--hero-fit);
-    object-position: center var(--hero-position);
+    width: 100%;
+    max-width: none;
+    flex: none;
+  }
+
+  .subchapter-hero__image--landscape {
+    height: 100%;
+    object-fit: cover;
+    object-position: center calc(50% + var(--hero-offset));
+  }
+
+  .subchapter-hero__image--portrait {
+    height: 100%;
+    object-fit: cover;
+    object-position: center calc(50% + var(--hero-offset));
   }
 
   .subchapter-hero__gradient {

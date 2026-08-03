@@ -4,8 +4,6 @@ nummer: "7"
 titel: "Der Briefschreiber"
 navTitel: "Der Briefschreiber"
 hero: "7_00_01_hero_image_an_koelle_dla"
-startseitenBild: "7_00_01_hero_image_An_Koelle_DLA.webp"
-startseitenAltText: "Brief Johann Peter Hebels an Christoph Friedrich Karl von Kölle"
 startseitenVariante: "letter-writer"
 galerien:
   - "7-01-werkpolitik"

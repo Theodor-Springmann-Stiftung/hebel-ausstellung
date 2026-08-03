@@ -4,8 +4,6 @@ nummer: "1"
 titel: "Der Oberländer"
 navTitel: "Der Oberländer"
 hero: "1_00_01_hero_image_wiesental_blb"
-startseitenBild: "1_00_homepage_oberlaender.png"
-startseitenAltText: "Historische Ansicht des Wiesentals"
 startseitenVariante: "featured"
 galerien:
   - "1-01-basel"
