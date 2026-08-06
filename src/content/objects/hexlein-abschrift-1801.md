@@ -10,6 +10,8 @@ datierung: "1801"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "Sign. K 1216, urn:nbn:de:bsz:31-6660"
 bilder:
+  - bild: "Bilder/2-1/2.1_02_02a+b_Hexlein_Hitzig_BLB.webp"
+    inObjektansicht: false
   - bild: "2.1_02_02a_Hexlein_aus_Hebel_Hitzig_BLB_K_1216_01"
   - bild: "2.1_02_02b_Hexlein_aus_Hebel_Hitzig_BLB_K_1216_02"
 ---

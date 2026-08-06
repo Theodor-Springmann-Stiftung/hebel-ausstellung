@@ -6,7 +6,8 @@ titel: "Der Proteuserschwur"
 urheber: "Christian Meichelt"
 datierung: "1812"
 bilder:
-  - bild: "5_00_homepage_proteuser"
+  - bild: "BuP_5_Hero_Image_Pi_Z_335_BLB"
+    objektReihenfolge: 2
   - bild: "BuP_2_1_Chr_Meichelt_Prot_Bund"
 ---
 

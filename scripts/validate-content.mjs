@@ -119,9 +119,12 @@ const stripImageExtension = (value) => value.replace(imageExtensionPattern, "");
 
 async function getImageCatalog() {
   const imageFiles = await listMarkdownFiles(path.join(contentDir, "images"));
-  const assetFiles = await listImageFiles(assetsDir);
+  const assetFiles = (await Promise.all(["Bilder", "Heroes", "Meta", "Thumbnails"].map(
+    (directory) => listImageFiles(path.join(assetsDir, directory)),
+  ))).flat();
   const assetNames = assetFiles.map((file) => path.relative(assetsDir, file).split(path.sep).join("/"));
   const assetByReference = new Map();
+  const metadataReferences = new Set();
 
   for (const assetName of assetNames) {
     const normalizedName = assetName.toLowerCase();
@@ -145,6 +148,9 @@ async function getImageCatalog() {
     for (const reference of [imageId, imageId.toLowerCase(), imageId.toLowerCase().replaceAll(".", ""), fileName.toLowerCase(), stripImageExtension(fileName.toLowerCase())]) {
       if (!assetByReference.has(reference)) assetByReference.set(reference, assetName);
     }
+    metadataReferences.add(imageId);
+    metadataReferences.add(imageId.toLowerCase());
+    metadataReferences.add(imageId.toLowerCase().replaceAll(".", ""));
   }
 
   return {
@@ -157,8 +163,18 @@ async function getImageCatalog() {
         ?? assetByReference.get(normalized.replaceAll(".", ""))
         ?? assetByReference.get(stripImageExtension(normalized));
     },
+    isMetadataReference(reference) {
+      const normalized = reference.toLowerCase();
+      return metadataReferences.has(reference)
+        || metadataReferences.has(normalized)
+        || metadataReferences.has(normalized.replaceAll(".", ""));
+    },
   };
 }
+
+const isCanonicalImageReference = (reference, imageCatalog) =>
+  imageCatalog.isMetadataReference(reference)
+  || /^Bilder\/[1-7](?:-[1-9])?\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(reference);
 
 async function validateGalleries() {
   const files = await listMarkdownFiles(path.join(contentDir, "galleries"));
@@ -196,6 +212,11 @@ async function validateImages() {
 
     if (fileName.includes("..") || path.isAbsolute(fileName)) {
       errors.push(`${relative(file)} fileName must be relative to src/assets`);
+      continue;
+    }
+
+    if (!/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(fileName)) {
+      errors.push(`${relative(file)} dateiname must be a complete path relative to src/assets`);
       continue;
     }
 
@@ -241,6 +262,10 @@ async function validateObjects() {
 
       if (!assetName) {
         errors.push(`${relative(file)} references missing image metadata or asset: ${imageReference}`);
+      } else if (!isCanonicalImageReference(imageReference, imageCatalog)) {
+        errors.push(`${relative(file)} must reference an image metadata ID or complete Bilder/... asset path: ${imageReference}`);
+      } else if (!assetName.startsWith("bilder/")) {
+        errors.push(`${relative(file)} object image must resolve to a Bilder/... asset: ${imageReference}`);
       }
 
       if (association.objektReihenfolge && !/^[1-9]\d*$/.test(association.objektReihenfolge)) {
@@ -323,8 +348,14 @@ async function validateDisplayImageReferences() {
 
     for (const [slideIndex, imageGroup] of imageGroups.entries()) {
       for (const [imageIndex, imageReference] of imageGroup.entries()) {
-        if (!imageCatalog.resolve(imageReference)) {
+        const assetName = imageCatalog.resolve(imageReference);
+
+        if (!assetName) {
           warnings.push(`${relative(file)} references unavailable gallery image metadata or asset at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
+        } else if (!isCanonicalImageReference(imageReference, imageCatalog)) {
+          errors.push(`${relative(file)} must use an image metadata ID or complete Bilder/... path at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
+        } else if (!assetName.startsWith("bilder/")) {
+          errors.push(`${relative(file)} gallery image must resolve to a Bilder/... asset at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
         }
       }
     }

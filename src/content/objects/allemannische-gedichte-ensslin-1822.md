@@ -7,5 +7,8 @@ datierung: "1822"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "111704"
 bilder:
+  - bild: "Bilder/2-4/2.4_05_D5_TSS.webp"
+    objektReihenfolge: 2
+    inObjektansicht: false
   - bild: "Raubdrucke_05_1b_D5_Reutlingen1822"
 ---

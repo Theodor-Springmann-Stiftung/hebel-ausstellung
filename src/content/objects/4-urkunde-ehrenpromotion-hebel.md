@@ -7,5 +7,5 @@ datierung: "2. August 1821"
 institution: "Universitätsarchiv Heidelberg"
 inventarnummer: "Theol. Fak. 8, fol. 137."
 bilder:
-  - bild: "4.X_01b_Urkunde_Ehrenpromotion_Uni_Archiv_HD"
+  - bild: "Bilder/4/4.X_01b_Urkunde_Ehrenpromotion_Uni_Archiv_HD.webp"
 ---

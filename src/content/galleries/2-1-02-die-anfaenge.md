@@ -11,8 +11,7 @@ folienbeschriftungen:
     beschriftung: "Brief an Hitzig vom 6. Februar [1801] sowie Abschrift von fremder alter Hand einer frühen Version des *Hexleins*. Rekonstruktion der früheren Faltung (wohl vor 1860) beider Blätter."
 bilder:
   - - "21_02_1a_hebel_hitzig_meine_liebhaberey_blb"
-  - - "2.1_02_02a_Hexlein_aus_Hebel_Hitzig_BLB_K_1216_01"
-    - "2.1_02_02b_Hexlein_aus_Hebel_Hitzig_BLB_K_1216_02"
+  - - "Bilder/2-1/2.1_02_02a+b_Hexlein_Hitzig_BLB.webp"
   - - "21_02_03a_brief_hexlein_faltung_ab"
     - "21_02_03b_brief_hexlein_faltung_ab"
 ---

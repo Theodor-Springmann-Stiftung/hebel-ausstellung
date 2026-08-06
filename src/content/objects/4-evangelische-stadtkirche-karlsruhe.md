@@ -8,5 +8,5 @@ materialTechnik: "Radierung/Aquatinta"
 institution: "Staatliche Kunsthalle Karlsruhe"
 inventarnummer: "P.K. I 280a/90"
 bilder:
-  - bild: "4.X_01a_Stadtkirche_KA_Kunsthalle_KA"
+  - bild: "Bilder/4/4.X_01a_Stadtkirche_KA_Kunsthalle_KA.webp"
 ---

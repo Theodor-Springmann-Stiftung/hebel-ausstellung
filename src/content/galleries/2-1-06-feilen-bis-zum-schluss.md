@@ -4,25 +4,14 @@ folienbeschriftungen:
   - folie: 1
     beschriftung: "De- und Rekomposition, Umsortieren. Seiten aus der eigenhändigen Satzvorlage von *Freude in Ehren* und *Irrlichtern*."
     unterbeschriftungen:
-      - bild: 1
-        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
-      - bild: 2
-        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
+      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 2
     beschriftung: "De- und Rekomposition, Aussortieren. Seiten aus der eigenhändigen Satzvorlage von *Jenner* und *Spinne*. Lithographie von Julius Nisle zum *Geisterbesuch auf dem Feldberg*."
     unterbeschriftungen:
-      - bild: 1
-        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
-      - bild: 2
-        beschriftung: "Julius Nisle, [1845], Lithographie, Hebel-Archiv Heidelberg"
-      - bild: 3
-        beschriftung: "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
+      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe; Julius Nisle, [1845], Lithographie, Hebel-Archiv Heidelberg"
 bilder:
-  - - "2.1_06_01a_FiE_H2_BLB"
-    - "2.1_06_01b_Irrlichter_H2_BLB"
-  - - "2.1_06_02a_Jenner_H2_Schluss"
-    - "2.1_06_02b_JNisle_Geisterbesuch"
-    - "2.1_06_02c_JSpinne_H2_Beginn"
+  - - "Bilder/2-1/2.1_06_01_FiE_u_Irrlichter_H2_BLB.webp"
+  - - "Bilder/2-1/2.1_06_02_Jenner_u_Spinne_u_Nisle.webp"
 ---
 
 Hebel versah die Satzhandschrift mit einem durchgehenden Blattzähler (Bild 1): Die *Irrlichter* etwa (Bl. »38.«–40., darüber rechts »76.«, die Anzahl der Verse) wurden zunächst nach dem *Hexlein* (Bl. 36.–37.) platziert – was stimmig wirkt, da beide Gedichte von magisch bedingter Orientierungslosigkeit handeln. Später entschied sich Hebel für die deutlich andere Textanordnung des Erstdrucks, und die *Irrlichter* (nun Bl. »18.«–20.) kamen nach *Freude in Ehren* (Bl. 16.–»17.«) zu stehen.

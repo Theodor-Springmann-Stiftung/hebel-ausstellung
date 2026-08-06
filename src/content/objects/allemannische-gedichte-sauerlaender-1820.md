@@ -7,5 +7,8 @@ datierung: "1820"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "212279"
 bilder:
+  - bild: "Bilder/2-4/2.4_04_01_D5_TSS.webp"
+    objektReihenfolge: 1
+    inObjektansicht: false
   - bild: "Raubdrucke_04_1a_D5_1820"
 ---

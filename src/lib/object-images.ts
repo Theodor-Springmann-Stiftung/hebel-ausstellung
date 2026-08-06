@@ -3,7 +3,7 @@ import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-const objectImageModules = import.meta.glob("../assets/{Bilder,Heroes,Meta,objects}/**/*.{avif,gif,jpg,jpeg,png,webp}", {
+const objectImageModules = import.meta.glob("../assets/{Bilder,Heroes,Meta}/**/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, ImageMetadata>;

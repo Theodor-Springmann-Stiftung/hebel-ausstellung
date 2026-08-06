@@ -1,4 +1,4 @@
 ---
-dateiname: "Raubdrucke_04_1a_D5_1820.webp"
+dateiname: "Bilder/2-4/Raubdrucke_04_1a_D5_1820.webp"
 altText: "Titelblatt der fünften rechtmäßigen Auflage von Hebels *Allemannischen Gedichten*, Aarau 1820."
 ---

@@ -2,7 +2,7 @@
 titel: "»Item, wie sagt die Schrift?« Hebel als Prediger"
 beschriftung: "Schreibt, wie er spricht und predigt wie gedruckt: Der rheinländische Hausfreund"
 bilder:
-  - - "Theo_4_1_Slide_3_TB_Rh_Hf_TSS"
+  - - "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"
 ---
 
 »[W]er nur Ja sagen darf um Stadtpfarrer u. Universitätsprediger in Freyburg zu seyn, das bin ich«, meldet Hebel 1806 an Gustave Fecht. »Die Stelle ist mir angeboten. Sie können denken, wie viel ich in beide Wagschalen zu legen habe, wie es an mir zieht, u. zurükhält« (Z 187). Am Ende ist Hebel erleichtert, als der Großherzog ihm die Entscheidung abnimmt, indem er den Wunsch ausspricht, Hebel möge in der Residenzstadt Karlsruhe bleiben. Letztlich hat er nie eine Pfarrstelle angetreten.

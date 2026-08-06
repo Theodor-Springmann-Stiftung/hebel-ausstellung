@@ -157,7 +157,7 @@ Pfad: `src/content/galleries/*.md`
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
 | `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
-| `bilder` | Array von Bildreferenz-Arrays | ja | Mindestens 1 Folie mit mindestens 1 Bild. Das äußere Array bestimmt die Folienreihenfolge; die inneren Arrays bestimmen die Reihenfolge der nebeneinander dargestellten Bilder. Jede Referenz kann eine Bild-Metadaten-ID oder der Basisname/Dateiname eines Assets sein. Die Dateiendung ist optional. |
+| `bilder` | Array von Bildreferenz-Arrays | ja | Mindestens 1 Folie mit mindestens 1 Bild. Das äußere Array bestimmt die Folienreihenfolge; die inneren Arrays bestimmen die Reihenfolge der nebeneinander dargestellten Bilder. Jede Referenz ist eine Bild-Metadaten-ID oder ein vollständiger `Bilder/...`-Pfad einschließlich Dateiendung. |
 | Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
 Blockzitat-Konvention im Body-Markdown:
@@ -213,7 +213,7 @@ Pfad: `src/content/images/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `dateiname` | String | nein | Abweichender Dateiname des Assets. Ohne dieses Feld wird ein Asset mit demselben Basisnamen wie der Bild-Eintrag gesucht. |
+| `dateiname` | String | nein | Pfad relativ zu `src/assets`, in der Regel `Bilder/<Kapitel oder Unterkapitel>/<Dateiname>`. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. |
@@ -223,7 +223,7 @@ Beispiel:
 
 ```yaml
 ---
-dateiname: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
+dateiname: "Bilder/2-2/2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 altText: "Dritte Auflage der Allemannischen Gedichte mit Titelkupfer von Benjamin Zix"
 beschriftung: "Dritte Auflage der Allemannischen Gedichte mit einem Titelkupfer von Benjamin Zix"
 nachweis: "Hebel-Archiv Heidelberg"
@@ -257,7 +257,7 @@ Eine Bildzuordnung hat folgende Felder:
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `bild` | Bild-ID oder Bilddateiname | ja | ID eines optionalen Eintrags in `src/content/images`, oder Basisname/Dateiname eines Assets in `src/assets/objects`. Die Dateiendung ist optional. |
+| `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `src/content/images`, der auf ein `Bilder/...`-Asset verweist, oder vollständiger Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-2/datei.webp`. |
 | `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
 | `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
 
@@ -293,19 +293,18 @@ Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangi
 
 ## Bilddatei-Ersatzlogik
 
-Bild-Metadaten in `src/content/images` sind optional. Kapitel, Unterkapitel und Galerien dürfen direkt den Basisnamen einer Datei aus `src/assets/objects` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`; Groß- und Kleinschreibung sowie die Dateiendung müssen in der Referenz nicht übereinstimmen.
+Bild-Metadaten in `src/content/images` sind optional. Galerien und `objects.bilder` dürfen entweder eine Bild-Metadaten-ID oder direkt einen vollständigen Pfad relativ zu `src/assets` verwenden. Beide Referenzformen müssen auf ein Asset unter `Bilder/<Kapitel oder Unterkapitel>/` auflösen. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`.
 
 Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, Alternativtext, Beschriftung und Nachweis verwendet. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz. Objektbeziehungen werden unabhängig davon über `objects.bilder` anhand des aufgelösten Assets ermittelt.
 
 ### Bildidentität
 
-Für Kapitel-Heroes, Unterkapitel-Heroes, Galerien und `objects.bilder` gelten dieselben Referenzformen:
+Für Galerien und `objects.bilder` gelten zwei Referenzformen:
 
 - ID einer Datei in `src/content/images`, ohne `.md`
-- Basisname eines Assets in `src/assets/objects`, ohne Dateiendung
-- vollständiger Asset-Dateiname mit unterstützter Dateiendung
+- vollständiger Asset-Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-1/datei.webp`
 
-Entscheidend für die Identität ist immer die aufgelöste Bilddatei in `src/assets/objects`, nicht der geschriebene Referenzwert. Verweist zum Beispiel eine Galerie über eine Bild-Metadaten-ID auf ein Asset und ein Objekt direkt über dessen Dateinamen auf dasselbe Asset, werden beide als dasselbe Bild behandelt. Das Objekt wird deshalb an diesem Galerie-Bild angezeigt. Dies gilt ebenso in der umgekehrten Richtung und unabhängig davon, ob die Dateiendung angegeben ist.
+Entscheidend für die Identität ist immer die aufgelöste Datei unter `src/assets`, nicht der geschriebene Referenzwert. Verweist zum Beispiel eine Galerie über eine Bild-Metadaten-ID auf ein Asset und ein Objekt direkt über dessen `Bilder/...`-Pfad auf dasselbe Asset, werden beide als dasselbe Bild behandelt. Das Objekt wird deshalb an diesem Galerie-Bild angezeigt.
 
 ## Grafik
 

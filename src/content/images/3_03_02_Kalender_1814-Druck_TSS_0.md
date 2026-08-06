@@ -1,4 +1,0 @@
----
-dateiname: "3_03_02_Kalender_1814-Druck_TSS_0.webp"
-altText: "Linke Seite aus dem veröffentlichten Rheinländischen Hausfreund auf das Jahr 1814."
----

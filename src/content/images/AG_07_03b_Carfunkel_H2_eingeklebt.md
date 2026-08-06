@@ -1,4 +1,4 @@
 ---
-dateiname: "AG_07_03b_Carfunkel_H2_eingeklebt.webp"
+dateiname: "Bilder/2-1/AG_07_03b_Carfunkel_H2_eingeklebt.webp"
 altText: "Überarbeitete und mit Lackstreifen befestigte Manuskriptseite des *Carfunkel*."
 ---

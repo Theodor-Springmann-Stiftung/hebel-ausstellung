@@ -7,5 +7,8 @@ datierung: "wohl nicht vor 1810"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412292"
 bilder:
+  - bild: "Bilder/2-4/2.4_03_01_AG_D4_TSS.webp"
+    objektReihenfolge: 2
+    inObjektansicht: false
   - bild: "Raubdrucke_03_1b_AG_D4_S._110b"
 ---

@@ -2,8 +2,7 @@
 titel: "Anf(l)echtungen"
 beschriftung: "Der *lichen pubescens* (behaarte/mannbare Flechte) dient Gmelin zu einem Witz, der Hebel verstimmt"
 bilder:
-  - - "61_02_02_hoffmann_flora2_titel_0"
-    - "61_02_02_hoffmann_flora2_titel_1"
+  - - "6.1_02_02_Hoffmann_Flora2_Titel"
   - - "61_02_03_hoffmann_flora2-136"
 ---
 

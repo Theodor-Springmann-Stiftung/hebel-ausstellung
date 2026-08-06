@@ -108,8 +108,8 @@ const galleries = defineCollection({
 const images = defineCollection({
   loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
   schema: z.object({
-    dateiname: z.string().regex(/\.(avif|gif|jpe?g|png|webp)$/i, {
-      message: "Image dateiname must end with a supported image extension",
+    dateiname: z.string().regex(/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i, {
+      message: "Image dateiname must be a complete path relative to src/assets",
     }).optional(),
     altText: optionalMarkdown,
     beschriftung: optionalMarkdown,

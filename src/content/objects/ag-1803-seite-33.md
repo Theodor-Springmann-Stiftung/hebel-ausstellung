@@ -7,5 +7,8 @@ datierung: "1803"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "408049"
 bilder:
+  - bild: "Bilder/2-1/2.1_05_01a_Irrlichter_H2_u_D1.webp"
+    objektReihenfolge: 2
+    inObjektansicht: false
   - bild: "2.1_05_01b_D1_S._33"
 ---

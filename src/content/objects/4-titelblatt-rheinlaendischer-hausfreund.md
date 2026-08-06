@@ -6,7 +6,7 @@ datierung: "1815"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "102413"
 bilder:
-  - bild: "Theo_4_1_Slide_3_TB_Rh_Hf_TSS"
+  - bild: "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"
 ---
 
 # Beschreibung

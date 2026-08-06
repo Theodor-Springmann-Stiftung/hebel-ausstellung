@@ -8,7 +8,7 @@ datierung: "1791"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "K1216"
 bilder:
-  - bild: "BuP_5_Slide_1_Titel_Allm_Pi_BLB.webp"
+  - bild: "Bilder/5/BuP_5_Slide_1_Titel_Allm_Pi_BLB.webp"
 ---
 
 # Beschreibung
