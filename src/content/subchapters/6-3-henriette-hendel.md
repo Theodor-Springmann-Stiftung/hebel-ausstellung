@@ -2,7 +2,9 @@
 nummer: "6.3"
 titel: "Henriette Hendel"
 navTitel: "Henriette Hendel"
-hero: "63_01_01a_hamilton_rehberg_ub_heidelberg"
+thumbnail: "6-3.webp"
+hero: "6-3.webp"
+heroMetadata: "63_01_01a_hamilton_rehberg_ub_heidelberg"
 galerien:
   - "6-3-01-ists-moeglich-ist-das-weib-so-schoen"
   - "6-3-02-ein-heimlicher-heiratsantrag"

@@ -3,7 +3,9 @@ reihenfolge: 3
 nummer: "3"
 titel: "Der Hausfreund"
 navTitel: "Der Hausfreund"
-hero: "3_00_01_hebel_k11_unverhofftes_wiedersehen_tss"
+thumbnail: "3.webp"
+hero: "3.webp"
+heroMetadata: "3_00_01_hebel_k11_unverhofftes_wiedersehen_tss"
 startseitenVariante: "friend"
 galerien:
   - "3-01-badische-kalenderkrise"

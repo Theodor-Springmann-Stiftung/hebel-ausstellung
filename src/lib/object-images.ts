@@ -3,19 +3,44 @@ import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-const objectImageModules = import.meta.glob("../assets/objects/*.{avif,gif,jpg,jpeg,png,webp}", {
+const objectImageModules = import.meta.glob("../assets/{Bilder,Heroes,Meta,objects}/**/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, ImageMetadata>;
 
+const thumbnailModules = import.meta.glob("../assets/Thumbnails/*.{avif,gif,jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, ImageMetadata>;
+
+const heroModules = import.meta.glob("../assets/Heroes/*.{avif,gif,jpg,jpeg,png,webp}", {
+  eager: true,
+  import: "default",
+}) as Record<string, ImageMetadata>;
+
+const assetByPath = new Map<string, ImageMetadata>();
 const assetByFilename = new Map<string, ImageMetadata>();
 const assetByStem = new Map<string, ImageMetadata>();
+const thumbnailByFilename = new Map<string, ImageMetadata>();
+const heroByFilename = new Map<string, ImageMetadata>();
 
 for (const [assetPath, image] of Object.entries(objectImageModules)) {
   const filename = assetPath.split("/").at(-1) ?? assetPath;
   const stem = filename.replace(/\.[^.]+$/, "");
-  assetByFilename.set(filename.toLowerCase(), image);
-  assetByStem.set(stem.toLowerCase(), image);
+  const relativePath = assetPath.replace(/^\.\.\/assets\//, "").toLowerCase();
+  assetByPath.set(relativePath, image);
+  if (!assetByFilename.has(filename.toLowerCase())) assetByFilename.set(filename.toLowerCase(), image);
+  if (!assetByStem.has(stem.toLowerCase())) assetByStem.set(stem.toLowerCase(), image);
+}
+
+for (const [assetPath, image] of Object.entries(thumbnailModules)) {
+  const filename = assetPath.split("/").at(-1) ?? assetPath;
+  thumbnailByFilename.set(filename.toLowerCase(), image);
+}
+
+for (const [assetPath, image] of Object.entries(heroModules)) {
+  const filename = assetPath.split("/").at(-1) ?? assetPath;
+  heroByFilename.set(filename.toLowerCase(), image);
 }
 
 export type ImageReference = string | { id: string };
@@ -35,8 +60,33 @@ export type ObjectDisplayImage = {
 export const imageReferenceId = (reference: ImageReference) => typeof reference === "string" ? reference : reference.id;
 
 export const findObjectImage = (name: string) => {
-  const filename = name.split("/").at(-1) ?? name;
-  return assetByFilename.get(filename.toLowerCase()) ?? assetByStem.get(filename.replace(/\.(avif|gif|jpe?g|png|webp)$/i, "").toLowerCase());
+  const normalizedName = name.replace(/^\.?\/?/, "").toLowerCase();
+  const filename = normalizedName.split("/").at(-1) ?? normalizedName;
+  return assetByPath.get(normalizedName)
+    ?? assetByFilename.get(filename)
+    ?? assetByStem.get(filename.replace(/\.(avif|gif|jpe?g|png|webp)$/i, ""));
+};
+
+export const getThumbnailImage = (name: string) => {
+  const filename = name.split("/").at(-1)?.toLowerCase() ?? name.toLowerCase();
+  const image = thumbnailByFilename.get(filename);
+
+  if (!image) {
+    throw new Error(`Missing thumbnail image asset matching: ${name}`);
+  }
+
+  return image;
+};
+
+export const getDedicatedHeroImage = (name: string) => {
+  const filename = name.split("/").at(-1)?.toLowerCase() ?? name.toLowerCase();
+  const image = heroByFilename.get(filename);
+
+  if (!image) {
+    throw new Error(`Missing hero image asset matching: ${name}`);
+  }
+
+  return image;
 };
 
 export const getObjectImage = (name: string) => {

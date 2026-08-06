@@ -3,10 +3,10 @@ import Layout from '../layouts/Layout.astro';
 import Quote from '../components/content/Quote.astro';
 import { chapterHref, getOrderedChapters } from '../lib/content';
 import { renderInlineMarkdown } from '../lib/markdown';
-import { getHeroImageSource, getNavigationImageSource, resolveContentImage } from '../lib/object-images';
-import portrait from '../assets/objects/Hebel_Portraet_Mueller.jpg';
-import heroPortrait from '../assets/objects/Hebel_Portraet_Homepage.png';
-import seal from '../assets/objects/Hebel_Wachssiegel.png';
+import { getHeroImageSource, getNavigationImageSource, getThumbnailImage } from '../lib/object-images';
+import portrait from '../assets/Meta/Hebel_Portraet_Mueller.jpg';
+import heroPortrait from '../assets/Meta/Hebel_Portraet_Homepage.png';
+import seal from '../assets/Meta/Hebel_Wachssiegel.png';
 
 const homepageCardSizes = {
   featured: '(min-width: 1440px) 1280px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
@@ -18,16 +18,14 @@ const homepageCardSizes = {
   'letter-writer': '(min-width: 1440px) 413px, (min-width: 768px) calc(100vw - 64px), calc(100vw - 40px)',
 } as const;
 const chapters = await Promise.all((await getOrderedChapters()).map(async (chapter) => {
-  const hero = await resolveContentImage(chapter.data.hero);
-  const image = hero.asset;
+  const image = getThumbnailImage(chapter.data.thumbnail);
 
   return {
     number: chapter.data.nummer.padStart(2, '0'),
     title: chapter.data.navTitel,
     image,
     imageSource: await getNavigationImageSource(image, homepageCardSizes[chapter.data.startseitenVariante]),
-    imageAlt: hero.entry?.data.altText ?? '',
-    vposition: chapter.data.vposition,
+    imageAlt: chapter.data.navTitel,
     href: chapterHref(chapter.data.nummer),
     modifier: chapter.data.startseitenVariante,
   };
@@ -104,8 +102,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
                   srcset={chapter.imageSource.srcset}
                   sizes={chapter.imageSource.sizes}
                   alt={chapter.imageAlt}
-                  class:list={[chapter.image.width > chapter.image.height ? "chapter-card__image--landscape" : "chapter-card__image--portrait"]}
-                  style={`--thumbnail-vposition: ${chapter.vposition}%`}
+                  class="chapter-card__thumbnail"
                   width={chapter.image.width}
                   height={chapter.image.height}
                   loading="lazy"
@@ -235,9 +232,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
   .home-chapters__list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--spacing-48); list-style: none; }
   .chapter-card a { display: flex; color: var(--color-ink); flex-direction: column; gap: var(--spacing-20); text-decoration: none; }
   .chapter-card__image { display: flex; width: 100%; height: 280px; overflow: hidden; border: 0.5px solid var(--color-ink); background: var(--color-oat); align-items: center; justify-content: center; }
-  .chapter-card__image img { width: 100%; max-width: none; flex: none; }
-  .chapter-card__image--landscape { height: 100%; object-fit: cover; object-position: center calc(50% + var(--thumbnail-vposition)); }
-  .chapter-card__image--portrait { height: 100%; object-fit: cover; object-position: center calc(50% + var(--thumbnail-vposition)); }
+  .chapter-card__thumbnail { width: 100%; height: 100%; max-width: none; flex: none; object-fit: cover; object-position: center; }
   .chapter-card__meta { display: flex; padding-block: var(--spacing-8); flex-direction: column; gap: var(--spacing-8); }
   .chapter-card__title { font-family: var(--font-display); font-size: 2rem; line-height: 1.25; }
   .chapter-card__link { color: var(--color-link); font-size: 1rem; line-height: 1.5; }

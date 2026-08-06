@@ -2,16 +2,18 @@
 import type { CollectionEntry } from "astro:content";
 import { getObjectRelationshipsByImage } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
+import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
 const { chapter, subchapter } = Astro.props as {
   chapter: CollectionEntry<"chapters">;
   subchapter: CollectionEntry<"subchapters">;
 };
-const hero = await resolveContentImage(subchapter.data.hero);
-const image = hero.asset;
+const image = getDedicatedHeroImage(subchapter.data.hero);
+const metadataImage = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const imageSource = await getHeroImageSource(image);
-const object = (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object;
+const object = metadataImage
+  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
+  : undefined;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const objectMetadata = object
   ? [object.data.urheber, object.data.datierung, object.data.materialTechnik, object.data.institution]
@@ -19,18 +21,16 @@ const objectMetadata = object
       .map((value) => renderInlineMarkdown(value))
       .join(", ")
   : "";
-const vposition = subchapter.data.vposition;
 ---
 
 <header class="subchapter-hero">
   <div class="subchapter-hero__image-frame">
     <img
-      class:list={["subchapter-hero__image", image.width > image.height ? "subchapter-hero__image--landscape" : "subchapter-hero__image--portrait"]}
-      style={`--hero-offset: ${vposition}%`}
+      class="subchapter-hero__image"
       src={imageSource.src}
       srcset={imageSource.srcset}
       sizes={imageSource.sizes}
-      alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+      alt={markdownToPlainText(metadataImage?.entry?.data.altText || subchapter.data.titel)}
       width={image.width}
       height={image.height}
       loading="eager"
@@ -45,9 +45,9 @@ const vposition = subchapter.data.vposition;
   </div>
 </header>
 
-{(hero.entry?.data.beschriftung || objectMetadata || objectHref) && (
+{(metadataImage?.entry?.data.beschriftung || objectMetadata || objectHref) && (
   <div class="subchapter-hero-caption">
-    {hero.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(hero.entry.data.beschriftung)}></p>}
+    {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
     {objectMetadata && <p class="subchapter-hero-caption__credit" set:html={objectMetadata}></p>}
     {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
   </div>
@@ -82,20 +82,11 @@ const vposition = subchapter.data.vposition;
 
   .subchapter-hero__image {
     width: 100%;
+    height: 100%;
     max-width: none;
     flex: none;
-  }
-
-  .subchapter-hero__image--landscape {
-    height: 100%;
     object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
-  }
-
-  .subchapter-hero__image--portrait {
-    height: 100%;
-    object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
+    object-position: center;
   }
 
   .subchapter-hero__gradient {

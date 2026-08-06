@@ -3,7 +3,9 @@ reihenfolge: 4
 nummer: "4"
 titel: "Hebel der Theologe"
 navTitel: "Der Theologe"
-hero: "theo_4_hero_image_hebelbueste_basel_max_leu"
+thumbnail: "4.webp"
+hero: "4.webp"
+heroMetadata: "theo_4_hero_image_hebelbueste_basel_max_leu"
 startseitenVariante: "theologian"
 galerien:
   - "4-eschatologie-bei-hebel"

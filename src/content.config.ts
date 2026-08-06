@@ -39,7 +39,9 @@ const sectionFields = {
   nummer: z.string().min(1),
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
-  vposition: z.number().int().default(0),
+  thumbnail: z.string().regex(/\.webp$/i, {
+    message: "Thumbnail must be a WebP filename",
+  }),
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
@@ -58,7 +60,8 @@ const chapters = defineCollection({
     .object({
       ...sectionFields,
       reihenfolge: z.number().int().positive(),
-      hero: imageReference,
+      hero: z.string().regex(/\.webp$/i, { message: "Hero must be a WebP filename" }),
+      heroMetadata: imageReference.optional(),
       startseitenVariante: homepageImageVariant,
       unterkapitel: z.array(reference("subchapters")).min(1).optional(),
       galerien: z.array(reference("galleries")).min(1).optional(),
@@ -81,7 +84,8 @@ const subchapters = defineCollection({
   loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
   schema: z.object({
     ...sectionFields,
-    hero: imageReference,
+    hero: z.string().regex(/\.webp$/i, { message: "Hero must be a WebP filename" }),
+    heroMetadata: imageReference.optional(),
     galerien: z.array(reference("galleries")).min(1),
   }),
 });

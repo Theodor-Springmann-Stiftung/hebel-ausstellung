@@ -4,7 +4,7 @@ import process from "node:process";
 
 const rootDir = process.cwd();
 const contentDir = path.join(rootDir, "src", "content");
-const assetObjectsDir = path.join(rootDir, "src", "assets", "objects");
+const assetsDir = path.join(rootDir, "src", "assets");
 const errors = [];
 const warnings = [];
 const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
@@ -23,6 +23,22 @@ async function listMarkdownFiles(directory) {
 
     throw error;
   }
+}
+
+async function listImageFiles(directory) {
+  const files = [];
+
+  for (const entry of await readdir(directory, { withFileTypes: true })) {
+    const entryPath = path.join(directory, entry.name);
+
+    if (entry.isDirectory()) {
+      files.push(...await listImageFiles(entryPath));
+    } else if (entry.isFile() && imageExtensionPattern.test(entry.name)) {
+      files.push(entryPath);
+    }
+  }
+
+  return files;
 }
 
 function relative(filePath) {
@@ -103,14 +119,17 @@ const stripImageExtension = (value) => value.replace(imageExtensionPattern, "");
 
 async function getImageCatalog() {
   const imageFiles = await listMarkdownFiles(path.join(contentDir, "images"));
-  const assetEntries = await readdir(assetObjectsDir, { withFileTypes: true });
-  const assetNames = assetEntries.filter((entry) => entry.isFile()).map((entry) => entry.name);
+  const assetFiles = await listImageFiles(assetsDir);
+  const assetNames = assetFiles.map((file) => path.relative(assetsDir, file).split(path.sep).join("/"));
   const assetByReference = new Map();
 
   for (const assetName of assetNames) {
     const normalizedName = assetName.toLowerCase();
+    const filename = path.basename(normalizedName);
     assetByReference.set(normalizedName, normalizedName);
     assetByReference.set(stripImageExtension(normalizedName), normalizedName);
+    if (!assetByReference.has(filename)) assetByReference.set(filename, normalizedName);
+    if (!assetByReference.has(stripImageExtension(filename))) assetByReference.set(stripImageExtension(filename), normalizedName);
   }
 
   for (const imageFile of imageFiles) {
@@ -156,7 +175,7 @@ async function validateGalleries() {
 
 async function validateImages() {
   const files = await listMarkdownFiles(path.join(contentDir, "images"));
-  const { assetNames, assetStems } = await getImageCatalog();
+  const imageCatalog = await getImageCatalog();
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
@@ -169,19 +188,19 @@ async function validateImages() {
 
     if (!fileName) {
       const inferredStem = path.basename(file, path.extname(file)).toLowerCase();
-      if (!assetStems.has(inferredStem)) {
+      if (!imageCatalog.resolve(inferredStem)) {
         errors.push(`${relative(file)} must define dateiname or match an image asset basename`);
       }
       continue;
     }
 
     if (fileName.includes("..") || path.isAbsolute(fileName)) {
-      errors.push(`${relative(file)} fileName must be relative to src/assets/objects`);
+      errors.push(`${relative(file)} fileName must be relative to src/assets`);
       continue;
     }
 
-    if (!assetNames.has(fileName.toLowerCase())) {
-      errors.push(`${relative(file)} references missing image asset: src/assets/objects/${fileName}`);
+    if (!imageCatalog.resolve(fileName)) {
+      errors.push(`${relative(file)} references missing image asset: src/assets/${fileName}`);
     }
   }
 }

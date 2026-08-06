@@ -3,8 +3,9 @@ reihenfolge: 5
 nummer: "5"
 titel: "Der Proteuser"
 navTitel: "Der Proteuser"
-hero: "BuP_5_Hero_Image_Pi_Z_335_BLB"
-vposition: -50
+thumbnail: "5.webp"
+hero: "5.webp"
+heroMetadata: "BuP_5_Hero_Image_Pi_Z_335_BLB"
 startseitenVariante: "proteuser"
 galerien:
   - "5-01-allmanach-des-proteus-zeichens"

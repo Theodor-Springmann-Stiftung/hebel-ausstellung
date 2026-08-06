@@ -2,7 +2,9 @@
 nummer: "2.1"
 titel: "Die *Allemannischen Gedichte* von 1803"
 navTitel: "Die Allemannischen Gedichte von 1803"
-hero: "21_00_ag_1803_tschoepli_tss"
+thumbnail: "2-1.webp"
+hero: "2-1.webp"
+heroMetadata: "21_00_ag_1803_tschoepli_tss"
 galerien:
   - "2-1-01-ueberraschungserfolg"
   - "2-1-02-die-anfaenge"

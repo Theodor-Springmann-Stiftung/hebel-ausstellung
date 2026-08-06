@@ -3,8 +3,9 @@ reihenfolge: 6
 nummer: "6"
 titel: "Der Junggeselle"
 navTitel: "Der Junggeselle"
-hero: "6_00_01_hero_image_hebel_und_elisabeth_baustlicher_basel"
-vposition: 0
+thumbnail: "6.webp"
+hero: "6.webp"
+heroMetadata: "6_00_01_hero_image_hebel_und_elisabeth_baustlicher_basel"
 startseitenVariante: "bachelor"
 unterkapitel:
   - "6-1-gustave-fecht"

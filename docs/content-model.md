@@ -44,8 +44,9 @@ Pfad: `src/content/chapters/*.md`
 | `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
-| `vposition` | Ganzzahl | nein | Vertikale Position des Hero-Bildausschnitts in Prozentpunkten relativ zur Mitte. Standardwert `0`; negative Werte verschieben den Fokus nach oben, positive nach unten. |
+| `thumbnail` | String | ja | Dateiname des vorbereiteten Kapitel-Thumbnails in `src/assets/Thumbnails`. |
+| `hero` | String | ja | Dateiname des vorbereiteten Kapitel-Heroes in `src/assets/Heroes`. |
+| `heroMetadata` | Bildreferenz | nein | Bilddatensatz des zugrunde liegenden Objekts für Alternativtext, Beschriftung und Objektlink. |
 | `startseitenBild` | String | ja | Dateiname eines Bildes für die Startseite. Erlaubt sind `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`. |
 | `startseitenAltText` | String | nein | Alternativtext für das Startseitenbild. |
 | `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
@@ -63,7 +64,9 @@ reihenfolge: 2
 nummer: "02"
 titel: "Der Dichter"
 navTitel: "Der Dichter"
-hero: "tschopli-hero"
+thumbnail: "2.webp"
+hero: "2.webp"
+heroMetadata: "tschopli-hero"
 startseitenBild: "2.0_hero_image_Tschoepli_TSS.webp"
 startseitenAltText: "Illustration zu den Allemannischen Gedichten"
 startseitenVariante: "poet"
@@ -89,7 +92,9 @@ reihenfolge: 1
 nummer: "01"
 titel: "Der Oberländer"
 navTitel: "Der Oberländer"
-hero: "oberland-1833"
+thumbnail: "1.webp"
+hero: "1.webp"
+heroMetadata: "oberland-1833"
 startseitenBild: "1_00_homepage_oberlaender.png"
 startseitenAltText: "Historische Ansicht des Wiesentals"
 startseitenVariante: "featured"
@@ -114,8 +119,9 @@ Pfad: `src/content/subchapters/*.md`
 | `nummer` | String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"02.1"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `hero` | Bildreferenz | ja | ID eines optionalen Bild-Eintrags oder Basisname/Dateiname einer Bilddatei in `src/assets/objects`. Die Dateiendung ist optional. |
-| `vposition` | Ganzzahl | nein | Vertikale Position des Hero-Bildausschnitts in Prozentpunkten relativ zur Mitte. Standardwert `0`; negative Werte verschieben den Fokus nach oben, positive nach unten. |
+| `thumbnail` | String | ja | Dateiname des vorbereiteten Unterkapitel-Thumbnails in `src/assets/Thumbnails`. |
+| `hero` | String | ja | Dateiname des vorbereiteten Unterkapitel-Heroes in `src/assets/Heroes`. |
+| `heroMetadata` | Bildreferenz | nein | Bilddatensatz des zugrunde liegenden Objekts für Alternativtext, Beschriftung und Objektlink. |
 | `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
 | Inhalt | Body-Markdown | nein | Unterkapiteltext unterhalb des Frontmatters. |
 
@@ -126,7 +132,9 @@ Beispiel:
 nummer: "02.1"
 titel: "Die *Allemannischen Gedichte* von 1803"
 navTitel: "Die Allemannischen Gedichte von 1803"
-hero: "hans-und-verene-hero"
+thumbnail: "2-1.webp"
+hero: "2-1.webp"
+heroMetadata: "hans-und-verene-hero"
 galerien:
   - "ueberraschungserfolg-eines-literarischen-debuetanten"
   - "christlich-romantische-volkspoesie"
@@ -316,8 +324,8 @@ erDiagram
     string nummer "required"
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
-    reference hero "reference images required"
-    int vposition "default 0; percentage-point offset from center"
+    string hero "prepared hero filename required"
+    reference heroMetadata "optional image metadata and object relationship"
     string startseitenBild "required image extension"
     string startseitenAltText "optional"
     enum startseitenVariante "required homepage variant"
@@ -330,8 +338,8 @@ erDiagram
     string nummer "required"
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
-    reference hero "reference images required"
-    int vposition "default 0; percentage-point offset from center"
+    string hero "prepared hero filename required"
+    reference heroMetadata "optional image metadata and object relationship"
     reference_array galerien "reference galleries required min 1"
     markdown body "optional"
   }

@@ -20,8 +20,8 @@ Reihenfolge: INT, Required
 Nummer: String, Required
 Titel: String (MARKDOWN), Required
 Nav-Titel: String (MARKDOWN), Required
-Hero: ->Image, Required
-Hero-V-Position: INT, Optional (Prozentpunkte relativ zur Mitte; negativ = nach oben, positiv = nach unten)
+Hero: String, Required (Datei in `src/assets/Heroes`)
+Hero-Metadaten: ->Image, Optional
 Intro-Text: MD
 Unterkapitel: ->Subchapters, IN ORDER
 Galerien: ->Galleries (one of both required, either Unterkapitel or Galerien), IN ORDER
@@ -32,8 +32,8 @@ Galerien: ->Galleries (one of both required, either Unterkapitel or Galerien), I
 Nummer: String, Required
 Titel: String (MARKDOWN), Required
 Nav-Titel: String (MARKDOWN), Required
-Hero: ->Image, Required
-Hero-V-Position: INT, Optional (Prozentpunkte relativ zur Mitte; negativ = nach oben, positiv = nach unten)
+Hero: String, Required (Datei in `src/assets/Heroes`)
+Hero-Metadaten: ->Image, Optional
 Intro-Text: MD
 Galerien: ->Galleries, Required
 NOTE: Same fields as chapter, except for ORDER, and can't contain further subchapters)

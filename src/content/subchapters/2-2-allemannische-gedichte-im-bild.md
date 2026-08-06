@@ -2,7 +2,9 @@
 nummer: "2.2"
 titel: "Die *Allemannischen Gedichte* im Bild. 1806–1851"
 navTitel: "Die Allemannischen Gedichte im Bild"
-hero: "22_01_zix_carfunkel_kupfer_1806_tss"
+thumbnail: "2-2.webp"
+hero: "2-2.webp"
+heroMetadata: "22_01_zix_carfunkel_kupfer_1806_tss"
 galerien:
   - "2-2-01-aufgeklaerte-volkspoesie"
   - "2-2-02-christlich-romantische-volkspoesie"

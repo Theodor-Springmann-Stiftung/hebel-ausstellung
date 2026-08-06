@@ -3,7 +3,7 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import { subchapterHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getNavigationImageSource, resolveContentImage } from "../../lib/object-images";
+import { getNavigationImageSource, getThumbnailImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
 const { Content } = await render(chapter);
@@ -13,14 +13,13 @@ const subchapters = await Promise.all(
 
     if (!subchapter) return undefined;
 
-    const hero = await resolveContentImage(subchapter.data.hero);
-    const image = hero.asset;
+    const image = getThumbnailImage(subchapter.data.thumbnail);
     const imageSource = await getNavigationImageSource(
       image,
       "(min-width: 1440px) 624px, (min-width: 768px) calc((100vw - 84px) / 2), calc(100vw - 40px)",
     );
 
-    return { subchapter, hero, image, imageSource };
+    return { subchapter, image, imageSource };
   }),
 );
 const availableSubchapters = subchapters.filter(Boolean);
@@ -33,19 +32,18 @@ const availableSubchapters = subchapters.filter(Boolean);
     <nav class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
       <h2>Unterkapitel</h2>
       <ol class="chapter-overview__list">
-        {availableSubchapters.map(({ subchapter, hero, image, imageSource }) => (
+        {availableSubchapters.map(({ subchapter, image, imageSource }) => (
           <li class="chapter-overview__card">
             <a href={subchapterHref(chapter.data.nummer, subchapter.data.nummer)}>
               <span
                 class="chapter-overview__image-frame"
               >
                 <img
-                  class:list={[image.width > image.height ? "chapter-overview__image--landscape" : "chapter-overview__image--portrait"]}
-                  style={`--hero-offset: ${subchapter.data.vposition}%`}
+                  class="chapter-overview__thumbnail"
                   src={imageSource.src}
                   srcset={imageSource.srcset}
                   sizes={imageSource.sizes}
-                  alt={markdownToPlainText(hero.entry?.data.altText || subchapter.data.titel)}
+                  alt={markdownToPlainText(subchapter.data.titel)}
                   width={image.width}
                   height={image.height}
                   loading="lazy"
@@ -129,7 +127,7 @@ const availableSubchapters = subchapters.filter(Boolean);
     height: var(--spacing-56);
     flex-basis: var(--spacing-56);
     border: 0.5px solid var(--color-ink);
-    background-image: url("../../assets/objects/Hebel_Portraet_Mueller.jpg");
+    background-image: url("../../assets/Meta/Hebel_Portraet_Mueller.jpg");
     background-position: 68% 50%;
     background-size: auto 100%;
     content: "";
@@ -183,22 +181,13 @@ const availableSubchapters = subchapters.filter(Boolean);
     align-items: center;
   }
 
-  .chapter-overview__image-frame img {
+  .chapter-overview__thumbnail {
     width: 100%;
+    height: 100%;
     max-width: none;
     flex: none;
-  }
-
-  .chapter-overview__image--landscape {
-    height: 100%;
     object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
-  }
-
-  .chapter-overview__image--portrait {
-    height: 100%;
-    object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
+    object-position: center;
   }
 
   .chapter-overview__meta {

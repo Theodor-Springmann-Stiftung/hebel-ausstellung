@@ -2,15 +2,15 @@
 import type { CollectionEntry } from "astro:content";
 import { getObjectRelationshipsByImage } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
-import { getHeroImageSource, resolveContentImage } from "../../lib/object-images";
+import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
 const { chapter } = Astro.props as { chapter: CollectionEntry<"chapters"> };
-const hero = chapter.data.hero ? await resolveContentImage(chapter.data.hero) : undefined;
-const image = hero?.asset;
-const metadata = hero?.entry?.data;
-const imageSource = image ? await getHeroImageSource(image) : undefined;
-const object = image
-  ? (await getObjectRelationshipsByImage()).get(image.src)?.find((relationship) => relationship.object.data.slug)?.object
+const image = getDedicatedHeroImage(chapter.data.hero);
+const metadataImage = chapter.data.heroMetadata ? await resolveContentImage(chapter.data.heroMetadata) : undefined;
+const metadata = metadataImage?.entry?.data;
+const imageSource = await getHeroImageSource(image);
+const object = metadataImage
+  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
   : undefined;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 const objectMetadata = object
@@ -19,7 +19,6 @@ const objectMetadata = object
       .map((value) => renderInlineMarkdown(value))
       .join(", ")
   : "";
-const vposition = chapter.data.vposition;
 ---
 
 <header class="chapter-hero">
@@ -28,23 +27,20 @@ const vposition = chapter.data.vposition;
     <span set:html={renderInlineMarkdown(chapter.data.titel)}></span>
   </h1>
 
-  {image && imageSource && (
-    <div class="chapter-hero__image-frame">
-      <img
-        class:list={["chapter-hero__image", image.width > image.height ? "chapter-hero__image--landscape" : "chapter-hero__image--portrait"]}
-        style={`--hero-offset: ${vposition}%`}
-        src={imageSource.src}
-        srcset={imageSource.srcset}
-        sizes={imageSource.sizes}
-        alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
-        width={image.width}
-        height={image.height}
-        loading="eager"
-        decoding="async"
-        fetchpriority="high"
-      />
-    </div>
-  )}
+  <div class="chapter-hero__image-frame">
+    <img
+      class="chapter-hero__image"
+      src={imageSource.src}
+      srcset={imageSource.srcset}
+      sizes={imageSource.sizes}
+      alt={markdownToPlainText(metadata?.altText || chapter.data.titel)}
+      width={image.width}
+      height={image.height}
+      loading="eager"
+      decoding="async"
+      fetchpriority="high"
+    />
+  </div>
 
   {(metadata?.beschriftung || objectMetadata || objectHref) && (
     <div class="chapter-hero__caption">
@@ -84,20 +80,11 @@ const vposition = chapter.data.vposition;
 
   .chapter-hero__image {
     width: 100%;
+    height: 100%;
     max-width: none;
     flex: none;
-  }
-
-  .chapter-hero__image--landscape {
-    height: 100%;
     object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
-  }
-
-  .chapter-hero__image--portrait {
-    height: 100%;
-    object-fit: cover;
-    object-position: center calc(50% + var(--hero-offset));
+    object-position: center;
   }
 
   .chapter-hero__caption {

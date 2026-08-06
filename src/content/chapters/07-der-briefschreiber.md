@@ -3,7 +3,9 @@ reihenfolge: 7
 nummer: "7"
 titel: "Der Briefschreiber"
 navTitel: "Der Briefschreiber"
-hero: "7_00_01_hero_image_an_koelle_dla"
+thumbnail: "7.webp"
+hero: "7.webp"
+heroMetadata: "7_00_01_hero_image_an_koelle_dla"
 startseitenVariante: "letter-writer"
 galerien:
   - "7-01-werkpolitik"

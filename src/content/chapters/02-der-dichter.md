@@ -3,7 +3,9 @@ reihenfolge: 2
 nummer: "2"
 titel: Der Dichter
 navTitel: Der Dichter
-hero: 20_hero_image_tschoepli_tss
+thumbnail: 2.webp
+hero: 2.webp
+heroMetadata: 20_hero_image_tschoepli_tss
 startseitenVariante: poet
 unterkapitel:
   - 2-1-allemannische-gedichte-1803

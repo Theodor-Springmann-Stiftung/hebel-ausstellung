@@ -180,8 +180,8 @@ export const getObjectRoutes = async () => {
 	};
 
 	for (const chapter of chapters) {
-		if (chapter.data.hero) {
-			await recordImageContext(chapter.data.hero, {
+		if (chapter.data.heroMetadata) {
+			await recordImageContext(chapter.data.heroMetadata, {
 				chapter,
 				returnHref: chapterHref(chapter.data.nummer),
 			});
@@ -196,8 +196,8 @@ export const getObjectRoutes = async () => {
 
 			if (!subchapter) continue;
 
-			if (subchapter.data.hero) {
-				await recordImageContext(subchapter.data.hero, {
+			if (subchapter.data.heroMetadata) {
+				await recordImageContext(subchapter.data.heroMetadata, {
 					chapter,
 					subchapter,
 					returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),

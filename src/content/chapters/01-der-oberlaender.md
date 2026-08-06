@@ -3,7 +3,9 @@ reihenfolge: 1
 nummer: "1"
 titel: "Der Oberländer"
 navTitel: "Der Oberländer"
-hero: "1_00_01_hero_image_wiesental_blb"
+thumbnail: "1.webp"
+hero: "1.webp"
+heroMetadata: "1_00_01_hero_image_wiesental_blb"
 startseitenVariante: "featured"
 galerien:
   - "1-01-basel"
