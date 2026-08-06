@@ -160,6 +160,10 @@ const getResponsiveImageSource = async (
   image: ImageMetadata,
   { widths, sizes, quality }: { widths: number[]; sizes: string; quality: number },
 ): Promise<ResponsiveImageSource> => {
+  const devCacheKey = import.meta.env.DEV ? Date.now().toString(36) : undefined;
+  const imageUrl = (src: string) => devCacheKey
+    ? `${src}${src.includes("?") ? "&" : "?"}dev=${devCacheKey}`
+    : src;
   const outputWidths = widths.filter((width) => width < image.width);
   outputWidths.push(Math.min(image.width, widths.at(-1) ?? image.width));
 
@@ -171,10 +175,10 @@ const getResponsiveImageSource = async (
   );
 
   return {
-    src: variants.at(-1)?.image.src ?? image.src,
-    srcset: variants.map((variant) => `${variant.image.src} ${variant.width}w`).join(", "),
+    src: imageUrl(variants.at(-1)?.image.src ?? image.src),
+    srcset: variants.map((variant) => `${imageUrl(variant.image.src)} ${variant.width}w`).join(", "),
     sizes,
-    smallestSrc: variants[0]?.image.src ?? image.src,
+    smallestSrc: imageUrl(variants[0]?.image.src ?? image.src),
   };
 };
 
