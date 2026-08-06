@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 import heroImage from "../assets/Meta/ueber-hero.png";
 import sealImage from "../assets/Meta/ueber-hebel-siegel.png";
+import blbLogo from "../assets/Meta/ueber-blb-logo.png";
+import loerrachLogo from "../assets/Meta/ueber-loerrach-logo.png";
 import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
 ---
 
@@ -58,8 +60,8 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
       <h2>Leihgeber &amp; Unterstützer</h2>
       <p>Unterstützt wurde die Ausstellung insbesondere von der Badischen Landesbibliothek Karlsruhe, dem Dreiländermuseum Lörrach und dem Museum am Lindenplatz in Weil am Rhein.</p>
       <div class="about-supporters__logos" aria-label="Unterstützende Institutionen">
-        <a href="https://www.blb-karlsruhe.de/" target="_blank" rel="noreferrer"><img src="/images/blb.svg" alt="Badische Landesbibliothek" loading="lazy" decoding="async" /></a>
-        <a href="https://www.dreilaendermuseum.eu/" target="_blank" rel="noreferrer"><img src="/images/dreilaendermuseum-logo.png" alt="Dreiländermuseum Lörrach" loading="lazy" decoding="async" /></a>
+        <a href="https://www.blb-karlsruhe.de/" target="_blank" rel="noreferrer"><img src={blbLogo.src} alt="Badische Landesbibliothek" loading="lazy" decoding="async" /></a>
+        <a href="https://www.dreilaendermuseum.eu/" target="_blank" rel="noreferrer"><img src={loerrachLogo.src} alt="Dreiländermuseum Lörrach" loading="lazy" decoding="async" /></a>
         <a href="https://www.weil-am-rhein.de/" target="_blank" rel="noreferrer"><img src={lindenplatzLogo.src} alt="Stadt Museum am Lindenplatz" loading="lazy" decoding="async" /></a>
       </div>
     </section>
