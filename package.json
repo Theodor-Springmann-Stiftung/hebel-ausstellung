@@ -12,6 +12,7 @@
     "dev": "astro dev",
 		"preview": "astro preview",
 		"astro": "astro",
+    "prebuild": "node scripts/clear-image-cache.mjs",
     "build": "npm run content:validate && astro build",
     "content:validate": "node scripts/validate-content.mjs",
     "content:generate": "node scripts/generate-asset-content.mjs",
