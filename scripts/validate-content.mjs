@@ -230,7 +230,7 @@ async function validateObjects() {
   const files = await listMarkdownFiles(path.join(contentDir, "objects"));
   const imageCatalog = await getImageCatalog();
   const relationshipsByImage = new Map();
-  const allowedHeadings = new Set(["Beschreibung", "Transkription"]);
+  const allowedHeadings = new Set(["Beschreibung", "Transkription", "Übersetzung"]);
 
   for (const file of files) {
     const source = await readFile(file, "utf8");
@@ -287,11 +287,11 @@ async function validateObjects() {
     const beforeFirstHeading = body.split(/^#\s+/m)[0]?.trim();
 
     if (beforeFirstHeading) {
-      errors.push(`${relative(file)} object body text must be inside # Beschreibung or # Transkription`);
+      errors.push(`${relative(file)} object body text must be inside # Beschreibung, # Transkription, or # Übersetzung`);
     }
 
     if (h1Matches.length === 0) {
-      errors.push(`${relative(file)} object body must use # Beschreibung and/or # Transkription`);
+      errors.push(`${relative(file)} object body must use # Beschreibung, # Transkription, and/or # Übersetzung`);
       continue;
     }
 

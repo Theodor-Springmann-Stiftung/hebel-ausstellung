@@ -1,5 +1,18 @@
 ---
 titel: "Christian Heinrich Wolke"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Christian Heinrich Wolkes Übersetzung einiger *Allemannischer Gedichte* ins Niederdeutsche"
+    unterbeschriftungen:
+      - "»Freude in Ehren«, »Wächterruf«, in: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels* [...], 1804, Hebel-Archiv Heidelberg"
+  - folie: 2
+    beschriftung: "Christian Heinrich Wolkes Übersetzung einiger *Allemannischer Gedichte* ins Niederdeutsche"
+    unterbeschriftungen:
+      - "»Freude in Ehren«, »Wächterruf«, in: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels* [...], 1804, Hebel-Archiv Heidelberg"
+  - folie: 3
+    beschriftung: "Christian Heinrich Wolkes Übersetzung einiger *Allemannischer Gedichte* ins Niederdeutsche"
+    unterbeschriftungen:
+      - "»Freude in Ehren«, »Wächterruf«, in: *Düdsge or Sassisge Singedigte, Gravsgriften, Leder, singbare Vertelsels* [...], 1804, Hebel-Archiv Heidelberg"
 bilder:
   - - "23_02_1_wolke_tss"
   - - "23_02_2_wolke_tss"

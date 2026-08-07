@@ -113,6 +113,7 @@ const images = defineCollection({
     }).optional(),
     altText: optionalMarkdown,
     beschriftung: optionalMarkdown,
+    nachweis: optionalMarkdown,
   }),
 });
 
@@ -122,6 +123,7 @@ const objects = defineCollection({
     .object({
       slug: objectSlug,
       transkription: z.boolean().default(false),
+      transkriptionsart: z.enum(["Transkription", "Übersetzung"]).default("Transkription"),
       titel: requiredMarkdown,
       untertitel: optionalMarkdown,
       urheber: optionalMarkdown,

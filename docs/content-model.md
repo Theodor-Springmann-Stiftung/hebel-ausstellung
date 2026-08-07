@@ -242,6 +242,7 @@ Pfad: `src/content/objects/*.md`
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
 | `transkription` | Boolean | nein | Gibt an, ob der Body eine Transkription enthält. Standardwert ist `false`. |
+| `transkriptionsart` | Enum | nein | Bezeichnung des Langtexts und des Galerie-Links: `Transkription` oder `Übersetzung`. Standardwert ist `Transkription`. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
 | `untertitel` | Markdown-String | nein | Objektuntertitel. Unterstützt Inline-Markdown. |
 | `urheber` | Markdown-String | nein | Urheber oder Autor. |

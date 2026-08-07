@@ -1,6 +1,22 @@
 ---
 titel: "Des Hausfreunds Zuträger"
 beschriftung: "Zwei Quellen für Hebels frühe Kalenderbeiträge: Johann Jacob Hebels Rechenbuch das *Vade Mecum für lustige Leute* von 1774"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Johann Jacob Hebels Rechenbuch (1743) mit einem Eintrag Johann Peter Hebels auf der rechten Seite"
+    unterbeschriftungen:
+      - "Badische Landesbibliothek, Karlsruhe"
+  - folie: 2
+    beschriftung: "Links: Rechenaufgabe in Johann Jacob Hebels Rechenbuch. Rechts: Rechenaufgabe Hebels aus dem Rechenbuch seines Vaters"
+    unterbeschriftungen:
+      - "Links: Badische Landesbibliothek, Karlsruhe"
+      - "Rechts: *Badischer Landkalender auf das Jahr 1805*, Badische Landesbibliothek, Karlsruhe"
+  - folie: 3
+    beschriftung: "Das *Vade Mecum für lustige Leute* gab Hebel viel Stoff für den Kalender"
+  - folie: 4
+    beschriftung: "Aus »Die wohlfeile Zeche« wird »Das wohlfeile Mittagessen«"
+    unterbeschriftungen:
+      - "*Badischer Landkalender auf das Jahr 1804*, Hebel-Archiv Heidelberg"
 bilder:
   - - "3_02_01_Rechenbuch_TSS"
   - - "3_02_02_Hebel_K05_Neue_Aufgaben_TSS"

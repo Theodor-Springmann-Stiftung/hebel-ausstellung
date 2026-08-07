@@ -21,6 +21,9 @@ const objectMetadata = object
       .map((value) => renderInlineMarkdown(value))
       .join(", ")
   : "";
+const creditHtml = metadataImage?.entry?.data.nachweis
+  ? renderInlineMarkdown(metadataImage.entry.data.nachweis)
+  : objectMetadata;
 ---
 
 <header class="subchapter-hero">
@@ -45,10 +48,10 @@ const objectMetadata = object
   </div>
 </header>
 
-{(metadataImage?.entry?.data.beschriftung || objectMetadata || objectHref) && (
+{(metadataImage?.entry?.data.beschriftung || creditHtml || objectHref) && (
   <div class="subchapter-hero-caption">
     {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
-    {objectMetadata && <p class="subchapter-hero-caption__credit" set:html={objectMetadata}></p>}
+    {creditHtml && <p class="subchapter-hero-caption__credit" set:html={creditHtml}></p>}
     {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
   </div>
 )}

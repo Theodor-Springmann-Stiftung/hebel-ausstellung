@@ -1,5 +1,14 @@
 ---
 titel: "Johann George Scheffner"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Hebels *Allemannische Gedichte* in der Übersetzung Johann George Scheffners"
+    unterbeschriftungen:
+      - "*J. P. Hebels allemannische Lieder*, 1811, Universitäts- und Landesbibliothek Bonn"
+  - folie: 2
+    beschriftung: "Hebels *Allemannische Gedichte* in der Übersetzung Johann George Scheffners"
+    unterbeschriftungen:
+      - "*J. P. Hebels allemannische Lieder*, 1811, Universitäts- und Landesbibliothek Bonn"
 bilder:
   - - "23_03_1_scheffner_tss"
     - "23_03_2_scheffner_tss"

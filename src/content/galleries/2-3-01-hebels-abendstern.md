@@ -1,5 +1,22 @@
 ---
 titel: "Hebels »Abendstern«"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Goethe wünscht sich, die *Allemannischen Gedichte* mögen übersetzt werden"
+    unterbeschriftungen:
+      - "Johann Wolfgang Goethe, Rezension der *Allemannischen Gedichte* in der *Jenaischen Allgemeinen Literatur-Zeitung* (1805)"
+  - folie: 2
+    beschriftung: "Hebels einzige Übersetzung ins Hochdeutsche erschien 1804 in der *Iris*"
+    unterbeschriftungen:
+      - "»Der Abendstern«, in: *Iris. Ein Taschenbuch für 1804*, Hebel-Archiv Heidelberg"
+  - folie: 3
+    beschriftung: "Hebels einzige Übersetzung ins Hochdeutsche erschien 1804 in der *Iris*"
+    unterbeschriftungen:
+      - "»Der Abendstern«, in: *Iris. Ein Taschenbuch für 1804*, Hebel-Archiv Heidelberg"
+  - folie: 4
+    beschriftung: "Hebels einzige Übersetzung ins Hochdeutsche erschien 1804 in der *Iris*"
+    unterbeschriftungen:
+      - "»Der Abendstern«, in: *Iris. Ein Taschenbuch für 1804*, Hebel-Archiv Heidelberg"
 bilder:
   - - "23_01_1_alz_goethe_tss"
   - - "23_01_2_iris_1804_tss"

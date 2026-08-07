@@ -1,6 +1,11 @@
 ---
 titel: "Badische Kalenderkrise"
 beschriftung: "Das weltweit einzige bekannte Exemplar des *Badenschen Landkalenders 1803*, das den korrekten Text bietet"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Das weltweit einzige bekannte Exemplar des *Badenschen Landkalenders 1803*, das den korrekten Text bietet"
+    unterbeschriftungen:
+      - "Hebel-Archiv Heidelberg"
 bilder:
   - - "3_01_01_hebel_k03_titelblatt_tss"
 ---

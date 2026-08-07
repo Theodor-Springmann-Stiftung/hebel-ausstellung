@@ -1,6 +1,15 @@
 ---
 titel: "Das goldene Büchlein"
 beschriftung: "Anzeige des »Schatzkästleins des deutschen Hausfreundes« im *Morgenblatt* und Schmuckausgabe der ersten Auflage von 1811"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Cottas Anzeige von einem »Schatzkästlein des deutschen Hausfreundes« im *Morgenblatt*"
+    unterbeschriftungen:
+      - "Johann Friedrich Cotta, *Morgenblatt für gebildete Stände*, 8. Januar 1810, Hebel-Archiv Heidelberg"
+  - folie: 2
+    beschriftung: "*Schatzkästlein des rheinischen Hausfreundes*, Erstausgabe 1811 mit Goldprägung"
+    unterbeschriftungen:
+      - "Hebel-Archiv Heidelberg"
 bilder:
   - - "3_05_01_morgenblatt_tss"
   - - "3_05_02_schatzkaestlein_tss"

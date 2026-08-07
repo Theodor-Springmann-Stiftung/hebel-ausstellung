@@ -1,5 +1,5 @@
 ---
-quelle: "*Jenaische Allgemeine Literatur-Zeitung* Nr. 37 (13. Februar 1805), Sp. 289–294."
+quelle: "Johann Wolfgang Goethe, Rezension der *Allemannischen Gedichte* in der *Jenaischen Allgemeinen Literatur-Zeitung* (1805)"
 slug: "goethe-rezension-1805"
 titel: "Rezension der *Allemannischen Gedichte* in der *Jenaischen Allgemeinen Literatur-Zeitung*"
 urheber: "Johann Wolfgang von Goethe"

@@ -1,5 +1,5 @@
 ---
-quelle: "J[ohann] P[eter] Hebel: *Allemannische Gedichte*. Carlsruhe: Macklots Hofbuchhandlung, 1806. Widmungsexemplar für Marcus Fidelis Jäck mit einem eigenhändig eingebundenen Titelblatt. Hebel-Archiv Heidelberg."
+quelle: "J[ohann] P[eter] Hebel: *Allemannische Gedichte*. Carlsruhe: Macklots Hofbuchhandlung, 1806. Hebel-Archiv Heidelberg"
 materialTechnik: "Eigenhändig eingebundenes Titelblatt"
 slug: "widmungsexemplar-allemannische-gedichte-jaeck-1806"
 titel: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"

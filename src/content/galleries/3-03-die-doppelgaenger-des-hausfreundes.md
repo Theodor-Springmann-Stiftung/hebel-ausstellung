@@ -1,6 +1,15 @@
 ---
 titel: "Die Doppelgänger des Hausfreundes"
 beschriftung: "Der Probedruck des *Rheinländischen Hausfreundes* auf das Jahr 1814 enthält eine Geschichte, die im veröffentlichten Druck fehlt"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Unkorrigierter Probedruck des *Rheinländischne Hausfreundes* auf das Jahr 1814"
+    unterbeschriftungen:
+      - "Unkorrigierter Probedruck, Hebel-Archiv Heidelberg"
+  - folie: 2
+    beschriftung: "Veröffentlichter Druck des *Rheinländischne Hausfreundes* auf das Jahr 1814"
+    unterbeschriftungen:
+      - "Veröffentlichter Druck, Hebel-Archiv Heidelberg"
 bilder:
   - - "3_03_01_Kalender_1814-Probe_TSS"
   - - "3_03_02_Kalender_1814-Druck_TSS"

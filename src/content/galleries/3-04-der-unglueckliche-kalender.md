@@ -1,6 +1,19 @@
 ---
 titel: "Der unglückliche Kalender"
-beschriftung: "Das unzensiertes Exemplar des *Rheinländischen Hausfreundes* auf das Jahr 1815, das Hebel seinem Freund Kölle schickte"
+beschriftung: "Das unzensierte Exemplar des *Rheinländischen Hausfreundes* auf das Jahr 1815, das Hebel seinem Freund Kölle schickte"
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Der Brief an Kölle, dem der »unglückliche Kalender« beilag"
+    unterbeschriftungen:
+      - "Johann Peter Hebel, Badische Landesbibliothek, Karlsruhe"
+  - folie: 2
+    beschriftung: "Unzensiertes Exemplar des *Rheinländischen Hausfreundes* auf das Jahr 1815"
+    unterbeschriftungen:
+      - "Unzensiertes Exemplar mit württembergischem Kalenderstempel, Hebel-Archiv Heidelberg"
+  - folie: 3
+    beschriftung: "Stein des Anstoßes - »Der fromme Rath« mit Holzschnitt"
+    unterbeschriftungen:
+      - "Unzensiertes Exemplar mit württembergischem Kalenderstempel, Hebel-Archiv Heidelberg"
 bilder:
   - - "3_04_01_brief_an_koelle_1815_blb"
   - - "3_04_02_kalender_1815_tss"

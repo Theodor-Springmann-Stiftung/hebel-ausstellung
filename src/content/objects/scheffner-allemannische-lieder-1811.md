@@ -1,5 +1,5 @@
 ---
-quelle: "[ULB Bonn Digital](https://nbn-resolving.org/urn:nbn:de:hbz:5:1-438998)"
+quelle: "*J. P. Hebels allemannische Lieder*, 1811, Universitäts- und Landesbibliothek Bonn. [ULB Bonn Digital](https://nbn-resolving.org/urn:nbn:de:hbz:5:1-438998)"
 slug: "scheffner-allemannische-lieder-1811"
 titel: "Johann Georg Scheffner: *J. P. Hebels allemannische Lieder*"
 urheber: |-
