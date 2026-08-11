@@ -17,7 +17,9 @@ const isHome = currentPath === '/';
   @reference "../../styles/global.css";
 
   .top-navigation {
-    @apply relative z-10 w-full;
+    @apply sticky top-0 w-full;
+
+    z-index: 30;
   }
 
   @media (min-width: 1440px) {

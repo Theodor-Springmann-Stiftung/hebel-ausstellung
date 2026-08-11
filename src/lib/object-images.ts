@@ -145,7 +145,7 @@ export const resolveContentImage = async (reference: ImageReference): Promise<Re
   return image;
 };
 
-const galleryWidths = [480, 768, 1060, 1440, 2120];
+const galleryWidths = [480, 768, 1060, 1440, 2120, 2752];
 const navigationWidths = [320, 480, 640, 800, 1060, 1280];
 const heroWidths = [480, 768, 1024, 1440, 1920, 2560, 3200, 3840];
 
@@ -192,7 +192,7 @@ export type GalleryImageSource = {
 export const getGalleryImageSource = async (image: ImageMetadata): Promise<GalleryImageSource> => {
   const source = await getResponsiveImageSource(image, {
     widths: galleryWidths,
-    sizes: "(min-width: 1440px) 1060px, (min-width: 768px) calc(100vw - 184px), calc(100vw - 80px)",
+    sizes: "(min-width: 1440px) 1376px, (min-width: 768px) calc(100vw - 184px), calc(100vw - 80px)",
     quality: 85,
   });
 

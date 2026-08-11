@@ -81,70 +81,34 @@
   font-display: swap;
 }
 
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono-Regular.woff2") format("woff2");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono-Italic.woff2") format("woff2");
-  font-weight: 400;
-  font-style: italic;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono-Bold.woff2") format("woff2");
-  font-weight: 700;
-  font-style: normal;
-  font-display: swap;
-}
-
-@font-face {
-  font-family: "Geist Mono";
-  src: url("/fonts/GeistMono-BoldItalic.woff2") format("woff2");
-  font-weight: 700;
-  font-style: italic;
-  font-display: swap;
-}
-
 @theme {
   --font-display: "Nyght Serif", Georgia, serif;
   --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
 
   --color-paper: #f7f7f4;
   --color-oat: #f2f1ed;
   --color-ink: #26251e;
-  --color-stone: #6e6b60;
-  --color-navy: #1f365c;
-  --color-moss-green: #808e46;
-  --color-stardust: #97abc7;
-  --color-midnight: #122233;
-  --color-greige: #b6b2ad;
-  --color-dark-wine: #462118;
-  --color-burnt-rust: #752210;
-  --color-terracotta: #ab6644;
-  --color-night-owl: #1d0e09;
+  --color-pale-sky: #cadce5;
+  --color-powder-petal: #e9dad1;
+  --color-mint-cream: #e5ede9;
+  --color-eggshell: #e1e1cd;
+  --color-azure-mist: #d3e3df;
+  --color-blush: #eadcde;
+  --color-ash-grey: #bccdcd;
 
   --color-background: var(--color-paper);
   --color-surface: var(--color-oat);
   --color-text-primary: var(--color-ink);
-  --color-text-secondary: var(--color-stone);
-  --color-link: var(--color-navy);
+  --color-text-secondary: var(--color-ink);
+  --color-link: var(--color-ink);
   --color-button-primary-bg: var(--color-ink);
   --color-button-primary-text: var(--color-paper);
   --color-button-secondary-bg: var(--color-paper);
   --color-button-secondary-border: var(--color-ink);
   --color-button-secondary-text: var(--color-ink);
-  --color-focus-ring: var(--color-navy);
-  --color-gallery-arrow-bg: rgb(31 54 92 / 10%);
-  --color-gallery-arrow-hover-bg: var(--color-link);
+  --color-focus-ring: var(--color-ink);
+  --color-gallery-arrow-bg: transparent;
+  --color-gallery-arrow-hover-bg: var(--color-ink);
   --color-gallery-arrow-icon: var(--color-ink);
   --color-gallery-arrow-hover-icon: var(--color-paper);
 
@@ -200,30 +164,39 @@
   --text-h4: 1.5rem;
   --text-h4--line-height: 1.25;
   --text-h4--letter-spacing: 0.01em;
-  --text-h5: 1.125rem;
+  --text-h5: 1.25rem;
   --text-h5--line-height: 1.25;
   --text-h5--letter-spacing: 0.01em;
   --text-lead: 1.25rem;
-  --text-lead--line-height: 1.35;
+  --text-lead--line-height: 1.55;
   --text-body: 1rem;
-  --text-body--line-height: 1.5;
+  --text-body--line-height: 1.55;
   --text-body-emphasis: var(--text-body);
   --text-body-emphasis--line-height: var(--text-body--line-height);
   --text-body-medium: 0.75rem;
-  --text-body-medium--line-height: 1.5;
+  --text-body-medium--line-height: 1.55;
   --text-small: 0.625rem;
-  --text-small--line-height: 1.5;
+  --text-small--line-height: 1.55;
   --text-caption: 0.75rem;
   --text-caption--line-height: 1;
   --text-caption--letter-spacing: 0;
-  --text-caption-small: 0.625rem;
-  --text-caption-small--line-height: 1;
-  --text-caption-small--letter-spacing: 0.04em;
   --text-quote: 1.5rem;
-  --text-quote--line-height: 1;
+  --text-quote--line-height: 1.25;
   --text-quote--letter-spacing: 0;
 
+  --ease-default: cubic-bezier(0.25, 0.1, 0.25, 1);
+
   --shadow-card-hover: 0 4px 6px rgb(0 0 0 / 3%);
+}
+
+:root {
+  --chapter-1: #cadce5;
+  --chapter-2: #e9dad1;
+  --chapter-3: #e5ede9;
+  --chapter-4: #e1e1cd;
+  --chapter-5: #d3e3df;
+  --chapter-6: #eadcde;
+  --chapter-7: #bccdcd;
 }
 
 @layer base {
@@ -248,8 +221,8 @@
       --text-h5: 1.125rem;
       --text-lead: 1.5rem;
       --text-body: 1.125rem;
-      --text-body-medium: 0.875rem;
-      --text-small: 0.625rem;
+      --text-body-medium: 1rem;
+      --text-small: 0.75rem;
       --text-caption: 1rem;
       --text-quote: 1.75rem;
       --text-quote--letter-spacing: 0.015em;
@@ -259,6 +232,7 @@
   @media (min-width: 1440px) {
     :root {
       --text-display: 5.25rem;
+      --text-caption--line-height: 1.25;
     }
   }
 
@@ -420,18 +394,10 @@
   }
 
   .type-caption {
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--text-caption);
     line-height: var(--text-caption--line-height);
     letter-spacing: var(--text-caption--letter-spacing);
-    font-weight: 400;
-  }
-
-  .type-caption-small {
-    font-family: var(--font-mono);
-    font-size: var(--text-caption-small);
-    line-height: var(--text-caption-small--line-height);
-    letter-spacing: var(--text-caption-small--letter-spacing);
     font-weight: 400;
   }
 
@@ -539,6 +505,7 @@
     padding: var(--spacing-12) var(--spacing-20);
     cursor: pointer;
     text-decoration: none;
+    transition: opacity 150ms var(--ease-default), transform 150ms var(--ease-default);
   }
 
   .button-secondary {
@@ -552,6 +519,7 @@
     padding: var(--spacing-12) var(--spacing-20);
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 150ms var(--ease-default), color 150ms var(--ease-default), transform 150ms var(--ease-default);
   }
 
   .button-primary:hover {
@@ -561,6 +529,7 @@
   .button-primary:active,
   .button-secondary:active {
     opacity: 0.95;
+    transform: scale(0.98);
   }
 
   .button-secondary:hover {
@@ -622,6 +591,7 @@
   .link-arrow::after,
   .link-arrow-left::before {
     display: inline-block;
+    transition: transform 150ms var(--ease-default);
   }
 
   .link-arrow::after {
@@ -637,6 +607,14 @@
   .link-arrow-left:hover,
   .nav-link:hover {
     text-decoration-line: underline;
+  }
+
+  .link-arrow:hover::after {
+    transform: translateX(3px);
+  }
+
+  .link-arrow-left:hover::before {
+    transform: translateX(-3px);
   }
 
   .link-underline:hover,
@@ -655,6 +633,7 @@
     color: var(--color-gallery-arrow-icon);
     cursor: pointer;
     text-decoration: none;
+    transition: background-color 150ms var(--ease-default), color 150ms var(--ease-default), opacity 150ms var(--ease-default);
   }
 
   .gallery-arrow-button:hover {
@@ -666,7 +645,17 @@
   .gallery-arrow-button[aria-disabled="true"],
   .gallery-arrow-button.is-disabled {
     pointer-events: none;
-    opacity: 0.25;
+    opacity: 0.4;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .button-primary,
+    .button-secondary,
+    .link-arrow::after,
+    .link-arrow-left::before,
+    .gallery-arrow-button {
+      transition: none;
+    }
   }
 
   @media (min-width: 768px) {

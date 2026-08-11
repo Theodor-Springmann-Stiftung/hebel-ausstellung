@@ -56,9 +56,10 @@ const { text, attribution, source, portrait } = Astro.props as {
 
   .quote__text p {
     font-family: var(--font-display);
-    font-size: 1.5rem;
-    font-style: italic;
-    line-height: normal;
+    font-size: var(--text-quote);
+    font-style: normal;
+    line-height: var(--text-quote--line-height);
+    letter-spacing: var(--text-quote--letter-spacing);
   }
 
   .quote__source {
@@ -82,22 +83,22 @@ const { text, attribution, source, portrait } = Astro.props as {
   }
 
   .quote__source cite {
-    font-family: var(--font-display);
-    font-size: 1.25rem;
+    font-family: var(--font-sans);
+    font-size: 0.75rem;
     font-style: normal;
-    line-height: 1.25;
+    line-height: normal;
   }
 
   .quote__source p {
-    color: var(--color-stone);
-    font-family: var(--font-mono);
+    color: var(--color-text-primary);
+    font-family: var(--font-sans);
     font-size: 0.75rem;
     line-height: normal;
   }
 
   @media (min-width: 768px) {
     .quote {
-      padding: var(--spacing-80);
+      padding: var(--spacing-64) var(--spacing-80);
     }
 
     .quote__body {
@@ -111,8 +112,7 @@ const { text, attribution, source, portrait } = Astro.props as {
     }
 
     .quote__text p {
-      font-size: 2.25rem;
-      letter-spacing: 0.015em;
+      font-size: var(--text-quote);
     }
 
     .quote__source {
@@ -125,7 +125,7 @@ const { text, attribution, source, portrait } = Astro.props as {
     }
 
     .quote__source cite {
-      font-size: 1.125rem;
+      font-size: 1rem;
     }
 
     .quote__source p {
@@ -135,7 +135,7 @@ const { text, attribution, source, portrait } = Astro.props as {
 
   @media (min-width: 1440px) {
     .quote__body {
-      width: 1066px;
+      width: 846px;
       margin-inline: auto;
       padding-left: 71px;
     }

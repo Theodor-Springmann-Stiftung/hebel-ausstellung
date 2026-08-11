@@ -29,7 +29,7 @@ const { previous, next } = Astro.props as {
   .page-navigation {
     width: 100%;
     border-top: 0.5px solid var(--color-ink);
-    background: var(--color-paper);
+    background: var(--page-background, var(--color-paper));
   }
 
   .page-navigation__inner {

@@ -20,9 +20,6 @@ const objectSlug = urlSafeAsciiSlug.refine((slug) => !/^[1-7]-/.test(slug), {
   message: "Object slug must not start with a chapter number",
 });
 
-const galleryColor = z
-  .enum(["lindgrün", "vanille", "hellblau", "mintgrün", "rosa", "himmelblau", "salbeigrün"])
-  .default("lindgrün");
 const gallerySlideCaption = z.object({
   folie: z.number().int().positive(),
   beschriftung: requiredMarkdown,
@@ -100,7 +97,6 @@ const galleries = defineCollection({
     folienbeschriftungen: z.array(gallerySlideCaption).default([]),
     bildabstand: z.enum(["normal", "weit"]).default("normal"),
     positionsangaben: z.boolean().default(true),
-    farbe: galleryColor,
     bilder: z.array(z.array(imageReference).min(1)).min(1),
   }),
 });

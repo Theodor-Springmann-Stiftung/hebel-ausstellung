@@ -127,10 +127,9 @@ const footerTitleParts = site.title.split(" der ");
 
   .site-footer__eyebrow,
   .site-footer__legal {
-    @apply font-mono text-caption-small font-normal uppercase;
+    @apply font-sans text-small font-normal uppercase;
 
-    letter-spacing: var(--text-caption-small--letter-spacing);
-    line-height: var(--text-caption-small--line-height);
+    line-height: var(--text-small--line-height);
   }
 
   .site-footer__kicker {
@@ -240,14 +239,14 @@ const footerTitleParts = site.title.split(" der ");
     .site-footer__columns {
       @apply grid items-start;
 
-      grid-template-columns: 280px minmax(0, 1fr);
-      column-gap: var(--spacing-64);
-      row-gap: 31px;
+      grid-template-columns: 240px minmax(0, 1fr);
+      column-gap: 31px;
+      row-gap: var(--spacing-56);
       padding-bottom: var(--spacing-64);
     }
 
     .site-footer__exhibition {
-      width: 280px;
+      width: 240px;
       grid-column: 1;
       grid-row: 1 / span 2;
     }
@@ -263,7 +262,7 @@ const footerTitleParts = site.title.split(" der ");
 
     .site-footer__contact {
       grid-row: 2;
-      margin-top: var(--spacing-56);
+      margin-top: 0;
     }
 
     .site-footer__intro {
@@ -312,15 +311,16 @@ const footerTitleParts = site.title.split(" der ");
     }
 
     .site-footer__columns {
-      @apply flex flex-row flex-nowrap items-start justify-center;
+      @apply grid items-start;
 
-      gap: clamp(var(--spacing-120), 12vw, calc(var(--spacing-120) * 2));
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--spacing-64);
       min-height: 359px;
       padding-bottom: var(--spacing-80);
     }
 
     .site-footer__exhibition {
-      width: 389px;
+      width: auto;
       grid-column: auto;
       grid-row: auto;
       gap: var(--spacing-24);

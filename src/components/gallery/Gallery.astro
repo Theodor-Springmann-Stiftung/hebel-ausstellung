@@ -2,15 +2,6 @@
 import { markdownToPlainText, renderInlineMarkdown, serializeForScript } from "../../lib/markdown";
 import type { GalleryImageSource } from "../../lib/object-images";
 
-export type GalleryColor =
-  | "lindgrün"
-  | "vanille"
-  | "hellblau"
-  | "mintgrün"
-  | "rosa"
-  | "himmelblau"
-  | "salbeigrün";
-
 export type GalleryObject = {
   slug?: string;
   position?: "Links" | "Rechts" | "Vorne";
@@ -51,7 +42,7 @@ export type GalleryProps = {
   }>;
   bildabstand?: "normal" | "weit";
   positionsangaben?: boolean;
-  farbe?: GalleryColor;
+  chapterNumber: number;
   bilder: GalleryImage[][];
 };
 
@@ -64,7 +55,7 @@ const {
   folienbeschriftungen = [],
   bildabstand = "normal",
   positionsangaben = true,
-  farbe = "lindgrün",
+  chapterNumber,
   bilder,
 } = props;
 const isMultiSlide = bilder.length > 1;
@@ -75,17 +66,6 @@ const imagePositionLabel = (imageIndex: number, imageCount: number) => {
   return `Bild ${imageIndex + 1}`;
 };
 
-const objectMetadata = (object: GalleryObject) =>
-  [
-    object.urheber,
-    object.datierung,
-    object.materialTechnik,
-    object.institution,
-  ]
-    .filter(Boolean)
-    .map((value) => renderInlineMarkdown(value))
-    .join(", ");
-
 const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
   if (image.objekte?.length) {
     const hasMultipleObjects = image.objekte.length > 1;
@@ -95,7 +75,7 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
 
       return {
         titleHtml: renderInlineMarkdown(hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle)),
-        textHtml: objectMetadata(object),
+        textHtml: "",
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? `Zum Objekt (mit ${object.transkriptionsart})` : "Zum Objekt",
         objectKey: object.slug,
@@ -137,7 +117,6 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
 
   const slideCaption = slideCaptionsByIndex.get(slideIndex);
   if (slideCaption) {
-    const sharedSubcaptions = slideCaption.unterbeschriftungen.filter((caption): caption is string => typeof caption === "string");
     const imageSubcaptions = slideCaption.unterbeschriftungen.filter((caption): caption is { bild: number; beschriftung: string } => typeof caption !== "string");
     const seenLinks = new Set<string>();
     const links = captions.flatMap((caption) => {
@@ -148,7 +127,7 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
 
     const mainCaption: CaptionItem = {
       titleHtml: renderInlineMarkdown(slideCaption.beschriftung),
-      textHtml: sharedSubcaptions.map((caption) => renderInlineMarkdown(caption)).join("<br>"),
+      textHtml: "",
       links: imageSubcaptions.length === 0 ? links : [],
     };
     const positionedCaptions = imageSubcaptions.map((caption): CaptionItem => {
@@ -162,7 +141,7 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
 
       return {
         titleHtml: images.length > 1 ? imagePositionLabel(imageIndex, images.length) : "",
-        textHtml: renderInlineMarkdown(caption.beschriftung),
+        textHtml: "",
         links: imageLinks,
       };
     });
@@ -179,7 +158,7 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
 
   return captions.length > 0
     ? captions
-    : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: renderInlineMarkdown(untertitel) }];
+    : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: "" }];
 };
 
 const slides = bilder.map((images, index) => ({
@@ -198,7 +177,7 @@ const firstSlide = slides[0];
 const nextSlide = slides[1] ?? firstSlide;
 ---
 
-<section class:list={["gallery", isMultiSlide ? "gallery--multi" : "gallery--single", { "gallery--wide-image-gap": bildabstand === "weit" }]} data-gallery data-color={farbe} aria-roledescription={isMultiSlide ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
+<section class:list={["gallery", isMultiSlide ? "gallery--multi" : "gallery--single", { "gallery--wide-image-gap": bildabstand === "weit" }]} style={`--chapter-color: var(--chapter-${chapterNumber})`} data-gallery aria-roledescription={isMultiSlide ? "carousel" : undefined} aria-label={markdownToPlainText(titel)}>
   <div class="gallery__title-section">
     <h2 class="gallery__title" set:html={renderInlineMarkdown(titel)}></h2>
   </div>
@@ -446,38 +425,9 @@ const nextSlide = slides[1] ?? firstSlide;
   @reference "../../styles/global.css";
 
   .gallery {
-    --gallery-mat-bg: var(--color-oat);
-    --gallery-border: var(--color-ink);
+    @apply flex w-full flex-col overflow-hidden text-text-primary;
 
-    @apply flex w-full flex-col overflow-hidden bg-paper text-text-primary;
-  }
-
-  .gallery[data-color="lindgrün"] {
-    --gallery-mat-bg: #d3e2c6;
-  }
-
-  .gallery[data-color="vanille"] {
-    --gallery-mat-bg: rgb(255 250 204 / 40%);
-  }
-
-  .gallery[data-color="hellblau"] {
-    --gallery-mat-bg: #cce6f1;
-  }
-
-  .gallery[data-color="mintgrün"] {
-    --gallery-mat-bg: rgb(214 255 225 / 70%);
-  }
-
-  .gallery[data-color="rosa"] {
-    --gallery-mat-bg: #ffe8e5;
-  }
-
-  .gallery[data-color="himmelblau"] {
-    --gallery-mat-bg: rgb(177 203 247 / 40%);
-  }
-
-  .gallery[data-color="salbeigrün"] {
-    --gallery-mat-bg: rgb(141 151 132 / 40%);
+    background: var(--chapter-color, var(--color-paper));
   }
 
   .gallery__title-section {
@@ -485,10 +435,10 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   .gallery__title {
-    @apply font-display text-h2 font-normal text-inherit;
+    @apply font-display text-h1 font-normal text-inherit;
 
     width: 100%;
-    line-height: var(--text-h2--line-height);
+    line-height: var(--text-h1--line-height);
   }
 
   .gallery__stage {
@@ -500,15 +450,12 @@ const nextSlide = slides[1] ?? firstSlide;
 
   .gallery__frame {
     @apply m-0 w-full;
-
-    border: 0.5px solid var(--gallery-border);
   }
 
   .gallery__mat {
     @apply flex items-center justify-center overflow-hidden;
 
     height: 280px;
-    background: var(--gallery-mat-bg);
     gap: var(--spacing-8);
     padding: var(--spacing-20);
   }
@@ -564,7 +511,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     width: 6px;
     height: 6px;
-    background: var(--color-greige);
+    background: var(--color-ash-grey);
   }
 
   .gallery__dot[aria-current] {
@@ -603,9 +550,9 @@ const nextSlide = slides[1] ?? firstSlide;
 
   :global(.gallery__caption-title),
   :global(.gallery__caption-text) {
-    @apply font-mono;
+    @apply font-sans text-text-primary;
 
-    line-height: 1.4;
+    line-height: var(--text-caption--line-height);
   }
 
   :global(.gallery__caption-title) {
@@ -613,26 +560,31 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   :global(.gallery__caption-text) {
-    @apply text-text-secondary;
-
-    font-size: var(--text-caption-small);
-    letter-spacing: var(--text-caption-small--letter-spacing);
+    font-size: var(--text-caption);
   }
 
   :global(.gallery__object-link) {
-    @apply inline-flex w-fit items-baseline font-sans text-body text-link no-underline;
+    @apply inline-flex w-fit items-baseline font-sans text-link no-underline;
 
     gap: 0.25em;
     border-bottom: 1px solid transparent;
-    line-height: var(--text-body--line-height);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    transition: border-color 150ms var(--ease-default);
   }
 
   :global(.gallery__object-link-arrow) {
     @apply inline-block;
+
+    transition: transform 150ms var(--ease-default);
   }
 
   :global(.gallery__object-link:hover) {
     border-bottom-color: currentColor;
+  }
+
+  :global(.gallery__object-link:hover .gallery__object-link-arrow) {
+    transform: translateX(3px);
   }
 
   @media (min-width: 768px) {
@@ -641,6 +593,10 @@ const nextSlide = slides[1] ?? firstSlide;
       --gallery-peek-width: 72px;
       --gallery-frame-width: min(var(--container-content), calc(100vw - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
       --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
+    }
+
+    .gallery--single {
+      --gallery-frame-width: min(var(--container-content), calc(100vw - var(--spacing-64)));
     }
 
     .gallery__title-section {
@@ -662,7 +618,6 @@ const nextSlide = slides[1] ?? firstSlide;
       width: var(--gallery-peek-width);
       height: 440px;
       flex: 0 0 var(--gallery-peek-width);
-      border: 0.5px solid rgb(38 37 30 / 60%);
       opacity: 0.8;
     }
 
@@ -696,9 +651,10 @@ const nextSlide = slides[1] ?? firstSlide;
       width: var(--gallery-button-size);
       height: var(--gallery-button-size);
       border: 1px solid var(--color-ink);
-      background: var(--color-surface);
+      background: transparent;
       color: var(--color-ink);
       line-height: 1;
+      transition: background-color 150ms var(--ease-default), color 150ms var(--ease-default), opacity 150ms var(--ease-default);
     }
 
     .gallery__button-icon {
@@ -726,11 +682,8 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button:disabled {
-      @apply cursor-not-allowed;
-
-      border-color: transparent;
-      background: var(--color-oat);
-      color: #cfd3d5;
+      pointer-events: none;
+      opacity: 0.4;
     }
 
     .gallery__pagination {
@@ -786,6 +739,23 @@ const nextSlide = slides[1] ?? firstSlide;
       --gallery-peek-width: 168.5px;
       --gallery-frame-width: min(var(--container-content), calc(100vw - var(--gallery-peek-width) - var(--gallery-peek-width) - var(--spacing-20) - var(--spacing-20)));
       --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
+    }
+
+    .gallery--multi {
+      --gallery-frame-width: min(100vw, var(--container-wide));
+    }
+
+    .gallery--multi .gallery__title-section,
+    .gallery--multi .gallery__caption-section {
+      width: min(var(--container-content), calc(100vw - var(--spacing-80) * 2));
+    }
+
+    .gallery--multi .gallery__button--prev {
+      left: var(--spacing-48);
+    }
+
+    .gallery--multi .gallery__button--next {
+      right: var(--spacing-48);
     }
 
     .gallery__title-section {
@@ -845,6 +815,15 @@ const nextSlide = slides[1] ?? firstSlide;
 
     .gallery--single .gallery__mat {
       height: 600px;
+      padding: var(--spacing-40);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global(.gallery__object-link),
+    :global(.gallery__object-link-arrow),
+    .gallery__button {
+      transition: none;
     }
   }
 </style>

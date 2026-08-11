@@ -263,7 +263,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   }
 
   .mobile-navigation__chapter-label {
-    @apply font-mono text-caption text-paper;
+    @apply font-sans text-caption text-paper;
 
     line-height: var(--text-caption--line-height);
   }
@@ -271,20 +271,20 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   @media (min-width: 768px) {
     .mobile-navigation__toggle {
       top: 26px;
-      right: var(--spacing-48);
+      right: var(--spacing-32);
       width: var(--spacing-40);
       height: var(--spacing-40);
     }
 
     .mobile-navigation__toggle:checked {
       top: 26px;
-      right: var(--spacing-48);
+      right: var(--spacing-32);
       width: var(--spacing-40);
       height: var(--spacing-40);
     }
 
     .mobile-navigation__bar {
-      padding: var(--spacing-16) var(--spacing-48);
+      padding: var(--spacing-16) var(--spacing-32);
     }
 
     .mobile-navigation__brand-kicker {

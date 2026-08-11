@@ -13,13 +13,6 @@ const object = metadataImage
   ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
   : undefined;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
-const objectMetadata = object
-  ? [object.data.urheber, object.data.datierung, object.data.materialTechnik, object.data.institution]
-      .filter(Boolean)
-      .map((value) => renderInlineMarkdown(value))
-      .join(", ")
-  : "";
-const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) : objectMetadata;
 ---
 
 <header class="chapter-hero">
@@ -43,12 +36,11 @@ const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) 
     />
   </div>
 
-  {(metadata?.beschriftung || creditHtml || objectHref) && (
+  {(metadata?.beschriftung || objectHref) && (
     <div class="chapter-hero__caption">
       <div class="chapter-hero__caption-inner">
         {metadata?.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(metadata.beschriftung)}></p>}
-        {creditHtml && <p class="chapter-hero__caption-credit" set:html={creditHtml}></p>}
-        {objectHref && <a class="chapter-hero__object-link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
+        {objectHref && <a class="chapter-hero__object-link" href={objectHref}>Zum Objekt <span class="chapter-hero__object-link-arrow" aria-hidden="true">→</span></a>}
       </div>
     </div>
   )}
@@ -58,7 +50,9 @@ const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) 
   @reference "../../styles/global.css";
 
   .chapter-hero {
-    @apply w-full overflow-hidden bg-paper;
+    @apply w-full overflow-hidden;
+
+    background: var(--page-background, var(--color-paper));
   }
 
   .chapter-hero__title {
@@ -95,7 +89,7 @@ const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) 
   }
 
   .chapter-hero__caption-inner {
-    @apply flex flex-col font-mono;
+    @apply flex flex-col font-sans;
 
     gap: var(--spacing-4);
   }
@@ -105,27 +99,33 @@ const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) 
     line-height: 1.4;
   }
 
-  .chapter-hero__caption-credit {
-    @apply text-text-secondary;
-
-    font-size: var(--text-caption-small);
-    line-height: 1.4;
-    letter-spacing: var(--text-caption-small--letter-spacing);
-  }
-
   .chapter-hero__caption :global(a) {
     overflow-wrap: anywhere;
   }
 
   .chapter-hero__object-link {
-    @apply w-fit font-sans text-link no-underline;
+    @apply inline-flex w-fit items-baseline font-sans text-link no-underline;
 
     margin-top: var(--spacing-8);
-    font-size: var(--text-body);
+    gap: 0.25em;
+    border-bottom: 1px solid transparent;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    transition: border-color 150ms var(--ease-default);
   }
 
   .chapter-hero__object-link:hover {
-    text-decoration: underline;
+    border-bottom-color: currentColor;
+  }
+
+  .chapter-hero__object-link-arrow {
+    @apply inline-block;
+
+    transition: transform 150ms var(--ease-default);
+  }
+
+  .chapter-hero__object-link:hover .chapter-hero__object-link-arrow {
+    transform: translateX(3px);
   }
 
   @media (min-width: 768px) {
@@ -164,6 +164,13 @@ const creditHtml = metadata?.nachweis ? renderInlineMarkdown(metadata.nachweis) 
 
     .chapter-hero__caption-inner {
       gap: var(--spacing-10, 10px);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-hero__object-link,
+    .chapter-hero__object-link-arrow {
+      transition: none;
     }
   }
 </style>

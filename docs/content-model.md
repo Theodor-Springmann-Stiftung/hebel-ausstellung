@@ -147,7 +147,7 @@ Anonym erschienen, begründeten sie sein literarisches Renommée: Mit den *Allem
 
 ### Sammlung: `galleries`
 
-Eine Galerie verbindet Bilder, Bildunterschriften, Farbe und begleitenden Markdown-Text zu einem Galeriebaustein.
+Eine Galerie verbindet Bilder, Bildunterschriften und begleitenden Markdown-Text zu einem Galeriebaustein. Die Galeriefläche verwendet die Farbe des zugehörigen Kapitels; Bilder werden darauf ohne zusätzliches Passepartout dargestellt.
 
 Pfad: `src/content/galleries/*.md`
 
@@ -156,7 +156,6 @@ Pfad: `src/content/galleries/*.md`
 | `titel` | Markdown-String | ja | Galerietitel. Unterstützt Inline-Markdown. |
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
 | `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
-| `farbe` | Enum | nein | Standardwert ist `lindgrün`. Erlaubt sind `lindgrün`, `vanille`, `hellblau`, `mintgrün`, `rosa`, `himmelblau`, `salbeigrün`. |
 | `bilder` | Array von Bildreferenz-Arrays | ja | Mindestens 1 Folie mit mindestens 1 Bild. Das äußere Array bestimmt die Folienreihenfolge; die inneren Arrays bestimmen die Reihenfolge der nebeneinander dargestellten Bilder. Jede Referenz ist eine Bild-Metadaten-ID oder ein vollständiger `Bilder/...`-Pfad einschließlich Dateiendung. |
 | Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
 
@@ -179,7 +178,6 @@ Beispiel:
 titel: "Überraschungserfolg eines literarischen Debütanten"
 beschriftung: "Hebel-Haus in Hausen"
 untertitel: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
-farbe: "vanille"
 bilder:
   - - "hebelhaus-hausen-1840"
   - - "allemannische-gedichte-1803-titel"
@@ -290,7 +288,7 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus `images.beschriftung`. Fehlt sie, wird der Titel eines Objekts verwendet, dessen `bilder`-Zuordnung auf dieses Bild verweist. Verweisen mehrere Objekte auf dasselbe Bild, wird für jedes Objekt eine eigene Hauptbeschriftung im Format `[Position]: Titel` aus der jeweiligen Objekt-Bild-Zuordnung erzeugt. Wenn kein Objekt auf das Bild verweist, können `images.beschriftung` und `images.nachweis` direkt Haupt- und Unterbeschriftung bilden. Bei einer Folie mit mehreren Bildern werden deren bild- und objektspezifische Beschriftungen in der Reihenfolge der inneren Bildliste ausgegeben. Nur wenn kein Bild der Folie spezifische Beschriftungsdaten besitzt, dienen `galleries.beschriftung` und `galleries.untertitel` einmalig als galerie-weite Ersatzwerte.
 
-Die Unterbeschriftung eines verknüpften Objekts wird unabhängig davon vorrangig aus dessen Metadaten `urheber`, `datierung`, `materialTechnik` und `institution` zusammengesetzt.
+Sekundäre Bildunterbeschriftungen werden auf der Ausstellungsseite nicht ausgegeben. Die Metadaten bleiben an den verknüpften Objekten verfügbar.
 
 ## Bilddatei-Ersatzlogik
 

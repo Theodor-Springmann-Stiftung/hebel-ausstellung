@@ -20,17 +20,25 @@ const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefin
 ---
 
 <Layout>
-	<Breadcrumbs
-		items={[
-			{ label: 'Startseite', href: '/' },
-			{ label: chapterLabel, href: chapterHref(chapter.data.nummer) },
-			{ label: subchapter.data.navTitel },
-		]}
-	/>
-	<SubchapterHero chapter={chapter} subchapter={subchapter} />
-	{hasCompleteGallerySet && <SectionGalleries section={subchapter} />}
-	<PageNavigation
-		previous={previousSection}
-		next={nextSection}
-	/>
+	<div class="subchapter-page" style={`--page-background: var(--chapter-${Number(chapter.data.nummer)})`}>
+		<Breadcrumbs
+			items={[
+				{ label: 'Startseite', href: '/' },
+				{ label: chapterLabel, href: chapterHref(chapter.data.nummer) },
+				{ label: subchapter.data.navTitel },
+			]}
+		/>
+		<SubchapterHero chapter={chapter} subchapter={subchapter} />
+		{hasCompleteGallerySet && <SectionGalleries section={subchapter} />}
+		<PageNavigation
+			previous={previousSection}
+			next={nextSection}
+		/>
+	</div>
 </Layout>
+
+<style>
+	.subchapter-page {
+		background: var(--page-background);
+	}
+</style>

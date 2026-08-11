@@ -60,8 +60,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
 
     <div class="home-caption">
       <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
-      <p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe</p>
-      <a href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span aria-hidden="true">→</span></a>
+      <a href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="home-caption__link-arrow" aria-hidden="true">→</span></a>
     </div>
 
     <section class="home-introduction" aria-labelledby="introduction-title">
@@ -112,7 +111,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
               <span class="chapter-card__meta">
                 <span class="chapter-card__number">Kapitel {chapter.number}</span>
                 <span class="chapter-card__title" set:html={renderInlineMarkdown(chapter.title)}></span>
-                <span class="chapter-card__link">Weiterlesen →</span>
+                <span class="chapter-card__link">Weiterlesen <span class="chapter-card__link-arrow" aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
@@ -181,14 +180,15 @@ const heroSource = await getHeroImageSource(heroPortrait);
     padding: var(--spacing-24) var(--spacing-20);
     flex-direction: column;
     gap: var(--spacing-8);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     line-height: normal;
   }
 
-  .home-caption p:first-child { font-size: 0.75rem; }
-  .home-caption p:nth-child(2) { color: var(--color-stone); font-size: 0.625rem; letter-spacing: 0.04em; }
-  .home-caption a { width: fit-content; margin-top: var(--spacing-8); color: var(--color-link); font-family: var(--font-sans); font-size: 1rem; text-decoration: none; }
-  .home-caption a:hover { text-decoration: underline; }
+  .home-caption p:first-child { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+  .home-caption a { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .home-caption__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
+  .home-caption a:hover { border-bottom-color: currentColor; }
+  .home-caption a:hover .home-caption__link-arrow { transform: translateX(3px); }
 
   .home-introduction {
     display: flex;
@@ -210,7 +210,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
   }
 
   .home-introduction__layout { gap: var(--spacing-32); }
-  .home-introduction__copy { gap: var(--spacing-24); font-size: 1.25rem; line-height: 1.35; }
+  .home-introduction__copy { gap: var(--spacing-24); font-size: 1.25rem; line-height: 1.55; }
   .home-introduction__citation-note { font-size: 0.875rem; line-height: 1.5; }
 
   .home-introduction__seal {
@@ -223,20 +223,22 @@ const heroSource = await getHeroImageSource(heroPortrait);
   }
 
   .home-introduction__seal img { width: min(320px, 100%); aspect-ratio: 1; object-fit: contain; }
-  .home-introduction__seal figcaption { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.625rem; letter-spacing: 0.04em; text-align: center; }
+  .home-introduction__seal figcaption { color: var(--color-text-primary); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-align: center; }
 
   .home-chapters { display: flex; padding: var(--spacing-48) var(--spacing-20); flex-direction: column; gap: var(--spacing-48); }
   .home-chapters__heading { display: flex; flex-direction: column; gap: var(--spacing-8); }
   .home-chapters__heading > p,
-  .chapter-card__number { color: var(--color-stone); font-family: var(--font-mono); font-size: 0.75rem; line-height: normal; }
+  .chapter-card__number { color: var(--color-text-primary); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); }
   .home-chapters__list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--spacing-48); list-style: none; }
   .chapter-card a { display: flex; color: var(--color-ink); flex-direction: column; gap: var(--spacing-20); text-decoration: none; }
   .chapter-card__image { display: flex; width: 100%; height: 280px; overflow: hidden; border: 0.5px solid var(--color-ink); background: var(--color-oat); align-items: center; justify-content: center; }
   .chapter-card__thumbnail { width: 100%; height: 100%; max-width: none; flex: none; object-fit: cover; object-position: center; }
   .chapter-card__meta { display: flex; padding-block: var(--spacing-8); flex-direction: column; gap: var(--spacing-8); }
   .chapter-card__title { font-family: var(--font-display); font-size: 2rem; line-height: 1.25; }
-  .chapter-card__link { color: var(--color-link); font-size: 1rem; line-height: 1.5; }
-  .chapter-card a:hover .chapter-card__link { text-decoration: underline; }
+  .chapter-card__link { display: inline-flex; width: fit-content; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-size: 1rem; line-height: 1.5; transition: border-color 150ms var(--ease-default); }
+  .chapter-card__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
+  .chapter-card a:hover .chapter-card__link { border-bottom-color: currentColor; }
+  .chapter-card a:hover .chapter-card__link-arrow { transform: translateX(3px); }
   .chapter-card--poet .chapter-card__image { background: #faf8e4; }
   .chapter-card--friend .chapter-card__image { background: #d6e1f3; }
 
@@ -299,8 +301,21 @@ const heroSource = await getHeroImageSource(heroPortrait);
     .chapter-card--poet .chapter-card__image,
     .chapter-card--friend .chapter-card__image { height: 400px; }
     .chapter-card--theologian .chapter-card__image { height: 320px; }
+    .chapter-card--theologian a { flex-direction: row; align-items: center; gap: var(--spacing-20); }
+    .chapter-card--theologian .chapter-card__image,
+    .chapter-card--theologian .chapter-card__meta { width: calc(50% - 10px); }
+    .chapter-card--theologian .chapter-card__meta { justify-content: center; }
     .chapter-card__meta { padding-block: 0; }
     .chapter-card__title { font-size: 1.75rem; }
     .chapter-card__link { font-size: 0.875rem; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .home-caption a,
+    .home-caption__link-arrow,
+    .chapter-card__link,
+    .chapter-card__link-arrow {
+      transition: none;
+    }
   }
 </style>

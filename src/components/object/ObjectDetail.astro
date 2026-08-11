@@ -48,7 +48,7 @@ const details = [
         ))}
       </dl>
 
-      <a class="object-detail__return-link" href={returnHref}><span aria-hidden="true">←</span>{returnLabel}</a>
+      <a class="object-detail__return-link" href={returnHref}><span class="object-detail__return-link-arrow" aria-hidden="true">←</span>{returnLabel}</a>
     </aside>
 
     {hasBody && <div class="object-detail__body"><Content /></div>}
@@ -81,11 +81,10 @@ const details = [
 
   .object-detail__eyebrow,
   .object-detail__metadata dt {
-    @apply font-mono font-normal uppercase text-text-secondary;
+    @apply font-sans font-normal uppercase text-text-secondary;
 
-    font-size: var(--text-caption-small);
+    font-size: var(--text-small);
     line-height: 1;
-    letter-spacing: var(--text-caption-small--letter-spacing);
   }
 
   .object-detail__header h1 {
@@ -122,7 +121,7 @@ const details = [
     @apply flex flex-col;
 
     gap: var(--spacing-8);
-    border-bottom: 1px solid var(--color-greige);
+    border-bottom: 1px solid var(--color-ash-grey);
     padding-block: var(--spacing-12);
   }
 
@@ -142,10 +141,21 @@ const details = [
     gap: 0.25em;
     border-bottom: 1px solid transparent;
     line-height: var(--text-body--line-height);
+    transition: border-color 150ms var(--ease-default);
   }
 
   .object-detail__return-link:hover {
     border-bottom-color: currentColor;
+  }
+
+  .object-detail__return-link-arrow {
+    @apply inline-block;
+
+    transition: transform 150ms var(--ease-default);
+  }
+
+  .object-detail__return-link:hover .object-detail__return-link-arrow {
+    transform: translateX(-3px);
   }
 
   .object-detail__body {
@@ -209,6 +219,13 @@ const details = [
     .object-detail__body {
       width: 100%;
       max-width: 80ch;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .object-detail__return-link,
+    .object-detail__return-link-arrow {
+      transition: none;
     }
   }
 </style>

@@ -9,6 +9,7 @@ import { renderInlineMarkdown } from "../../lib/markdown";
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
 const { section } = Astro.props as { section: Section };
+const chapterNumber = Number(section.data.nummer.split(".")[0]);
 const { Content } = await render(section);
 const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
@@ -57,12 +58,12 @@ const galleries = await Promise.all(
 );
 ---
 
-<section class="section-intro">
+<section class="section-intro" style={`--chapter-color: var(--chapter-${chapterNumber})`}>
   <div class="section-intro__text"><Content /></div>
 </section>
 
 {galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
-  <section class="section-gallery" id={String(index + 1)}>
+  <section class="section-gallery" id={String(index + 1)} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
     {bilder.length > 0 ? (
       <Gallery
         titel={gallery.data.titel}
@@ -72,7 +73,7 @@ const galleries = await Promise.all(
         folienbeschriftungen={gallery.data.folienbeschriftungen}
         bildabstand={gallery.data.bildabstand}
         positionsangaben={gallery.data.positionsangaben}
-        farbe={gallery.data.farbe}
+        chapterNumber={chapterNumber}
         bilder={bilder}
       />
     ) : (
@@ -89,15 +90,22 @@ const galleries = await Promise.all(
 <style>
   @reference "../../styles/global.css";
 
-  .section-intro,
+  .section-intro {
+    background: var(--chapter-color, var(--color-paper));
+  }
+
+  .section-gallery {
+    background: var(--chapter-color, var(--color-paper));
+  }
+
   .section-gallery__body {
-    @apply bg-paper;
+    background: var(--chapter-color, var(--color-paper));
   }
 
   .section-gallery__text-header {
     display: flex;
     padding: var(--spacing-48) var(--spacing-20) var(--spacing-24);
-    background: var(--color-oat);
+    background: var(--chapter-color, var(--color-paper));
     flex-direction: column;
     gap: var(--spacing-12);
   }
@@ -111,7 +119,7 @@ const galleries = await Promise.all(
 
   .section-gallery__text-header p {
     max-width: var(--container-text);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
     font-size: var(--text-caption);
   }
 
@@ -165,7 +173,7 @@ const galleries = await Promise.all(
 
   .section-gallery__body :global(> blockquote) {
     width: calc(100% - var(--spacing-48));
-    max-width: var(--container-content);
+    max-width: 840px;
     margin: var(--spacing-40) auto;
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
@@ -191,10 +199,12 @@ const galleries = await Promise.all(
   }
 
   .section-gallery__body :global(> blockquote > p) {
-    @apply font-display text-h4 font-normal italic;
+    @apply font-display font-normal not-italic;
 
     margin: 0;
-    line-height: normal;
+    font-size: var(--text-quote);
+    line-height: var(--text-quote--line-height);
+    letter-spacing: var(--text-quote--letter-spacing);
   }
 
   .section-gallery__body :global(> blockquote > p + p) {
@@ -226,15 +236,15 @@ const galleries = await Promise.all(
   .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
     margin-left: calc(var(--spacing-56) + var(--spacing-12));
     margin-top: 2px;
-    @apply font-mono text-caption font-normal not-italic text-text-secondary;
+    @apply font-sans text-caption font-normal not-italic text-text-secondary;
 
     line-height: normal;
   }
 
   @media (min-width: 768px) {
-    .section-intro,
     .section-gallery__body :global(> p) {
       padding-inline: var(--spacing-32);
+      max-width: 586px;
     }
 
     .section-gallery__body :global(> p:first-of-type) {
@@ -272,8 +282,7 @@ const galleries = await Promise.all(
     }
 
     .section-gallery__body :global(> blockquote > p) {
-      font-size: 2.25rem;
-      letter-spacing: 0.015em;
+      font-size: var(--text-quote);
     }
 
     .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
@@ -295,9 +304,9 @@ const galleries = await Promise.all(
   }
 
   @media (min-width: 1440px) {
-    .section-intro,
     .section-gallery__body :global(> p) {
       padding-inline: 0;
+      max-width: var(--container-text);
     }
 
     .section-intro {

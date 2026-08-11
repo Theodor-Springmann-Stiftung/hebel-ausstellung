@@ -15,15 +15,6 @@ const object = metadataImage
   ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
   : undefined;
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
-const objectMetadata = object
-  ? [object.data.urheber, object.data.datierung, object.data.materialTechnik, object.data.institution]
-      .filter(Boolean)
-      .map((value) => renderInlineMarkdown(value))
-      .join(", ")
-  : "";
-const creditHtml = metadataImage?.entry?.data.nachweis
-  ? renderInlineMarkdown(metadataImage.entry.data.nachweis)
-  : objectMetadata;
 ---
 
 <header class="subchapter-hero">
@@ -48,11 +39,10 @@ const creditHtml = metadataImage?.entry?.data.nachweis
   </div>
 </header>
 
-{(metadataImage?.entry?.data.beschriftung || creditHtml || objectHref) && (
+{(metadataImage?.entry?.data.beschriftung || objectHref) && (
   <div class="subchapter-hero-caption">
     {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
-    {creditHtml && <p class="subchapter-hero-caption__credit" set:html={creditHtml}></p>}
-    {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span aria-hidden="true">→</span></a>}
+    {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span class="subchapter-hero-caption__link-arrow" aria-hidden="true">→</span></a>}
   </div>
 )}
 
@@ -112,13 +102,14 @@ const creditHtml = metadataImage?.entry?.data.nachweis
     padding: var(--spacing-16) var(--spacing-20);
     flex-direction: column;
     gap: var(--spacing-4);
-    font-family: var(--font-mono);
+    font-family: var(--font-sans);
   }
 
   .subchapter-hero-caption__title { font-size: var(--text-caption); }
-  .subchapter-hero-caption__credit { color: var(--color-stone); font-size: var(--text-caption-small); }
-  .subchapter-hero-caption__link { width: fit-content; margin-top: var(--spacing-8); color: var(--color-link); font-family: var(--font-sans); text-decoration: none; }
-  .subchapter-hero-caption__link:hover { text-decoration: underline; }
+  .subchapter-hero-caption__link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); align-items: baseline; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .subchapter-hero-caption__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
+  .subchapter-hero-caption__link:hover { border-bottom-color: currentColor; }
+  .subchapter-hero-caption__link:hover .subchapter-hero-caption__link-arrow { transform: translateX(3px); }
 
   @media (min-width: 768px) {
     .subchapter-hero-caption { padding: var(--spacing-24) var(--spacing-32); }
@@ -128,8 +119,15 @@ const creditHtml = metadataImage?.entry?.data.nachweis
     .subchapter-hero-caption { padding-inline: var(--spacing-80); }
   }
 
+  @media (prefers-reduced-motion: reduce) {
+    .subchapter-hero-caption__link,
+    .subchapter-hero-caption__link-arrow {
+      transition: none;
+    }
+  }
+
   .subchapter-hero__chapter {
-    @apply font-mono text-caption font-normal;
+    @apply font-sans text-caption font-normal;
 
     line-height: normal;
   }

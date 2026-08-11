@@ -128,6 +128,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
     width: 12px;
     height: 8px;
+    transition: transform 150ms var(--ease-default);
+  }
+
+  .desktop-navigation__dropdown[open] .desktop-navigation__chevron {
+    transform: rotate(180deg);
   }
 
   .desktop-navigation__dropdown[open] > .desktop-navigation__dropdown-trigger {
@@ -170,6 +175,12 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   @media (min-width: 1920px) {
     .desktop-navigation__inner {
       padding-inline: var(--spacing-80);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .desktop-navigation__chevron {
+      transition: none;
     }
   }
 </style>

@@ -18,16 +18,24 @@ const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefin
 ---
 
 <Layout>
-	<Breadcrumbs
-		items={[
-			{ label: 'Startseite', href: '/' },
-			{ label: chapterLabel },
-		]}
-	/>
-	<ChapterHero chapter={chapter} />
-	{chapter.data.galerien ? <SectionGalleries section={chapter} /> : <ChapterSubchapters chapter={chapter} />}
-	<PageNavigation
-		previous={previousSection}
-		next={nextSection}
-	/>
+	<div class="chapter-page" style={`--page-background: var(--chapter-${Number(chapter.data.nummer)})`}>
+		<Breadcrumbs
+			items={[
+				{ label: 'Startseite', href: '/' },
+				{ label: chapterLabel },
+			]}
+		/>
+		<ChapterHero chapter={chapter} />
+		{chapter.data.galerien ? <SectionGalleries section={chapter} /> : <ChapterSubchapters chapter={chapter} />}
+		<PageNavigation
+			previous={previousSection}
+			next={nextSection}
+		/>
+	</div>
 </Layout>
+
+<style>
+	.chapter-page {
+		background: var(--page-background);
+	}
+</style>
