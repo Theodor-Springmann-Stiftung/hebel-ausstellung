@@ -52,7 +52,7 @@ const availableSubchapters = subchapters.filter(Boolean);
               </span>
               <span class="chapter-overview__meta">
                 <span class="chapter-overview__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></span>
-                <span class="chapter-overview__link">Weiterlesen →</span>
+                <span class="chapter-overview__link">Weiterlesen <span class="chapter-overview__link-arrow" aria-hidden="true">→</span></span>
               </span>
             </a>
           </li>
@@ -205,14 +205,27 @@ const availableSubchapters = subchapters.filter(Boolean);
   }
 
   .chapter-overview__link {
-    @apply font-sans font-normal text-link;
+    @apply inline-flex w-fit items-baseline font-sans font-normal text-link;
 
+    gap: 0.25em;
+    border-bottom: 1px solid transparent;
     font-size: 0.75rem;
     line-height: 1.5;
+    transition: border-color 150ms var(--ease-default);
+  }
+
+  .chapter-overview__link-arrow {
+    @apply inline-block;
+
+    transition: transform 150ms var(--ease-default);
   }
 
   .chapter-overview__card a:hover .chapter-overview__link {
-    text-decoration: underline;
+    border-bottom-color: currentColor;
+  }
+
+  .chapter-overview__card a:hover .chapter-overview__link-arrow {
+    transform: translateX(3px);
   }
 
   .chapter-overview__card a:focus-visible {
@@ -330,6 +343,13 @@ const availableSubchapters = subchapters.filter(Boolean);
 
     .chapter-overview__image-frame {
       height: 320px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-overview__link,
+    .chapter-overview__link-arrow {
+      transition: none;
     }
   }
 </style>
