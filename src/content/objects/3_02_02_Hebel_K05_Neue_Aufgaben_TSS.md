@@ -9,4 +9,5 @@ inventarnummer: "urn:nbn:de:bsz:31-257642"
 bilder:
   - bild: "3_02_02_Hebel_K05_Neue_Aufgaben_TSS"
     objektReihenfolge: 2
+    beschriftung: "Rechts: Rechenaufgabe Hebels aus dem Rechenbuch seines Vaters"
 ---

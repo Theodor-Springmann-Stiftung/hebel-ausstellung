@@ -8,6 +8,6 @@ bilder:
 >
 > — JPH
 >
-> An Sebastian Engler, 2. Januar 1805 – Z 126
+> An Sebastian Engler, 2. Januar 1805 (Z 126)
 
 Neben der Hausener Dorfschule besuchte Hebel die 1770 gegründete Lateinschule in Schopfheim. Karl Friedrich Obermüller, Diakon in Schopfheim und Pfarrer in Hausen, hatte das Talent des Jungen bemerkt und veranlasst, dass er Latein und Griechisch lernte. Ab dem Frühjahr 1773 wohnte Hebel für ein Jahr im Hause seines Förderers, um die Schule abzuschließen. Im März 1800 trat Sebastian Engler die Ämter an, die vormals Obermüller innehatte. Der »Angeliko« war der erste der Oberländer Freunde, dem Hebel im Mai desselben Jahres den »Statthalter von Schopfheim« schickte.

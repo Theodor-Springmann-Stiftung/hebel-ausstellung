@@ -72,5 +72,5 @@ Inventarnummer: String (MARKDOWN), Optional
 Transkription: String (MARKDOWN), Optional, Long
 Transkriptionsart: Transkription / Übersetzung, Optional, Default Transkription
 Bilder: Array of image associations, Optional, In order for the object page
-Each image association contains Bild (image metadata ID resolving to `Bilder/...` or a complete `Bilder/...` asset path), optional Position (Links/Rechts/Vorne), and optional Objekt-Reihenfolge for shared images.
+Each image association contains Bild (image metadata ID resolving to `Bilder/...` or a complete `Bilder/...` asset path), optional Position (Links/Rechts/Vorne), optional Objekt-Reihenfolge for shared images, and an optional gallery-specific Beschriftung.
 NOTE: Object-to-image references are authoritative. Image metadata contains no backlink.

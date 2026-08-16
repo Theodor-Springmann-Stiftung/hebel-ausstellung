@@ -259,6 +259,7 @@ Eine Bildzuordnung hat folgende Felder:
 | `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `src/content/images`, der auf ein `Bilder/...`-Asset verweist, oder vollständiger Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-2/datei.webp`. |
 | `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
 | `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
+| `beschriftung` | Markdown-String | nein | Bildunterschrift dieses Objekts in der Galerie. Überschreibt dort den Objekttitel. |
 
 Beispiel:
 

@@ -104,6 +104,7 @@ export type ObjectImageRelationship = {
 	object: CollectionEntry<'objects'>;
 	position?: 'Links' | 'Rechts' | 'Vorne';
 	objektReihenfolge?: number;
+	beschriftung?: string;
 };
 
 let objectRelationshipsByImagePromise: Promise<Map<string, ObjectImageRelationship[]>> | undefined;
@@ -121,6 +122,7 @@ export const getObjectRelationshipsByImage = () => {
 					object,
 					position: association.position,
 					objektReihenfolge: association.objektReihenfolge,
+					beschriftung: association.beschriftung,
 				});
 				relationshipsByImage.set(image.asset.src, relationships);
 			}

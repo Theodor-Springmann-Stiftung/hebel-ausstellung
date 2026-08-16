@@ -7,7 +7,7 @@ folienbeschriftungen:
       - "Hebel-Archiv Heidelberg"
 bilder:
   - - "23_04_1_girardet_tss"
-    - "23_04_2_girardet_tss"
+  - - "23_04_2_girardet_tss"
 ---
 
 Ende Juli 1803 teilte Hebel Hitzig mit, Ludwig Tieck habe bei einem Besuch in Heidelberg die *Allemannischen Gedichte* kennengelernt. Er finde sie schön und wolle sie übersetzen (Z 95). Vermutlich stammt die Nachricht von dem Heidelberger Gymnasialprofessor Karl Philipp Kayser, mit dem Hebel korrespondierte. In dessen *Tagebuchblättern* findet sich ein detaillierter Bericht über Tiecks vom 14. bis 17. Juli währenden Aufenthalt. Daraus geht hervor, dass Kayser selbst es war, der Tieck ein Exemplar verschafft hatte. Im Vergleich zu Hebels Gedichten, wird Tieck zitiert, seien [Vossens niederdeutsche Versuche »affectirt und am Ende plump«](#2).

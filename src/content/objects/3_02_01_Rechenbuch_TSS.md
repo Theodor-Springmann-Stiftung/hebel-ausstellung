@@ -11,6 +11,7 @@ bilder:
   - bild: "3_02_01_Rechenbuch_TSS"
   - bild: "3_02_02_Hebel_K05_Neue_Aufgaben_TSS"
     objektReihenfolge: 1
+    beschriftung: "Links: Rechenaufgabe in Johann Jacob Hebels Rechenbuch"
 ---
 
 # Transkription

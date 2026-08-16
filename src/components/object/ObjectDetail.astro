@@ -87,6 +87,10 @@ const details = [
     line-height: 1;
   }
 
+  .object-detail__metadata dt {
+    letter-spacing: 0.04em;
+  }
+
   .object-detail__header h1 {
     @apply font-display text-h3 font-normal text-text-primary;
 
@@ -133,6 +137,16 @@ const details = [
     @apply m-0 whitespace-pre-line font-sans text-body text-text-primary;
 
     line-height: var(--text-body--line-height);
+  }
+
+  .object-detail__metadata :global(a) {
+    color: inherit;
+    text-decoration-line: underline;
+    transition: none;
+  }
+
+  .object-detail__metadata :global(a:hover) {
+    opacity: 0.8;
   }
 
   .object-detail__return-link {

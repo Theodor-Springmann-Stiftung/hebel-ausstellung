@@ -5,6 +5,7 @@ import type { GalleryImageSource } from "../../lib/object-images";
 export type GalleryObject = {
   slug?: string;
   position?: "Links" | "Rechts" | "Vorne";
+  beschriftung?: string;
   transkription: boolean;
   transkriptionsart: "Transkription" | "Übersetzung";
   titel: string;
@@ -72,9 +73,10 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
 
     return image.objekte.map((object) => {
       const objectTitle = object.position ? `${object.position}: ${object.titel}` : object.titel;
+      const captionTitle = object.beschriftung ?? (hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle));
 
       return {
-        titleHtml: renderInlineMarkdown(hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle)),
+        titleHtml: renderInlineMarkdown(captionTitle),
         textHtml: "",
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? `Zum Objekt (mit ${object.transkriptionsart})` : "Zum Objekt",
@@ -741,21 +743,9 @@ const nextSlide = slides[1] ?? firstSlide;
       --gallery-group-width: calc(var(--gallery-frame-width) + var(--gallery-peek-width) + var(--gallery-peek-width) + var(--spacing-20) + var(--spacing-20));
     }
 
-    .gallery--multi {
-      --gallery-frame-width: min(100vw, var(--container-wide));
-    }
-
     .gallery--multi .gallery__title-section,
     .gallery--multi .gallery__caption-section {
       width: min(var(--container-content), calc(100vw - var(--spacing-80) * 2));
-    }
-
-    .gallery--multi .gallery__button--prev {
-      left: var(--spacing-48);
-    }
-
-    .gallery--multi .gallery__button--next {
-      right: var(--spacing-48);
     }
 
     .gallery__title-section {

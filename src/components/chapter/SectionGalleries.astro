@@ -35,9 +35,10 @@ const galleries = await Promise.all(
                 alt: metadata?.altText,
                 beschriftung: metadata?.beschriftung,
                 objekte: objectRelationships
-                  .map(({ object, position }) => ({
+                  .map(({ object, position, beschriftung }) => ({
                     slug: object.data.slug,
                     position,
+                    beschriftung,
                     transkription: object.data.transkription,
                     transkriptionsart: object.data.transkriptionsart,
                     titel: object.data.titel ?? "",
@@ -156,7 +157,16 @@ const galleries = await Promise.all(
     max-width: var(--container-text);
     margin-inline: auto;
     padding-inline: var(--spacing-20);
-    order: 1;
+  }
+
+  .section-gallery__body :global(a) {
+    color: inherit;
+    text-decoration-line: underline;
+    transition: none;
+  }
+
+  .section-gallery__body :global(a:hover) {
+    opacity: 0.8;
   }
 
   .section-gallery__body :global(> p:first-of-type) {
@@ -177,7 +187,6 @@ const galleries = await Promise.all(
     margin: var(--spacing-40) auto;
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
-    order: 2;
   }
 
   .section-gallery + .section-gallery::before {
@@ -187,15 +196,6 @@ const galleries = await Promise.all(
     border-top: 0.5px solid var(--color-ink);
     content: "";
     transform: translateY(var(--spacing-40));
-  }
-
-  .section-gallery__body :global(> blockquote::before) {
-    @apply block font-display;
-
-    content: "»";
-    font-size: var(--text-display);
-    line-height: 1;
-    margin-bottom: var(--spacing-4);
   }
 
   .section-gallery__body :global(> blockquote > p) {
@@ -276,11 +276,6 @@ const galleries = await Promise.all(
       margin-inline: var(--spacing-32);
     }
 
-    .section-gallery__body :global(> blockquote::before) {
-      font-size: 4rem;
-      margin-bottom: var(--spacing-8);
-    }
-
     .section-gallery__body :global(> blockquote > p) {
       font-size: var(--text-quote);
     }
@@ -319,12 +314,6 @@ const galleries = await Promise.all(
 
     .section-gallery__body :global(> blockquote) {
       margin-block: var(--spacing-80);
-    }
-
-    .section-gallery__body :global(> blockquote::before) {
-      font-size: var(--text-display);
-      line-height: var(--text-display--line-height);
-      margin-bottom: 0;
     }
 
     .section-gallery + .section-gallery::before {

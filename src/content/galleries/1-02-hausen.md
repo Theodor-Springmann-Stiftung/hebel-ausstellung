@@ -10,7 +10,7 @@ bilder:
 >
 > — JPH
 >
-> Brief an Johann Jeremias Herbster, 14. Dezember 1800 – Z 54
+> Brief an Johann Jeremias Herbster, 14. Dezember 1800 (Z 54)
 
 > Ich bin von armen, aber frommen Eltern geboren, habe die Hälfte der Zeit in meiner Kindheit bald in einem einsamen Dorf, bald in den vornehmen Häusern einer berühmten Stadt zugebracht. Da habe ich frühe gelernt, arm seyn und reich seyn.
 >
