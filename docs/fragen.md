@@ -6,13 +6,6 @@
 - 3 Des Hausfreunds Zuträger: Zweite Folie -- Getrennte Objete oder Bildkomposition?? Müssen auseinander geschnitten werden? 
 
 
-- 1 Schweitz: nicht freigestellt
-- 3 Badische Kalenderkrise: nicht freigestellt
-- 3 Des Hausfreunds Zuträger: drittes Bild nicht freigestellt
-- 6.3 Ein heimlicher Heiratsantrag?: Freistellung ist kacke
-- 7 Lateioner unter sich: schwarzer Rand"? 
-
-
 /2/2.3/#1 – Unterkapitel „Übersetzungen der Allemannischen Gedichte“, Galerie „Hebels »Abendstern«“: Das separate Objektseitenbild 2.3_01_Objektseite_ALZ_Goethe_TSS.tif fehlt.
 Ist doch da??? Auf der Objetseite sind zwei Bilder? 
 /3/#4 – Galerie „Der unglückliche Kalender“: Im Galerie-Text existieren nur zwei statt der geforderten drei Links. -- Wo noch ein Link? Ist das am Text ersichtlich?
