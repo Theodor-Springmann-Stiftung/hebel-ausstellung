@@ -74,6 +74,14 @@
     minimumLengthTimer = undefined;
   };
 
+  const resetSearch = () => {
+    clearMinimumLengthTimer();
+    if (input) input.value = "";
+    clearResults();
+    if (resultsList) resultsList.scrollTop = 0;
+    setStatus("");
+  };
+
   const findMatchIndex = (text: string, terms: string[]) => {
     for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
       const word = normalizeSearchText(match[0]);
@@ -254,6 +262,7 @@
 
   input?.addEventListener("input", runSearch);
   closeButton?.addEventListener("click", () => dialog?.close());
+  dialog?.addEventListener("close", resetSearch);
   dialog?.addEventListener("click", (event) => {
     if (event.target === dialog) dialog.close();
   });
