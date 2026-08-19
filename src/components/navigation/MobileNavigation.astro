@@ -1,6 +1,7 @@
 ---
 import { site } from "../../data/site";
 import ChapterNavigationList from "./ChapterNavigationList.astro";
+import ContrastToggle from "./ContrastToggle.astro";
 import { normalizePath, type ChapterNavigationItem } from "../../lib/content";
 
 const { chapters, currentPath } = Astro.props as { chapters: ChapterNavigationItem[]; currentPath: string };
@@ -51,6 +52,10 @@ const isKontaktActive = normalizedPath === '/kontakt/';
           <ChapterNavigationList chapters={chapters} currentPath={currentPath} variant="mobile" />
         </div>
       </div>
+    </div>
+
+    <div class="mobile-navigation__contrast-toggle">
+      <ContrastToggle />
     </div>
   </div>
 </nav>
@@ -244,6 +249,19 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     line-height: var(--text-lead--line-height);
   }
 
+  .mobile-navigation__contrast-toggle {
+    --contrast-toggle-active-background: var(--color-paper);
+    --contrast-toggle-active-thumb: var(--color-ink);
+
+    position: sticky;
+    bottom: 0;
+    display: flex;
+    flex: none;
+    background: var(--color-ink);
+    padding: var(--spacing-24) var(--spacing-24) var(--spacing-48);
+    color: var(--color-paper);
+  }
+
   .mobile-navigation__back-button {
     @apply w-fit cursor-pointer border-0 bg-transparent p-0 text-left text-paper select-none;
 
@@ -315,6 +333,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     .mobile-navigation__chapters-view {
       gap: var(--spacing-64);
       padding: var(--spacing-40) var(--spacing-48) var(--spacing-64);
+    }
+
+    .mobile-navigation__contrast-toggle {
+      padding-inline: var(--spacing-48);
+      padding-bottom: var(--spacing-64);
     }
 
     .mobile-navigation__chapter-section {

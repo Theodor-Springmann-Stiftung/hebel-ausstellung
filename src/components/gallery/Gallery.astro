@@ -432,7 +432,7 @@ const nextSlide = slides[1] ?? firstSlide;
   .gallery {
     @apply flex w-full flex-col overflow-hidden text-text-primary;
 
-    background: var(--chapter-color, var(--color-paper));
+    background: var(--content-background, var(--chapter-color, var(--color-paper)));
   }
 
   .gallery__title-section {
@@ -462,6 +462,8 @@ const nextSlide = slides[1] ?? firstSlide;
 
     height: 280px;
     gap: var(--spacing-8);
+    border: var(--gallery-border-width, 0) solid var(--color-ink);
+    background: var(--gallery-mat-background, transparent);
     padding: var(--spacing-20);
   }
 
@@ -667,7 +669,7 @@ const nextSlide = slides[1] ?? firstSlide;
       width: var(--gallery-button-size);
       height: var(--gallery-button-size);
       border: 1px solid var(--color-ink);
-      background: transparent;
+      background: var(--gallery-button-background, transparent);
       color: var(--color-ink);
       line-height: 1;
       transition: background-color 150ms var(--ease-default), color 150ms var(--ease-default), opacity 150ms var(--ease-default);
@@ -685,8 +687,8 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button:hover:not(:disabled) {
-      background: var(--color-ink);
-      color: var(--color-paper);
+      background: var(--gallery-button-hover-background, var(--color-ink));
+      color: var(--gallery-button-hover-color, var(--color-paper));
     }
 
     .gallery__button--prev {
@@ -698,8 +700,8 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__button:disabled {
+      display: none;
       pointer-events: none;
-      opacity: 0.4;
     }
 
     .gallery__pagination {

@@ -1,6 +1,7 @@
 ---
 import { site } from "../../data/site";
 import ChapterNavigationList from "./ChapterNavigationList.astro";
+import ContrastToggle from "./ContrastToggle.astro";
 import { normalizePath, type ChapterNavigationItem } from "../../lib/content";
 
 const { chapters, currentPath, isHome = false } = Astro.props as { chapters: ChapterNavigationItem[]; currentPath: string; isHome?: boolean };
@@ -36,13 +37,17 @@ const isKontaktActive = normalizedPath === '/kontakt/';
       <a class="nav-link desktop-navigation__link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
     </div>
   </div>
+
+  <div class="desktop-navigation__contrast-toggle">
+    <ContrastToggle />
+  </div>
 </nav>
 
 <style>
   @reference "../../styles/global.css";
 
   .desktop-navigation {
-    @apply hidden w-full;
+    @apply relative hidden w-full;
 
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
@@ -89,6 +94,22 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     @apply flex items-center;
 
     gap: var(--spacing-48);
+  }
+
+  .desktop-navigation__contrast-toggle {
+    --contrast-toggle-active-background: var(--color-ink);
+    --contrast-toggle-active-thumb: var(--color-paper);
+
+    position: absolute;
+    top: 100%;
+    right: var(--spacing-80);
+    display: flex;
+    border: 0.5px solid var(--color-ink);
+    border-top: 0;
+    background: var(--color-paper);
+    padding: var(--spacing-8) var(--spacing-12);
+    color: var(--color-ink);
+    box-shadow: 4px 5px 8px rgb(0 0 0 / 16%);
   }
 
   .desktop-navigation__dropdown {

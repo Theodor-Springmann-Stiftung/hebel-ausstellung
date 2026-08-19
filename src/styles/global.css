@@ -191,12 +191,37 @@
 
 :root {
   --chapter-1: #cadce5;
+  --chapter-1-vibrant: #8fc9e5;
+  --chapter-1-dark: #214b61;
   --chapter-2: #e9dad1;
+  --chapter-2-vibrant: #e9b99d;
+  --chapter-2-dark: #653825;
   --chapter-3: #e5ede9;
+  --chapter-3-vibrant: #a9ddc5;
+  --chapter-3-dark: #24513e;
   --chapter-4: #e1e1cd;
+  --chapter-4-vibrant: #c9d187;
+  --chapter-4-dark: #494d23;
   --chapter-5: #d3e3df;
+  --chapter-5-vibrant: #8fcfc0;
+  --chapter-5-dark: #245448;
   --chapter-6: #eadcde;
+  --chapter-6-vibrant: #e8aeb8;
+  --chapter-6-dark: #632d38;
   --chapter-7: #bccdcd;
+  --chapter-7-vibrant: #79bdc0;
+  --chapter-7-dark: #204c4e;
+}
+
+html[data-contrast="high"] .chapter-page,
+html[data-contrast="high"] .subchapter-page {
+  --page-background: var(--color-paper) !important;
+  --content-background: var(--color-paper);
+  --gallery-mat-background: var(--chapter-color);
+  --gallery-border-width: 1px;
+  --gallery-button-background: var(--chapter-color);
+  --gallery-button-hover-background: var(--chapter-color-vibrant);
+  --gallery-button-hover-color: var(--chapter-color-dark);
 }
 
 @layer base {

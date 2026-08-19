@@ -14,10 +14,18 @@ const { previous, next } = Astro.props as {
   <nav class="page-navigation" aria-label="Vorherige und nächste Seite">
     <div class="page-navigation__inner">
       <div class="page-navigation__column page-navigation__column--previous">
-        {previous && <a href={previous.href}>← {previous.label}</a>}
+        {previous && (
+          <a class="page-navigation__link page-navigation__link--previous" href={previous.href}>
+            <span class="page-navigation__arrow" aria-hidden="true">←</span><span>{previous.label}</span>
+          </a>
+        )}
       </div>
       <div class="page-navigation__column page-navigation__column--next">
-        {next && <a href={next.href}>{next.label} →</a>}
+        {next && (
+          <a class="page-navigation__link page-navigation__link--next" href={next.href}>
+            <span>{next.label}</span><span class="page-navigation__arrow" aria-hidden="true">→</span>
+          </a>
+        )}
       </div>
     </div>
   </nav>
@@ -29,7 +37,7 @@ const { previous, next } = Astro.props as {
   .page-navigation {
     width: 100%;
     border-top: 0.5px solid var(--color-ink);
-    background: var(--page-background, var(--color-paper));
+    background: var(--content-background, var(--page-background, var(--color-paper)));
   }
 
   .page-navigation__inner {
@@ -53,17 +61,35 @@ const { previous, next } = Astro.props as {
     text-align: right;
   }
 
-  .page-navigation a {
+  .page-navigation__link {
+    display: inline-flex;
+    align-items: baseline;
+    gap: 0.25em;
+    border-bottom: 1px solid transparent;
     color: var(--color-link);
     font-family: var(--font-sans);
     font-size: var(--text-body);
     font-weight: 400;
     line-height: var(--text-body--line-height);
     text-decoration: none;
+    transition: border-color 150ms var(--ease-default);
   }
 
-  .page-navigation a:hover {
-    text-decoration: underline;
+  .page-navigation__arrow {
+    display: inline-block;
+    transition: transform 150ms var(--ease-default);
+  }
+
+  .page-navigation__link:hover {
+    border-bottom-color: currentColor;
+  }
+
+  .page-navigation__link--previous:hover .page-navigation__arrow {
+    transform: translateX(-3px);
+  }
+
+  .page-navigation__link--next:hover .page-navigation__arrow {
+    transform: translateX(3px);
   }
 
   @media (min-width: 768px) {
@@ -71,7 +97,7 @@ const { previous, next } = Astro.props as {
       padding-inline: var(--spacing-32);
     }
 
-    .page-navigation a {
+    .page-navigation__link {
       font-size: var(--text-lead);
       line-height: var(--text-lead--line-height);
     }
@@ -80,6 +106,13 @@ const { previous, next } = Astro.props as {
   @media (min-width: 1440px) {
     .page-navigation__column {
       padding-inline: 72px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .page-navigation__link,
+    .page-navigation__arrow {
+      transition: none;
     }
   }
 </style>

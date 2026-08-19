@@ -52,7 +52,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
   .chapter-hero {
     @apply w-full overflow-hidden;
 
-    background: var(--page-background, var(--color-paper));
+    background: var(--content-background, var(--page-background, var(--color-paper)));
   }
 
   .chapter-hero__title {
@@ -60,6 +60,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 
     gap: var(--spacing-8);
     padding: var(--spacing-20);
+    background: var(--chapter-color, var(--page-background, var(--color-paper)));
     font-size: var(--text-h1);
     line-height: var(--text-h1--line-height);
     text-align: center;

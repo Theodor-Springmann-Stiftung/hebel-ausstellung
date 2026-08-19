@@ -20,7 +20,7 @@ const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefin
 ---
 
 <Layout>
-	<div class="subchapter-page" style={`--page-background: var(--chapter-${Number(chapter.data.nummer)})`}>
+	<div class="subchapter-page" style={`--chapter-color: var(--chapter-${Number(chapter.data.nummer)}); --chapter-color-vibrant: var(--chapter-${Number(chapter.data.nummer)}-vibrant); --chapter-color-dark: var(--chapter-${Number(chapter.data.nummer)}-dark); --page-background: var(--chapter-color)`}>
 		<Breadcrumbs
 			items={[
 				{ label: 'Startseite', href: '/' },

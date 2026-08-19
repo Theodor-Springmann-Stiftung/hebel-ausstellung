@@ -34,8 +34,10 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
   </div>
   <div class="subchapter-hero__gradient"></div>
   <div class="subchapter-hero__content">
-    <p class="subchapter-hero__chapter">Kapitel {chapter.data.nummer}: {chapter.data.navTitel}</p>
-    <h1 class="subchapter-hero__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></h1>
+    <div class="subchapter-hero__content-inner">
+      <p class="subchapter-hero__chapter">Kapitel {chapter.data.nummer}: {chapter.data.navTitel}</p>
+      <h1 class="subchapter-hero__title" set:html={renderInlineMarkdown(subchapter.data.titel)}></h1>
+    </div>
   </div>
 </header>
 
@@ -89,10 +91,14 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
   .subchapter-hero__content {
     position: relative;
     z-index: 1;
+    width: 100%;
+    color: var(--color-paper);
+  }
+
+  .subchapter-hero__content-inner {
     display: flex;
     width: 100%;
     padding: var(--spacing-40) var(--spacing-20);
-    color: var(--color-paper);
     flex-direction: column;
     gap: var(--spacing-20);
   }
@@ -103,6 +109,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
     flex-direction: column;
     gap: var(--spacing-4);
     font-family: var(--font-sans);
+    background: var(--content-background, var(--page-background, var(--color-paper)));
   }
 
   .subchapter-hero-caption__title { font-size: var(--text-caption); }
@@ -140,14 +147,42 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
     line-height: var(--text-display--line-height);
   }
 
+  :global(html[data-contrast="high"]) .subchapter-hero {
+    display: grid;
+    height: auto;
+    overflow: visible;
+    background: var(--content-background, var(--color-paper));
+    align-items: initial;
+  }
+
+  :global(html[data-contrast="high"]) .subchapter-hero__image-frame {
+    position: relative;
+    grid-row: 2;
+    height: 515px;
+  }
+
+  :global(html[data-contrast="high"]) .subchapter-hero__gradient {
+    display: none;
+  }
+
+  :global(html[data-contrast="high"]) .subchapter-hero__content {
+    grid-row: 1;
+    background: var(--chapter-color, var(--color-paper));
+    color: var(--color-text-primary);
+  }
+
   @media (min-width: 768px) {
-    .subchapter-hero__content {
+    .subchapter-hero__image-frame {
+      border-block: 0.5px solid var(--color-ink);
+    }
+
+    .subchapter-hero__content-inner {
       padding-inline: var(--spacing-32);
     }
   }
 
   @media (min-width: 1440px) {
-    .subchapter-hero__content {
+    .subchapter-hero__content-inner {
       max-width: var(--container-wide);
       margin-inline: auto;
       padding-inline: var(--spacing-80);

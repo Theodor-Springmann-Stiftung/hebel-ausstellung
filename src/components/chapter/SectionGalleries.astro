@@ -109,21 +109,21 @@ const galleries = await Promise.all(
   @reference "../../styles/global.css";
 
   .section-intro {
-    background: var(--chapter-color, var(--color-paper));
+    background: var(--content-background, var(--chapter-color, var(--color-paper)));
   }
 
   .section-gallery {
-    background: var(--chapter-color, var(--color-paper));
+    background: var(--content-background, var(--chapter-color, var(--color-paper)));
   }
 
   .section-gallery__body {
-    background: var(--chapter-color, var(--color-paper));
+    background: var(--content-background, var(--chapter-color, var(--color-paper)));
   }
 
   .section-gallery__text-header {
     display: flex;
     padding: var(--spacing-48) var(--spacing-20) var(--spacing-24);
-    background: var(--chapter-color, var(--color-paper));
+    background: var(--content-background, var(--chapter-color, var(--color-paper)));
     flex-direction: column;
     gap: var(--spacing-12);
   }

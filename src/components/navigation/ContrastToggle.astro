@@ -1,0 +1,63 @@
+<button class="contrast-toggle" type="button" aria-pressed="false" data-contrast-toggle>
+  <span>Kontrast erhöhen</span>
+  <span class="contrast-toggle__track" aria-hidden="true">
+    <span class="contrast-toggle__thumb"></span>
+  </span>
+</button>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .contrast-toggle {
+    display: inline-flex;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    cursor: pointer;
+  }
+
+  .contrast-toggle__track {
+    position: relative;
+    display: inline-flex;
+    width: 34px;
+    height: 20px;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    flex: none;
+    align-items: center;
+    transition: background-color 150ms var(--ease-default);
+  }
+
+  .contrast-toggle__thumb {
+    display: block;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: currentColor;
+    transform: translateX(3px);
+    transition: background-color 150ms var(--ease-default), transform 150ms var(--ease-default);
+  }
+
+  .contrast-toggle[aria-pressed="true"] .contrast-toggle__track {
+    background: var(--contrast-toggle-active-background, var(--color-ink));
+  }
+
+  .contrast-toggle[aria-pressed="true"] .contrast-toggle__thumb {
+    background: var(--contrast-toggle-active-thumb, var(--color-paper));
+    transform: translateX(17px);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .contrast-toggle__track,
+    .contrast-toggle__thumb {
+      transition: none;
+    }
+  }
+</style>

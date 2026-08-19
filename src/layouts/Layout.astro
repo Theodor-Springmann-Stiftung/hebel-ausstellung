@@ -18,6 +18,13 @@ import { pageTitle } from "../data/site";
 		<link rel="shortcut icon" href="/favicon/favicon.ico" />
 		<link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png" />
 		<link rel="manifest" href="/favicon/site.webmanifest" />
+		<script is:inline>
+			try {
+				if (localStorage.getItem("hebel-contrast") === "high") {
+					document.documentElement.dataset.contrast = "high";
+				}
+			} catch {}
+		</script>
 		<title>{pageTitle}</title>
 	</head>
 	<body>
@@ -30,6 +37,35 @@ import { pageTitle } from "../data/site";
 		</div>
 	</body>
 </html>
+
+<script>
+	const contrastStorageKey = "hebel-contrast";
+
+	const setContrast = (enabled: boolean, persist = true) => {
+		document.documentElement.toggleAttribute("data-contrast", enabled);
+		if (enabled) document.documentElement.dataset.contrast = "high";
+		document.querySelectorAll<HTMLButtonElement>("[data-contrast-toggle]").forEach((toggle) => {
+			toggle.setAttribute("aria-pressed", String(enabled));
+		});
+
+		if (!persist) return;
+		try {
+			localStorage.setItem(contrastStorageKey, enabled ? "high" : "default");
+		} catch {}
+	};
+
+	setContrast(document.documentElement.dataset.contrast === "high", false);
+
+	document.querySelectorAll<HTMLButtonElement>("[data-contrast-toggle]").forEach((toggle) => {
+		toggle.addEventListener("click", () => {
+			setContrast(document.documentElement.dataset.contrast !== "high");
+		});
+	});
+
+	window.addEventListener("storage", (event) => {
+		if (event.key === contrastStorageKey) setContrast(event.newValue === "high", false);
+	});
+</script>
 
 <style>
 	@reference "../styles/global.css";
