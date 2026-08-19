@@ -91,7 +91,7 @@ export const GET: APIRoute = async () => {
       kind: "object",
       title: plainInline(object.data.titel),
       subtitle: plainInline(object.data.untertitel),
-      context: "Objekt",
+      context: "",
       href: `/objekte/${object.data.slug}/`,
       body: markdownBodyToPlainText(object.body),
       captions: "",

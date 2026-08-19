@@ -29,7 +29,7 @@
       </label>
     </form>
 
-    <p class="search-dialog__status" data-search-status aria-live="polite">Suchbegriff eingeben</p>
+    <p class="search-dialog__status" data-search-status aria-live="polite" hidden></p>
     <ol class="search-dialog__results" data-search-results></ol>
   </div>
 </dialog>
@@ -58,7 +58,9 @@
   };
 
   const setStatus = (message: string) => {
-    if (status) status.textContent = message;
+    if (!status) return;
+    status.textContent = message;
+    status.hidden = !message;
   };
 
   const clearResults = () => {
@@ -109,7 +111,6 @@
       const item = document.createElement("li");
       const link = document.createElement("a");
       const meta = document.createElement("div");
-      const kind = document.createElement("span");
       const context = document.createElement("span");
       const title = document.createElement("h3");
       const excerptText = createExcerpt(record, query);
@@ -118,15 +119,16 @@
       link.className = "search-dialog__result-link";
       link.href = record.href;
       meta.className = "search-dialog__result-meta";
-      kind.className = "search-dialog__result-kind";
-      kind.textContent = record.kind === "gallery" ? "Galerie" : "Objekt";
       context.className = "search-dialog__result-context";
       context.textContent = record.context;
       title.className = "search-dialog__result-title";
       title.textContent = record.title;
 
-      meta.append(kind, context);
-      link.append(meta, title);
+      if (record.context) {
+        meta.append(context);
+        link.append(meta);
+      }
+      link.append(title);
       if (excerptText) {
         const excerpt = document.createElement("p");
         excerpt.className = "search-dialog__result-excerpt";
@@ -149,7 +151,7 @@
     const query = normalizeSearchText(input.value.trim());
     if (query.length < 2) {
       clearResults();
-      setStatus(input.value ? "Bitte mindestens zwei Zeichen eingeben" : "Suchbegriff eingeben");
+      setStatus(input.value ? "Bitte mindestens zwei Zeichen eingeben" : "");
       return;
     }
 
@@ -169,7 +171,8 @@
     }
 
     renderResults(searchResults, query);
-    setStatus(searchResults.length === 1 ? "1 Treffer" : `${searchResults.length} Treffer`);
+    const resultCount = searchResults.length === 1 ? "1 Treffer" : `${searchResults.length} Treffer`;
+    setStatus(`${resultCount} für „${input.value.trim()}“`);
   };
 
   const loadSearch = () => {
@@ -274,9 +277,9 @@
   }
 
   .search-dialog__header h2 {
-    @apply font-display text-h2 font-normal;
+    @apply font-display text-h1 font-normal;
 
-    line-height: var(--text-h2--line-height);
+    line-height: var(--text-h1--line-height);
   }
 
   .search-dialog__close {
@@ -354,11 +357,15 @@
   }
 
   .search-dialog__status {
-    @apply font-sans text-small;
+    @apply font-sans text-body-medium;
 
     border-bottom: 1px solid var(--color-ash-grey);
     padding: 0 var(--spacing-20) var(--spacing-16);
     color: var(--color-ink);
+  }
+
+  .search-dialog__status[hidden] {
+    display: none;
   }
 
   .search-dialog__results {
@@ -385,11 +392,6 @@
     gap: var(--spacing-8);
     margin-bottom: var(--spacing-8);
     letter-spacing: 0.04em;
-  }
-
-  .search-dialog :global(.search-dialog__result-kind) {
-    border: 1px solid currentColor;
-    padding: 2px 5px;
   }
 
   .search-dialog :global(.search-dialog__result-context) {
