@@ -38,13 +38,15 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     </div>
   </div>
 
-  <div class="desktop-navigation__contrast-toggle">
-    <div class="desktop-navigation__contrast-toggle-clip">
-      <div class="desktop-navigation__contrast-toggle-panel">
-        <ContrastToggle />
+  {!isHome && (
+    <div class="desktop-navigation__contrast-toggle">
+      <div class="desktop-navigation__contrast-toggle-clip">
+        <div class="desktop-navigation__contrast-toggle-panel">
+          <ContrastToggle />
+        </div>
       </div>
     </div>
-  </div>
+  )}
 </nav>
 
 <style>

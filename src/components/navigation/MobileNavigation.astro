@@ -6,6 +6,7 @@ import { normalizePath, type ChapterNavigationItem } from "../../lib/content";
 
 const { chapters, currentPath } = Astro.props as { chapters: ChapterNavigationItem[]; currentPath: string };
 const normalizedPath = currentPath.endsWith('/') ? currentPath : `${currentPath}/`;
+const isHome = normalizedPath === '/';
 const isUeberActive = normalizedPath === '/ueber/';
 const isKontaktActive = normalizedPath === '/kontakt/';
 ---
@@ -54,9 +55,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
       </div>
     </div>
 
-    <div class="mobile-navigation__contrast-toggle">
-      <ContrastToggle />
-    </div>
+    {!isHome && (
+      <div class="mobile-navigation__contrast-toggle">
+        <ContrastToggle />
+      </div>
+    )}
   </div>
 </nav>
 
