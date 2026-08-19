@@ -2,6 +2,7 @@
 import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
+import seal from "../../assets/Meta/Hebel_Wachssiegel.png";
 import { findContentImage, getGalleryImageSource } from "../../lib/object-images";
 import { getObjectRelationshipsByImage } from "../../lib/content";
 import { renderInlineMarkdown } from "../../lib/markdown";
@@ -10,6 +11,7 @@ type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
 const { section } = Astro.props as { section: Section };
 const chapterNumber = Number(section.data.nummer.split(".")[0]);
+const showProteusSeal = section.collection === "chapters" && chapterNumber === 5;
 const { Content } = await render(section);
 const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
@@ -59,8 +61,16 @@ const galleries = await Promise.all(
 );
 ---
 
-<section class="section-intro" style={`--chapter-color: var(--chapter-${chapterNumber})`}>
-  <div class="section-intro__text"><Content /></div>
+<section class:list={["section-intro", { "section-intro--with-seal": showProteusSeal }]} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
+  <div class="section-intro__layout">
+    {showProteusSeal && (
+      <figure class="section-intro__seal">
+        <img src={seal.src} alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
+        <figcaption>Hebels Wachssiegel mit dem Proteus-Symbol</figcaption>
+      </figure>
+    )}
+    <div class="section-intro__text"><Content /></div>
+  </div>
 </section>
 
 {galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
@@ -130,6 +140,34 @@ const galleries = await Promise.all(
 
   .section-intro {
     padding: var(--spacing-48) var(--spacing-20);
+  }
+
+  .section-intro--with-seal .section-intro__layout {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-32);
+  }
+
+  .section-intro__seal {
+    display: flex;
+    width: 100%;
+    margin: 0;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--spacing-16);
+  }
+
+  .section-intro__seal img {
+    width: min(200px, 60vw);
+    aspect-ratio: 1;
+    object-fit: contain;
+  }
+
+  .section-intro__seal figcaption {
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    text-align: center;
   }
 
   .section-intro__text :global(> p) {
@@ -323,6 +361,18 @@ const galleries = await Promise.all(
       line-height: var(--text-lead--line-height);
     }
 
+    .section-intro--with-seal .section-intro__layout {
+      display: grid;
+      grid-template-columns: 180px minmax(0, 522px);
+      align-items: start;
+      justify-content: center;
+      gap: var(--spacing-32);
+    }
+
+    .section-intro__seal img {
+      width: 180px;
+    }
+
     .section-gallery + .section-gallery::before {
       margin-inline: var(--spacing-32);
     }
@@ -366,6 +416,15 @@ const galleries = await Promise.all(
 
     .section-intro__text :global(> p) {
       max-width: 840px;
+    }
+
+    .section-intro--with-seal .section-intro__layout {
+      grid-template-columns: 220px minmax(0, 840px);
+      gap: var(--spacing-48);
+    }
+
+    .section-intro__seal img {
+      width: 220px;
     }
 
     .section-gallery__body :global(> blockquote) {

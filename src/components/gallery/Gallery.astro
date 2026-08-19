@@ -185,7 +185,7 @@ const nextSlide = slides[1] ?? firstSlide;
     <h2 class="gallery__title" set:html={renderInlineMarkdown(titel)}></h2>
   </div>
 
-  <div class="gallery__stage">
+  <div class="gallery__stage select-none">
     {isMultiSlide && (
       <button class="gallery__button gallery__button--prev" type="button" data-gallery-prev aria-label="Vorherige Folie" disabled>
         <svg class="gallery__button-icon" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
@@ -196,7 +196,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     {isMultiSlide && (
       <div class="gallery__peek gallery__peek--prev is-empty" aria-hidden="true" data-gallery-peek-prev>
-        <img src={firstSlide.images[0].peekSrc} alt="" data-gallery-peek-prev-image />
+        <img src={firstSlide.images[0].peekSrc} alt="" draggable="false" data-gallery-peek-prev-image />
       </div>
     )}
 
@@ -209,6 +209,7 @@ const nextSlide = slides[1] ?? firstSlide;
             srcset={image.srcset}
             sizes={image.sizes}
             alt={image.alt}
+            draggable="false"
             loading="lazy"
             decoding="async"
           />
@@ -218,7 +219,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     {isMultiSlide && (
       <div class="gallery__peek gallery__peek--next" class:list={{ "is-empty": slides.length < 2 }} aria-hidden="true" data-gallery-peek-next>
-        <img src={nextSlide.images[0].peekSrc} alt="" data-gallery-peek-next-image />
+        <img src={nextSlide.images[0].peekSrc} alt="" draggable="false" data-gallery-peek-next-image />
       </div>
     )}
 
@@ -233,7 +234,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
   <div class="gallery__caption-section" data-gallery-caption aria-live="polite">
     {isMultiSlide && (
-      <div class="gallery__pagination">
+      <div class="gallery__pagination select-none">
         <div class="gallery__dots" data-gallery-dots>
           {slides.map((slide) => <button class="gallery__dot" type="button" data-gallery-dot={slide.index} aria-label={`Folie ${slide.index + 1} anzeigen`} aria-current={slide.index === 0 ? "true" : undefined}></button>)}
         </div>
@@ -342,6 +343,7 @@ const nextSlide = slides[1] ?? firstSlide;
       element.sizes = image.sizes;
       element.src = image.src;
       element.alt = image.alt;
+      element.draggable = false;
       element.loading = "lazy";
       element.decoding = "async";
       return element;
