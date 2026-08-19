@@ -35,6 +35,13 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
       <a class="nav-link desktop-navigation__link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
       <a class="nav-link desktop-navigation__link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
+      <button class="nav-link desktop-navigation__search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="10.8" cy="10.8" r="6.3"></circle>
+          <path d="m15.5 15.5 5 5"></path>
+        </svg>
+        <span>Suche</span>
+      </button>
     </div>
   </div>
 
@@ -163,6 +170,34 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     border-bottom: 1.5px solid transparent;
     padding-block: 7.5px 8.75px;
     line-height: var(--text-body--line-height);
+  }
+
+  .desktop-navigation__search {
+    @apply inline-flex cursor-pointer items-center bg-transparent text-inherit select-none;
+
+    gap: var(--spacing-8);
+    border: 1px solid currentColor;
+    padding: 7.5px var(--spacing-12) 8.75px;
+    line-height: var(--text-body--line-height);
+  }
+
+  .desktop-navigation__search svg {
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.5;
+  }
+
+  .desktop-navigation__search:hover {
+    background: var(--color-ink);
+    color: var(--color-paper);
+  }
+
+  .desktop-navigation--home .desktop-navigation__search:hover {
+    background: var(--color-paper);
+    color: var(--color-ink);
   }
 
   .desktop-navigation__dropdown-trigger:hover,

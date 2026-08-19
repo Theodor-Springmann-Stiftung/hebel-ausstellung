@@ -1,6 +1,7 @@
 ---
 import DesktopNavigation from "./DesktopNavigation.astro";
 import MobileNavigation from "./MobileNavigation.astro";
+import SearchDialog from "../search/SearchDialog.astro";
 import { getChapterNavigation } from "../../lib/content";
 
 const chapters = await getChapterNavigation();
@@ -11,6 +12,7 @@ const isHome = currentPath === '/';
 <header class:list={{ "top-navigation": true, "top-navigation--home": isHome }}>
   <DesktopNavigation chapters={chapters} currentPath={currentPath} isHome={isHome} />
   <MobileNavigation chapters={chapters} currentPath={currentPath} />
+  <SearchDialog />
 </header>
 
 <style>

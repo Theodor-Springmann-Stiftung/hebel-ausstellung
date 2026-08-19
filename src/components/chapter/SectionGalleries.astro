@@ -82,6 +82,7 @@ const galleries = await Promise.all(
 
 {galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
   <section class="section-gallery" id={String(index + 1)} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
+    <span class="section-gallery__search-anchor" id={`gallery-${gallery.id}`} aria-hidden="true"></span>
     {bilder.length > 0 ? (
       <Gallery
         titel={gallery.data.titel}
@@ -107,6 +108,13 @@ const galleries = await Promise.all(
 
 <style>
   @reference "../../styles/global.css";
+
+  .section-gallery__search-anchor {
+    display: block;
+    width: 0;
+    height: 0;
+    scroll-margin-top: 110px;
+  }
 
   .section-intro {
     background: var(--content-background, var(--chapter-color, var(--color-paper)));

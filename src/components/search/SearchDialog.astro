@@ -1,0 +1,461 @@
+<dialog class="search-dialog" id="site-search" data-search-dialog aria-labelledby="site-search-title">
+  <div class="search-dialog__panel">
+    <header class="search-dialog__header">
+      <div>
+        <p class="search-dialog__eyebrow">Ausstellung durchsuchen</p>
+        <h2 id="site-search-title">Suche</h2>
+      </div>
+      <button class="search-dialog__close" type="button" data-search-close aria-label="Suche schließen">×</button>
+    </header>
+
+    <form class="search-dialog__form" role="search" data-search-form>
+      <label class="search-dialog__input-shell">
+        <span class="search-dialog__input-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" focusable="false">
+            <circle cx="10.8" cy="10.8" r="6.3"></circle>
+            <path d="m15.5 15.5 5 5"></path>
+          </svg>
+        </span>
+        <span class="sr-only">Suchbegriff</span>
+        <input
+          class="search-dialog__input"
+          type="search"
+          inputmode="search"
+          autocomplete="off"
+          placeholder="Person, Werk oder Begriff"
+          data-search-input
+        />
+        <span class="search-dialog__loader" data-search-loader hidden aria-hidden="true"></span>
+      </label>
+    </form>
+
+    <p class="search-dialog__status" data-search-status aria-live="polite">Suchbegriff eingeben</p>
+    <ol class="search-dialog__results" data-search-results></ol>
+  </div>
+</dialog>
+
+<script>
+  import type MiniSearch from "minisearch";
+  import { normalizeSearchText, type SearchRecord } from "../../lib/search";
+
+  type SearchEngine = MiniSearch<SearchRecord>;
+
+  const dialog = document.querySelector<HTMLDialogElement>("[data-search-dialog]");
+  const form = dialog?.querySelector<HTMLFormElement>("[data-search-form]");
+  const input = dialog?.querySelector<HTMLInputElement>("[data-search-input]");
+  const loader = dialog?.querySelector<HTMLElement>("[data-search-loader]");
+  const status = dialog?.querySelector<HTMLElement>("[data-search-status]");
+  const resultsList = dialog?.querySelector<HTMLOListElement>("[data-search-results]");
+  const closeButton = dialog?.querySelector<HTMLButtonElement>("[data-search-close]");
+  let engine: SearchEngine | undefined;
+  let recordsById = new Map<string, SearchRecord>();
+  let loadingPromise: Promise<SearchEngine> | undefined;
+
+  const setLoading = (isLoading: boolean) => {
+    if (loader) loader.hidden = !isLoading;
+    dialog?.toggleAttribute("data-loading", isLoading);
+    input?.setAttribute("aria-busy", String(isLoading));
+  };
+
+  const setStatus = (message: string) => {
+    if (status) status.textContent = message;
+  };
+
+  const clearResults = () => {
+    resultsList?.replaceChildren();
+  };
+
+  const findMatchIndex = (text: string, terms: string[]) => {
+    for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
+      const word = normalizeSearchText(match[0]);
+      if (terms.some((term) => word.startsWith(term) || word.includes(term))) return match.index ?? 0;
+    }
+
+    return -1;
+  };
+
+  const createExcerpt = (record: SearchRecord, query: string) => {
+    const terms = query.split(/\s+/).filter((term) => term.length > 1);
+    const candidates = [
+      record.subtitle,
+      record.captions,
+      record.imageMetadata,
+      record.creator,
+      record.metadata,
+      record.source,
+      record.body,
+    ].filter(Boolean);
+    const matched = candidates
+      .map((text) => ({ text, index: findMatchIndex(text, terms) }))
+      .find(({ index }) => index >= 0);
+    const text = matched?.text ?? candidates[0] ?? "";
+    if (!text) return "";
+
+    const matchIndex = matched?.index ?? 0;
+    const start = Math.max(0, matchIndex - 70);
+    const end = Math.min(text.length, matchIndex + 170);
+    const excerpt = text.slice(start, end).trim();
+    return `${start > 0 ? "…" : ""}${excerpt}${end < text.length ? "…" : ""}`;
+  };
+
+  const renderResults = (searchResults: ReturnType<SearchEngine["search"]>, query: string) => {
+    clearResults();
+    if (!resultsList) return;
+
+    for (const result of searchResults.slice(0, 30)) {
+      const record = recordsById.get(String(result.id));
+      if (!record) continue;
+
+      const item = document.createElement("li");
+      const link = document.createElement("a");
+      const meta = document.createElement("div");
+      const kind = document.createElement("span");
+      const context = document.createElement("span");
+      const title = document.createElement("h3");
+      const excerptText = createExcerpt(record, query);
+
+      item.className = "search-dialog__result";
+      link.className = "search-dialog__result-link";
+      link.href = record.href;
+      meta.className = "search-dialog__result-meta";
+      kind.className = "search-dialog__result-kind";
+      kind.textContent = record.kind === "gallery" ? "Galerie" : "Objekt";
+      context.className = "search-dialog__result-context";
+      context.textContent = record.context;
+      title.className = "search-dialog__result-title";
+      title.textContent = record.title;
+
+      meta.append(kind, context);
+      link.append(meta, title);
+      if (excerptText) {
+        const excerpt = document.createElement("p");
+        excerpt.className = "search-dialog__result-excerpt";
+        excerpt.textContent = excerptText;
+        link.append(excerpt);
+      }
+
+      const arrow = document.createElement("span");
+      arrow.className = "search-dialog__result-arrow";
+      arrow.setAttribute("aria-hidden", "true");
+      arrow.textContent = "→";
+      link.append(arrow);
+      item.append(link);
+      resultsList.append(item);
+    }
+  };
+
+  const runSearch = () => {
+    if (!input || !engine) return;
+    const query = normalizeSearchText(input.value.trim());
+    if (query.length < 2) {
+      clearResults();
+      setStatus(input.value ? "Bitte mindestens zwei Zeichen eingeben" : "Suchbegriff eingeben");
+      return;
+    }
+
+    let searchResults = engine.search(query, {
+      boost: { title: 8, subtitle: 5, captions: 4, creator: 3, imageMetadata: 2, metadata: 2, source: 2 },
+      combineWith: "AND",
+      prefix: true,
+      fuzzy: (term) => term.length >= 6 ? 0.2 : false,
+    });
+    if (searchResults.length === 0) {
+      searchResults = engine.search(query, {
+        boost: { title: 8, subtitle: 5, captions: 4, creator: 3, imageMetadata: 2, metadata: 2, source: 2 },
+        combineWith: "OR",
+        prefix: true,
+        fuzzy: (term) => term.length >= 6 ? 0.2 : false,
+      });
+    }
+
+    renderResults(searchResults, query);
+    setStatus(searchResults.length === 1 ? "1 Treffer" : `${searchResults.length} Treffer`);
+  };
+
+  const loadSearch = () => {
+    if (engine) return Promise.resolve(engine);
+    if (loadingPromise) return loadingPromise;
+
+    setLoading(true);
+    setStatus("Suchindex wird geladen …");
+    loadingPromise = Promise.all([
+      import("minisearch"),
+      fetch("/search-index.json").then((response) => {
+        if (!response.ok) throw new Error(`Search index request failed: ${response.status}`);
+        return response.json() as Promise<SearchRecord[]>;
+      }),
+    ]).then(([{ default: MiniSearch }, records]) => {
+      recordsById = new Map(records.map((record) => [record.id, record]));
+      const loadedEngine = new MiniSearch<SearchRecord>({
+        fields: ["title", "subtitle", "captions", "imageMetadata", "creator", "metadata", "source", "body"],
+        processTerm: (term) => normalizeSearchText(term),
+      });
+      loadedEngine.addAll(records);
+      engine = loadedEngine;
+      setLoading(false);
+      runSearch();
+      return loadedEngine;
+    }).catch((error) => {
+      console.error(error);
+      loadingPromise = undefined;
+      setLoading(false);
+      setStatus("Die Suche konnte nicht geladen werden. Bitte erneut öffnen.");
+      throw error;
+    });
+
+    return loadingPromise;
+  };
+
+  document.querySelectorAll<HTMLButtonElement>("[data-search-open]").forEach((button) => {
+    button.addEventListener("click", () => {
+      const mobileToggle = document.querySelector<HTMLInputElement>(".mobile-navigation__toggle");
+      if (mobileToggle?.checked) {
+        mobileToggle.checked = false;
+        mobileToggle.dispatchEvent(new Event("change"));
+      }
+      if (!dialog?.open) dialog?.showModal();
+      setLoading(!engine);
+      if (!engine) setStatus("Suchindex wird geladen …");
+      requestAnimationFrame(() => input?.focus());
+      void loadSearch().catch(() => undefined);
+    });
+  });
+
+  input?.addEventListener("input", runSearch);
+  closeButton?.addEventListener("click", () => dialog?.close());
+  dialog?.addEventListener("click", (event) => {
+    if (event.target === dialog) dialog.close();
+  });
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    const firstResult = resultsList?.querySelector<HTMLAnchorElement>("a");
+    if (firstResult) window.location.href = firstResult.href;
+  });
+</script>
+
+<style>
+  @reference "../../styles/global.css";
+
+  .search-dialog {
+    width: min(920px, calc(100vw - var(--spacing-32)));
+    max-width: none;
+    height: min(780px, calc(100dvh - var(--spacing-32)));
+    max-height: none;
+    margin: auto;
+    border: 1px solid var(--color-ink);
+    padding: 0;
+    background: var(--color-paper);
+    color: var(--color-ink);
+    box-shadow: 14px 16px 0 rgb(38 37 30 / 18%);
+  }
+
+  .search-dialog::backdrop {
+    background: rgb(38 37 30 / 58%);
+    backdrop-filter: blur(2px);
+  }
+
+  .search-dialog__panel {
+    @apply flex h-full flex-col;
+  }
+
+  .search-dialog__header {
+    @apply flex items-start justify-between;
+
+    gap: var(--spacing-24);
+    border-bottom: 1px solid var(--color-ink);
+    padding: var(--spacing-24) var(--spacing-20);
+  }
+
+  .search-dialog__eyebrow {
+    @apply font-sans text-small uppercase;
+
+    margin-bottom: var(--spacing-8);
+    letter-spacing: 0.06em;
+  }
+
+  .search-dialog__header h2 {
+    @apply font-display text-h2 font-normal;
+
+    line-height: var(--text-h2--line-height);
+  }
+
+  .search-dialog__close {
+    @apply flex cursor-pointer items-center justify-center border-0 bg-transparent p-0 text-ink;
+
+    width: var(--spacing-40);
+    height: var(--spacing-40);
+    font-size: 2rem;
+    font-weight: 300;
+    line-height: 1;
+  }
+
+  .search-dialog__form {
+    padding: var(--spacing-20);
+  }
+
+  .search-dialog__input-shell {
+    @apply flex w-full items-center;
+
+    gap: var(--spacing-12);
+    border: 1px solid var(--color-ink);
+    background: var(--color-paper);
+    padding: var(--spacing-12) var(--spacing-16);
+  }
+
+  .search-dialog__input-shell:focus-within {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 2px;
+  }
+
+  .search-dialog__input-icon {
+    @apply flex-none;
+
+    width: var(--spacing-24);
+    height: var(--spacing-24);
+  }
+
+  .search-dialog__input-icon svg {
+    width: 100%;
+    height: 100%;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.5;
+  }
+
+  .search-dialog__input {
+    @apply min-w-0 flex-1 border-0 bg-transparent p-0 text-ink outline-none;
+
+    font-size: var(--text-lead);
+    line-height: var(--text-lead--line-height);
+  }
+
+  .search-dialog__input::placeholder {
+    color: var(--color-ink);
+    opacity: 0.48;
+  }
+
+  .search-dialog__input::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+
+  .search-dialog__loader {
+    width: var(--spacing-24);
+    height: var(--spacing-24);
+    flex: none;
+    border: 2px solid rgb(38 37 30 / 22%);
+    border-top-color: var(--color-ink);
+    border-radius: 999px;
+    animation: search-spin 700ms linear infinite;
+  }
+
+  .search-dialog__loader[hidden] {
+    display: none;
+  }
+
+  .search-dialog__status {
+    @apply font-sans text-small;
+
+    border-bottom: 1px solid var(--color-ash-grey);
+    padding: 0 var(--spacing-20) var(--spacing-16);
+    color: var(--color-ink);
+  }
+
+  .search-dialog__results {
+    @apply m-0 flex-1 list-none overflow-y-auto p-0;
+  }
+
+  .search-dialog :global(.search-dialog__result) {
+    border-bottom: 1px solid var(--color-ash-grey);
+  }
+
+  .search-dialog :global(.search-dialog__result-link) {
+    @apply relative block text-ink no-underline;
+
+    padding: var(--spacing-20) var(--spacing-56) var(--spacing-20) var(--spacing-20);
+  }
+
+  .search-dialog :global(.search-dialog__result-link:hover) {
+    background: var(--color-oat);
+  }
+
+  .search-dialog :global(.search-dialog__result-meta) {
+    @apply flex flex-wrap items-center font-sans text-small uppercase;
+
+    gap: var(--spacing-8);
+    margin-bottom: var(--spacing-8);
+    letter-spacing: 0.04em;
+  }
+
+  .search-dialog :global(.search-dialog__result-kind) {
+    border: 1px solid currentColor;
+    padding: 2px 5px;
+  }
+
+  .search-dialog :global(.search-dialog__result-context) {
+    opacity: 0.68;
+  }
+
+  .search-dialog :global(.search-dialog__result-title) {
+    @apply font-display text-h4 font-normal;
+
+    line-height: var(--text-h4--line-height);
+  }
+
+  .search-dialog :global(.search-dialog__result-excerpt) {
+    @apply font-sans text-body-medium;
+
+    margin-top: var(--spacing-8);
+    line-height: var(--text-body-medium--line-height);
+  }
+
+  .search-dialog :global(.search-dialog__result-arrow) {
+    position: absolute;
+    top: 50%;
+    right: var(--spacing-20);
+    font-size: var(--text-h4);
+    transform: translateY(-50%);
+    transition: transform 150ms var(--ease-default);
+  }
+
+  .search-dialog :global(.search-dialog__result-link:hover .search-dialog__result-arrow) {
+    transform: translate(4px, -50%);
+  }
+
+  @keyframes search-spin {
+    to { transform: rotate(360deg); }
+  }
+
+  @media (min-width: 768px) {
+    .search-dialog__header {
+      padding: var(--spacing-32);
+    }
+
+    .search-dialog__form {
+      padding: var(--spacing-32) var(--spacing-32) var(--spacing-20);
+    }
+
+    .search-dialog__status {
+      padding-inline: var(--spacing-32);
+      padding-bottom: var(--spacing-20);
+    }
+
+    .search-dialog :global(.search-dialog__result-link) {
+      padding: var(--spacing-24) var(--spacing-80) var(--spacing-24) var(--spacing-32);
+    }
+
+    .search-dialog :global(.search-dialog__result-arrow) {
+      right: var(--spacing-32);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .search-dialog__loader {
+      animation-duration: 1400ms;
+    }
+
+    .search-dialog :global(.search-dialog__result-arrow) {
+      transition: none;
+    }
+  }
+</style>
