@@ -2,7 +2,7 @@
 quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/90960)"
 materialTechnik: "Bleistiftzeichnung"
 slug: "titelblatt-allmanach-proteus-1791"
-titel: "Titelblatt des *Allmanach des Proteus-Zeichens*"
+titel: "Titelblatt des *Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>*"
 urheber: "Johann Peter Hebel"
 datierung: "1791"
 institution: "Badische Landesbibliothek, Karlsruhe"
@@ -13,4 +13,4 @@ bilder:
 
 # Beschreibung
 
-*Allmanach des Proteus-Zeichens*: Nach Art des Erkennungszeichens eines Geheimbunds formen die gezeichneten Hände auf dem Titelblatt das dreigebalkte Pi. Proteopolis ist Lörrach als Sitz des Proteuserordens.
+*Allmanach des <i class="triple-pi" role="img" aria-label="dreigebalkten Pi"></i>*: Nach Art des Erkennungszeichens eines Geheimbunds formen die gezeichneten Hände auf dem Titelblatt das <i class="triple-pi" role="img" aria-label="dreigebalkte Pi"></i>. Proteopolis ist Lörrach als Sitz des Proteuserordens.
