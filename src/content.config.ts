@@ -119,6 +119,7 @@ const objects = defineCollection({
   schema: z
     .object({
       slug: objectSlug,
+      kapitelunabhaengig: z.boolean().default(false),
       transkription: z.boolean().default(false),
       transkriptionsart: z.enum(["Transkription", "Übersetzung"]).default("Transkription"),
       titel: requiredMarkdown,

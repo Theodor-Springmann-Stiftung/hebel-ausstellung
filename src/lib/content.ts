@@ -215,7 +215,7 @@ export const getObjectRoutes = async () => {
 	return Promise.all(objects
 		.filter((object) => object.data.slug)
 		.map(async (object) => {
-			const context = contextByObject.get(object.id);
+			const context = object.data.kapitelunabhaengig ? undefined : contextByObject.get(object.id);
 			const objectImages: ObjectDisplayImage[] = await Promise.all(
 				(object.data.bilder ?? [])
 					.filter((association) => association.inObjektansicht)

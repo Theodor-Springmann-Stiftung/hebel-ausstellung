@@ -11,7 +11,7 @@ type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
 const { section } = Astro.props as { section: Section };
 const chapterNumber = Number(section.data.nummer.split(".")[0]);
-const showProteusSeal = section.collection === "chapters" && chapterNumber === 5;
+const showProteusSeal = chapterNumber === 5;
 const { Content } = await render(section);
 const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
@@ -65,7 +65,14 @@ const galleries = await Promise.all(
   <div class="section-intro__layout">
     {showProteusSeal && (
       <figure class="section-intro__seal">
-        <img src={seal.src} alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
+        <img
+          src={seal.src}
+          width={seal.width}
+          height={seal.height}
+          alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol"
+          loading="eager"
+          decoding="async"
+        />
         <figcaption>Hebels Wachssiegel mit dem Proteus-Symbol</figcaption>
       </figure>
     )}

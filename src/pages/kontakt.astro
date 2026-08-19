@@ -84,7 +84,9 @@ import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
   }
 
   .contact-hero {
-    padding: var(--spacing-40) var(--spacing-20) var(--spacing-20);
+    width: calc(100% - var(--spacing-40));
+    margin-inline: auto;
+    padding-block: var(--spacing-40) var(--spacing-20);
   }
 
   .contact-hero h1 {
@@ -171,7 +173,7 @@ import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 
   @media (min-width: 768px) {
     .contact-hero {
-      padding-inline: var(--spacing-32);
+      width: calc(100% - var(--spacing-64));
     }
 
     .contact-content {
@@ -181,7 +183,7 @@ import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 
   @media (min-width: 1440px) {
     .contact-hero {
-      padding-inline: var(--spacing-80);
+      width: min(var(--container-wide), calc(100% - var(--spacing-80) * 2));
     }
 
     .contact-content {

@@ -48,7 +48,9 @@ const details = [
         ))}
       </dl>
 
-      <a class="object-detail__return-link" href={returnHref}><span class="object-detail__return-link-arrow" aria-hidden="true">←</span>{returnLabel}</a>
+      <a class="object-detail__return-link" href={returnHref} data-object-return-link>
+        <span class="object-detail__return-link-arrow" aria-hidden="true">←</span><span data-object-return-label>{returnLabel}</span>
+      </a>
     </aside>
 
     {hasBody && <div class="object-detail__body"><Content /></div>}
@@ -62,6 +64,29 @@ const details = [
     document.querySelectorAll<HTMLElement>("[data-object-position]").forEach((label) => {
       label.textContent = `${position}: `;
     });
+  }
+
+  const returnLink = document.querySelector<HTMLAnchorElement>("[data-object-return-link]");
+  const returnLabel = returnLink?.querySelector<HTMLElement>("[data-object-return-label]");
+
+  if (returnLink?.getAttribute("href") === "/" && returnLabel && document.referrer) {
+    const referrer = new URL(document.referrer);
+
+    if (referrer.origin === window.location.origin && referrer.pathname !== window.location.pathname) {
+      const chapterMatch = referrer.pathname.match(/^\/(\d+)(?:\/[^/]+)?\/$/);
+      const label = referrer.pathname === "/ueber/"
+        ? "Zurück zu Über die Ausstellung"
+        : chapterMatch
+          ? `Zurück zu Kapitel ${Number(chapterMatch[1])}`
+          : referrer.pathname === "/"
+            ? "Zurück zur Startseite"
+            : undefined;
+
+      if (label) {
+        returnLink.href = `${referrer.pathname}${referrer.search}`;
+        returnLabel.textContent = label;
+      }
+    }
   }
 </script>
 
