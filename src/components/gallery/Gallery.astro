@@ -29,6 +29,7 @@ type CaptionItem = {
   linkLabel?: string;
   links?: Array<{ href: string; label: string }>;
   objectKey?: string;
+  position?: "Links" | "Rechts" | "Vorne";
 };
 
 export type GalleryProps = {
@@ -55,7 +56,6 @@ const {
   folienbeschriftung,
   folienbeschriftungen = [],
   bildabstand = "normal",
-  positionsangaben = true,
   chapterNumber,
   bilder,
 } = props;
@@ -72,8 +72,9 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
     const hasMultipleObjects = image.objekte.length > 1;
 
     return image.objekte.map((object) => {
-      const objectTitle = object.position ? `${object.position}: ${object.titel}` : object.titel;
-      const captionTitle = object.beschriftung ?? (hasMultipleObjects ? objectTitle : (image.beschriftung ?? objectTitle));
+      const captionTitle = hasMultipleObjects
+        ? (object.beschriftung ?? object.titel)
+        : (image.beschriftung ?? object.beschriftung ?? object.titel);
 
       return {
         titleHtml: renderInlineMarkdown(captionTitle),
@@ -81,6 +82,7 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
         href: object.slug ? `/objekte/${object.slug}/${object.position ? `?position=${encodeURIComponent(object.position)}` : ""}` : undefined,
         linkLabel: object.transkription ? `Zum Objekt (mit ${object.transkriptionsart})` : "Zum Objekt",
         objectKey: object.slug,
+        position: object.position,
       };
     });
   }
@@ -102,33 +104,63 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
     getImageCaptionItems(image)
       .map((caption) => ({ ...caption, imageIndex })),
   );
+  const distinctObjectKeys = new Set(imageCaptions.flatMap((caption) => caption.objectKey ? [caption.objectKey] : []));
+  const hasMultipleObjects = distinctObjectKeys.size > 1;
+  const hasPositionPrefix = (caption: string) => /^(Links|Rechts|Mitte|Vorne|Bild \d+):/i.test(caption);
 
-  const captions = images.length > 1 && positionsangaben
-    ? imageCaptions.map(({ imageIndex, ...caption }) => ({
+  const captions = imageCaptions.map(({ imageIndex, ...caption }) => {
+    const positionLabel = images.length > 1
+      ? imagePositionLabel(imageIndex, images.length)
+      : caption.position;
+
+    return {
       ...caption,
-      titleHtml: `${imagePositionLabel(imageIndex, images.length)}: ${caption.titleHtml}`,
-    }))
-    : imageCaptions.map(({ imageIndex: _imageIndex, ...caption }) => caption);
+      titleHtml: hasMultipleObjects && caption.objectKey && positionLabel && !hasPositionPrefix(caption.titleHtml)
+        ? `${positionLabel}: ${caption.titleHtml}`
+        : caption.titleHtml,
+    };
+  });
+
+  const seenObjects = new Set<string>();
+  const uniqueCaptions = captions.filter((caption) => {
+    if (!caption.objectKey) return true;
+    if (seenObjects.has(caption.objectKey)) return false;
+    seenObjects.add(caption.objectKey);
+    return true;
+  });
+  const objectCaptions = uniqueCaptions.filter((caption) => caption.objectKey);
+  const hasSingleObject = objectCaptions.length === 1;
+  const individualCaptions = hasSingleObject
+    ? uniqueCaptions.filter((caption) => !caption.objectKey)
+    : uniqueCaptions;
+  const singleObjectLink = hasSingleObject && objectCaptions[0].href
+    ? [{ href: objectCaptions[0].href, label: objectCaptions[0].linkLabel ?? "Zum Objekt" }]
+    : [];
+
+  const withSharedCaption = (caption: string): CaptionItem[] => [
+    {
+      titleHtml: renderInlineMarkdown(caption),
+      textHtml: "",
+      links: singleObjectLink,
+    },
+    ...individualCaptions,
+  ];
 
   const slideCaption = slideCaptionsByIndex.get(slideIndex);
   if (slideCaption) {
-    const mainCaption: CaptionItem = {
-      titleHtml: renderInlineMarkdown(slideCaption.beschriftung),
-      textHtml: "",
-    };
-
-    return [mainCaption, ...captions];
+    return withSharedCaption(slideCaption.beschriftung);
   }
 
   if (folienbeschriftung) {
-    return [
-      { titleHtml: renderInlineMarkdown(folienbeschriftung), textHtml: "" },
-      ...captions,
-    ];
+    return withSharedCaption(folienbeschriftung);
   }
 
-  return captions.length > 0
-    ? captions
+  if (hasSingleObject) {
+    return [...individualCaptions, objectCaptions[0]];
+  }
+
+  return uniqueCaptions.length > 0
+    ? uniqueCaptions
     : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: "" }];
 };
 

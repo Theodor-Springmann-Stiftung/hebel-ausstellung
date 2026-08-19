@@ -2,7 +2,7 @@
 titel: "Feilen bis *ganz* zum Schluss"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "Ringen um das rechte Wort mit Tinte und Feder. Seite aus der eigenhändigen Satzvorlage der *Marktweiber in der Stadt*."
+    beschriftung: "Satzmanuskript der *Marktweiber in der Stadt*, vierte Seite"
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 2

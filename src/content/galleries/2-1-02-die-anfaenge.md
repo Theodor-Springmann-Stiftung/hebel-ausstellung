@@ -2,7 +2,7 @@
 titel: "Die Anfänge"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "Männerfreundschaft: Hitzig erfährt wohl als Erster vom Projekt der *Allemannischen Gedichte*."
+    beschriftung: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite"
   - folie: 2
     beschriftung: "*E verhexte Burst*: Berückende Weiblichkeit eröffnet die Diskussion über die geplante Gedichtsammlung."
     unterbeschriftungen:

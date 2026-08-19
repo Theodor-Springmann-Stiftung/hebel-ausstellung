@@ -5,6 +5,10 @@ folienbeschriftungen:
     beschriftung: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
     unterbeschriftungen:
       - "Hebel-Archiv Heidelberg"
+  - folie: 2
+    beschriftung: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
+    unterbeschriftungen:
+      - "Hebel-Archiv Heidelberg"
 bilder:
   - - "23_04_1_girardet_tss"
   - - "23_04_2_girardet_tss"

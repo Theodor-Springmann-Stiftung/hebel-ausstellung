@@ -287,7 +287,7 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 ## Bildunterschrift-Ersatzlogik
 
-Die Hauptbeschriftung eines Galerie-Bildes kommt zuerst aus der optionalen `beschriftung` seiner Objekt-Bild-Zuordnung, danach aus `images.beschriftung` und zuletzt aus dem Titel des verknüpften Objekts. Verweisen mehrere Objekte auf dasselbe Bild, wird für jedes Objekt eine eigene Hauptbeschriftung erzeugt. Bei einer Folie mit mehreren Bildern werden deren Beschriftungen in der Reihenfolge der inneren Bildliste ausgegeben; jedes Bild erhält seinen eigenen Objektlink, auch wenn mehrere Bilder zum selben Objekt gehören. Eine `folienbeschriftung` oder ein Eintrag in `folienbeschriftungen` wird als gemeinsame Beschriftung vor den einzelnen Bildbeschriftungen ausgegeben und ersetzt diese nicht. Nur wenn keine bild- oder objektspezifischen Beschriftungsdaten vorhanden sind, dient `galleries.beschriftung` als Ersatzwert.
+Bei einem Bild oder mehreren Bildern desselben Objekts wird zuerst eine vorhandene gemeinsame `folienbeschriftung` beziehungsweise der passende Eintrag aus `folienbeschriftungen` zusammen mit einem einmaligen Objektlink gezeigt. Fehlt die gemeinsame Beschriftung, wird zuerst `images.beschriftung`, danach die optionale `beschriftung` der Objekt-Bild-Zuordnung und zuletzt der Objekttitel zusammen mit dem Link verwendet. Bei mehreren unterschiedlichen Objekten erscheint eine vorhandene gemeinsame Folienbeschriftung zuerst. Danach erhält jedes eindeutige Objekt eine Positionsangabe, eine Beschriftung nach derselben Ersatzreihenfolge und seinen eigenen Objektlink.
 
 Sekundäre Bildunterbeschriftungen werden auf der Ausstellungsseite nicht ausgegeben. Die Metadaten bleiben an den verknüpften Objekten verfügbar.
 
