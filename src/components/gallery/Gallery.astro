@@ -98,15 +98,8 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
 };
 
 const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
-  const seenObjects = new Set<string>();
   const imageCaptions = images.flatMap((image, imageIndex) =>
     getImageCaptionItems(image)
-      .filter((caption) => {
-        if (!caption.objectKey) return true;
-        if (seenObjects.has(caption.objectKey)) return false;
-        seenObjects.add(caption.objectKey);
-        return true;
-      })
       .map((caption) => ({ ...caption, imageIndex })),
   );
 
@@ -119,36 +112,12 @@ const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
 
   const slideCaption = slideCaptionsByIndex.get(slideIndex);
   if (slideCaption) {
-    const imageSubcaptions = slideCaption.unterbeschriftungen.filter((caption): caption is { bild: number; beschriftung: string } => typeof caption !== "string");
-    const seenLinks = new Set<string>();
-    const links = captions.flatMap((caption) => {
-      if (!caption.href || seenLinks.has(caption.href)) return [];
-      seenLinks.add(caption.href);
-      return [{ href: caption.href, label: caption.linkLabel ?? "Zum Objekt" }];
-    });
-
     const mainCaption: CaptionItem = {
       titleHtml: renderInlineMarkdown(slideCaption.beschriftung),
       textHtml: "",
-      links: imageSubcaptions.length === 0 ? links : [],
     };
-    const positionedCaptions = imageSubcaptions.map((caption): CaptionItem => {
-      const imageIndex = caption.bild - 1;
-      const image = images[imageIndex];
-      const imageLinks = image
-        ? getImageCaptionItems(image).flatMap((item) =>
-            item.href ? [{ href: item.href, label: item.linkLabel ?? "Zum Objekt" }] : [],
-          )
-        : [];
 
-      return {
-        titleHtml: images.length > 1 ? imagePositionLabel(imageIndex, images.length) : "",
-        textHtml: "",
-        links: imageLinks,
-      };
-    });
-
-    return [mainCaption, ...positionedCaptions];
+    return [mainCaption, ...captions];
   }
 
   if (folienbeschriftung) {

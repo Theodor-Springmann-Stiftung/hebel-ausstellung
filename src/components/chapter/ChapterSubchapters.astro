@@ -85,7 +85,7 @@ const availableSubchapters = subchapters.filter(Boolean);
     margin: 0 auto;
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
-    padding-block: var(--spacing-40);
+    padding-block: var(--spacing-24);
     flex-direction: column;
     gap: var(--spacing-24);
   }
@@ -100,15 +100,6 @@ const availableSubchapters = subchapters.filter(Boolean);
     font-size: var(--text-quote);
     line-height: var(--text-quote--line-height);
     letter-spacing: var(--text-quote--letter-spacing);
-  }
-
-  .chapter-overview__text :global(> blockquote > p:first-child::before) {
-    @apply block font-display not-italic;
-
-    margin-bottom: var(--spacing-4);
-    content: "»";
-    font-size: var(--text-display);
-    line-height: 1;
   }
 
   .chapter-overview__text :global(> blockquote > p:nth-child(2)) {
@@ -242,18 +233,13 @@ const availableSubchapters = subchapters.filter(Boolean);
       width: calc(100% - var(--spacing-64));
       max-width: 840px;
       padding-left: var(--spacing-48);
-      padding-block: var(--spacing-64);
+      padding-block: var(--spacing-32);
       gap: var(--spacing-32);
     }
 
     .chapter-overview__text :global(> blockquote > p:first-child) {
       font-size: var(--text-quote);
       line-height: var(--text-quote--line-height);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:first-child::before) {
-      margin-bottom: var(--spacing-8);
-      font-size: 4rem;
     }
 
     .chapter-overview__text :global(> blockquote > p:nth-child(2)) {
@@ -310,14 +296,7 @@ const availableSubchapters = subchapters.filter(Boolean);
 
     .chapter-overview__text :global(> blockquote) {
       padding-left: 72px;
-      padding-block: var(--spacing-80);
       gap: 38px;
-    }
-
-    .chapter-overview__text :global(> blockquote > p:first-child::before) {
-      margin-bottom: 0;
-      font-size: var(--text-display);
-      line-height: var(--text-display--line-height);
     }
 
     .chapter-overview__text :global(> blockquote > p:nth-child(2)::before) {

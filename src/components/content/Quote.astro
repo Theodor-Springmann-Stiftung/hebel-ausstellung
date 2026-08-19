@@ -12,7 +12,6 @@ const { text, attribution, source, portrait } = Astro.props as {
 <section class="quote" aria-label={`Zitat von ${attribution}`}>
   <blockquote class="quote__body">
     <div class="quote__text">
-      <span aria-hidden="true">»</span>
       <p>{text}</p>
     </div>
     <footer class="quote__source">

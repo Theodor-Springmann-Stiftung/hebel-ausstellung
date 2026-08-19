@@ -18,29 +18,18 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
         <img src={heroImage.src} alt="Porträt Johann Peter Hebels nach einem Kupferstich von Christian Friedrich Müller" loading="eager" decoding="async" />
       </figure>
       <figcaption class="about-hero__caption">
-        <div class="about-hero__caption-inner container-content">
-          <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
+        <div class="about-hero__caption-inner container-content w-[60ch]">
+					<p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
+					<p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe, Inventarnr. VII 1634</p>
         </div>
       </figcaption>
     </header>
 
-    <section class="about-intro" aria-labelledby="about-intro-heading">
-      <h2 class="container-content" id="about-intro-heading">Am 22. September 2026 jährt sich der Todestag Johann Peter Hebels zum zweihundersten Mal.</h2>
-    </section>
 
-    <section class="about-overview page-section" aria-label="Überblick zur Ausstellung">
-      <div class="about-overview__seal">
-        <img src={sealImage.src} alt="Hebels Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
-        <p>Hebels Wachssiegel mit dem <a href="#proteus-symbol">Proteus-Symbol</a></p>
-      </div>
-      <div class="about-overview__text">
-        <p><em>Das Nachleben der Worte</em> zeigt, wie Hebels Werk weit über die Literatur hinauswirkt und gesellschaftliche Realitäten seiner Zeit widerspiegelt. Gerade heute gewinnt sein Blick auf Alltagssprache und Regionales neue Bedeutung angesichts wachsender kultureller Vielfalt und Identitätsdebatten.</p>
-        <p>Im Zentrum steht die Frage, wie Hebel mit seinen Texten Brücken zwischen Hoch- und Umgangssprache schlägt und dabei kulturelle Identitäten formt. Die Schau beleuchtet, warum seine Werke aktuell mehr denn je als Ausdruck eines lebendigen Sprach- und Kulturraums gelesen werden sollten.</p>
-        <p>Anhand von rund 126 Manuskripten, Originaldrucken, Bildern und Objekten entfaltet die Ausstellung in sieben Kapiteln das Nachleben von Hebels Worten.</p>
-      </div>
-    </section>
-
-    <section class="page-section about-section" id="team-partners">
+		<!--
+				<p>Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden mitunter auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: Briefe, 2 Bde., Karlsruhe 1957) mit der Sigle Z und unter Angabe der Briefnummer zitiert.</p>
+-->
+    <section class="page-section about-section pt-[20px]" id="team-partners">
       <h2>Die Kuratoren</h2>
       <p>Die Ausstellung wurde von Alexander Knopf, Jakob Brüssermann und Andreas Beck gemeinschaftlich kuratiert. Alle drei sind Mitarbeiter des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg und an der ebendort herausgegebenen historisch-kritischen Gesamtausgabe der Werke Hebels beteiligt.</p>
     </section>
@@ -49,8 +38,8 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
 
     <section class="page-section about-section" id="hebel-archiv">
       <h2>Das Hebel-Archiv</h2>
-      <p>Das Hebel-Archiv in Heidelberg bewahrt umfangreiche Sammlungen zu Leben und Werk Johann Peter Hebels und unterstützt die wissenschaftliche Forschung.</p>
-      <a class="about-section__link" href="https://www.hebel-archiv.de/">Weiterlesen <span aria-hidden="true">→</span></a>
+			<p>Das Hebel-Archiv in Heidelberg widmet sich der wissenschaftlichen Erforschung von Hebels Leben und Werk. Es veranstaltet die historisch-kritische Gesamtausgabe seiner Schriften. Überdies gehört zum Archiv eine umfassende Sammlung von Materialien von und über Hebel, die der wissenschaftlichen Öffentlichkeit zugänglich ist.</p>
+      <a class="about-section__link" href="https://www.hebel-archiv.de/">Mehr <span aria-hidden="true">→</span></a>
     </section>
 
     <hr class="about-divider" />
@@ -68,12 +57,8 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
     <hr class="about-divider" />
 
     <section class="page-section about-section" id="zitierweise">
-      <h2>Zitierweise</h2>
-      <p>Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden mitunter auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: Briefe, 2 Bde., Karlsruhe 1957) mit der Sigle Z und unter Angabe der Briefnummer zitiert.</p>
-      <div class="about-pending">
-        <span>Inhalt ausstehend</span>
-        <p>“How to cite this exhibition” — a suggested citation string, and a DOI or permanent URL if one exists.</p>
-      </div>
+      <h2>Zitierempfehlung</h2>
+			<p>Virtuelle Ausstellung: <em>Johann Peter Hebel. Das Nachleben der Worte.</em> Erarbeitet und kuratiert von Alexander Knopf, Jakob Brüssermann und Andreas Beck. URL: <a href="/">https://ausstellung.hebel-archiv.de</a></p>
     </section>
 
     <hr class="about-divider" />
@@ -88,10 +73,6 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
         <div><dt>Fonts/Typographie</dt><dd>Nyght Serif (Maksym Kobuzan, Tunera Type Foundry); Geist / Geist Mono (Vercel)</dd></div>
         <div><dt>Fotografie</dt><dd>Li-Wen Kuo</dd></div>
       </dl>
-      <div class="about-pending" id="impressum-datenschutz">
-        <span>Inhalt ausstehend</span>
-        <p>Image rights / licensing statement.</p>
-      </div>
     </section>
   </main>
 </Layout>
@@ -105,7 +86,7 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
   .about-hero__figure img { width: 100%; height: 100%; object-fit: cover; }
   .about-hero__caption { padding: var(--spacing-20); }
   .about-hero__caption-inner { @apply flex flex-col font-sans; gap: var(--spacing-10, 10px); }
-  .about-hero__caption-inner p:first-child { font-size: var(--text-caption); line-height: 1; }
+  .about-hero__caption-inner p { font-size: var(--text-caption); line-height: 1; }
   .page-section { width: calc(100% - var(--spacing-40)); margin-inline: auto; padding-block: var(--spacing-20); }
   .about-intro { padding: 48px var(--spacing-20); }
   .about-intro h2 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: 400; line-height: var(--text-h1--line-height); text-align: center; }
