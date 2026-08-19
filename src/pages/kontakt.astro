@@ -1,5 +1,192 @@
 ---
-import Layout from '../layouts/Layout.astro';
+import Layout from "../layouts/Layout.astro";
+import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 ---
 
-<Layout />
+<Layout>
+  <div class="contact-breadcrumbs">
+    <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Kontakt" }]} />
+  </div>
+
+  <main class="contact-page">
+    <header class="contact-hero">
+      <h1>Kontakt</h1>
+    </header>
+
+    <div class="contact-content">
+      <div class="contact-columns">
+        <section class="contact-block" aria-labelledby="contact-general-title">
+          <h2 id="contact-general-title">Allgemeiner Kontakt</h2>
+
+          <p class="contact-person">
+            Dr. Alexander Knopf<br />
+            Theodor-Springmann-Stiftung
+          </p>
+
+          <div class="contact-field">
+            <h3>Adresse:</h3>
+            <address>
+              Hirschgasse 2<br />
+              69120 Heidelberg<br />
+              Deutschland
+            </address>
+          </div>
+
+          <div class="contact-field">
+            <h3>Telefon:</h3>
+            <p>+49 6221-7258746</p>
+          </div>
+
+          <div class="contact-field">
+            <h3>E-Mail:</h3>
+            <a href="mailto:info@hebel-archiv.de">info@hebel-archiv.de</a>
+          </div>
+        </section>
+
+        <section class="contact-block" aria-labelledby="contact-press-title">
+          <h2 id="contact-press-title">Presse</h2>
+
+          <p>Für Presseanfragen zur Ausstellung wenden Sie sich gerne an uns.</p>
+
+          <p class="contact-person">
+            Dr. Alexander Knopf<br />
+            Theodor-Springmann-Stiftung
+          </p>
+
+          <div class="contact-field">
+            <h3>Telefon:</h3>
+            <p>+49 6221-7258746</p>
+          </div>
+
+          <div class="contact-field">
+            <h3>E-Mail:</h3>
+            <a href="mailto:info@hebel-archiv.de">info@hebel-archiv.de</a>
+          </div>
+        </section>
+      </div>
+
+      <section class="contact-further" aria-labelledby="contact-further-title">
+        <h2 id="contact-further-title">Weiterführend</h2>
+        <p>
+          Hebel-Archiv der Theodor Springmann Stiftung<br />
+          <a href="https://www.hebel-archiv.de/" target="_blank" rel="noreferrer">hebel-archiv.de</a>
+        </p>
+      </section>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  .contact-page {
+    @apply bg-paper text-text-primary;
+  }
+
+  .contact-hero {
+    padding: var(--spacing-40) var(--spacing-20) var(--spacing-20);
+  }
+
+  .contact-hero h1 {
+    @apply font-display text-h1 font-normal;
+
+    line-height: var(--text-h1--line-height);
+  }
+
+  .contact-content {
+    @apply flex flex-col;
+
+    width: calc(100% - var(--spacing-40));
+    margin-inline: auto;
+    gap: var(--spacing-64);
+    padding-block: var(--spacing-40) var(--spacing-64);
+  }
+
+  .contact-columns {
+    @apply flex flex-col;
+
+    gap: var(--spacing-40);
+  }
+
+  .contact-block {
+    @apply flex flex-col;
+
+    gap: var(--spacing-24);
+  }
+
+  .contact-block h2,
+  .contact-further h2 {
+    @apply font-display text-h2 font-normal;
+
+    line-height: var(--text-h2--line-height);
+  }
+
+  .contact-block p,
+  .contact-block address,
+  .contact-block a,
+  .contact-further p,
+  .contact-further a {
+    @apply font-sans text-body font-normal text-inherit;
+
+    line-height: var(--text-body--line-height);
+  }
+
+  .contact-block address {
+    font-style: normal;
+  }
+
+  .contact-field {
+    @apply flex flex-col;
+
+    gap: var(--spacing-8);
+  }
+
+  .contact-field h3 {
+    @apply font-sans text-body font-semibold text-inherit;
+
+    line-height: var(--text-body--line-height);
+  }
+
+  .contact-block a,
+  .contact-further a {
+    text-decoration-line: underline;
+  }
+
+  .contact-block a:hover,
+  .contact-further a:hover {
+    opacity: 0.8;
+  }
+
+  .contact-further {
+    @apply flex flex-col;
+
+    gap: var(--spacing-16);
+  }
+
+  @media (max-width: 767px) {
+    .contact-breadcrumbs {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .contact-hero {
+      padding-inline: var(--spacing-32);
+    }
+
+    .contact-content {
+      width: calc(100% - var(--spacing-64));
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .contact-hero {
+      padding-inline: var(--spacing-80);
+    }
+
+    .contact-content {
+      width: min(var(--container-content), calc(100% - var(--spacing-80) * 2));
+      padding-bottom: var(--spacing-80);
+    }
+  }
+</style>
