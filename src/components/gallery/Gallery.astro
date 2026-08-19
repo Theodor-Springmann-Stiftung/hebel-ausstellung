@@ -458,13 +458,15 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   .gallery__mat {
+    --gallery-mat-padding: var(--spacing-20);
+
     @apply flex items-center justify-center overflow-hidden;
 
     height: 280px;
     gap: var(--spacing-8);
     border: var(--gallery-border-width, 0) solid var(--color-ink);
     background: var(--gallery-mat-background, transparent);
-    padding: var(--spacing-20);
+    padding: var(--gallery-mat-padding);
   }
 
   .gallery__mat :global(.gallery__image) {
@@ -487,8 +489,38 @@ const nextSlide = slides[1] ?? firstSlide;
     max-width: calc((100% - var(--spacing-24)) / 2);
   }
 
+  .gallery__mat[data-image-count="3"] {
+    position: relative;
+    display: block;
+  }
+
   .gallery__mat[data-image-count="3"] :global(.gallery__image) {
-    max-width: calc((100% - var(--spacing-16)) / 3);
+    position: absolute;
+    top: 50%;
+    width: 42%;
+    height: calc(100% - var(--gallery-mat-padding) * 2);
+    max-width: 48%;
+    object-fit: contain;
+    transform: translateY(-50%);
+  }
+
+  .gallery__mat[data-image-count="3"] :global(.gallery__image:nth-child(1)) {
+    left: 10%;
+    object-position: left center;
+  }
+
+  .gallery__mat[data-image-count="3"] :global(.gallery__image:nth-child(2)) {
+    z-index: 1;
+    left: 50%;
+    width: 40%;
+    height: 70%;
+    max-width: 54%;
+    transform: translate(-50%, -50%);
+  }
+
+  .gallery__mat[data-image-count="3"] :global(.gallery__image:nth-child(3)) {
+    right: 10%;
+    object-position: right center;
   }
 
   .gallery__mat[data-image-count="4"] :global(.gallery__image) {
@@ -586,6 +618,7 @@ const nextSlide = slides[1] ?? firstSlide;
 
     gap: 0.25em;
     border-bottom: 1px solid transparent;
+    color: var(--chapter-object-link-color, var(--color-link));
     font-size: var(--text-small);
     line-height: var(--text-small--line-height);
     transition: border-color 150ms var(--ease-default);
@@ -657,8 +690,10 @@ const nextSlide = slides[1] ?? firstSlide;
     }
 
     .gallery__mat {
+      --gallery-mat-padding: var(--spacing-32);
+
       height: 440px;
-      padding: var(--spacing-32);
+      padding: var(--gallery-mat-padding);
     }
 
     .gallery__button {

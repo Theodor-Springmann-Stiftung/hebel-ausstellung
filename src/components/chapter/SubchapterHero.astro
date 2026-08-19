@@ -113,7 +113,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
   }
 
   .subchapter-hero-caption__title { font-size: var(--text-caption); }
-  .subchapter-hero-caption__link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); align-items: baseline; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .subchapter-hero-caption__link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); align-items: baseline; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--chapter-object-link-color, var(--color-link)); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
   .subchapter-hero-caption__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
   .subchapter-hero-caption__link:hover { border-bottom-color: currentColor; }
   .subchapter-hero-caption__link:hover .subchapter-hero-caption__link-arrow { transform: translateX(3px); }
@@ -169,6 +169,10 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
     grid-row: 1;
     background: var(--chapter-color, var(--color-paper));
     color: var(--color-text-primary);
+  }
+
+  :global(html[data-contrast="high"]) .subchapter-hero__chapter {
+    color: var(--chapter-color-dark, var(--color-text-primary));
   }
 
   @media (min-width: 768px) {
