@@ -21,12 +21,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     </a>
 
     <div class="mobile-navigation__actions">
-      <button class="mobile-navigation__search" type="button" data-search-open aria-label="Suche öffnen" aria-haspopup="dialog" aria-controls="site-search">
-        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-          <circle cx="10.8" cy="10.8" r="6.3"></circle>
-          <path d="m15.5 15.5 5 5"></path>
-        </svg>
-      </button>
       <label class="mobile-navigation__menu-button" for="mobile-navigation-toggle" aria-label="Menü öffnen oder schließen">
         <span></span>
         <span></span>
@@ -49,6 +43,13 @@ const isKontaktActive = normalizedPath === '/kontakt/';
         </button>
         <a class="nav-link mobile-navigation__panel-link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
         <a class="nav-link mobile-navigation__panel-link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
+        <button class="nav-link mobile-navigation__panel-link mobile-navigation__panel-search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+            <circle cx="10.8" cy="10.8" r="6.3"></circle>
+            <path d="m15.5 15.5 5 5"></path>
+          </svg>
+          <span>Suche</span>
+        </button>
       </div>
 
       <div class="mobile-navigation__chapters-view" id="mobile-navigation-chapters-view" aria-hidden="true">
@@ -187,35 +188,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     gap: var(--spacing-12);
   }
 
-  .mobile-navigation__search {
-    @apply inline-flex cursor-pointer items-center justify-center bg-transparent text-ink;
-
-    width: var(--spacing-32);
-    height: var(--spacing-32);
-    border: 1px solid currentColor;
-    padding: 6px;
-  }
-
-  .mobile-navigation__search svg {
-    width: 100%;
-    height: 100%;
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-width: 1.5;
-  }
-
-  .mobile-navigation__search:hover {
-    background: var(--color-ink);
-    color: var(--color-paper);
-    opacity: 1;
-    text-decoration: none;
-  }
-
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__search {
-    color: var(--color-paper);
-  }
-
   .mobile-navigation__menu-button {
     width: var(--spacing-32);
     height: var(--spacing-32);
@@ -295,6 +267,19 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     line-height: var(--text-lead--line-height);
   }
 
+  .mobile-navigation__panel-search {
+    align-items: center;
+  }
+
+  .mobile-navigation__panel-search svg {
+    width: var(--spacing-24);
+    height: var(--spacing-24);
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.5;
+  }
+
   .mobile-navigation__contrast-toggle {
     --contrast-toggle-active-background: var(--color-paper);
     --contrast-toggle-active-thumb: var(--color-ink);
@@ -365,12 +350,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     .mobile-navigation__menu-button {
       width: var(--spacing-40);
       height: var(--spacing-40);
-    }
-
-    .mobile-navigation__search {
-      width: var(--spacing-40);
-      height: var(--spacing-40);
-      padding: 9px;
     }
 
     .mobile-navigation__panel {
