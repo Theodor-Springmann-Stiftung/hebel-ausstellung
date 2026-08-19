@@ -181,6 +181,52 @@ const galleries = await Promise.all(
     padding-bottom: var(--spacing-48);
   }
 
+  .section-gallery__body :global(> .footnotes) {
+    @apply font-sans text-text-secondary;
+
+    width: 100%;
+    max-width: var(--container-text);
+    margin-inline: auto;
+    padding: 0 var(--spacing-20) var(--spacing-48);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
+  .section-gallery__body :global(> .footnotes > h2) {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  .section-gallery__body :global(> .footnotes ol) {
+    margin: 0;
+    padding-left: 0;
+    list-style: none;
+    counter-reset: gallery-footnote;
+  }
+
+  .section-gallery__body :global(> .footnotes li) {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    column-gap: var(--spacing-16);
+    counter-increment: gallery-footnote;
+  }
+
+  .section-gallery__body :global(> .footnotes li::before) {
+    content: counter(gallery-footnote);
+  }
+
+  .section-gallery__body :global(> .footnotes p) {
+    max-width: 70ch;
+    margin: 0;
+  }
+
   .section-gallery__body :global(> blockquote) {
     width: calc(100% - var(--spacing-48));
     max-width: 840px;
@@ -255,6 +301,11 @@ const galleries = await Promise.all(
       padding-bottom: var(--spacing-64);
     }
 
+    .section-gallery__body :global(> .footnotes) {
+      max-width: 586px;
+      padding: 0 var(--spacing-32) var(--spacing-64);
+    }
+
     .section-gallery__body :global(> blockquote) {
       width: calc(100% - var(--spacing-64));
       margin-block: var(--spacing-64);
@@ -306,6 +357,11 @@ const galleries = await Promise.all(
 
     .section-intro {
       padding-block: var(--spacing-80);
+    }
+
+    .section-gallery__body :global(> .footnotes) {
+      max-width: var(--container-text);
+      padding-inline: 0;
     }
 
     .section-intro__text :global(> p) {

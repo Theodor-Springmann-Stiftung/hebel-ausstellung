@@ -533,6 +533,17 @@ const nextSlide = slides[1] ?? firstSlide;
     padding: 0 var(--spacing-20) var(--spacing-24);
   }
 
+  .gallery__caption-section :global(a:not(.gallery__object-link)) {
+    border-bottom: 0;
+    color: inherit;
+    text-decoration-line: underline;
+    transition: none;
+  }
+
+  .gallery__caption-section :global(a:not(.gallery__object-link):hover) {
+    opacity: 0.8;
+  }
+
   .gallery--single .gallery__caption-section {
     padding-top: var(--spacing-24);
   }
