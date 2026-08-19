@@ -1,11 +1,12 @@
 ---
 slug: "hebel-geburtshaus-privat"
-titel: "Hebels Geburtshaus am Basler Totentanz"
+titel: "Predigerkirche mit Totentanz"
 urheber: "Emanuel Büchel"
 datierung: "Um 1770"
 materialTechnik: "Getuschte Pinselzeichnung"
-institution: "Privatbesitz Basel"
-quelle: "Ausschnitt aus einer getuschten Pinselzeichnung von Emanuel Büchel (um 1770). Privatbesitz Basel. [hausen.pcom.de](https://hausen.pcom.de/jphebel/hebelbilderleben/geburtshaus.htm)"
+institution: "Staatsarchiv Basel-Stadt"
+inventarnummer: "BILD 6, 1221"
+quelle: "Emanuel Büchel: *Predigerkirche mit Totentanz*. Staatsarchiv Basel-Stadt, BILD 6, 1221, gemeinfrei. [Digitaler Lesesaal des Staatsarchivs Basel-Stadt](https://dls.staatsarchiv.bs.ch/records/574070/165871/preview?context=%2Frecords%2F574070&options=%7B%22pan%22%3A%7B%22x%22%3A0.549%2C%22y%22%3A0.319%7D%2C%22zoom%22%3A0.681%7D)"
 bilder:
   - bild: "1_01_01_hebel_geburtshaus_privat"
 ---

@@ -39,7 +39,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   </div>
 
   <div class="desktop-navigation__contrast-toggle">
-    <ContrastToggle />
+    <div class="desktop-navigation__contrast-toggle-clip">
+      <div class="desktop-navigation__contrast-toggle-panel">
+        <ContrastToggle />
+      </div>
+    </div>
   </div>
 </nav>
 
@@ -97,12 +101,26 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   }
 
   .desktop-navigation__contrast-toggle {
+    position: absolute;
+    top: 100%;
+    right: calc(var(--spacing-80) - var(--spacing-12));
+    display: grid;
+    grid-template-rows: 0fr;
+    pointer-events: none;
+    visibility: hidden;
+    transition: grid-template-rows 100ms var(--ease-default), visibility 0s linear 100ms;
+  }
+
+  .desktop-navigation__contrast-toggle-clip {
+    min-height: 0;
+    overflow: hidden;
+    padding: 0 var(--spacing-12) var(--spacing-12) 0;
+  }
+
+  .desktop-navigation__contrast-toggle-panel {
     --contrast-toggle-active-background: var(--color-ink);
     --contrast-toggle-active-thumb: var(--color-paper);
 
-    position: absolute;
-    top: 100%;
-    right: var(--spacing-80);
     display: flex;
     border: 0.5px solid var(--color-ink);
     border-top: 0;
@@ -110,6 +128,14 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     padding: var(--spacing-8) var(--spacing-12);
     color: var(--color-ink);
     box-shadow: 4px 5px 8px rgb(0 0 0 / 16%);
+  }
+
+  .desktop-navigation:hover:not([data-contrast-dismissed]) .desktop-navigation__contrast-toggle,
+  .desktop-navigation:focus-within:not([data-contrast-dismissed]) .desktop-navigation__contrast-toggle {
+    grid-template-rows: 1fr;
+    pointer-events: auto;
+    visibility: visible;
+    transition-delay: 0s;
   }
 
   .desktop-navigation__dropdown {
@@ -201,6 +227,10 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
   @media (prefers-reduced-motion: reduce) {
     .desktop-navigation__chevron {
+      transition: none;
+    }
+
+    .desktop-navigation__contrast-toggle {
       transition: none;
     }
   }

@@ -59,6 +59,18 @@ import { pageTitle } from "../data/site";
 	document.querySelectorAll<HTMLButtonElement>("[data-contrast-toggle]").forEach((toggle) => {
 		toggle.addEventListener("click", () => {
 			setContrast(document.documentElement.dataset.contrast !== "high");
+			const desktopNavigation = toggle.closest<HTMLElement>(".desktop-navigation");
+			if (desktopNavigation) desktopNavigation.dataset.contrastDismissed = "";
+			toggle.blur();
+		});
+	});
+
+	document.querySelectorAll<HTMLElement>(".desktop-navigation").forEach((navigation) => {
+		const resetDismissedState = () => delete navigation.dataset.contrastDismissed;
+
+		navigation.addEventListener("pointerleave", resetDismissedState);
+		navigation.addEventListener("focusin", (event) => {
+			if (!(event.target as Element).closest("[data-contrast-toggle]")) resetDismissedState();
 		});
 	});
 
