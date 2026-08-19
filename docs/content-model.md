@@ -21,12 +21,12 @@ Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
 | Body-Markdown | Langer Markdown-Inhalt unterhalb des Frontmatter-Blocks. Hier stehen zum Beispiel Fließtexte, Absätze und Blockzitate. |
 | Ganzzahl | Eine Zahl ohne Nachkommastellen, zum Beispiel `1`, `2` oder `3`. |
 | Boolean | Ein Wahr/Falsch-Wert: entweder `true` oder `false`. |
-| Array | Eine Liste mehrerer Werte. Die Reihenfolge kann je nach Verwendugn relevant sein. |
+| Array | Eine Liste mehrerer Werte. Die Reihenfolge kann je nach Verwendung relevant sein. |
 | Referenz | Verweis auf einen anderen Content-Eintrag, angegeben über dessen ID, zum Beispiel `"carfunkel-kupfer"`. |
 | Array von Referenzen | Eine Liste von Referenzen, zum Beispiel mehrere Bilder in einer Galerie. |
 | Array von Referenz-Arrays | Eine geordnete Liste von Gruppen. Bei `galleries.bilder` ist jede äußere Gruppe eine Folie und jedes innere Element ein Bild auf dieser Folie. |
-| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel nur  die Farbnamen `lindgrün`, `vanille` oder `rosa`. |
-| URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9`, `-` oder `_`. Keine Leerzeichen, keine Steuerzeichen, keine Nicht-ASCII-Zeichen und keine URL-Sonderzeichen wie `~`, `/`, `\\`, `:`, `?`, `#`, `&` oder `=`. |
+| Enum | Ein String, bei dem nur bestimmte Werte erlaubt sind, zum Beispiel beim Bildabstand nur `normal` oder `weit`. |
+| URL-sicherer ASCII-Slug | Ein String für URLs. Erlaubt sind nur `A-Z`, `a-z`, `0-9` und `-`. Keine Leerzeichen, Unterstriche, Steuerzeichen, Nicht-ASCII-Zeichen oder URL-Sonderzeichen. Objekt-Slugs dürfen außerdem nicht mit einer Kapitelnummer von `1-` bis `7-` beginnen. |
 
 ## Sammlungen
 
@@ -41,14 +41,12 @@ Pfad: `src/content/chapters/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `reihenfolge` | Positive Ganzzahl | ja | Sortierreihenfolge der Kapitel. |
-| `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"01"` oder `"02"`. |
+| `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"1"` oder `"2"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `thumbnail` | String | ja | Dateiname des vorbereiteten Kapitel-Thumbnails in `src/assets/Thumbnails`. |
+| `thumbnail` | String | ja | Dateiname eines WebP-Bildes in `src/assets/Thumbnails`. Das Bild wird in der Kapitelübersicht und auf der Startseite verwendet. |
 | `hero` | String | ja | Dateiname des vorbereiteten Kapitel-Heroes in `src/assets/Heroes`. |
 | `heroMetadata` | Bildreferenz | nein | Bilddatensatz des zugrunde liegenden Objekts für Alternativtext, Beschriftung und Objektlink. |
-| `startseitenBild` | String | ja | Dateiname eines Bildes für die Startseite. Erlaubt sind `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`. |
-| `startseitenAltText` | String | nein | Alternativtext für das Startseitenbild. |
 | `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
 | `unterkapitel` | Array von Referenzen auf `subchapters` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
 | `galerien` | Array von Referenzen auf `galleries` | bedingt | Mindestens 1 Eintrag, wenn gesetzt. |
@@ -61,20 +59,18 @@ Beispiel mit Unterkapiteln:
 ```md
 ---
 reihenfolge: 2
-nummer: "02"
+nummer: "2"
 titel: "Der Dichter"
 navTitel: "Der Dichter"
 thumbnail: "2.webp"
 hero: "2.webp"
-heroMetadata: "tschopli-hero"
-startseitenBild: "2.0_hero_image_Tschoepli_TSS.webp"
-startseitenAltText: "Illustration zu den Allemannischen Gedichten"
+heroMetadata: "20_hero_image_tschoepli_tss"
 startseitenVariante: "poet"
 unterkapitel:
-  - "allemannische-gedichte-von-1803"
-  - "allemannische-gedichte-im-bild"
-  - "uebersetzungen-der-allemannischen-gedichte"
-  - "raubdrucke-der-allemannischen-gedichte"
+  - "2-1-allemannische-gedichte-1803"
+  - "2-2-allemannische-gedichte-im-bild"
+  - "2-3-uebersetzungen"
+  - "2-4-raubdrucke"
 ---
 
 Jenseits des deutschsprachigen Südwestens sind sie heute weitgehend unbekannt – anders als früher. 1803 begründeten die anonym erschienenen *Allemannischen Gedichte* schlagartig das Renommée ihres Autors. Hebel hatte zur rechten Zeit den rechten Ton getroffen: Die Sammlung wurde mehrfach übersetzt, teilweise vertont, wiederholt bebildert, sie sah zahlreiche rechtmäßige Ausgaben, fragwürdige Nachdrucke sowie gelehrte Editionen. Als eines der meistaufgelegten Werke des 19. Jahrhunderts waren die *Allemannischen Gedichte* Teil des deutschliterarischen Kanons.
@@ -89,23 +85,21 @@ Beispiel mit direkt enthaltenen Galerien:
 ```md
 ---
 reihenfolge: 1
-nummer: "01"
+nummer: "1"
 titel: "Der Oberländer"
 navTitel: "Der Oberländer"
 thumbnail: "1.webp"
 hero: "1.webp"
-heroMetadata: "oberland-1833"
-startseitenBild: "1_00_homepage_oberlaender.png"
-startseitenAltText: "Historische Ansicht des Wiesentals"
+heroMetadata: "1_00_01_hero_image_wiesental_blb"
 startseitenVariante: "featured"
 galerien:
-  - "basel"
-  - "hausen"
-  - "schopfheim"
-  - "roettler-schloss"
+  - "1-01-basel"
+  - "1-02-hausen"
+  - "1-03-schopfheim"
+  - "1-04-roettler-schloss"
 ---
 
-Wenn es vom *Rheinländischen Hausfreund* im Jahrgang 1809 heißt, er gehe fleißig am Rheinstrom auf und ab, dann deckt sich das recht genau mit dem Raum, in dem sich auch Hebels Leben abspielte. Sieht man von seiner Studienzeit in Erlangen ab, gelangte Hebel auch da, wo er das zwischen Basel und Mannheim sich erstreckende Großherzogtum Basel verließ, nur in die nächste Nachbarschaft (Straßburg, Stuttgart, Schweiz). Das erste Kapitel stellt die wichtigsten Stationen in Hebels Leben vor.
+Wenn es vom *Rheinländischen Hausfreund* im Jahrgang 1809 heißt, er gehe fleißig am Rheinstrom auf und ab, dann deckt sich das recht genau mit dem Raum, in dem sich auch Hebels Leben abspielte. Sieht man von seiner Studienzeit in Erlangen ab, gelangte Hebel auch da, wo er das zwischen Basel und Mannheim sich erstreckende Großherzogtum Baden verließ, nur in die nächste Nachbarschaft (Straßburg, Stuttgart, Schweiz). Das erste Kapitel stellt die wichtigsten Stationen in Hebels Leben vor.
 ```
 
 ### Sammlung: `subchapters`
@@ -155,9 +149,21 @@ Pfad: `src/content/galleries/*.md`
 |---|---|---:|---|
 | `titel` | Markdown-String | ja | Galerietitel. Unterstützt Inline-Markdown. |
 | `beschriftung` | Markdown-String | nein | Galerie-weite Ersatz-Bildunterschrift. |
-| `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. |
+| `untertitel` | Markdown-String | nein | Galerie-weiter Zusatz zur Ersatz-Bildunterschrift. Der aktuelle Renderer zeigt ihn nur im Text-Ersatz an, wenn kein Galeriebild aufgelöst werden konnte. |
+| `folienbeschriftung` | Markdown-String | nein | Gemeinsame Hauptbeschriftung für alle Folien. Eine folienspezifische Beschriftung hat Vorrang. |
+| `folienbeschriftungen` | Array von Folienbeschriftungen | nein | Folienspezifische Haupt- und Unterbeschriftungen. Standardwert ist eine leere Liste. Die Struktur wird unten beschrieben. |
+| `bildabstand` | Enum | nein | Abstand zwischen mehreren Bildern einer Folie: `normal` oder `weit`. Standardwert ist `normal`. |
+| `positionsangaben` | Boolean | nein | Vorgesehener Schalter für automatische Angaben wie „Links“ und „Rechts“. Standardwert ist `true`; der aktuelle Renderer wertet den Schalter noch nicht aus. |
 | `bilder` | Array von Bildreferenz-Arrays | ja | Mindestens 1 Folie mit mindestens 1 Bild. Das äußere Array bestimmt die Folienreihenfolge; die inneren Arrays bestimmen die Reihenfolge der nebeneinander dargestellten Bilder. Jede Referenz ist eine Bild-Metadaten-ID oder ein vollständiger `Bilder/...`-Pfad einschließlich Dateiendung. |
-| Inhalt | Body-Markdown | nein | Optionaler Essay-Text unterhalb der Galerie. Blockzitate können direkt hier geschrieben werden. |
+| Inhalt | Body-Markdown | ja | Essay-Text unterhalb der Galerie. Der zusätzliche Inhaltsvalidator verlangt mindestens einen nicht leeren Text. Blockzitate können direkt hier geschrieben werden. |
+
+Eine Folienbeschriftung in `folienbeschriftungen` hat folgende Felder:
+
+| Feld | Typ | Pflicht | Hinweise |
+|---|---|---:|---|
+| `folie` | Positive Ganzzahl | ja | Einsbasierte Nummer der Folie, für die die Beschriftung gilt. |
+| `beschriftung` | Markdown-String | ja | Gemeinsame Hauptbeschriftung der Folie. |
+| `unterbeschriftungen` | Array | nein | Geordnete Zusatztexte. Ein Eintrag ist entweder ein Markdown-String oder ein Objekt mit `bild` (einsbasierte Bildnummer) und `beschriftung`. Standardwert ist eine leere Liste. Diese Daten bleiben im Content erhalten, werden auf der Ausstellungsseite derzeit aber nicht ausgegeben. |
 
 Blockzitat-Konvention im Body-Markdown:
 
@@ -176,11 +182,15 @@ Beispiel:
 ```md
 ---
 titel: "Überraschungserfolg eines literarischen Debütanten"
-beschriftung: "Hebel-Haus in Hausen"
-untertitel: "Hausen, Hebelhaus um 1840/50, Bleistift, 20 x 33,2 cm, Museum Schopfheim, Inv. Nr. GFRH 35, Zeichnung von Gustav Wilhelm Friesenegger."
+folienbeschriftungen:
+  - folie: 1
+    beschriftung: "Die erste Auflage der *Allemannischen Gedichte* und Goethes Rezension"
+    unterbeschriftungen:
+      - bild: 1
+        beschriftung: "Titelblatt der Erstausgabe"
 bilder:
-  - - "hebelhaus-hausen-1840"
-  - - "allemannische-gedichte-1803-titel"
+  - - "Bilder/2-1/2.1_01_1_AG_1803_und_ALZ_TSS.webp"
+    - "2.1_01_02_Goethe_ALZ_01"
 ---
 
 Die *Allemannischen Gedichte*, von denen rasch eine weitere Auflage auf den Markt kam, waren umgehend nicht nur regional erfolgreich; mit seinem literarischen Debüt war Hebel „im Begriff sich einen eigenen Platz auf dem deutschen Parnaß zu erwerben“ (Goethe).
@@ -239,6 +249,7 @@ Pfad: `src/content/objects/*.md`
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `slug` | URL-sicherer ASCII-Slug | ja | Öffentlicher Objekt-Slug. |
+| `kapitelunabhaengig` | Boolean | nein | Wenn `true`, erhält die Objektseite keinen Rücksprungkontext zu einem Kapitel oder Unterkapitel. Standardwert ist `false`. |
 | `transkription` | Boolean | nein | Gibt an, ob der Body eine Transkription enthält. Standardwert ist `false`. |
 | `transkriptionsart` | Enum | nein | Bezeichnung des Langtexts und des Galerie-Links: `Transkription` oder `Übersetzung`. Standardwert ist `Transkription`. |
 | `titel` | Markdown-String | ja | Objekttitel. Unterstützt Inline-Markdown. |
@@ -249,8 +260,8 @@ Pfad: `src/content/objects/*.md`
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
 | `quelle` | Markdown-String | nein | Quelle oder Quellenangabe zum Objekt. |
-| `bilder` | Array von Bildzuordnungen | nein | Geordnete Bilder des Objekts. Jede Zuordnung enthält `bild` und optional `position` sowie `objektReihenfolge`. |
-| Inhalt | Body-Markdown | nein | Objektbeschreibung unterhalb des Frontmatters. |
+| `bilder` | Array von Bildzuordnungen | nein | Geordnete Bilder des Objekts. Jede Zuordnung enthält `bild` und optional `position`, `objektReihenfolge`, `beschriftung` sowie `inObjektansicht`. |
+| Inhalt | Body-Markdown | nein | Objektbeschreibung, Transkription oder Übersetzung unterhalb des Frontmatters. Jeder vorhandene Inhalt muss unter einer der Überschriften `# Beschreibung`, `# Transkription` oder `# Übersetzung` stehen. Andere H1-Überschriften und Text vor der ersten H1-Überschrift sind nicht erlaubt. |
 
 Eine Bildzuordnung hat folgende Felder:
 
@@ -260,6 +271,7 @@ Eine Bildzuordnung hat folgende Felder:
 | `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
 | `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
 | `beschriftung` | Markdown-String | nein | Bildunterschrift dieses Objekts in der Galerie. Überschreibt dort den Objekttitel. |
+| `inObjektansicht` | Boolean | nein | Bestimmt, ob das Bild auf der Objektseite erscheint. Die Beziehung des Objekts zum Galeriebild bleibt auch bei `false` bestehen. Standardwert ist `true`. |
 
 Beispiel:
 
@@ -277,7 +289,7 @@ institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412284"
 quelle: "https://example.com/object/412284"
 bilder:
-  - bild: "2.2_01_Zix_Carfunkel_Kupfer_1806_TSS"
+  - bild: "Bilder/2-2/2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 ---
 
 # Beschreibung
@@ -287,9 +299,11 @@ Die dritte Auflage der *Allemannischen Gedichte* zeigt auf dem Titelkupfer von B
 
 ## Bildunterschrift-Ersatzlogik
 
-Bei einem Bild oder mehreren Bildern desselben Objekts wird zuerst eine vorhandene gemeinsame `folienbeschriftung` beziehungsweise der passende Eintrag aus `folienbeschriftungen` zusammen mit einem einmaligen Objektlink gezeigt. Fehlt die gemeinsame Beschriftung, wird zuerst `images.beschriftung`, danach die optionale `beschriftung` der Objekt-Bild-Zuordnung und zuletzt der Objekttitel zusammen mit dem Link verwendet. Bei mehreren unterschiedlichen Objekten erscheint eine vorhandene gemeinsame Folienbeschriftung zuerst. Danach erhält jedes eindeutige Objekt eine Positionsangabe, eine Beschriftung nach derselben Ersatzreihenfolge und seinen eigenen Objektlink.
+Eine passende `folienbeschriftungen`-Hauptbeschriftung hat Vorrang vor `folienbeschriftung`. Bei genau einem Objekt auf einer Folie wird der Objektlink an dieser gemeinsamen Beschriftung ausgegeben. Ohne gemeinsame Folienbeschriftung verwendet ein Bild mit genau einem Objekt zuerst `images.beschriftung`, danach die optionale `beschriftung` der Objekt-Bild-Zuordnung und zuletzt den Objekttitel.
 
-Sekundäre Bildunterbeschriftungen werden auf der Ausstellungsseite nicht ausgegeben. Die Metadaten bleiben an den verknüpften Objekten verfügbar.
+Bei mehreren unterschiedlichen Objekten wird für jedes Objekt zuerst die `beschriftung` seiner Bildzuordnung und danach sein Objekttitel verwendet. Jedes eindeutige Objekt erhält einen eigenen Link. Bei mehreren Bildern oder Objekten ergänzt der Renderer nötigenfalls automatisch Positionsangaben wie „Links“, „Mitte“ oder „Rechts“. Enthält ein Bild keine Objektbeziehung, dient `images.beschriftung` als Bildunterschrift. Erst wenn keine dieser Beschriftungen vorhanden ist, wird die Galerie-weite `beschriftung` verwendet.
+
+Die Einträge aus `folienbeschriftungen[].unterbeschriftungen` und der Galerie-`untertitel` werden in einer regulären Galerie derzeit nicht ausgegeben. Die Daten bleiben für eine spätere Verwendung im Content erhalten.
 
 ## Bilddatei-Ersatzlogik
 
@@ -323,10 +337,9 @@ erDiagram
     string nummer "required"
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
+    string thumbnail "WebP thumbnail required"
     string hero "prepared hero filename required"
     reference heroMetadata "optional image metadata and object relationship"
-    string startseitenBild "required image extension"
-    string startseitenAltText "optional"
     enum startseitenVariante "required homepage variant"
     reference_array unterkapitel "reference subchapters optional min 1"
     reference_array galerien "reference galleries optional min 1"
@@ -337,6 +350,7 @@ erDiagram
     string nummer "required"
     markdown titel "requiredMarkdown"
     markdown navTitel "requiredMarkdown"
+    string thumbnail "WebP thumbnail required"
     string hero "prepared hero filename required"
     reference heroMetadata "optional image metadata and object relationship"
     reference_array galerien "reference galleries required min 1"
@@ -347,9 +361,12 @@ erDiagram
     markdown titel "requiredMarkdown"
     markdown beschriftung "optionalMarkdown"
     markdown untertitel "optionalMarkdown"
-    enum farbe "galleryColor default lindgrün"
+    markdown folienbeschriftung "optional shared slide caption"
+    object_array folienbeschriftungen "optional per-slide captions"
+    enum bildabstand "normal or weit, default normal"
+    boolean positionsangaben "default true"
     reference_array_array bilder "ordered slides; each slide contains reference images min 1"
-    markdown body "optional"
+    markdown body "required by content validator"
   }
 
   IMAGE {
@@ -362,7 +379,9 @@ erDiagram
 
   OBJECT {
     slug slug "urlSafeAsciiSlug required"
+    boolean kapitelunabhaengig "default false"
     boolean transkription "default false"
+    enum transkriptionsart "Transkription or Übersetzung"
     markdown titel "requiredMarkdown"
     markdown untertitel "optionalMarkdown"
     markdown urheber "optionalMarkdown"

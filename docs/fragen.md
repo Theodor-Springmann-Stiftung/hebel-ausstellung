@@ -1,3 +1,7 @@
+# Historische Fragen
+
+> **Nicht mehr aktuell:** Diese Notizen beziehen sich auf frühere Content-Fragebögen und ältere Fassungen der Inhalte. Die überarbeiteten Dateien in `src/content` sind die aktuelle Grundlage. Die folgenden Punkte dienen nur noch als historischer Kontext und sind keine offenen Anforderungen.
+
 - Ich finde das neue Design mit der Hidnergrundfarbe hässlich.
   - Vorschlag: Passpartout mit Hintergrundfarbe verwenden und der Überschrift eine Hintergrundfarbe geben. Subunterschriften behalten, aber ohne fixed-width-font.
 
@@ -14,4 +18,3 @@ Alabasterrelief von Sophie Haufe von Landolin Ohmacht, der auch Hebel in dieser 
 
 - /7/#3 – Kapitel 7, Galerie „Kapuziner und Klosterfrau“: Ohne Sollbilder oder Fileserver-Zugriff ist nicht feststellbar, ob die neuen Bilder verwendet werden.
 Objekte und Bilduinterschrift?
-

@@ -1,76 +1,108 @@
-# Data Model
+# Datenmodell: Kurzreferenz
 
-## Structure
+Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist `src/content.config.ts`; zusätzliche inhaltliche Regeln stehen in `scripts/validate-content.mjs`.
 
-- Home Page -- Not yet finished
-- Chapters
-    - With Subchapter -- contains subchapters
-    - Without Subchapter -- contains galleries
-- Subchapters -- contains gallieries
-- Galleries (ordered slides containing one or more images, with text and blockquote)
-- Images (optional image metadata only)
-- Objects (contain references to the images in which they are shown)
+## Struktur
 
+- Startseite: verwendet `thumbnail` und `startseitenVariante` der Kapitel.
+- Kapitel: enthält entweder Unterkapitel oder direkt Galerien.
+- Unterkapitel: enthält direkt Galerien.
+- Galerie: geordnete Folien mit einem oder mehreren Bildern sowie einem erforderlichen Begleittext.
+- Bild: optionale Metadaten zu einem Bild-Asset.
+- Objekt: kuratorische Metadaten und maßgebliche Beziehungen zu den Bildern, auf denen das Objekt gezeigt wird.
 
-## Entities
+## Entitäten
 
-### Chapter
+### Kapitel
 
-Reihenfolge: INT, Required
-Nummer: String, Required
-Titel: String (MARKDOWN), Required
-Nav-Titel: String (MARKDOWN), Required
-Hero: String, Required (Datei in `src/assets/Heroes`)
-Hero-Metadaten: ->Image, Optional
-Intro-Text: MD
-Unterkapitel: ->Subchapters, IN ORDER
-Galerien: ->Galleries (one of both required, either Unterkapitel or Galerien), IN ORDER
+| Feld | Typ | Pflicht |
+|---|---|---:|
+| `reihenfolge` | Positive Ganzzahl | ja |
+| `nummer` | String | ja |
+| `titel` | Markdown-String | ja |
+| `navTitel` | Markdown-String | ja |
+| `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
+| `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
+| `heroMetadata` | Bildreferenz | nein |
+| `startseitenVariante` | `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` oder `letter-writer` | ja |
+| `unterkapitel` | Geordnetes Array von Unterkapitel-Referenzen | bedingt |
+| `galerien` | Geordnetes Array von Galerie-Referenzen | bedingt |
+| Body | Markdown | nein |
 
+Genau eines der Felder `unterkapitel` und `galerien` muss gesetzt und darf nicht leer sein.
 
-### Subchapter
+### Unterkapitel
 
-Nummer: String, Required
-Titel: String (MARKDOWN), Required
-Nav-Titel: String (MARKDOWN), Required
-Hero: String, Required (Datei in `src/assets/Heroes`)
-Hero-Metadaten: ->Image, Optional
-Intro-Text: MD
-Galerien: ->Galleries, Required
-NOTE: Same fields as chapter, except for ORDER, and can't contain further subchapters)
+| Feld | Typ | Pflicht |
+|---|---|---:|
+| `nummer` | String | ja |
+| `titel` | Markdown-String | ja |
+| `navTitel` | Markdown-String | ja |
+| `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
+| `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
+| `heroMetadata` | Bildreferenz | nein |
+| `galerien` | Geordnetes, nicht leeres Array von Galerie-Referenzen | ja |
+| Body | Markdown | nein |
 
+### Galerie
 
-### Gallery
+| Feld | Typ | Pflicht/Standard |
+|---|---|---:|
+| `titel` | Markdown-String | ja |
+| `beschriftung` | Markdown-String | nein |
+| `untertitel` | Markdown-String | nein |
+| `folienbeschriftung` | Gemeinsame Markdown-Beschriftung aller Folien | nein |
+| `folienbeschriftungen` | Array folienspezifischer Beschriftungen | `[]` |
+| `bildabstand` | `normal` oder `weit` | `normal` |
+| `positionsangaben` | Boolean | `true` |
+| `bilder` | Geordnetes Array nicht leerer Bildreferenz-Arrays | ja |
+| Body | Markdown | ja |
 
-Titel: String (MARKDOWN), Required
-Beschriftung: String (MARKDOWN), Optional
-Untertitel: String (MARKDOWN), Optional
-Farbe: String, Optional
-Bilder: Array of non-empty image-reference arrays, Required. The outer order defines slides; the inner order defines images displayed next to each other on a slide.
-Text: String (MARKDOWN), Required, Long
+Jeder Eintrag in `folienbeschriftungen` enthält eine positive, einsbasierte `folie`, eine erforderliche Markdown-`beschriftung` und optionale `unterbeschriftungen`. Eine Unterbeschriftung ist entweder ein Markdown-String oder ein Objekt aus einsbasierter Bildnummer `bild` und Markdown-`beschriftung`.
 
+Der aktuelle Renderer zeigt `unterbeschriftungen` und den regulären Galerie-`untertitel` nicht an. Auch `positionsangaben` ist im Schema vorhanden, wird vom Renderer aber noch nicht ausgewertet. `bildabstand: weit` ist wirksam.
 
-### Image
+### Bild
 
-Dateiname: String, Optional (falls nicht gesetzt, wird der Basisname der Bild-Metadatendatei verwendet)
-Alt-Text: String (MARKDOWN), Optional
-Beschriftung: String (MARKDOWN), Optional
-Nachweis: String (MARKDOWN), Optional
-Image records do not contain object references.
+| Feld | Typ | Pflicht |
+|---|---|---:|
+| `dateiname` | Vollständiger Asset-Pfad unter `Bilder/`, `Heroes/` oder `Meta/` | nein |
+| `altText` | Markdown-String | nein |
+| `beschriftung` | Markdown-String | nein |
+| `nachweis` | Markdown-String | nein |
+| Body | Markdown, derzeit ungenutzt | nein |
 
+Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen.
 
-### Objects
+### Objekt
 
-Slug: URL-Compatible String, Required
-Titel: String (MARKDOWN), Required
-Untertitel: String (MARKDOWN), Optional
-Beschreibung: String (MARKDOWN), Optional
-Urheber: String (MARKDOWN), Optional
-Datierung: String, Optional
-Material-Technik: String, Optional
-Institution: String (MARKDOWN), Optional
-Inventarnummer: String (MARKDOWN), Optional
-Transkription: String (MARKDOWN), Optional, Long
-Transkriptionsart: Transkription / Übersetzung, Optional, Default Transkription
-Bilder: Array of image associations, Optional, In order for the object page
-Each image association contains Bild (image metadata ID resolving to `Bilder/...` or a complete `Bilder/...` asset path), optional Position (Links/Rechts/Vorne), optional Objekt-Reihenfolge for shared images, and an optional gallery-specific Beschriftung.
-NOTE: Object-to-image references are authoritative. Image metadata contains no backlink.
+| Feld | Typ | Pflicht/Standard |
+|---|---|---:|
+| `slug` | URL-sicherer ASCII-Slug aus Buchstaben, Ziffern und Bindestrichen | ja |
+| `kapitelunabhaengig` | Boolean | `false` |
+| `transkription` | Boolean | `false` |
+| `transkriptionsart` | `Transkription` oder `Übersetzung` | `Transkription` |
+| `titel` | Markdown-String | ja |
+| `untertitel` | Markdown-String | nein |
+| `urheber` | Markdown-String | nein |
+| `datierung` | Markdown-String | nein |
+| `materialTechnik` | Markdown-String | nein |
+| `institution` | Markdown-String | nein |
+| `inventarnummer` | Markdown-String | nein |
+| `quelle` | Markdown-String | nein |
+| `bilder` | Geordnetes Array von Bildzuordnungen | nein |
+| Body | Markdown unter erlaubten H1-Überschriften | nein |
+
+Eine Bildzuordnung enthält:
+
+| Feld | Typ | Pflicht/Standard |
+|---|---|---:|
+| `bild` | Bild-Metadaten-ID oder vollständiger `Bilder/...`-Asset-Pfad | ja |
+| `position` | `Links`, `Rechts` oder `Vorne` | nein |
+| `objektReihenfolge` | Positive Ganzzahl | nein |
+| `beschriftung` | Galerie-spezifischer Markdown-Text | nein |
+| `inObjektansicht` | Boolean | `true` |
+
+Objekt-Bild-Zuordnungen sind die maßgebliche Quelle der Beziehungen. Teilen mehrere Objekte dasselbe Bild, müssen alle eine eindeutige `objektReihenfolge` besitzen. `inObjektansicht: false` blendet das Bild nur auf der Objektseite aus; die Galeriebeziehung bleibt erhalten.
+
+Objekt-Body-Inhalt muss vollständig unter `# Beschreibung`, `# Transkription` und/oder `# Übersetzung` stehen. Andere H1-Überschriften sowie Text vor der ersten H1-Überschrift sind nicht erlaubt.
