@@ -50,6 +50,7 @@
   let engine: SearchEngine | undefined;
   let recordsById = new Map<string, SearchRecord>();
   let loadingPromise: Promise<SearchEngine> | undefined;
+  let minimumLengthTimer: number | undefined;
 
   const setLoading = (isLoading: boolean) => {
     if (loader) loader.hidden = !isLoading;
@@ -67,6 +68,12 @@
     resultsList?.replaceChildren();
   };
 
+  const clearMinimumLengthTimer = () => {
+    if (minimumLengthTimer === undefined) return;
+    window.clearTimeout(minimumLengthTimer);
+    minimumLengthTimer = undefined;
+  };
+
   const findMatchIndex = (text: string, terms: string[]) => {
     for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
       const word = normalizeSearchText(match[0]);
@@ -76,8 +83,7 @@
     return -1;
   };
 
-  const createExcerpt = (record: SearchRecord, query: string) => {
-    const terms = query.split(/\s+/).filter((term) => term.length > 1);
+  const createExcerpt = (record: SearchRecord, terms: string[]) => {
     const candidates = [
       record.subtitle,
       record.captions,
@@ -90,30 +96,48 @@
     const matched = candidates
       .map((text) => ({ text, index: findMatchIndex(text, terms) }))
       .find(({ index }) => index >= 0);
-    const text = matched?.text ?? candidates[0] ?? "";
-    if (!text) return "";
+    if (!matched) return "";
 
-    const matchIndex = matched?.index ?? 0;
+    const { text, index: matchIndex } = matched;
     const start = Math.max(0, matchIndex - 70);
     const end = Math.min(text.length, matchIndex + 170);
     const excerpt = text.slice(start, end).trim();
     return `${start > 0 ? "…" : ""}${excerpt}${end < text.length ? "…" : ""}`;
   };
 
-  const renderResults = (searchResults: ReturnType<SearchEngine["search"]>, query: string) => {
+  const appendHighlightedText = (element: HTMLElement, text: string, terms: string[]) => {
+    let lastIndex = 0;
+
+    for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
+      const word = normalizeSearchText(match[0]);
+      if (!terms.some((term) => word.startsWith(term) || word.includes(term))) continue;
+
+      const index = match.index ?? 0;
+      element.append(text.slice(lastIndex, index));
+      const highlight = document.createElement("mark");
+      highlight.textContent = match[0];
+      element.append(highlight);
+      lastIndex = index + match[0].length;
+    }
+
+    element.append(text.slice(lastIndex));
+  };
+
+  const renderResults = (searchResults: ReturnType<SearchEngine["search"]>) => {
     clearResults();
     if (!resultsList) return;
 
-    for (const result of searchResults.slice(0, 30)) {
+    for (const result of searchResults) {
       const record = recordsById.get(String(result.id));
       if (!record) continue;
+      const matchedTerms = result.terms;
 
       const item = document.createElement("li");
       const link = document.createElement("a");
       const meta = document.createElement("div");
       const context = document.createElement("span");
       const title = document.createElement("h3");
-      const excerptText = createExcerpt(record, query);
+      const excerptText = createExcerpt(record, matchedTerms);
 
       item.className = "search-dialog__result";
       link.className = "search-dialog__result-link";
@@ -122,7 +146,7 @@
       context.className = "search-dialog__result-context";
       context.textContent = record.context;
       title.className = "search-dialog__result-title";
-      title.textContent = record.title;
+      appendHighlightedText(title, record.title, matchedTerms);
 
       if (record.context) {
         meta.append(context);
@@ -132,7 +156,7 @@
       if (excerptText) {
         const excerpt = document.createElement("p");
         excerpt.className = "search-dialog__result-excerpt";
-        excerpt.textContent = excerptText;
+        appendHighlightedText(excerpt, excerptText, matchedTerms);
         link.append(excerpt);
       }
 
@@ -148,31 +172,31 @@
 
   const runSearch = () => {
     if (!input || !engine) return;
-    const query = normalizeSearchText(input.value.trim());
+    clearMinimumLengthTimer();
+    const searchTerm = input.value.trim();
+    const query = normalizeSearchText(searchTerm);
     if (query.length < 2) {
       clearResults();
-      setStatus(input.value ? "Bitte mindestens zwei Zeichen eingeben" : "");
+      setStatus("");
+      if (searchTerm) {
+        minimumLengthTimer = window.setTimeout(() => {
+          setStatus("Bitte mindestens zwei Zeichen eingeben");
+          minimumLengthTimer = undefined;
+        }, 1000);
+      }
       return;
     }
 
-    let searchResults = engine.search(query, {
+    const searchResults = engine.search(query, {
       boost: { title: 8, subtitle: 5, captions: 4, creator: 3, imageMetadata: 2, metadata: 2, source: 2 },
       combineWith: "AND",
       prefix: true,
-      fuzzy: (term) => term.length >= 6 ? 0.2 : false,
+      fuzzy: false,
     });
-    if (searchResults.length === 0) {
-      searchResults = engine.search(query, {
-        boost: { title: 8, subtitle: 5, captions: 4, creator: 3, imageMetadata: 2, metadata: 2, source: 2 },
-        combineWith: "OR",
-        prefix: true,
-        fuzzy: (term) => term.length >= 6 ? 0.2 : false,
-      });
-    }
 
-    renderResults(searchResults, query);
+    renderResults(searchResults);
     const resultCount = searchResults.length === 1 ? "1 Treffer" : `${searchResults.length} Treffer`;
-    setStatus(`${resultCount} für „${input.value.trim()}“`);
+    setStatus(`${resultCount} für „${searchTerm}“`);
   };
 
   const loadSearch = () => {
@@ -191,7 +215,11 @@
       recordsById = new Map(records.map((record) => [record.id, record]));
       const loadedEngine = new MiniSearch<SearchRecord>({
         fields: ["title", "subtitle", "captions", "imageMetadata", "creator", "metadata", "source", "body"],
-        processTerm: (term) => normalizeSearchText(term),
+        processTerm: (term, fieldName) => {
+          const normalized = normalizeSearchText(term);
+          if (!fieldName || normalized.length < 3) return normalized;
+          return Array.from({ length: normalized.length - 1 }, (_, index) => normalized.slice(index));
+        },
       });
       loadedEngine.addAll(records);
       engine = loadedEngine;
@@ -360,7 +388,7 @@
     @apply font-sans text-body-medium;
 
     border-bottom: 1px solid var(--color-ash-grey);
-    padding: 0 var(--spacing-20) var(--spacing-16);
+    padding: 0 var(--spacing-20) var(--spacing-12);
     color: var(--color-ink);
   }
 
@@ -387,7 +415,7 @@
   }
 
   .search-dialog :global(.search-dialog__result-meta) {
-    @apply flex flex-wrap items-center font-sans text-small uppercase;
+    @apply flex flex-wrap items-center font-sans text-small;
 
     gap: var(--spacing-8);
     margin-bottom: var(--spacing-8);
@@ -409,6 +437,13 @@
 
     margin-top: var(--spacing-8);
     line-height: var(--text-body-medium--line-height);
+  }
+
+  .search-dialog :global(.search-dialog__result-title mark),
+  .search-dialog :global(.search-dialog__result-excerpt mark) {
+    padding: 0 0.08em;
+    background: var(--color-eggshell);
+    color: inherit;
   }
 
   .search-dialog :global(.search-dialog__result-arrow) {
@@ -439,7 +474,7 @@
 
     .search-dialog__status {
       padding-inline: var(--spacing-32);
-      padding-bottom: var(--spacing-20);
+      padding-bottom: var(--spacing-16);
     }
 
     .search-dialog :global(.search-dialog__result-link) {

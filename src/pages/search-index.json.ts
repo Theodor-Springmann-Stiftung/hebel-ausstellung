@@ -67,7 +67,7 @@ export const GET: APIRoute = async () => {
   };
 
   for (const chapter of chapters) {
-    const chapterContext = `Kapitel ${Number(chapter.data.nummer)}: ${plainInline(chapter.data.navTitel)}`;
+    const chapterContext = `${Number(chapter.data.nummer)}. ${plainInline(chapter.data.navTitel)}`;
 
     for (const galleryReference of chapter.data.galerien ?? []) {
       await addGallery(galleryReference, chapterContext, chapterHref(chapter.data.nummer));
@@ -77,7 +77,7 @@ export const GET: APIRoute = async () => {
       const subchapter = await getEntry(subchapterReference);
       if (!subchapter || subchapter.collection !== "subchapters") continue;
 
-      const context = `${chapterContext} / ${plainInline(subchapter.data.navTitel)}`;
+      const context = `${chapterContext} / ${subchapter.data.nummer} ${plainInline(subchapter.data.navTitel)}`;
       const href = subchapterHref(chapter.data.nummer, subchapter.data.nummer);
       for (const galleryReference of subchapter.data.galerien) {
         await addGallery(galleryReference, context, href);
@@ -91,7 +91,7 @@ export const GET: APIRoute = async () => {
       kind: "object",
       title: plainInline(object.data.titel),
       subtitle: plainInline(object.data.untertitel),
-      context: "",
+      context: "OBJEKT",
       href: `/objekte/${object.data.slug}/`,
       body: markdownBodyToPlainText(object.body),
       captions: "",
