@@ -43,13 +43,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
         </button>
         <a class="nav-link mobile-navigation__panel-link" href="/ueber/" aria-current={isUeberActive ? 'page' : undefined}>Über die Ausstellung</a>
         <a class="nav-link mobile-navigation__panel-link" href="/kontakt/" aria-current={isKontaktActive ? 'page' : undefined}>Kontakt</a>
-        <button class="nav-link mobile-navigation__panel-link mobile-navigation__panel-search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search">
-          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-            <circle cx="10.8" cy="10.8" r="6.3"></circle>
-            <path d="m15.5 15.5 5 5"></path>
-          </svg>
-          <span>Suche</span>
-        </button>
       </div>
 
       <div class="mobile-navigation__chapters-view" id="mobile-navigation-chapters-view" aria-hidden="true">
@@ -64,11 +57,16 @@ const isKontaktActive = normalizedPath === '/kontakt/';
       </div>
     </div>
 
-    {!isHome && (
-      <div class="mobile-navigation__contrast-toggle">
-        <ContrastToggle />
-      </div>
-    )}
+    <div class="mobile-navigation__utilities">
+      <button class="mobile-navigation__search" type="button" data-search-open aria-haspopup="dialog" aria-controls="site-search">
+        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+          <circle cx="10.8" cy="10.8" r="6.3"></circle>
+          <path d="m15.5 15.5 5 5"></path>
+        </svg>
+        <span>Suche</span>
+      </button>
+      {!isHome && <ContrastToggle />}
+    </div>
   </div>
 </nav>
 
@@ -78,6 +76,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     const panel = navigation.querySelector<HTMLElement>(".mobile-navigation__panel");
     const showChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-show-chapters]");
     const hideChaptersButton = navigation.querySelector<HTMLButtonElement>("[data-mobile-navigation-hide-chapters]");
+    const searchButton = navigation.querySelector<HTMLButtonElement>("[data-search-open]");
     const chaptersView = navigation.querySelector<HTMLElement>("#mobile-navigation-chapters-view");
     const closeLinks = navigation.querySelectorAll<HTMLAnchorElement>(".mobile-navigation__panel-link[href], .chapter-navigation-list__link");
 
@@ -89,6 +88,12 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
     showChaptersButton?.addEventListener("click", () => setChaptersOpen(true));
     hideChaptersButton?.addEventListener("click", () => setChaptersOpen(false));
+    searchButton?.addEventListener("click", () => {
+      if (toggle) {
+        toggle.checked = false;
+      }
+      setChaptersOpen(false);
+    });
 
     toggle?.addEventListener("change", () => {
       if (!toggle.checked) {
@@ -267,20 +272,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     line-height: var(--text-lead--line-height);
   }
 
-  .mobile-navigation__panel-search {
-    align-items: center;
-  }
-
-  .mobile-navigation__panel-search svg {
-    width: var(--spacing-24);
-    height: var(--spacing-24);
-    fill: none;
-    stroke: currentColor;
-    stroke-linecap: round;
-    stroke-width: 1.5;
-  }
-
-  .mobile-navigation__contrast-toggle {
+  .mobile-navigation__utilities {
     --contrast-toggle-active-background: var(--color-paper);
     --contrast-toggle-active-thumb: var(--color-ink);
 
@@ -288,9 +280,36 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     bottom: 0;
     display: flex;
     flex: none;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-16);
     background: var(--color-ink);
     padding: var(--spacing-24) var(--spacing-24) var(--spacing-48);
     color: var(--color-paper);
+  }
+
+  .mobile-navigation__search {
+    display: inline-flex;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    padding: 0;
+    color: inherit;
+    align-items: center;
+    gap: var(--spacing-8);
+    font-family: var(--font-sans);
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+    cursor: pointer;
+  }
+
+  .mobile-navigation__search svg {
+    width: 20px;
+    height: 20px;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-width: 1.5;
   }
 
   .mobile-navigation__back-button {

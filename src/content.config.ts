@@ -60,6 +60,7 @@ const chapters = defineCollection({
       reihenfolge: z.number().int().positive(),
       hero: z.string().regex(/\.webp$/i, { message: "Hero must be a WebP filename" }),
       heroMetadata: imageReference.optional(),
+      heroObject: reference("objects").optional(),
       startseitenVariante: homepageImageVariant,
       unterkapitel: z.array(reference("subchapters")).min(1).optional(),
       galerien: z.array(reference("galleries")).min(1).optional(),

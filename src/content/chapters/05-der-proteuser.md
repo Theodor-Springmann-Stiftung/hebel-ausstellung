@@ -6,6 +6,7 @@ navTitel: "Der Proteuser"
 thumbnail: "5.webp"
 hero: "5.webp"
 heroMetadata: "BuP_5_Hero_Image_Pi_Z_335_BLB"
+heroObject: "proteuserschwur-1812"
 startseitenVariante: "proteuser"
 galerien:
   - "5-01-allmanach-des-proteus-zeichens"
