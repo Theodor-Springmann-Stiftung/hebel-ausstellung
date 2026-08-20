@@ -1,5 +1,5 @@
 ---
-import type { CollectionEntry } from "astro:content";
+import { getEntry, type CollectionEntry } from "astro:content";
 import { getObjectRelationshipsByImage } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
@@ -11,9 +11,10 @@ const { chapter, subchapter } = Astro.props as {
 const image = getDedicatedHeroImage(subchapter.data.hero);
 const metadataImage = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const imageSource = await getHeroImageSource(image);
-const object = metadataImage
+const configuredObject = subchapter.data.heroObject ? await getEntry(subchapter.data.heroObject) : undefined;
+const object = configuredObject ?? (metadataImage
   ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
-  : undefined;
+  : undefined);
 const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 ---
 

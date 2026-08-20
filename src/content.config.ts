@@ -84,6 +84,7 @@ const subchapters = defineCollection({
     ...sectionFields,
     hero: z.string().regex(/\.webp$/i, { message: "Hero must be a WebP filename" }),
     heroMetadata: imageReference.optional(),
+    heroObject: reference("objects").optional(),
     galerien: z.array(reference("galleries")).min(1),
   }),
 });
