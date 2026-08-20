@@ -14,7 +14,7 @@ folienbeschriftungen:
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 4
-    beschriftung: "Fahnenkorrektur. Seite der eigenhändigen Satzvorlage sowie des Erstdrucks der *Marktweiber in der Stadt*."
+    beschriftung: "Fahnenkorrektur. Satzvorlage und Erstdruck."
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe; Johann Peter Hebel, 1803, Hebel-Archiv Heidelberg"
 bilder:

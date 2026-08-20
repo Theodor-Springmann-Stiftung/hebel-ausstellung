@@ -2,11 +2,11 @@
 titel: "Feilen bis zum Schluss"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "De- und Rekomposition, Umsortieren. Seiten aus der eigenhändigen Satzvorlage von *Freude in Ehren* und *Irrlichtern*."
+    beschriftung: "De- und Rekomposition, Umsortieren."
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 2
-    beschriftung: "De- und Rekomposition, Aussortieren. Seiten aus der eigenhändigen Satzvorlage von *Jenner* und *Spinne*. Lithographie von Julius Nisle zum *Geisterbesuch auf dem Feldberg*."
+    beschriftung: "De- und Rekomposition, Aussortieren."
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe; Julius Nisle, [1845], Lithographie, Hebel-Archiv Heidelberg"
 bilder:

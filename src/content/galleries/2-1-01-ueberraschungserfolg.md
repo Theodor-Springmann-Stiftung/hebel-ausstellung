@@ -1,8 +1,5 @@
 ---
 titel: "Überraschungserfolg eines literarischen Debütanten"
-folienbeschriftungen:
-  - folie: 1
-    beschriftung: "Titelblatt der Erstausgabe der *Allemannischen Gedichte* und Goethes Rezension."
 bilder:
   - - "2.1_01_1a_AG_1803_Titelblatt_TSS"
     - "2.1_01_02_Goethe_ALZ_01"
