@@ -13,6 +13,7 @@ const { section } = Astro.props as { section: Section };
 const chapterNumber = Number(section.data.nummer.split(".")[0]);
 const showProteusSeal = chapterNumber === 5;
 const { Content } = await render(section);
+const hasIntroContent = Boolean(section.body?.trim());
 const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
 const galleries = await Promise.all(
@@ -61,24 +62,26 @@ const galleries = await Promise.all(
 );
 ---
 
-<section class:list={["section-intro", { "section-intro--with-seal": showProteusSeal }]} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
-  <div class="section-intro__layout">
-    {showProteusSeal && (
-      <figure class="section-intro__seal">
-        <img
-          src={seal.src}
-          width={seal.width}
-          height={seal.height}
-          alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol"
-          loading="eager"
-          decoding="async"
-        />
-        <figcaption>Hebels Wachssiegel mit dem Proteus-Symbol</figcaption>
-      </figure>
-    )}
-    <div class="section-intro__text"><Content /></div>
-  </div>
-</section>
+{(hasIntroContent || showProteusSeal) && (
+  <section class:list={["section-intro", { "section-intro--with-seal": showProteusSeal }]} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
+    <div class="section-intro__layout">
+      {showProteusSeal && (
+        <figure class="section-intro__seal">
+          <img
+            src={seal.src}
+            width={seal.width}
+            height={seal.height}
+            alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol"
+            loading="eager"
+            decoding="async"
+          />
+          <figcaption>Hebels Wachssiegel mit dem Proteus-Symbol</figcaption>
+        </figure>
+      )}
+      {hasIntroContent && <div class="section-intro__text"><Content /></div>}
+    </div>
+  </section>
+)}
 
 {galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
   <section class="section-gallery" id={String(index + 1)} style={`--chapter-color: var(--chapter-${chapterNumber})`}>

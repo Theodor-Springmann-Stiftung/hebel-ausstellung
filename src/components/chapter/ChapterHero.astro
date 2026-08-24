@@ -37,7 +37,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
     />
   </div>
 
-  {(metadata?.beschriftung || objectHref) && (
+  {metadata?.beschriftung && (
     <div class="chapter-hero__caption">
       <div class="chapter-hero__caption-inner">
         {metadata?.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(metadata.beschriftung)}></p>}

@@ -42,7 +42,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
   </div>
 </header>
 
-{(metadataImage?.entry?.data.beschriftung || objectHref) && (
+{metadataImage?.entry?.data.beschriftung && (
   <div class="subchapter-hero-caption">
     {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
     {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span class="subchapter-hero-caption__link-arrow" aria-hidden="true">→</span></a>}
