@@ -1,8 +1,6 @@
 ---
-quelle: "[Hebel, Johann Peter]: [eigenhändiges Satzmanuskript des *Carfunkel*], [S. 9 und 15]. Badische Landesbibliothek Karlsruhe, Sign. K 3357 (vormals K 57 bzw. K 57 I)."
-materialTechnik: "Eigenhändiges Satzmanuskript; Klebung mit Lackstreifen"
 slug: "carfunkel-satzmanuskript"
-titel: "Eigenhändiges Satzmanuskript des *Carfunkel*"
+titel: "Eigenhändige Satzvorlage des *Carfunkel*"
 urheber: "Johann Peter Hebel"
 datierung: "1802"
 institution: "Badische Landesbibliothek Karlsruhe"

@@ -11,5 +11,4 @@ bilder:
     objektReihenfolge: 2
     inObjektansicht: false
   - bild: "2.1_01_02_Goethe_ALZ_01"
-  - bild: "2.3_01_1_ALZ_Goethe_TSS"
 ---

@@ -2,7 +2,7 @@
 titel: "Feilen bis *ganz* zum Schluss"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "Satzmanuskript der *Marktweiber in der Stadt*, vierte Seite"
+    beschriftung: "Ringen um das rechte Wort mit Tinte und Feder. Seite aus der eigenhändigen Satzvorlage der *Marktweiber in der Stadt*."
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 2
@@ -14,9 +14,12 @@ folienbeschriftungen:
     unterbeschriftungen:
       - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
   - folie: 4
-    beschriftung: "Fahnenkorrektur. Satzvorlage und Erstdruck."
+    beschriftung: "Fahnenkorrektur."
     unterbeschriftungen:
-      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe; Johann Peter Hebel, 1803, Hebel-Archiv Heidelberg"
+      - bild: 1
+        beschriftung: "Eigenhändige Satzvorlage der *Marktweiber in der Stadt*, dritte Seite"
+      - bild: 2
+        beschriftung: "Seite des Erstdrucks der *Marktweiber in der Stadt*."
 bilder:
   - - "21_07_01_marktweiber_h2_blb"
   - - "2.1_07_02a_Wiese_H2_01_BLB"

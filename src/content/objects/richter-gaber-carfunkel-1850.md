@@ -5,6 +5,7 @@ titel: "Holzstich zum *Karfunkel* nach einer Zeichnung von Ludwig Richter"
 urheber: |-
   Zeichnung: Ludwig Richter
   Stich: August Gaber
+  Text: Robert Reinick nach Johann Peter Hebel
 datierung: "1851"
 materialTechnik: "Holzstich"
 institution: "Hebel-Archiv Heidelberg"

@@ -1,6 +1,6 @@
 ---
 titel: "Besser als das Original."
-folienbeschriftung: "Zwei Ausgaben im Vergleich: Der Raubdruck (rechts) macht’s besser."
+folienbeschriftung: "Touché. Die fünfte rechtmäßige Auflage der *Allemannischen Gedichte* und ihr Reutlinger Raubdruck"
 positionsangaben: false
 bilder:
   - - "Raubdrucke_04_1a_D5_1820"

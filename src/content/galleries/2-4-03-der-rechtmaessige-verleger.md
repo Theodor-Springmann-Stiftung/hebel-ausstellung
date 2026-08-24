@@ -1,6 +1,6 @@
 ---
 titel: "Der rechtmäßige Verleger als erster Nachdrucker?"
-folienbeschriftung: "Der Text einer Seite in zwei Exemplaren der vermeintlich selben Auflage: links gedruckt vom ›alten‹, rechts von einem neuerlichen Satz."
+folienbeschriftung: "Trau, schau, wem! S. 110 der *Allemannischen Gedichte* in verschiedenen Exemplaren der »Vierte[n] Auflage […]. Carlsruhe. In Macklots Hofbuchhandlung. 1808.«"
 bildabstand: "weit"
 positionsangaben: false
 bilder:

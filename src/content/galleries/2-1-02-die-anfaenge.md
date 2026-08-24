@@ -2,13 +2,13 @@
 titel: "Die Anfänge"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite"
+    beschriftung: "Männerfreundschaft: Hitzig erfährt wohl als Erster vom Projekt der *Allemannischen Gedichte*."
   - folie: 2
     beschriftung: "*E verhexte Burst*: Berückende Weiblichkeit eröffnet die Diskussion über die geplante Gedichtsammlung."
     unterbeschriftungen:
       - "Johann Peter Hebel (Autor), 1801, unbekannter Abschreiber/unbekannte Abschreiberin, frühes 19. Jahrhundert (Manuskript), Badische Landesbibliothek Karlsruhe"
   - folie: 3
-    beschriftung: "Rekonstruktion der früheren Faltung (wohl vor 1860) beider Blätter."
+    beschriftung: "Links: Faksimile des Briefs an Friedrich Wilhelm Hitzig vom 6. Februar [1801]. Mitte: Faksimile der Abschrift von fremder alter Hand einer frühen Version des *Hexleins*. Rechts: Rekonstruktion der früheren Faltung (wohl vor 1860) beider Blätter."
 bilder:
   - - "21_02_1a_hebel_hitzig_meine_liebhaberey_blb"
   - - "2.1_02_02a_Hexlein_aus_Hebel_Hitzig_BLB_K_1216_01"

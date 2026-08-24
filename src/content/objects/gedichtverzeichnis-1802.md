@@ -1,6 +1,5 @@
 ---
-quelle: "[Johann Peter Hebel]: [Eigenhändiges Gedichtverzeichnis (Titel, Verszahl und potenzieller Druckumfang)]. Badische Landesbibliothek Karlsruhe, Sign. K 3387, urn:nbn:de:bsz:31-6637. [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6637)"
-materialTechnik: "Eigenhändiges Manuskript"
+quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6637)"
 slug: "gedichtverzeichnis-1802"
 titel: "Eigenhändiges Gedichtverzeichnis (Titel, Verszahl und potenzieller Druckumfang)"
 urheber: "Johann Peter Hebel"

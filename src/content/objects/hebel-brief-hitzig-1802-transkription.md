@@ -1,5 +1,5 @@
 ---
-quelle: "Vorlage: [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
+quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
 slug: "hebel-brief-hitzig-1802-transkription"
 transkription: true
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, [5. Dezember 1802], zeilengetreue Transkription"
@@ -7,6 +7,8 @@ urheber: "Andreas Beck"
 datierung: "2026"
 materialTechnik: "Zeilengetreue Transkription"
 institution: "Hebel-Archiv Heidelberg"
+bilder:
+  - bild: "2.4_02_01b_Hebel_an_Hitzig_Transkription_TSS"
 ---
 
 # Transkription
