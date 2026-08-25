@@ -1,0 +1,112 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { pageTitle } from "../data/site";
+---
+
+<Layout title={`Seite nicht gefunden | ${pageTitle}`}>
+  <main class="not-found">
+    <h1 class="sr-only">Seite nicht gefunden</h1>
+
+    <section class="quote-section not-found__quote-section" aria-label="Zitat von Johann Peter Hebel">
+      <blockquote class="exhibition-quote not-found__quote">
+        <p>Vetter, wo simmer doch echterst? Bald glaubi, mer seige verirret.</p>
+        <p>’s schlacht kei Uhr, me hört ke Guhl, es lütet ke Glocke,</p>
+        <p>wo me lost, und wo me luegt, se find’t me ke Fußtritt.</p>
+        <p><cite class="sr-only">Johann Peter Hebel, Die Vergänglichkeit</cite></p>
+      </blockquote>
+    </section>
+
+    <section class="not-found__message" aria-labelledby="not-found-message">
+      <p id="not-found-message">
+        Diese Seite wurde nicht gefunden. Der gesuchte Inhalt existiert nicht oder wurde verschoben.
+      </p>
+      <a class="link-arrow not-found__return-link" href="/">Zurück zur Startseite</a>
+    </section>
+  </main>
+</Layout>
+
+<style>
+  @reference "../styles/global.css";
+
+  .not-found {
+    padding-top: var(--spacing-16);
+  }
+
+  .not-found__quote-section {
+    padding-inline: max(var(--spacing-24), calc((100% - 310px) / 2));
+  }
+
+  .not-found__message {
+    @apply flex flex-col items-center text-center;
+
+    padding: 0 max(var(--spacing-24), calc((100% - 310px) / 2)) var(--spacing-40);
+  }
+
+  .not-found__message p {
+    width: min(100%, 670px);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+  }
+
+  .not-found__return-link {
+    margin-top: var(--spacing-40);
+    border-bottom: 1px solid transparent;
+    transition: border-color 150ms var(--ease-default);
+  }
+
+  .not-found__return-link:hover,
+  .not-found__return-link:focus-visible {
+    border-bottom-color: currentColor;
+    text-decoration: none;
+  }
+
+  .not-found__return-link:focus-visible::after {
+    transform: translateX(3px);
+  }
+
+  @media (min-width: 768px) {
+    .not-found {
+      padding-top: var(--spacing-20);
+    }
+
+    .not-found__quote-section {
+      padding-inline: var(--spacing-32);
+    }
+
+    .not-found__quote {
+      width: 426px;
+    }
+
+    .not-found__message {
+      padding: var(--spacing-64) var(--spacing-32);
+    }
+
+    .not-found__return-link {
+      margin-top: var(--spacing-32);
+    }
+  }
+
+  @media (min-width: 1440px) {
+    .not-found {
+      padding-top: 0;
+    }
+
+    .not-found__quote-section {
+      padding-inline: var(--spacing-24);
+    }
+
+    .not-found__quote {
+      width: var(--container-content);
+    }
+
+    .not-found__message {
+      padding: var(--spacing-64) var(--spacing-80) var(--spacing-80);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .not-found__return-link {
+      transition: none;
+    }
+  }
+</style>
