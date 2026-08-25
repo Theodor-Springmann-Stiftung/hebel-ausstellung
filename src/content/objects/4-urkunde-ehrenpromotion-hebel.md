@@ -1,5 +1,5 @@
 ---
-quelle: "Urkunde der Ehrenpromotion Johann Peter Hebels durch die Theologische Fakultät der Universität Heidelberg vom 2. August 1821. Universitätsarchiv Heidelberg, Bestand Theol. Fak. 8, fol. 137."
+quelle: "Universitätsarchiv Heidelberg"
 slug: "urkunde-ehrenpromotion-hebel"
 titel: "Urkunde der Ehrenpromotion Johann Peter Hebels durch die Theologische Fakultät der Universität Heidelberg"
 urheber: "Theologische Fakultät der Universität Heidelberg"

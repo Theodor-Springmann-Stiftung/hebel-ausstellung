@@ -1,4 +1,4 @@
-- 2.1: Dichter im Bild
+2.1: Dichter im Bild
 - Alle nicht reduzierbaren Quellenangaben betreffen K 3357. Ein verlässlicher BLB-Online-Link würde alle elf Fälle lösen.
   The quelle field was removed from all eleven entries without a verified BLB link:
     [Hebel, Johann Peter]: [frühe eigenhändige Version des *Gespensts an der Kanderer Straße*], [S. 1]. Badische Landesbibliothek Karlsruhe, Handschriftenkonvolut K 3357 (vormals K 57 bzw. K 57 II).
@@ -20,6 +20,8 @@
 
 - The only unimplemented request is replacing the repeated hero collage with one title page. That requires a new or edited asset outside src/content.
 
+6.3: Henriette Hendel
+- Da geht die Post ab: Bidler montieren? 
 
 
 

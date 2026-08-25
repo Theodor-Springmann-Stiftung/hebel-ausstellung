@@ -83,7 +83,8 @@ import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
   .legal-page strong { font-weight: 600; }
   .legal-page address { font-style: normal; }
   .legal-page ul { display: flex; flex-direction: column; gap: 0; margin: 0; padding-left: 1.5em; }
-  .legal-page a { overflow-wrap: anywhere; }
+  .legal-page a { overflow-wrap: anywhere; text-decoration-line: underline; }
+  .legal-page a:hover { opacity: 0.8; }
 
   @media (min-width: 768px) {
     .legal-page__hero { padding-inline: var(--spacing-32); }

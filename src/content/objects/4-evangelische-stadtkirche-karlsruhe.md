@@ -1,5 +1,5 @@
 ---
-quelle: "Georg Moller: *Ansicht der neuen Stadtkirche in Karlsruhe*, Radierung/Aquatinta, um 1830. Staatliche Kunsthalle Karlsruhe, Inv.-Nr. P.K. I 280a/90."
+quelle: "Staatliche Kunsthalle Karlsruhe"
 slug: "evangelische-stadtkirche-karlsruhe"
 titel: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe"
 urheber: "Georg Moller"
