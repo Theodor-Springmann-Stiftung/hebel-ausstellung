@@ -24,6 +24,7 @@ Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./co
 | `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
 | `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
 | `heroMetadata` | Bildreferenz | nein |
+| `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
 | `startseitenVariante` | `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` oder `letter-writer` | ja |
 | `unterkapitel` | Geordnetes Array von Unterkapitel-Referenzen | bedingt |
 | `galerien` | Geordnetes Array von Galerie-Referenzen | bedingt |
@@ -41,6 +42,7 @@ Genau eines der Felder `unterkapitel` und `galerien` muss gesetzt und darf nicht
 | `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
 | `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
 | `heroMetadata` | Bildreferenz | nein |
+| `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
 | `galerien` | Geordnetes, nicht leeres Array von Galerie-Referenzen | ja |
 | Body | Markdown | nein |
 
@@ -72,7 +74,7 @@ Der aktuelle Renderer zeigt `unterbeschriftungen` und den regulären Galerie-`un
 | `nachweis` | Markdown-String | nein |
 | Body | Markdown, derzeit ungenutzt | nein |
 
-Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen.
+Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen. `nachweis` wird in den Suchindex aufgenommen, derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes ausgegeben.
 
 ### Objekt
 
