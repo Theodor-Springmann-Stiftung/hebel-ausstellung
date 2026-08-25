@@ -1,11 +1,9 @@
 ---
-quelle: "Hebeliana, Konvolut »Concepte u. Abschriften zu Gedichten u. Aufsätzen«, Sign. K 3391, BLB Karlsruhe"
 slug: "widmungsgedicht-blb"
 transkription: true
-titel: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen und Widmungsgedicht"
+titel: "Entwurf einer Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen und Widmungsgedicht"
 urheber: "Johann Peter Hebel"
 datierung: "Um 1803"
-materialTechnik: "Handschrift"
 institution: "Badische Landesbibliothek, Karlsruhe"
 inventarnummer: "Hebeliana, Konvolut »Concepte u. Abschriften zu Gedichten u. Aufsätzen«, K 3391"
 bilder:
@@ -21,22 +19,22 @@ Dem Herrn Bergwerks-Inspektor Herbster und dann der ehrsamen Gemeinde Hausen im 
 
 ## Widmungsgedicht
 
-Hoch von der langen schwarzen Möhr herab,<br>
-vom Platzberg her, auf wohlbekanntem Pfad<br>
-erschein ich dir, o Freund, den Blumenkranz<br>
-dir bringend, den ich iüngst in Wald und Flur<br>
-und an der Wiese duftigem Gestad<br>
+Hoch von der langen schwarzen <u>Möhr</u> herab,<br>
+vom <u>Platzberg</u> her, auf wohlbekanntem Pfad<br>
+erschein ich dir, o <u>Freund</u>, den BlumenKranz<br>
+dir bringend, denn ich iüngst in Wald und Flur<br>
+und an der <u>Wiese</u> duftigem Gestad<br>
 und um die stillen Dörfer her gepflükt.<br>
 Zwar nur Gamänderlein und Ehrenpreis<br>
 nur Erdbeerblüthen, Dolden, Wohlgemuth<br>
-und zwischendurch ein dunkles Rosmarin,<br>
+und zwischen durch ein dunkles Rosmarin,<br>
 geringe Gabe! Doch so gut sie kann,<br>
 hat lächelnd und mit ungezwungner Hand<br>
 des Feldes Muse sie in diesen Kranz<br>
 gewunden und der reine Freundessinn,<br>
 der dir ihn bietet, sey allein sein Werth.<br>
 
-Und hieng er nun hier unterm Spiegel schön,<br>
+&emsp;Und hieng er nun hier unterm Spiegel schön,<br>
 so schwankt er schöner doch am Lindenast<br>
 in freier Weitung, leichter Weste Spiel.<br>
 Dort schwank’ er denn! Und sammelt um sich her<br>
