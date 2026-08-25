@@ -160,6 +160,12 @@ const galleries = await Promise.all(
     padding: var(--spacing-48) var(--spacing-20);
   }
 
+  .section-intro__text {
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
   .section-intro--with-seal .section-intro__layout {
     display: flex;
     flex-direction: column;
@@ -378,6 +384,10 @@ const galleries = await Promise.all(
       padding-block: var(--spacing-64);
     }
 
+    .section-intro__text {
+      gap: var(--spacing-40);
+    }
+
     .section-intro__text :global(> p) {
       max-width: 522px;
       font-size: var(--text-lead);
@@ -430,6 +440,10 @@ const galleries = await Promise.all(
 
     .section-intro {
       padding-block: var(--spacing-80);
+    }
+
+    .section-intro__text {
+      gap: var(--spacing-32);
     }
 
     .section-gallery__body :global(> .footnotes) {

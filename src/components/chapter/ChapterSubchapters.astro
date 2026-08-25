@@ -69,13 +69,19 @@ const availableSubchapters = subchapters.filter(Boolean);
     background: var(--content-background, var(--chapter-color, var(--color-paper)));
   }
 
+  .chapter-overview__text {
+    display: flex;
+    padding-block: var(--spacing-48);
+    flex-direction: column;
+    gap: var(--spacing-24);
+  }
+
   .chapter-overview__text :global(> p) {
     @apply font-sans text-lead text-text-primary;
 
     width: calc(100% - var(--spacing-40));
     max-width: var(--container-text);
     margin-inline: auto;
-    padding-block: var(--spacing-48);
     line-height: var(--text-lead--line-height);
   }
 
@@ -229,9 +235,13 @@ const availableSubchapters = subchapters.filter(Boolean);
   }
 
   @media (min-width: 768px) {
+    .chapter-overview__text {
+      padding-block: var(--spacing-64);
+      gap: var(--spacing-40);
+    }
+
     .chapter-overview__text :global(> p) {
       width: 522px;
-      padding-block: var(--spacing-64);
     }
 
     .chapter-overview__text :global(> blockquote) {
@@ -295,6 +305,10 @@ const availableSubchapters = subchapters.filter(Boolean);
   }
 
   @media (min-width: 1440px) {
+    .chapter-overview__text {
+      gap: var(--spacing-32);
+    }
+
     .chapter-overview__text :global(> p) {
       width: var(--container-text);
     }
