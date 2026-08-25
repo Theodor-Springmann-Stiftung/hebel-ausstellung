@@ -1,6 +1,6 @@
 ---
 titel: "»Item, wie sagt die Schrift?« Hebel als Prediger"
-beschriftung: "Schreibt, wie er spricht und predigt wie gedruckt: Der rheinländische Hausfreund"
+beschriftung: "»Schreibt wie er spricht und predigt wie gedruckt: Der Rheinländische Hausfreund.«"
 bilder:
   - - "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"
 ---

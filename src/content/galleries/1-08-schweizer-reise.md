@@ -11,4 +11,4 @@ bilder:
 >
 > Hebels Reisejournal der Schweizerreise, 29. August 1805
 
-Im Sommer 1805 begleitete Hebel die beiden jugendlichen Söhne des Freiherrn von Mentzingen als Mentor auf ihrer Kavalierstour in die Schweiz. Die Reise führte über Zürich, Luzern, Interlaken, Bern und Basel. Ein von Hebel angelegtes Reisetagebuch, das sich noch heute im Familienarchiv der Freiherren von Mentzingen befindet, gibt nicht nur Aufschluss über die verschiedenen Stationen, Begegnungen und Begebenheiten auf der Fahrt, sondern auch über Hebels Interessen und die Eigenart seiner Wahrnehmung.
+Im Sommer 1805 begleitete Hebel die beiden jugendlichen Söhne des Freiherrn von Mentzingen als Mentor auf ihrer Kavalierstour in die Schweiz. Die Reise führte über Zürich, Luzern, Interlaken, Bern und [Basel](/1/#1). Ein von Hebel angelegtes Reisetagebuch, das sich noch heute im Familienarchiv der Freiherren von Mentzingen befindet, gibt nicht nur Aufschluss über die verschiedenen Stationen, Begegnungen und Begebenheiten auf der Fahrt, sondern auch über Hebels Interessen und die Eigenart seiner Wahrnehmung.

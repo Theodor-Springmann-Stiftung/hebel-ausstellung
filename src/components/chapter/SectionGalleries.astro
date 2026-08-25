@@ -283,12 +283,17 @@ const galleries = await Promise.all(
     margin: 0;
   }
 
+  .section-gallery__body :global(> .footnotes [data-footnote-backref]) {
+    display: none;
+  }
+
   .section-gallery__body :global(> blockquote) {
     width: calc(100% - var(--spacing-48));
     max-width: 840px;
     margin: var(--spacing-40) auto;
     border-left: 0.5px solid var(--color-ink);
     padding-left: var(--spacing-24);
+    hyphens: none;
   }
 
   .section-gallery + .section-gallery::before {
