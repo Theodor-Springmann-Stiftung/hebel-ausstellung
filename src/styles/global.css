@@ -318,6 +318,10 @@ html[data-contrast="high"] .subchapter-page {
     hyphens: auto;
   }
 
+  .no-hyphen {
+    hyphens: none;
+  }
+
   a {
     color: var(--color-link);
     text-decoration-thickness: 0.08em;
