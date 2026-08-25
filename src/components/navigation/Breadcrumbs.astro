@@ -58,9 +58,10 @@ const stripInlineMarkdown = (value: string) =>
     line-height: var(--text-small--line-height);
   }
 
-  .breadcrumbs__link:hover {
+  .breadcrumbs__link:not(.breadcrumbs__link--current):hover {
     @apply underline;
 
+    opacity: 0.8;
     text-underline-offset: 0.16em;
   }
 

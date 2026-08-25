@@ -179,6 +179,7 @@ const availableSubchapters = subchapters.filter(Boolean);
     flex: none;
     object-fit: cover;
     object-position: center;
+    transition: transform 180ms ease-out;
   }
 
   .chapter-overview__meta {
@@ -213,6 +214,10 @@ const availableSubchapters = subchapters.filter(Boolean);
 
   .chapter-overview__card a:hover .chapter-overview__link {
     border-bottom-color: currentColor;
+  }
+
+  .chapter-overview__card a:hover .chapter-overview__thumbnail {
+    transform: scale(1.015);
   }
 
   .chapter-overview__card a:hover .chapter-overview__link-arrow {
@@ -326,6 +331,7 @@ const availableSubchapters = subchapters.filter(Boolean);
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .chapter-overview__thumbnail,
     .chapter-overview__link,
     .chapter-overview__link-arrow {
       transition: none;

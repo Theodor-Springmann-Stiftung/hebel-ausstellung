@@ -15,12 +15,12 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
     <header class="about-hero">
       <h1>Über die Ausstellung</h1>
       <figure class="about-hero__figure">
-        <img src={heroImage.src} alt="Porträt Johann Peter Hebels nach einem Kupferstich von Christian Friedrich Müller" loading="eager" decoding="async" />
+        <img src={heroImage.src} alt="Porträt Johann Peter Hebels nach einem Kupferstich von Johann Friedrich Müller" loading="eager" decoding="async" />
       </figure>
       <figcaption class="about-hero__caption">
         <div class="about-hero__caption-inner container-content w-[60ch]">
-					<p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
-					<p>Johann Peter Hebel, Kupferstich von Christian Friedrich Müller, H 17,6 cm B 16,2 cm, Staatliche Kunsthalle Karlsruhe, Inventarnr. VII 1634</p>
+					<p>Hebels Porträt nach dem Kupferstich von <a class="about-hero__gallery-link" href="/6/6.1/#3">Johann Friedrich Müller</a> (Ausschnitt)</p>
+					<a class="about-hero__object-link" href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="about-hero__object-link-arrow" aria-hidden="true">→</span></a>
         </div>
       </figcaption>
     </header>
@@ -87,6 +87,12 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
   .about-hero__caption { padding: var(--spacing-20); }
   .about-hero__caption-inner { @apply flex flex-col font-sans; gap: var(--spacing-10, 10px); }
   .about-hero__caption-inner p { font-size: var(--text-caption); line-height: 1; }
+  .about-hero__gallery-link { color: inherit; text-decoration-line: underline; }
+  .about-hero__gallery-link:hover { opacity: 0.8; }
+  .about-hero__object-link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .about-hero__object-link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
+  .about-hero__object-link:hover { border-bottom-color: currentColor; }
+  .about-hero__object-link:hover .about-hero__object-link-arrow { transform: translateX(3px); }
   .page-section { width: calc(100% - var(--spacing-40)); margin-inline: auto; padding-block: var(--spacing-20); }
   .about-intro { padding: 48px var(--spacing-20); }
   .about-intro h2 { font-family: var(--font-display); font-size: var(--text-h1); font-weight: 400; line-height: var(--text-h1--line-height); text-align: center; }
@@ -98,7 +104,7 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
   .about-section h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: 400; line-height: var(--text-h2--line-height); }
   .about-section > p, .about-section__link { font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
   .about-section__link { @apply text-link no-underline; margin-top: var(--spacing-20); }
-  .about-section__link:hover { @apply underline; }
+  .about-section__link:hover { @apply underline; opacity: 0.8; }
   .about-divider { width: calc(100% - var(--spacing-20) * 2); height: 0; margin: var(--spacing-40) auto; border: 0; border-top: .5px solid var(--color-ink); }
   .about-supporters { gap: var(--spacing-20); }
   .about-supporters__logos { margin-top: var(--spacing-44); }
@@ -145,5 +151,12 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
     .about-supporters__logos img { width: 240px; }
     .about-credits { padding-bottom: 120px; }
     .about-credits__list div { grid-template-columns: 180px minmax(0, 1fr); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .about-hero__object-link,
+    .about-hero__object-link-arrow {
+      transition: none;
+    }
   }
 </style>

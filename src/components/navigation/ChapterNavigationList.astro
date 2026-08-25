@@ -58,6 +58,10 @@ const { chapters, currentPath, variant } = Astro.props as {
     text-underline-offset: 0.16em;
   }
 
+  .chapter-navigation-list--desktop .chapter-navigation-list__link:hover .chapter-navigation-list__title {
+    opacity: 0.8;
+  }
+
   .chapter-navigation-list--mobile {
     gap: var(--spacing-20);
   }

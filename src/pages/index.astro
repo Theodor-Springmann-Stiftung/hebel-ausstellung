@@ -41,7 +41,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
         src={heroSource.src}
         srcset={heroSource.srcset}
         sizes={heroSource.sizes}
-        alt="Porträt Johann Peter Hebels nach einem Kupferstich von Christian Friedrich Müller"
+        alt="Porträt Johann Peter Hebels nach einem Kupferstich von Johann Friedrich Müller"
         width={heroPortrait.width}
         height={heroPortrait.height}
         loading="eager"
@@ -59,8 +59,8 @@ const heroSource = await getHeroImageSource(heroPortrait);
     </section>
 
     <div class="home-caption">
-      <p>Hebels Porträt nach dem Kupferstich von Christian Friedrich Müller (Ausschnitt)</p>
-      <a href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="home-caption__link-arrow" aria-hidden="true">→</span></a>
+      <p>Hebels Porträt nach dem Kupferstich von <a class="home-caption__gallery-link" href="/6/6.1/#3">Johann Friedrich Müller</a> (Ausschnitt)</p>
+      <a class="home-caption__object-link" href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="home-caption__link-arrow" aria-hidden="true">→</span></a>
     </div>
 
     <section class="home-introduction" aria-labelledby="introduction-title">
@@ -68,11 +68,11 @@ const heroSource = await getHeroImageSource(heroPortrait);
       <div class="home-introduction__layout">
         <figure class="home-introduction__seal">
           <img src={seal.src} alt="Hebels rotes Wachssiegel mit dem Proteus-Symbol" loading="lazy" decoding="async" />
-          <figcaption>Hebels Wachssiegel mit dem <a href="#chapter-05">Proteus-Symbol</a></figcaption>
+          <figcaption>Hebels Wachssiegel mit dem <a href="/5/">Proteus-Symbol</a></figcaption>
         </figure>
         <div class="home-introduction__copy">
           <p><strong>Am 22. September 2026</strong> jährt sich der Todestag Johann Peter Hebels zum zweihundertsten Mal. Die Mitarbeiter des Hebel-Archivs in Heidelberg haben dieses Datum zum Anlass genommen, die verschiedenen Facetten seines Schaffens in einer virtuellen Ausstellung näher zu beleuchten.</p>
-          <p>Hebel ist einem größeren Publikum heute vor allem als Autor einiger Kalendergeschichten bekannt. Nahezu vergessen ist das übrige Werk: Die »Allemannischen Gedichte«, mit denen Hebel dazu beitrug, die deutsche Dialektdichtung salonfähig zu machen; seine »Biblischen Geschichten«, die lange Zeit Schullektüre waren; und auch seine Briefe, die einen ganz eigenen Reiz besitzen.</p>
+          <p>Hebel ist einem größeren Publikum heute vor allem als Autor einiger <a class="home-introduction__inline-link" href="/3/">Kalendergeschichten</a> bekannt. Nahezu vergessen ist das übrige Werk: Die »<a class="home-introduction__inline-link" href="/2/">Allemannischen Gedichte</a>«, mit denen Hebel dazu beitrug, die deutsche Dialektdichtung salonfähig zu machen; seine »<a class="home-introduction__inline-link" href="/4/#5">Biblischen Geschichten</a>«, die lange Zeit Schullektüre waren; und auch seine <a class="home-introduction__inline-link" href="/7/">Briefe</a>, die einen ganz eigenen Reiz besitzen.</p>
           <p>Anhand von etwa 120 ausgewählten Manuskripten, Originaldrucken, Bildern und Objekten ruft die Ausstellung Hebels Vermächtnis in Erinnerung. In zahlreichen neuen Lektüren der Texte sichtet und sichert sie das Nachleben seiner Worte.</p>
           <p class="home-introduction__citation-note">Zum Nachweis von Zitaten: Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: <em>Briefe</em>, 2 Bde., Karlsruhe 1957) mit der Sigle Z und unter Angabe der Briefnummer zitiert.</p>
         </div>
@@ -109,7 +109,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
                 />
               </span>
               <span class="chapter-card__meta">
-                <span class="chapter-card__number">Kapitel {chapter.number}</span>
+                <span class="chapter-card__number">Kapitel {Number(chapter.number)}</span>
                 <span class="chapter-card__title" set:html={renderInlineMarkdown(chapter.title)}></span>
                 <span class="chapter-card__link">Weiterlesen <span class="chapter-card__link-arrow" aria-hidden="true">→</span></span>
               </span>
@@ -185,10 +185,12 @@ const heroSource = await getHeroImageSource(heroPortrait);
   }
 
   .home-caption p:first-child { font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
-  .home-caption a { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .home-caption__gallery-link { color: inherit; text-decoration-line: underline; }
+  .home-caption__gallery-link:hover { opacity: 0.8; }
+  .home-caption__object-link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
   .home-caption__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
-  .home-caption a:hover { border-bottom-color: currentColor; }
-  .home-caption a:hover .home-caption__link-arrow { transform: translateX(3px); }
+  .home-caption__object-link:hover { border-bottom-color: currentColor; }
+  .home-caption__object-link:hover .home-caption__link-arrow { transform: translateX(3px); }
 
   .home-introduction {
     display: flex;
@@ -212,6 +214,8 @@ const heroSource = await getHeroImageSource(heroPortrait);
   .home-introduction__layout { gap: var(--spacing-32); }
   .home-introduction__copy { gap: var(--spacing-24); font-size: 1.25rem; line-height: 1.55; }
   .home-introduction__citation-note { font-size: 0.875rem; line-height: 1.5; }
+  .home-introduction__inline-link { color: inherit; text-decoration-line: underline; }
+  .home-introduction__inline-link:hover { opacity: 0.8; }
 
   .home-introduction__seal {
     display: flex;
@@ -224,6 +228,8 @@ const heroSource = await getHeroImageSource(heroPortrait);
 
   .home-introduction__seal img { width: min(320px, 100%); aspect-ratio: 1; object-fit: contain; }
   .home-introduction__seal figcaption { color: var(--color-text-primary); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-align: center; }
+  .home-introduction__seal figcaption a { color: inherit; text-decoration-line: underline; }
+  .home-introduction__seal figcaption a:hover { opacity: 0.8; }
 
   .home-chapters { display: flex; padding: var(--spacing-48) var(--spacing-20); flex-direction: column; gap: var(--spacing-48); }
   .home-chapters__heading { display: flex; flex-direction: column; gap: var(--spacing-8); }
@@ -232,11 +238,12 @@ const heroSource = await getHeroImageSource(heroPortrait);
   .home-chapters__list { display: flex; margin: 0; padding: 0; flex-direction: column; gap: var(--spacing-48); list-style: none; }
   .chapter-card a { display: flex; color: var(--color-ink); flex-direction: column; gap: var(--spacing-20); text-decoration: none; }
   .chapter-card__image { display: flex; width: 100%; height: 280px; overflow: hidden; border: 0.5px solid var(--color-ink); background: var(--color-oat); align-items: center; justify-content: center; }
-  .chapter-card__thumbnail { width: 100%; height: 100%; max-width: none; flex: none; object-fit: cover; object-position: center; }
+  .chapter-card__thumbnail { width: 100%; height: 100%; max-width: none; flex: none; object-fit: cover; object-position: center; transition: transform 180ms ease-out; }
   .chapter-card__meta { display: flex; padding-block: var(--spacing-8); flex-direction: column; gap: var(--spacing-8); }
   .chapter-card__title { font-family: var(--font-display); font-size: 2rem; line-height: 1.25; }
   .chapter-card__link { display: inline-flex; width: fit-content; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-size: 1rem; line-height: 1.5; transition: border-color 150ms var(--ease-default); }
   .chapter-card__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
+  .chapter-card a:hover .chapter-card__thumbnail { transform: scale(1.015); }
   .chapter-card a:hover .chapter-card__link { border-bottom-color: currentColor; }
   .chapter-card a:hover .chapter-card__link-arrow { transform: translateX(3px); }
   .chapter-card--poet .chapter-card__image { background: #faf8e4; }
@@ -301,18 +308,15 @@ const heroSource = await getHeroImageSource(heroPortrait);
     .chapter-card--poet .chapter-card__image,
     .chapter-card--friend .chapter-card__image { height: 400px; }
     .chapter-card--theologian .chapter-card__image { height: 320px; }
-    .chapter-card--theologian a { flex-direction: row; align-items: center; gap: var(--spacing-20); }
-    .chapter-card--theologian .chapter-card__image,
-    .chapter-card--theologian .chapter-card__meta { width: calc(50% - 10px); }
-    .chapter-card--theologian .chapter-card__meta { justify-content: center; }
     .chapter-card__meta { padding-block: 0; }
     .chapter-card__title { font-size: 1.75rem; }
     .chapter-card__link { font-size: 0.875rem; }
   }
 
   @media (prefers-reduced-motion: reduce) {
-    .home-caption a,
+    .home-caption__object-link,
     .home-caption__link-arrow,
+    .chapter-card__thumbnail,
     .chapter-card__link,
     .chapter-card__link-arrow {
       transition: none;

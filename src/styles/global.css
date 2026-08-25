@@ -665,6 +665,7 @@ html[data-contrast="high"] .subchapter-page {
   .link-arrow:hover,
   .link-arrow-left:hover,
   .nav-link:hover {
+    opacity: 0.8;
     text-decoration-line: underline;
   }
 
@@ -676,8 +677,7 @@ html[data-contrast="high"] .subchapter-page {
     transform: translateX(-3px);
   }
 
-  .link-underline:hover,
-  .nav-link:hover {
+  .link-underline:hover {
     opacity: 0.8;
   }
 
