@@ -29,9 +29,9 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
 		<!--
 				<p>Alle Hebel-Zitate sind den Handschriften oder Originaldrucken entnommen. Briefe werden mitunter auch nach der Edition von Wilhelm Zentner (Johann Peter Hebel: Briefe, 2 Bde., Karlsruhe 1957) mit der Sigle Z und unter Angabe der Briefnummer zitiert.</p>
 -->
-    <section class="page-section about-section pt-[20px]" id="team-partners">
+    <section class="page-section about-section about-section--first" id="team-partners">
       <h2>Die Kuratoren</h2>
-      <p>Die Ausstellung wurde von Alexander Knopf, Jakob Brüssermann und Andreas Beck gemeinschaftlich kuratiert. Alle drei sind Mitarbeiter des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg und an der ebendort herausgegebenen historisch-kritischen Gesamtausgabe der Werke Hebels beteiligt.</p>
+      <p>Die Ausstellung wurde von Alexander Knopf, Jakob Brüssermann und Andreas Beck gemeinschaftlich erarbeitet und kuratiert. Alle drei sind Mitarbeiter des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg und an der ebendort herausgegebenen historisch-kritischen Gesamtausgabe der Werke Hebels beteiligt.</p>
     </section>
 
     <hr class="about-divider" />
@@ -70,7 +70,7 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
         <div><dt>Konzeption &amp; Kuration</dt><dd>Alexander Knopf, Jakob Brüssermann, Andreas Beck</dd></div>
         <div><dt>Gestaltung</dt><dd>Christine Suewon Lee / <a href="https://hallo-eisi.studio/">Hallo Eisi Studio</a></dd></div>
         <div><dt>Technische Umsetzung</dt><dd>Simon Martens</dd></div>
-        <div><dt>Fonts/Typographie</dt><dd>Nyght Serif (Maksym Kobuzan, Tunera Type Foundry); Geist / Geist Mono (Vercel)</dd></div>
+        <div><dt>Fonts/Typographie</dt><dd>Nyght Serif (Maksym Kobuzan, <a href="https://www.tunera.xyz/">Tunera Type Foundry</a>); Geist (<a href="https://vercel.com/font">Vercel</a>)</dd></div>
         <div><dt>Fotografie</dt><dd>Li-Wen Kuo</dd></div>
       </dl>
     </section>
@@ -101,13 +101,14 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
   .about-overview__seal img { width: 100%; height: 350px; object-fit: contain; }
   .about-overview__text { @apply flex flex-col; gap: var(--spacing-32); font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
   .about-section { @apply flex flex-col; gap: var(--spacing-20); }
+  .about-section--first { padding-block-start: var(--spacing-64); }
   .about-section h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: 400; line-height: var(--text-h2--line-height); }
   .about-section > p, .about-section__link { font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
   .about-section__link { @apply text-link no-underline; margin-top: var(--spacing-20); }
   .about-section__link:hover { @apply underline; opacity: 0.8; }
   .about-divider { width: calc(100% - var(--spacing-20) * 2); height: 0; margin: var(--spacing-40) auto; border: 0; border-top: .5px solid var(--color-ink); }
   .about-supporters { gap: var(--spacing-20); }
-  .about-supporters__logos { margin-top: var(--spacing-44); }
+  .about-supporters__logos { margin-top: var(--spacing-44); padding-inline: var(--spacing-12); }
   .about-supporters__logos a { display: flex; width: 100%; justify-content: center; }
   .about-supporters__logos { @apply flex flex-col items-center; gap: var(--spacing-32); }
   .about-supporters__logos img { width: 100%; max-width: 346px; max-height: 151px; object-fit: contain; opacity: .5; }
@@ -115,26 +116,29 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
   .about-pending span { @apply bg-ink text-paper; width: fit-content; border-radius: 2px; padding: var(--spacing-4) var(--spacing-8); font-size: var(--text-small); letter-spacing: .05em; line-height: var(--text-body--line-height); }
   .about-pending p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
   .about-credits { padding-bottom: var(--spacing-40); }
-  .about-credits__list { @apply flex flex-col; gap: var(--spacing-16); margin: 0; }
+  .about-credits__list { @apply flex flex-col; gap: var(--spacing-16); margin: var(--spacing-20) 0 0; }
   .about-credits__list div { @apply flex flex-col; gap: var(--spacing-4); }
   .about-credits__list dt { @apply text-text-secondary; font-family: var(--font-sans); font-size: var(--text-small); font-weight: 400; line-height: var(--text-small--line-height); }
   .about-credits__list dd { margin: 0; font-family: var(--font-sans); font-size: var(--text-body-medium); font-weight: 400; line-height: var(--text-body-medium--line-height); }
+  .about-credits__list a { color: inherit; text-decoration-line: underline; }
+  .about-credits__list a:hover { opacity: 0.8; }
 
   @media (min-width: 768px) {
     .about-hero h1 { font-size: var(--text-display); padding-inline: var(--spacing-32); }
     .about-hero__figure { height: 435px; }
     .about-hero__caption { padding-inline: var(--spacing-32); }
     .page-section { width: calc(100% - var(--spacing-64)); }
+    .about-section--first { padding-block-start: var(--spacing-80); }
     .about-intro { padding: var(--spacing-64) var(--spacing-32); }
     .about-overview { flex-direction: row; gap: var(--spacing-20); }
     .about-overview__seal { flex: 0 0 251.5px; align-items: flex-start; }
     .about-overview__seal img { width: 211.5px; height: 211.5px; }
     .about-overview__text { flex: 1; }
     .about-divider { width: calc(100% - var(--spacing-32) * 2); }
-    .about-supporters__logos { flex-direction: row; align-items: center; justify-content: center; }
-    .about-supporters__logos a { width: auto; }
-    .about-supporters__logos img { width: min(200px, calc((100% - var(--spacing-64)) / 3)); }
-    .about-credits__list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--spacing-32); }
+    .about-supporters__logos { padding-inline: 0; flex-direction: row; align-items: center; justify-content: center; }
+    .about-supporters__logos a { width: min(240px, calc((100% - var(--spacing-64)) / 3)); }
+    .about-supporters__logos img { width: 100%; }
+    .about-credits__list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; column-gap: var(--spacing-32); }
   }
 
   @media (min-width: 1440px) {
