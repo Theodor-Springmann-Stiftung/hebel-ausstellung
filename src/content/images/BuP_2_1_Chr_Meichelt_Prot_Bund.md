@@ -1,5 +1,5 @@
 ---
 dateiname: "Bilder/5/GrPHe_35_Proteuserbund.webp"
 altText: "Detail aus Christian Meichelts aquarellierter Federzeichnung des Proteuserbunds von 1812"
-beschriftung: "Aquarellierte Federzeichnung des Proteuserbunds von Christian Meichelt, 1812. Weist die Position von Hebels Unterschrift darauf hin, dass er als vierter von links abgebildet ist?"
+beschriftung: "Meichelts künstlerische Freiheit oder hatte der Proteuserbund mehr Mitglieder als wir wissen? (Bildausschnitt)"
 ---
