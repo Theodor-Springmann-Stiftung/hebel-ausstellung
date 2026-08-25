@@ -78,7 +78,7 @@ Jenseits des deutschsprachigen Südwestens sind sie heute weitgehend unbekannt �
 
 > Daß das Allemänlein in seinem luftigen rothen Tschöplein von seinen Landsleuten so gerne erkannt und so gut aufgenommen ist, und mit seinen Gauckeleyen noch da und dort ein Lächeln gewinnt, freut mich für das Allemänlein, und freut mich an den Landsleuten.
 >
-> — JPH, Z 90
+> Z 90
 ```
 
 Beispiel mit direkt enthaltenen Galerien:
@@ -172,12 +172,10 @@ Blockzitat-Konvention im Body-Markdown:
 ```md
 > Der Zitattext kann einen oder mehrere Absätze enthalten.
 >
-> — JPH
->
 > Quellen- oder Zusatzzeile
 ```
 
-Der letzte Absatz wird als Quelle interpretiert, der vorletzte Absatz als Autor, und alle vorherigen Absätze als Zitattext.
+Der letzte Absatz wird als Quellenzeile neben dem Porträt Johann Peter Hebels ausgegeben; alle vorherigen Absätze bilden den Zitattext. Die redundante Autorenangabe `— JPH` wird nicht in den Inhalt geschrieben. Für das einzige Zitat von Christoph Friedrich Karl von Kölle wird die Quellenzeile mit `<span class="quote-attribution--koelle">...</span>` markiert, damit das Kölle-Porträt und die abweichende Typografie verwendet werden.
 
 Beispiel:
 
@@ -201,9 +199,7 @@ Beifall fand die Sammlung als kunstfertig inszenierte naive Dichtung: in der Tra
 
 > Es ist für mich wahr und bleibt für mich wahr, der Himmel ist nirgends so blau, und die Luft nirgends so rein, und alles so lieblich und so heimlich als zwischen den Bergen von Hausen [...]
 >
-> — JPH, Z 54
->
-> Brief an Johann Jeremias Herbster, 14. Dezember 1800
+> Brief an Johann Jeremias Herbster, 14. Dezember 1800 (Z 54)
 ```
 
 Beispiel für eine Folie mit zwei Bildern und eine weitere Folie mit einem Bild:

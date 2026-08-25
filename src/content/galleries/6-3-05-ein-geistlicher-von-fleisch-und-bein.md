@@ -25,6 +25,4 @@ Im Januar 1810 schrieb Hebel der Schauspielerin (Z 282), die eine Italienreise p
 > Sie hat nemlich, […] die gebenedeite Tochter Kronions Mad. Hendel, zerrißen hat sie den Bendel, und sich in den Stand der 4ten heiligen Ehe begeben mit HE. Professor Schütz in Halle.  
 > Und da soll man […] nicht […] einen thränenreichen Hopelpoppel schreiben, oder ein durchlöchertes Herz!
 >
-> — JPH
->
 > Brief an die Familie Haufe, [April 1811]

@@ -7,8 +7,6 @@ bilder:
 
 > Als Student war er Amicist, schlug sich zu Erlangen und hatte den verstorbenen K[öniglich] bair[ischen] G[eheimen] R[ath] von Reinwald zum Sekundanten. Er verbarg sein Herzklopfen so gut er konnte und kam mit einer leichten Wunde im Arm davon. Er wiederholte nach mehreren Jahren Reinwalds pathetische Anrede auf unnachahmliche Weise.
 >
-> — Christoph Friedrich Karl von Kölle
->
-> Christoph Friedrich Karl von [Kölle](/3/#4) über Hebel im Stuttgarter Morgenblatt, 14. März 1827
+> <span class="quote-attribution--koelle">— Christoph Friedrich Karl von Kölle · Stuttgarter Morgenblatt, 14. März 1827</span>
 
 Im Mai 1778 nahm Hebel an der Universität Erlangen ein zwei Jahre währendes Studium der Theologie auf. Er trat dort, wie die meisten seiner Landsleute, erst den <span class="no-hyphen">»Mosellanern«</span> bei, später auch dem <span class="no-hyphen">»Elsässer- oder Amicisten-Orden«</span>, der einen engeren Kreis innerhalb der Landsmannschaft bildete. Hier lernte Hebel das Logenwesen kennen, das er später im [proteusischen Geheimbund](/5/) nachbildete. Die Duelle, um die auch Hebel nicht herumkam, liefen nicht immer so glimpflich ab, wie Kölle es beschreibt. Der Streit, in den sein <span class="no-hyphen">»Freund Walch«</span> verwickelt war, endete tödlich. Den Eintrag in Hebels Stammbuch muss Walch, wenn man seinen Worten Glauben schenken kann, kurz vor seiner Flucht aus Erlangen geschrieben haben.

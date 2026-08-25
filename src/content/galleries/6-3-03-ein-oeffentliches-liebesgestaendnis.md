@@ -18,8 +18,6 @@ Die hintergründig-schüchternen Stammbuchverse blieben zunächst verborgen – 
 >
 > und deutet auf mich. Was sagen Sie? Eine Schauspielerin u. ein Kirchenrath in Gegenwart des Großherzogs, des Hofes, des Fürsten v. Thurn u. Taxis […] vieler Fremden, u. 600 andern. […] Vor langem lauten Beyfall konnte sie die Schlußzeile gar nicht mehr anbringen, u. dankte für ihn, nicht stumm, sondern laut, u. sezte hinzu, sie habe dieses Glück […] ihrem Freund Hebel zu verdanken, dessen Gegenwart sie begeistere. Nach dem Schluß dankte ich ihr im Garderobezimmer mit einer Umarmung.
 >
-> — JPH
->
 > Brief an Sophie Haufe, Ende Oktober 1809
 
 Dieser Auftritt brachte den Dichter und Theologen Hebel gehörig aus der Fassung – und mit ihm auch den *Verliebten Hauensteiner*.

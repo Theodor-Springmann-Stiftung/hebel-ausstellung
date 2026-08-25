@@ -4,7 +4,6 @@ import Quote from '../components/content/Quote.astro';
 import { chapterHref, getOrderedChapters } from '../lib/content';
 import { renderInlineMarkdown } from '../lib/markdown';
 import { getHeroImageSource, getNavigationImageSource, getThumbnailImage } from '../lib/object-images';
-import portrait from '../assets/Meta/Hebel_Portraet_Mueller.jpg';
 import heroPortrait from '../assets/Meta/Hebel_Portraet_Homepage.png';
 import seal from '../assets/Meta/Hebel_Wachssiegel.png';
 
@@ -81,9 +80,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
 
     <Quote
       text="Es ist wohl an der Zeit, daß wir unser Daseyn auf dem Planeten euch wieder einmal beurkunden."
-      attribution="— JPH"
       source="Brief an Sophie Haufe vom 23. August 1826 – Z 578"
-      portrait={portrait}
     />
 
     <section class="home-chapters" aria-labelledby="chapters-title">

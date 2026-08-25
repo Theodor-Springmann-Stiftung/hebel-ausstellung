@@ -349,6 +349,216 @@ html[data-contrast="high"] .subchapter-page {
   }
 }
 
+@layer components {
+  .quote-section {
+    padding: var(--spacing-40) var(--spacing-24);
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) {
+    display: flex;
+    width: 100%;
+    margin: 0 auto;
+    border-left: 0.5px solid var(--color-ink);
+    padding-left: var(--spacing-24);
+    color: var(--color-text-primary);
+    flex-direction: column;
+    hyphens: none;
+  }
+
+  .section-gallery__body > blockquote {
+    width: calc(100% - var(--spacing-48));
+    margin-block: var(--spacing-40);
+  }
+
+  .chapter-overview__text > blockquote {
+    width: calc(100% - var(--spacing-48));
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) > p {
+    margin: 0;
+    font-style: normal;
+    font-weight: 400;
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) > p:not(:last-child) {
+    font-family: var(--font-display);
+    font-size: var(--text-quote);
+    line-height: var(--text-quote--line-height);
+    letter-spacing: var(--text-quote--letter-spacing);
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) > p:not(:last-child) + p:not(:last-child) {
+    margin-top: 0.5em;
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) > p:last-child {
+    display: flex;
+    min-height: var(--spacing-56);
+    margin-top: var(--spacing-24);
+    align-items: center;
+    color: var(--color-text-secondary);
+    font-family: var(--font-sans);
+    font-size: var(--text-caption);
+    line-height: normal;
+    white-space: pre-wrap;
+  }
+
+  :is(
+    .exhibition-quote,
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ) > p:last-child::before {
+    display: block;
+    width: var(--spacing-56);
+    height: var(--spacing-56);
+    margin-right: var(--spacing-12);
+    flex: 0 0 var(--spacing-56);
+    border: 0.5px solid var(--color-ink);
+    border-radius: 50%;
+    background-image: url("../assets/Meta/Hebel_Cite.png");
+    background-position: 68% 50%;
+    background-size: auto 110%;
+    content: "";
+  }
+
+  :is(
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ):has(.quote-attribution--koelle) > p:last-child {
+    color: var(--color-text-primary);
+    font-family: var(--font-display);
+    font-size: var(--text-h5);
+    line-height: var(--text-h5--line-height);
+    letter-spacing: var(--text-h5--letter-spacing);
+  }
+
+  :is(
+    .section-gallery__body > blockquote,
+    .chapter-overview__text > blockquote
+  ):has(.quote-attribution--koelle) > p:last-child::before {
+    background-image: url("../assets/Meta/Koelle_Portraet.png");
+    background-position: center;
+    background-size: cover;
+  }
+
+  @media (min-width: 768px) {
+    .quote-section {
+      padding-block: var(--spacing-64);
+    }
+
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) {
+      width: min(522px, calc(100% - var(--spacing-64)));
+      padding-left: var(--spacing-48);
+    }
+
+    .section-gallery__body > blockquote {
+      margin-block: var(--spacing-64);
+    }
+
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) > p:last-child {
+      min-height: var(--spacing-40);
+      margin-top: var(--spacing-32);
+      font-size: var(--text-caption);
+      line-height: var(--text-caption--line-height);
+    }
+
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) > p:last-child::before {
+      width: var(--spacing-40);
+      height: var(--spacing-40);
+      margin-right: var(--spacing-16);
+      flex-basis: var(--spacing-40);
+    }
+
+    :is(
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ):has(.quote-attribution--koelle) > p:last-child {
+      min-height: var(--spacing-48);
+      font-size: 1.25rem;
+    }
+
+    :is(
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ):has(.quote-attribution--koelle) > p:last-child::before {
+      width: var(--spacing-48);
+      height: var(--spacing-48);
+      flex-basis: var(--spacing-48);
+      background-position: center -2.7px;
+      background-size: 110.5% auto;
+    }
+  }
+
+  @media (min-width: 1440px) {
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) {
+      width: 846px;
+      padding-left: 71px;
+    }
+
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) > p:last-child {
+      min-height: var(--spacing-48);
+      margin-top: 38px;
+    }
+
+    :is(
+      .exhibition-quote,
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ) > p:last-child::before {
+      width: var(--spacing-48);
+      height: var(--spacing-48);
+      flex-basis: var(--spacing-48);
+    }
+
+    :is(
+      .section-gallery__body > blockquote,
+      .chapter-overview__text > blockquote
+    ):has(.quote-attribution--koelle) > p:last-child {
+      font-size: var(--text-h5);
+    }
+  }
+}
+
 @layer utilities {
   .triple-pi {
     --pi-overlap: -0.265em;

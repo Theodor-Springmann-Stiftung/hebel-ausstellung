@@ -293,15 +293,6 @@ const galleries = await Promise.all(
     display: none;
   }
 
-  .section-gallery__body :global(> blockquote) {
-    width: calc(100% - var(--spacing-48));
-    max-width: 840px;
-    margin: var(--spacing-40) auto;
-    border-left: 0.5px solid var(--color-ink);
-    padding-left: var(--spacing-24);
-    hyphens: none;
-  }
-
   .section-gallery + .section-gallery::before {
     display: block;
     height: var(--spacing-80);
@@ -309,49 +300,6 @@ const galleries = await Promise.all(
     border-top: 0.5px solid var(--gallery-divider-color, var(--color-ink));
     content: "";
     transform: translateY(var(--spacing-40));
-  }
-
-  .section-gallery__body :global(> blockquote > p) {
-    @apply font-display font-normal not-italic;
-
-    margin: 0;
-    font-size: var(--text-quote);
-    line-height: var(--text-quote--line-height);
-    letter-spacing: var(--text-quote--letter-spacing);
-  }
-
-  .section-gallery__body :global(> blockquote > p + p) {
-    margin-top: 0.5em;
-  }
-
-  .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-    @apply flex items-center font-display text-lead font-normal not-italic;
-
-    gap: var(--spacing-12);
-    margin-top: var(--spacing-24);
-    line-height: 1.25;
-    letter-spacing: 0.01em;
-  }
-
-  .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-    @apply block flex-none rounded-full;
-
-    width: var(--spacing-56);
-    height: var(--spacing-56);
-    flex-basis: var(--spacing-56);
-    border: 0.5px solid var(--color-ink);
-    background-image: url("../../assets/Meta/Hebel_Portraet_Mueller.jpg");
-    background-position: 68% 50%;
-    background-size: auto 100%;
-    content: "";
-  }
-
-  .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-    margin-left: calc(var(--spacing-56) + var(--spacing-12));
-    margin-top: 2px;
-    @apply font-sans text-caption font-normal not-italic text-text-secondary;
-
-    line-height: normal;
   }
 
   @media (min-width: 768px) {
@@ -371,13 +319,6 @@ const galleries = await Promise.all(
     .section-gallery__body :global(> .footnotes) {
       max-width: 586px;
       padding: 0 var(--spacing-32) var(--spacing-64);
-    }
-
-    .section-gallery__body :global(> blockquote) {
-      width: calc(100% - var(--spacing-64));
-      margin-block: var(--spacing-64);
-      margin-inline: auto;
-      padding-left: var(--spacing-48);
     }
 
     .section-intro {
@@ -410,26 +351,6 @@ const galleries = await Promise.all(
       margin-inline: var(--spacing-32);
     }
 
-    .section-gallery__body :global(> blockquote > p) {
-      font-size: var(--text-quote);
-    }
-
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-      gap: var(--spacing-16);
-      margin-top: var(--spacing-32);
-      font-size: var(--text-h5);
-    }
-
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-      width: var(--spacing-40);
-      height: var(--spacing-40);
-      flex-basis: var(--spacing-40);
-    }
-
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-      margin-left: calc(var(--spacing-40) + var(--spacing-16));
-      font-size: 1rem;
-    }
   }
 
   @media (min-width: 1440px) {
@@ -464,27 +385,10 @@ const galleries = await Promise.all(
       width: 220px;
     }
 
-    .section-gallery__body :global(> blockquote) {
-      margin-block: var(--spacing-80);
-    }
-
     .section-gallery + .section-gallery::before {
       max-width: 1060px;
       margin-inline: auto;
     }
 
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)) {
-      margin-top: 38px;
-    }
-
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:nth-last-child(2)::before) {
-      width: var(--spacing-48);
-      height: var(--spacing-48);
-      flex-basis: var(--spacing-48);
-    }
-
-    .section-gallery__body :global(> blockquote:has(> p:nth-child(3)) > p:last-child) {
-      margin-left: calc(var(--spacing-48) + var(--spacing-16));
-    }
   }
 </style>

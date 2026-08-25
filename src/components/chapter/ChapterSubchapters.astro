@@ -85,59 +85,6 @@ const availableSubchapters = subchapters.filter(Boolean);
     line-height: var(--text-lead--line-height);
   }
 
-  .chapter-overview__text :global(> blockquote) {
-    display: flex;
-    width: calc(100% - var(--spacing-48));
-    margin: 0 auto;
-    border-left: 0.5px solid var(--color-ink);
-    padding-left: var(--spacing-24);
-    padding-block: var(--spacing-24);
-    flex-direction: column;
-    gap: var(--spacing-24);
-  }
-
-  .chapter-overview__text :global(> blockquote > p) {
-    margin: 0;
-  }
-
-  .chapter-overview__text :global(> blockquote > p:first-child) {
-    @apply font-display font-normal not-italic text-text-primary;
-
-    font-size: var(--text-quote);
-    line-height: var(--text-quote--line-height);
-    letter-spacing: var(--text-quote--letter-spacing);
-  }
-
-  .chapter-overview__text :global(> blockquote > p:nth-child(2)) {
-    @apply flex items-center font-display font-normal not-italic text-text-primary;
-
-    gap: var(--spacing-12);
-    font-size: 1.25rem;
-    line-height: 1.25;
-    letter-spacing: 0.01em;
-  }
-
-  .chapter-overview__text :global(> blockquote > p:nth-child(2)::before) {
-    @apply block flex-none rounded-full;
-
-    width: var(--spacing-56);
-    height: var(--spacing-56);
-    flex-basis: var(--spacing-56);
-    border: 0.5px solid var(--color-ink);
-    background-image: url("../../assets/Meta/Hebel_Portraet_Mueller.jpg");
-    background-position: 68% 50%;
-    background-size: auto 100%;
-    content: "";
-  }
-
-  .chapter-overview__text :global(> blockquote > p:nth-child(3)) {
-    @apply font-sans font-normal not-italic text-text-secondary;
-
-    margin-left: calc(var(--spacing-56) + var(--spacing-12));
-    font-size: var(--text-caption);
-    line-height: normal;
-  }
-
   .chapter-overview__navigation {
     display: flex;
     padding: var(--spacing-48) var(--spacing-20) var(--spacing-64);
@@ -244,34 +191,6 @@ const availableSubchapters = subchapters.filter(Boolean);
       width: 522px;
     }
 
-    .chapter-overview__text :global(> blockquote) {
-      width: calc(100% - var(--spacing-64));
-      max-width: 840px;
-      padding-left: var(--spacing-48);
-      padding-block: var(--spacing-32);
-      gap: var(--spacing-32);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:first-child) {
-      font-size: var(--text-quote);
-      line-height: var(--text-quote--line-height);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:nth-child(2)) {
-      gap: var(--spacing-16);
-      font-size: var(--text-h5);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:nth-child(2)::before) {
-      width: var(--spacing-40);
-      height: var(--spacing-40);
-      flex-basis: var(--spacing-40);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:nth-child(3)) {
-      margin-left: calc(var(--spacing-40) + var(--spacing-16));
-    }
-
     .chapter-overview__navigation {
       padding: var(--spacing-80) var(--spacing-32);
       gap: var(--spacing-40);
@@ -311,21 +230,6 @@ const availableSubchapters = subchapters.filter(Boolean);
 
     .chapter-overview__text :global(> p) {
       width: var(--container-text);
-    }
-
-    .chapter-overview__text :global(> blockquote) {
-      padding-left: 72px;
-      gap: 38px;
-    }
-
-    .chapter-overview__text :global(> blockquote > p:nth-child(2)::before) {
-      width: var(--spacing-48);
-      height: var(--spacing-48);
-      flex-basis: var(--spacing-48);
-    }
-
-    .chapter-overview__text :global(> blockquote > p:nth-child(3)) {
-      margin-left: calc(var(--spacing-48) + var(--spacing-16));
     }
 
     .chapter-overview__navigation {
