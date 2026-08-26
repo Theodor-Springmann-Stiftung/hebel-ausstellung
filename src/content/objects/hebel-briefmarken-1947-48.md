@@ -1,5 +1,4 @@
 ---
-quelle: "Dreiländermuseum Lörrach"
 slug: "hebel-briefmarken-1947-48"
 lizenz: "Mit freundlicher Genehmigung des Dreiländermuseums Lörrach"
 titel: "Hebel-Briefmarken"

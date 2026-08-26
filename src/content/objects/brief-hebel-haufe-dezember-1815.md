@@ -1,10 +1,9 @@
 ---
-quelle: "BLB Karlsruhe"
 materialTechnik: "Manuskript"
 slug: "brief-hebel-haufe-dezember-1815"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 transkription: true
-titel: "Hebel an Haufe vom Dezember 1815 (Z 401)"
+titel: "Hebel an Haufe vom Dezember 1815"
 urheber: "Johann Peter Hebel"
 datierung: "Dezember 1815"
 institution: "Badische Landesbibliothek Karlsruhe"

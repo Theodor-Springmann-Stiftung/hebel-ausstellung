@@ -1,5 +1,4 @@
 ---
-quelle: "Brief von Marcus Fidelis Jäck an Hebel, 5.4.1810, Quelle: BLB Karlsruhe"
 materialTechnik: "2 Bl., davon drei Seiten beschrieben; Blumenranke als Wasserzeichen"
 slug: "brief-jaeck-hebel-1810"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"

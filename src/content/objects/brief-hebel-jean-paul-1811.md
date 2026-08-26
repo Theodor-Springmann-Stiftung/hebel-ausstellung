@@ -1,5 +1,4 @@
 ---
-quelle: "Hebel-Archiv Heidelberg"
 materialTechnik: "1 Bl., zwei Seiten beschrieben"
 slug: "brief-hebel-jean-paul-1811"
 transkription: true

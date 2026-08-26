@@ -1,5 +1,4 @@
 ---
-quelle: "Brief an Marcus Fidelis Jäck, 12.3.[1810], Quelle: DLA Marbach"
 materialTechnik: "2 Bl., davon 3 Seiten beschrieben"
 slug: "brief-hebel-jaeck-1810"
 transkription: true
