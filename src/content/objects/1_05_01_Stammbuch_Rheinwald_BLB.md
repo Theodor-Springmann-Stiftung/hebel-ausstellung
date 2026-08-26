@@ -27,6 +27,9 @@ die andern mag der Teufel holen<br>
 
 [mittig rechts, Hebel] Todt
 
+[links unten, v. Rheinwald] Erlang d. 9ten 7bris<br>
+1779
+
 [rechts unten, v. Rheinwald] Zum Denkmal ewiger Freund-<br>
 schaft schrieb’s dein aechter<br>
 Freund Bruder u. Landsmann<br>
