@@ -14,3 +14,7 @@ bilder:
     inObjektansicht: false
   - bild: "1_08_Objektseite_Ebel_Doppelseite"
 ---
+
+# Anmerkungen
+
+Abgebildet ist die dritte Auflage von Ebels Reiseführer aus dem Bestand des Hebel-Archivs, der aber mit der von Hebel benutzten zweiten Auflage  identisch ist (ein Digitalisat ist in ›Quelle‹ verlinkt).
