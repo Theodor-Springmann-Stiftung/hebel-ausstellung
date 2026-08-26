@@ -1,5 +1,5 @@
 ---
-quelle: "H.[ebel], J.[ohann] P.[eter]: *Allemannische Gedichte. Für Freunde ländlicher Natur und Sitten*. Karlsruhe: Macklot, 1803, Umschlag. Exemplar des Hebel-Archivs Heidelberg."
+quelle: "H.[ebel], J.[ohann] P.[eter]: *Allemannische Gedichte. Für Freunde ländlicher Natur und Sitten*. Karlsruhe: Macklot, 1803, Umschlag."
 slug: "ag-1803-originalumschlag"
 titel: "*Allemannische Gedichte*, Erstausgabe im Originalumschlag"
 urheber: "Johann Peter Hebel"
@@ -10,10 +10,3 @@ bilder:
   - bild: "2.0_hero_image_Tschoepli_TSS"
   - bild: "2.1_00_AG_1803_Tschoepli_TSS"
 ---
-
-# Beschreibung
-
-**Zitatnachweis**
-
-Johann Peter Hebel<br>
-Brief an Friedrich Wilhelm Hitzig vom März 1803 – Z 90

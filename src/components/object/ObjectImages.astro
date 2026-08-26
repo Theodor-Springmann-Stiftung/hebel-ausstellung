@@ -7,22 +7,12 @@ const { images } = Astro.props as { images: ObjectDisplayImage[] };
 const imageItems = images.map((image) => {
   const asset = getObjectImage(image.dateiname ?? image.id);
 
-  return { image, asset, isPortrait: asset.height > asset.width };
+  return { image, asset };
 });
-const imageGroups: typeof imageItems[] = [];
 const hasMultipleImages = imageItems.length > 1;
-const shouldUseCarousel = hasMultipleImages && !(imageItems.length === 2 && imageItems.every((item) => item.isPortrait));
+const shouldUseCarousel = hasMultipleImages;
 const carouselImages = imageItems.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.altText) }));
-
-for (const item of imageItems) {
-  const previousGroup = imageGroups.at(-1);
-
-  if (item.isPortrait && previousGroup?.length === 1 && previousGroup[0].isPortrait) {
-    previousGroup.push(item);
-  } else {
-    imageGroups.push([item]);
-  }
-}
+const imageGroups = imageItems.map((item) => [item]);
 ---
 
 {hasMultipleImages && (

@@ -1,7 +1,6 @@
 import type { ImageMetadata } from "astro";
 import { getImage } from "astro:assets";
 import { getCollection } from "astro:content";
-import { getObjectRightsBySlug, type ObjectRights } from "./image-rights";
 import { markdownBodyToPlainText, markdownToPlainText, renderInlineMarkdown } from "./markdown";
 import { findContentImage, findObjectImage } from "./object-images";
 import { getObjectUsagesById } from "./object-usages";
@@ -31,12 +30,10 @@ const compareOrder = (left: number[], right: number[]) => {
 };
 
 export const getObjectOverview = async () => {
-  const [objectEntries, rightsBySlug, usagesByObjectId] = await Promise.all([
+  const [objectEntries, usagesByObjectId] = await Promise.all([
     getCollection("objects"),
-    getObjectRightsBySlug(),
     getObjectUsagesById(),
   ]);
-  const emptyRights: ObjectRights = { status: "Nicht erfasst", items: [] };
 
   return (await Promise.all(objectEntries.map(async (object) => {
     const associations = object.data.bilder ?? [];
@@ -89,6 +86,7 @@ export const getObjectOverview = async () => {
       { label: "Institution", value: object.data.institution, markdown: object.data.institution },
       { label: "Inventarnummer", value: object.data.inventarnummer, markdown: object.data.inventarnummer },
       { label: "Quelle", value: object.data.quelle, markdown: object.data.quelle, wide: true },
+      { label: "Lizenz", value: object.data.lizenz, markdown: object.data.lizenz, wide: true },
       { label: "Inhalt", value: plainBody(object.body), markdown: object.body, wide: true },
     ].filter(({ markdown }) => Boolean(markdown)).map(({ label, value, markdown, wide }) => ({
       label,
@@ -119,7 +117,6 @@ export const getObjectOverview = async () => {
       slug: object.data.slug,
       href: `/objekte/${object.data.slug}/`,
       thumbnails,
-      rights: rightsBySlug.get(object.data.slug) ?? emptyRights,
       usages,
       titel: plainInline(object.data.titel),
       metadata,

@@ -26,10 +26,12 @@ type CsvRightsRow = {
 };
 
 const legacySlugTargets: Record<string, string[]> = {
+  "ag-1803-titelblatt": ["ag-1803-seite-33"],
+  "marktweiber-satzmanuskript-seite-4": ["marktweiber-satzmanuskript-seite-3"],
   "stammbuch-walch-blb": ["stammbuch-blb"],
   "hexlein-fruehe-version": ["hexlein-abschrift-1801", "hebel-brief-hitzig-faksimile-2026"],
   "wiese-satzmanuskript": ["wiese-satzmanuskript-seite-6"],
-  "marktweiber-erstdruck": ["marktweiber-satzmanuskript-seite-3", "ag-1803-seite-78"],
+  "marktweiber-erstdruck": ["marktweiber-satzmanuskript-seite-3", "ag-1803-seite-33"],
   "neue-aufgaben": ["badischer-landkalender-1805"],
   "rheinlaendischer-hausfreund-1814-druck": ["rheinlaendischer-hausfreund-1814-druckexemplar"],
   "schatzkaestlein-1811": ["schatzkaestlein-erstausgabe-1811"],

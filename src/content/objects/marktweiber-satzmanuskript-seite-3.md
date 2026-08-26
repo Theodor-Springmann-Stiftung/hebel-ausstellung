@@ -1,7 +1,7 @@
 ---
 slug: "marktweiber-satzmanuskript-seite-3"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
-titel: "Eigenhändige Satzvorlage der *Marktweiber in der Stadt*, dritte Seite"
+titel: "Eigenhändige Satzvorlage der *Marktweiber in der Stadt*, dritte und vierte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"
 institution: "Badische Landesbibliothek Karlsruhe"
@@ -11,4 +11,5 @@ bilder:
     objektReihenfolge: 1
     inObjektansicht: false
   - bild: "AG_07_04a_Marktweiber_H2_Blaesithor"
+  - bild: "2.1_07_01_Marktweiber_H2_BLB"
 ---

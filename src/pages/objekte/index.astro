@@ -1,9 +1,53 @@
 ---
-import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
-import Layout from "../layouts/Layout.astro";
-import { getObjectOverview } from "../lib/object-overview";
+import Breadcrumbs from "../../components/navigation/Breadcrumbs.astro";
+import Layout from "../../layouts/Layout.astro";
+import { getReadingOrder } from "../../lib/content";
+import { markdownToPlainText } from "../../lib/markdown";
+import { getObjectOverview } from "../../lib/object-overview";
 
-const objects = await getObjectOverview();
+const [objects, readingOrder] = await Promise.all([getObjectOverview(), getReadingOrder()]);
+
+type PageFilterGroup = {
+  label: string;
+  options: Array<{ label: string; value: string }>;
+};
+
+const sectionFilterGroups: PageFilterGroup[] = [];
+let currentSectionGroup: PageFilterGroup | undefined;
+
+for (const page of readingOrder) {
+  const pageNumber = page.href.split("/").filter(Boolean).at(-1) ?? "";
+
+  if (page.kind === "chapter") {
+    currentSectionGroup = {
+      label: `Kapitel ${pageNumber}: ${markdownToPlainText(page.label)}`,
+      options: [{ label: "Gesamtes Kapitel", value: `chapter:${pageNumber}` }],
+    };
+    sectionFilterGroups.push(currentSectionGroup);
+  } else {
+    currentSectionGroup?.options.push({
+      label: `${pageNumber} ${markdownToPlainText(page.label)}`,
+      value: `page:${page.href}`,
+    });
+  }
+}
+const standalonePages = new Map<string, string>();
+
+for (const object of objects) {
+  for (const usage of object.usages) {
+    if (!usage.sectionNumber) standalonePages.set(usage.href.split("#")[0], usage.page);
+  }
+}
+
+const standalonePageOptions = [...standalonePages].map(([href, label]) => ({ label, value: `page:${href}` }));
+const pageFilterKeysByObject = new Map(objects.map((object) => [
+  object.href,
+  [...new Set(object.usages.flatMap((usage) => {
+    const pageHref = usage.href.split("#")[0];
+    const chapterNumber = usage.sectionNumber?.split(".")[0];
+    return chapterNumber ? [`chapter:${chapterNumber}`, `page:${pageHref}`] : [`page:${pageHref}`];
+  }))].join(" "),
+]));
 
 const dataColumns = [
   ["imageData", "Bilddaten"],
@@ -13,7 +57,6 @@ const dataColumns = [
 const columnOptions = [
   ["thumbnail", "Bild"],
   ["object", "Objekt"],
-  ["rights", "Lizenz / Genehmigung"],
   ["usages", "Verlinkung / Beschriftung"],
   ["metadata", "Objektdaten"],
   ...dataColumns,
@@ -40,6 +83,22 @@ const defaultHiddenColumns = new Set([
         <label class="quick-filter">
           <span>Schnellsuche</span>
           <input type="search" placeholder="Titel, Institution, Quelle …" autocomplete="off" data-quick-filter />
+        </label>
+        <label class="page-filter">
+          <span class="sr-only">Nach Seite filtern</span>
+          <select data-page-filter>
+            <option value="">Alle Seiten</option>
+            {sectionFilterGroups.map((group) => (
+              <optgroup label={group.label}>
+                {group.options.map((option) => <option value={option.value}>{option.label}</option>)}
+              </optgroup>
+            ))}
+            {standalonePageOptions.length > 0 && (
+              <optgroup label="Weitere Seiten">
+                {standalonePageOptions.map((option) => <option value={option.value}>{option.label}</option>)}
+              </optgroup>
+            )}
+          </select>
         </label>
         <details class="column-picker">
           <summary>Spalten</summary>
@@ -69,7 +128,6 @@ const defaultHiddenColumns = new Set([
             <tr>
               <th scope="col" data-column="thumbnail">Bild</th>
               <th scope="col" data-column="object">Objekt</th>
-              <th scope="col" data-column="rights">Lizenz / Genehmigung</th>
               <th scope="col" data-column="usages">Verlinkung / Beschriftung</th>
               <th scope="col" data-column="metadata">Objektdaten</th>
               {dataColumns.map(([key, label]) => (
@@ -79,7 +137,7 @@ const defaultHiddenColumns = new Set([
           </thead>
           <tbody data-object-table-body>
             {objects.map((object) => (
-              <tr data-object-href={object.href}>
+              <tr data-object-href={object.href} data-page-filters={pageFilterKeysByObject.get(object.href)}>
                 <td class="thumbnail-cell" data-column="thumbnail">
                   {object.thumbnails.length > 0 ? (
                     <div class="thumbnail-group" data-image-count={object.thumbnails.length}>
@@ -106,26 +164,6 @@ const defaultHiddenColumns = new Set([
                 <td class="object-cell" data-column="object">
                   <span class="object-slug">{object.slug}</span>
                   <a href={object.href}>{object.titel}</a>
-                </td>
-                <td class="rights-cell" data-column="rights">
-                  <span class:list={[
-                    "status",
-                    `status--${object.rights.status === "Geklärt" ? "cleared" : object.rights.status === "Offen" ? "open" : "missing"}`,
-                  ]}>
-                    {object.rights.status}
-                  </span>
-                  {object.rights.items.length > 0 ? (
-                    <ul class="cell-list">
-                      {object.rights.items.map((item) => (
-                        <li>
-                          {item.editing.length > 0 && <span class="rights-edit">Bearbeitung: {item.editing.join(", ")}</span>}
-                          {item.href
-                            ? <a href={item.href} target="_blank" rel="noreferrer">{item.text}</a>
-                            : <span>{item.text}</span>}
-                        </li>
-                      ))}
-                    </ul>
-                  ) : "-"}
                 </td>
                 <td class="usage-cell" data-column="usages">
                   {object.usages.length > 0 ? (
@@ -199,7 +237,7 @@ const defaultHiddenColumns = new Set([
     "imageData",
     "systemData",
   ];
-  const storageKey = "objects-table-hidden-columns-v4";
+  const storageKey = "objects-table-hidden-columns-v5";
   const table = document.querySelector<HTMLTableElement>("[data-object-table]");
   const toggles = Array.from(document.querySelectorAll<HTMLInputElement>("[data-column-toggle]"));
   let hiddenColumns = new Set(defaultHiddenColumnKeys);
@@ -249,24 +287,31 @@ const defaultHiddenColumns = new Set([
 
   const rows = Array.from(document.querySelectorAll<HTMLTableRowElement>("[data-object-href]"));
   const filter = document.querySelector<HTMLInputElement>("[data-quick-filter]");
+  const pageFilter = document.querySelector<HTMLSelectElement>("[data-page-filter]");
   const count = document.querySelector<HTMLElement>("[data-object-count]");
 
-  filter?.addEventListener("input", () => {
-    const query = filter.value.trim().toLocaleLowerCase("de");
+  const applyFilters = () => {
+    const query = filter?.value.trim().toLocaleLowerCase("de") ?? "";
+    const selectedPage = pageFilter?.value ?? "";
     let visibleRows = 0;
 
     for (const row of rows) {
-      const visible = !query || (row.textContent ?? "").toLocaleLowerCase("de").includes(query);
+      const matchesQuery = !query || (row.textContent ?? "").toLocaleLowerCase("de").includes(query);
+      const matchesPage = !selectedPage || (row.dataset.pageFilters ?? "").split(" ").includes(selectedPage);
+      const visible = matchesQuery && matchesPage;
       row.hidden = !visible;
       if (visible) visibleRows += 1;
     }
 
-    if (count) count.textContent = query ? `${visibleRows} von ${rows.length} Objekten` : `${rows.length} Objekte`;
-  });
+    if (count) count.textContent = query || selectedPage ? `${visibleRows} von ${rows.length} Objekten` : `${rows.length} Objekte`;
+  };
+
+  filter?.addEventListener("input", applyFilters);
+  pageFilter?.addEventListener("change", applyFilters);
 </script>
 
 <style>
-  @reference "../styles/global.css";
+  @reference "../../styles/global.css";
 
   .objects-page {
     background: var(--color-paper);
@@ -311,7 +356,7 @@ const defaultHiddenColumns = new Set([
     min-height: 2.75rem;
     padding: 0.65rem 0.8rem;
     border: 1px solid var(--color-ash-grey);
-    border-radius: 2px;
+    border-radius: 0;
     color: var(--color-text-primary);
     background: var(--color-paper);
     font: inherit;
@@ -332,6 +377,7 @@ const defaultHiddenColumns = new Set([
     margin-bottom: var(--spacing-24);
     align-items: center;
     justify-content: flex-end;
+    flex-wrap: wrap;
     gap: var(--spacing-20);
   }
 
@@ -348,17 +394,42 @@ const defaultHiddenColumns = new Set([
   }
 
   .column-picker summary,
-  .column-picker button {
+  .column-picker button,
+  .page-filter select {
     min-height: 2.5rem;
     padding: 0.6rem 0.9rem;
     border: 1px solid var(--color-ash-grey);
-    border-radius: 0.25rem;
+    border-radius: 0;
     color: var(--color-text-primary);
     background: var(--color-paper);
     font: inherit;
     font-size: var(--text-caption);
     font-weight: 600;
     cursor: pointer;
+  }
+
+  .page-filter {
+    position: relative;
+    display: flex;
+  }
+
+  .page-filter::after {
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    width: 0.45rem;
+    height: 0.45rem;
+    border-right: 1px solid currentColor;
+    border-bottom: 1px solid currentColor;
+    content: "";
+    pointer-events: none;
+    transform: translateY(-70%) rotate(45deg);
+  }
+
+  .page-filter select {
+    min-width: 13rem;
+    padding-right: 2.5rem;
+    appearance: none;
   }
 
   .column-picker summary {
@@ -394,7 +465,7 @@ const defaultHiddenColumns = new Set([
     margin-top: var(--spacing-8);
     overflow-y: auto;
     border: 1px solid var(--color-ash-grey);
-    border-radius: 0.25rem;
+    border-radius: 0;
     box-shadow: 0 0.8rem 2rem rgb(38 37 30 / 16%);
     background: var(--color-paper);
   }
@@ -438,8 +509,8 @@ const defaultHiddenColumns = new Set([
     width: 100%;
     max-height: calc(100vh - 10rem);
     overflow: auto;
-    border: 1px solid var(--color-ash-grey);
-    border-radius: 0.35rem;
+    border: 1px solid var(--color-ink);
+    border-radius: 0;
     box-shadow: 0 0.4rem 1.5rem rgb(38 37 30 / 7%);
   }
 
@@ -463,8 +534,7 @@ const defaultHiddenColumns = new Set([
     min-width: 150px;
     max-width: 360px;
     padding: var(--spacing-12) var(--spacing-16);
-    border-right: 1px solid var(--color-ash-grey);
-    border-bottom: 1px solid var(--color-ash-grey);
+    border-bottom: 1px solid var(--color-ink);
     text-align: left;
     vertical-align: top;
     white-space: pre-wrap;
@@ -475,15 +545,12 @@ const defaultHiddenColumns = new Set([
     position: sticky;
     top: 0;
     z-index: 2;
+    border-bottom: 0;
+    box-shadow: inset 0 -1px var(--color-ink);
     background: var(--color-oat);
     font-weight: 600;
     letter-spacing: 0.015em;
     white-space: nowrap;
-  }
-
-  th:last-child,
-  td:last-child {
-    border-right: 0;
   }
 
   tbody tr:last-child td {
@@ -506,10 +573,10 @@ const defaultHiddenColumns = new Set([
     background: #f2eee2;
   }
 
-  .thumbnail-cell {
-    min-width: 188px;
-    width: 188px;
-    max-width: 188px;
+  [data-column="thumbnail"] {
+    min-width: 112px;
+    width: 112px;
+    max-width: 112px;
   }
 
   .thumbnail-group {
@@ -518,16 +585,16 @@ const defaultHiddenColumns = new Set([
 
   .thumbnail-grid {
     display: grid;
-    grid-template-columns: repeat(2, 72px);
+    grid-template-columns: 80px;
     gap: var(--spacing-12);
   }
 
   .thumbnail-grid a {
     display: block;
-    width: 72px;
-    height: 64px;
+    width: 80px;
+    height: 68px;
     border: 1px solid var(--color-ash-grey);
-    border-radius: 0.2rem;
+    border-radius: 0;
     overflow: hidden;
     background: var(--color-oat);
   }
@@ -568,43 +635,9 @@ const defaultHiddenColumns = new Set([
     text-underline-offset: 0.15em;
   }
 
-  .status {
-    display: inline-flex;
-    padding: 0.3rem 0.55rem;
-    border: 1px solid currentColor;
-    border-radius: 2px;
-    font-size: 0.68rem;
-    font-weight: 600;
-    letter-spacing: 0.04em;
-    line-height: 1;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
-
-  .status--cleared {
-    color: #315f46;
-    background: #e4efe6;
-  }
-
-  .status--open {
-    color: #8b381f;
-    background: #f7e5dc;
-  }
-
-  .status--missing {
-    color: var(--color-text-secondary);
-    background: var(--color-oat);
-  }
-
-  .rights-cell {
-    min-width: 300px;
-    max-width: 390px;
-    white-space: normal;
-  }
-
   .metadata-cell {
-    min-width: 460px;
-    max-width: 560px;
+    min-width: 420px;
+    max-width: 500px;
     white-space: normal;
   }
 
@@ -620,7 +653,7 @@ const defaultHiddenColumns = new Set([
     align-content: start;
     padding: var(--spacing-12);
     border: 1px solid var(--color-ash-grey);
-    border-radius: 2px;
+    border-radius: 0;
     background: rgb(255 255 255 / 48%);
     gap: var(--spacing-6, 6px);
   }
@@ -686,7 +719,7 @@ const defaultHiddenColumns = new Set([
     display: grid;
     padding: var(--spacing-12);
     border: 1px solid var(--color-ash-grey);
-    border-radius: 2px;
+    border-radius: 0;
     background: rgb(255 255 255 / 48%);
     gap: var(--spacing-8);
   }
@@ -696,13 +729,9 @@ const defaultHiddenColumns = new Set([
     text-transform: uppercase;
   }
 
-  .rights-cell > .cell-list {
-    margin-top: var(--spacing-12);
-  }
-
   .usage-cell {
-    min-width: 360px;
-    max-width: 500px;
+    min-width: 280px;
+    max-width: 360px;
     white-space: normal;
   }
 
@@ -730,11 +759,6 @@ const defaultHiddenColumns = new Set([
     text-underline-offset: 0.15em;
   }
 
-  .rights-edit {
-    color: var(--color-text-secondary);
-    font-weight: 600;
-  }
-
   .usage-list {
     gap: var(--spacing-8);
   }
@@ -748,7 +772,7 @@ const defaultHiddenColumns = new Set([
     display: grid;
     padding: var(--spacing-12);
     border: 1px solid var(--color-ash-grey);
-    border-radius: 2px;
+    border-radius: 0;
     color: var(--color-text-primary);
     background: rgb(255 255 255 / 42%);
     gap: var(--spacing-10, 10px);
@@ -769,18 +793,13 @@ const defaultHiddenColumns = new Set([
     line-height: 1.5;
   }
 
-  .usage-location > span:last-child {
-    text-decoration: underline;
-    text-underline-offset: 0.15em;
-  }
-
   .usage-number {
     display: inline-flex;
     flex: none;
     min-width: 2rem;
     justify-content: center;
     padding: 0.15rem 0.4rem;
-    border-radius: 2px;
+    border-radius: 0;
     color: var(--color-paper);
     background: var(--color-ink);
     font-size: 0.68rem;
@@ -815,6 +834,15 @@ const defaultHiddenColumns = new Set([
 
     .table-toolbar {
       align-items: flex-end;
+    }
+
+    .page-filter {
+      flex: 1;
+    }
+
+    .page-filter select {
+      width: 100%;
+      min-width: 0;
     }
 
     .table-wrapper {
