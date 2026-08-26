@@ -34,3 +34,11 @@ All commands are run from the root of the project, from a terminal:
 
 Nyght Serif: https://www.tunera.xyz/fonts/nyght-serif/
 Geist: Vercels Geist https://vercel.com/font
+
+## Licensing
+
+The source code in this repository is licensed under the [MIT License](LICENSE).
+
+**Warning:** The MIT License does not apply to the exhibition objects, images, scans, or other third-party content. Different objects and images may be subject to different licensing terms and usage restrictions. Consult [LICENSES.csv](LICENSES.csv) and the linked original sources before reusing any content. A missing or unresolved license entry does not imply permission to reuse the corresponding object or image.
+
+Run `npm run licenses:generate` after changing object, image, or license metadata to regenerate `LICENSES.csv`.
