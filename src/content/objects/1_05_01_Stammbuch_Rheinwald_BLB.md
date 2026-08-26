@@ -12,18 +12,22 @@ bilder:
   - bild: "1_05_02_Stammbuch_Walch_BLB"
 ---
 
+# Anmerkungen
+
+von Rheinwald: Es handelt sich offenbar um Johann Ludwig Christian Rheinwald (1763-1811), Legationsrath, Kommissar der Militärakademie zu München und Direktor des Königl. Bayer. Statistischen Bureaus
+
 # Transkription
 
 ## Eintrag Rheinwald
 
-[oben] verlies Erlang im Früiar 80 und ist nun am Pfefel’schen Institut zu Kolmar<br>
+[oben, Hebel] verlies Erlang im Früiar 80 und ist nun am Pfefel’schen Institut zu Kolmar<br>
 
-[mittig] Es leben die mir wohlwollen<br>
+[mittig, v. Rheinwald] Es leben die mir wohlwollen<br>
 die andern mag der Teufel holen<br>
 
-[mittig rechts] Todt
+[mittig rechts, Hebel] Todt
 
-[rechts unten] Zum Denkmal ewiger Freund-<br>
+[rechts unten, v. Rheinwald] Zum Denkmal ewiger Freund-<br>
 schaft schrieb’s dein aechter<br>
 Freund Bruder u. Landsmann<br>
 L. Rheinwald<br>
@@ -34,14 +38,14 @@ ein Mosellaner
 
 ## Eintrag Walch
 
-In Erlang hält man liederlich Haus<br>
+[mittig, Walch] In Erlang hält man liederlich Haus<br>
 Gott helf euch allen mit Ehren hinaus.
 
 schribs f der Flucht<br>
 dein Freund Walch<br>
 Erlang im september 1778.
 
-[rechts unten] Machte sich, nach dem er einen Mos. tödlich verwundet, aus dem<br>
+[rechts unten, Hebel] Machte sich, nach dem er einen Mos. tödlich verwundet, aus dem<br>
 Staub, und wurde, da er auf öffentliche Zitation nicht erschien auf<br>
 10. Jare relegirt. – Gieng alsden nach Jena um Rechte zu studiren<br>
 wurde aber auch da wider fortgeschikt.
