@@ -1,117 +1,9 @@
 ---
-import { getImage } from "astro:assets";
-import { getCollection } from "astro:content";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 import Layout from "../layouts/Layout.astro";
-import { getObjectRightsBySlug, type ObjectRights } from "../lib/image-rights";
-import { markdownBodyToPlainText, markdownToPlainText, renderInlineMarkdown } from "../lib/markdown";
-import { findContentImage, findObjectImage } from "../lib/object-images";
-import { getObjectUsagesById } from "../lib/object-usages";
+import { getObjectOverview } from "../lib/object-overview";
 
-const preserveMarkdownUrls = (value = "") =>
-  value.replace(/\[([^\]]+)]\(([^)]+)\)/g, "$1 ($2)");
-
-const plainInline = (value?: string) =>
-  value ? markdownToPlainText(preserveMarkdownUrls(value)).replace(/\s+/g, " ").trim() : "";
-
-const plainBody = (value?: string) =>
-  value ? markdownBodyToPlainText(preserveMarkdownUrls(value)) : "";
-
-const usageOrder = (usage: { type: string; sectionNumber?: string }) => {
-  if (usage.type === "Startseite") return [0];
-  if (usage.type === "Über") return [1];
-  if (usage.sectionNumber) return [2, ...usage.sectionNumber.split(".").map(Number)];
-  return [3];
-};
-
-const compareOrder = (left: number[], right: number[]) => {
-  for (let index = 0; index < Math.max(left.length, right.length); index += 1) {
-    const difference = (left[index] ?? -1) - (right[index] ?? -1);
-    if (difference !== 0) return difference;
-  }
-  return 0;
-};
-
-const [objectEntries, rightsBySlug, usagesByObjectId] = await Promise.all([
-  getCollection("objects"),
-  getObjectRightsBySlug(),
-  getObjectUsagesById(),
-]);
-const emptyRights: ObjectRights = { status: "Nicht erfasst", items: [] };
-
-const objects = (await Promise.all(objectEntries.map(async (object) => {
-  const associations = object.data.bilder ?? [];
-  const displayImages = [];
-  const seenImageSources = new Set<string>();
-
-  for (const association of associations.filter((association) => association.inObjektansicht)) {
-    const image = await findContentImage(association.bild);
-    if (!image || seenImageSources.has(image.asset.src)) continue;
-    seenImageSources.add(image.asset.src);
-    displayImages.push(image.asset);
-  }
-
-  const fallbackImage = findObjectImage(object.id);
-  if (displayImages.length === 0 && fallbackImage) displayImages.push(fallbackImage);
-
-  const thumbnails = await Promise.all(displayImages.map((asset) => (
-    getImage({ src: asset, width: Math.min(120, asset.width), format: "webp", quality: 70 })
-  )));
-  const usages = (usagesByObjectId.get(object.id) ?? []).map((usage) => {
-    const page = plainInline(usage.page);
-    const section = page.match(/^(?:Unterkapitel|Kapitel)\s+([^:]+):\s*(.+)$/);
-
-    return {
-      ...usage,
-      page: section?.[2] ?? page,
-      sectionNumber: section?.[1],
-      context: plainInline(usage.context),
-      captions: usage.captions.map((caption) => ({ ...caption, text: plainInline(caption.text) })),
-    };
-  }).sort((left, right) => compareOrder(usageOrder(left), usageOrder(right)));
-
-  return {
-    slug: object.data.slug,
-    href: `/objekte/${object.data.slug}/`,
-    thumbnails,
-    rights: rightsBySlug.get(object.data.slug) ?? emptyRights,
-    usages,
-    titel: plainInline(object.data.titel),
-    metadata: [
-      { label: "Urheber", value: object.data.urheber },
-      { label: "Datum", value: object.data.datierung },
-      { label: "Material und Technik", value: object.data.materialTechnik },
-      { label: "Institution", value: object.data.institution },
-      { label: "Inventarnummer", value: object.data.inventarnummer },
-      { label: "Quelle", value: object.data.quelle, wide: true },
-      { label: "Inhalt", value: plainBody(object.body), wide: true },
-    ].filter(({ value }) => Boolean(value)).map(({ label, value, wide }) => ({
-      label,
-      html: renderInlineMarkdown(value),
-      wide,
-    })),
-    imageData: associations.map((association, index) => ({
-      label: `Bild ${index + 1}`,
-      details: [
-        { label: "Datei", value: association.bild },
-        { label: "Position", value: association.position ?? "-" },
-        { label: "Objektreihenfolge", value: String(association.objektReihenfolge ?? "-") },
-        { label: "Beschriftung", value: plainInline(association.beschriftung) || "-" },
-        { label: "In Objektansicht", value: association.inObjektansicht ? "Ja" : "Nein" },
-      ],
-    })),
-    systemData: [
-      { label: "ID", value: object.id },
-      { label: "Kapitelunabhängig", value: object.data.kapitelunabhaengig ? "Ja" : "Nein" },
-      { label: "Transkription", value: object.data.transkription ? "Ja" : "Nein" },
-      { label: "Transkriptionsart", value: object.data.transkriptionsart },
-      { label: "Untertitel", value: plainInline(object.data.untertitel) || "-" },
-    ],
-  };
-}))).sort((left, right) => (
-  compareOrder(usageOrder(left.usages[0] ?? { type: "Nicht verwendet" }), usageOrder(right.usages[0] ?? { type: "Nicht verwendet" }))
-  || left.titel.localeCompare(right.titel, "de")
-));
+const objects = await getObjectOverview();
 
 const dataColumns = [
   ["imageData", "Bilddaten"],
@@ -199,8 +91,8 @@ const defaultHiddenColumns = new Set([
                           >
                             <img
                               src={thumbnail.src}
-                              width={thumbnail.attributes.width}
-                              height={thumbnail.attributes.height}
+                              width={thumbnail.width}
+                              height={thumbnail.height}
                               alt=""
                               loading="lazy"
                               decoding="async"
