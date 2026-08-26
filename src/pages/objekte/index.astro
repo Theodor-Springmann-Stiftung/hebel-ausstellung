@@ -19,9 +19,10 @@ for (const page of readingOrder) {
   const pageNumber = page.href.split("/").filter(Boolean).at(-1) ?? "";
 
   if (page.kind === "chapter") {
+    const chapterTitle = markdownToPlainText(page.label);
     currentSectionGroup = {
-      label: `Kapitel ${pageNumber}: ${markdownToPlainText(page.label)}`,
-      options: [{ label: "Gesamtes Kapitel", value: `chapter:${pageNumber}` }],
+      label: `Kapitel ${pageNumber}: ${chapterTitle}`,
+      options: [{ label: `Gesamtes Kapitel ${pageNumber}: ${chapterTitle}`, value: `chapter:${pageNumber}` }],
     };
     sectionFilterGroups.push(currentSectionGroup);
   } else {
@@ -74,15 +75,15 @@ const defaultHiddenColumns = new Set([
     <header class="objects-hero">
       <div>
         <h1>Objektübersicht</h1>
-        <p data-object-count>{objects.length} Objekte</p>
       </div>
     </header>
 
     <section class="objects-content" aria-label="Objekttabelle">
       <div class="table-toolbar">
+        <p class="object-count" data-object-count>{objects.length} Objekte</p>
         <label class="quick-filter">
-          <span>Schnellsuche</span>
-          <input type="search" placeholder="Titel, Institution, Quelle …" autocomplete="off" data-quick-filter />
+          <span class="sr-only">Schnellsuche</span>
+          <input type="search" placeholder="Schnellsuche" autocomplete="off" data-quick-filter />
         </label>
         <label class="page-filter">
           <span class="sr-only">Nach Seite filtern</span>
@@ -303,7 +304,7 @@ const defaultHiddenColumns = new Set([
       if (visible) visibleRows += 1;
     }
 
-    if (count) count.textContent = query || selectedPage ? `${visibleRows} von ${rows.length} Objekten` : `${rows.length} Objekte`;
+    if (count) count.textContent = visibleRows === rows.length ? `${rows.length} Objekte` : `${visibleRows} / ${rows.length}`;
   };
 
   filter?.addEventListener("input", applyFilters);
@@ -331,12 +332,6 @@ const defaultHiddenColumns = new Set([
     line-height: var(--text-h1--line-height);
   }
 
-  .objects-hero p {
-    margin: var(--spacing-8) 0 0;
-    color: var(--color-text-secondary);
-    font-size: var(--text-caption);
-  }
-
   .quick-filter {
     display: flex;
     min-width: min(30rem, 55vw);
@@ -360,6 +355,7 @@ const defaultHiddenColumns = new Set([
     color: var(--color-text-primary);
     background: var(--color-paper);
     font: inherit;
+    font-size: var(--text-caption);
   }
 
   .quick-filter input:focus {
@@ -381,8 +377,9 @@ const defaultHiddenColumns = new Set([
     gap: var(--spacing-20);
   }
 
-  .table-toolbar p {
+  .object-count {
     margin: 0;
+    margin-right: auto;
     color: var(--color-text-secondary);
     font-size: var(--text-caption);
     white-space: nowrap;

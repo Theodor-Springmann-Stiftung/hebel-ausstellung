@@ -7,7 +7,3 @@ institution: "Wikipedia"
 bilder:
   - bild: "HuF_6_2_Slide_3_Portrait_de_lempereur_Jacques_dHaiti_Wikipedia"
 ---
-
-# Beschreibung
-
-Porträt von Jakob I. von Haiti.
