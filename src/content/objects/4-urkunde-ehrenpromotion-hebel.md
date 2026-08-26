@@ -2,7 +2,7 @@
 quelle: "Universitätsarchiv Heidelberg"
 slug: "urkunde-ehrenpromotion-hebel"
 lizenz: "Mit freundlicher Genehmigung des Universitätsarchivs Heidelberg"
-titel: "Urkunde der Ehrenpromotion Johann Peter Hebels durch die Theologische Fakultät der Universität Heidelberg"
+titel: "Urkunde der Ehrenpromotion Johann Peter Hebels"
 urheber: "Theologische Fakultät der Universität Heidelberg"
 datierung: "2. August 1821"
 institution: "Universitätsarchiv Heidelberg"

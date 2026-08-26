@@ -27,6 +27,7 @@ type CsvRightsRow = {
 
 const legacySlugTargets: Record<string, string[]> = {
   "ag-1803-titelblatt": ["ag-1803-seite-33"],
+  "biblische-geschichten-umschlag-verso": ["biblische-geschichten-umschlag-recto"],
   "marktweiber-satzmanuskript-seite-4": ["marktweiber-satzmanuskript-seite-3"],
   "stammbuch-walch-blb": ["stammbuch-blb"],
   "hexlein-fruehe-version": ["hexlein-abschrift-1801", "hebel-brief-hitzig-faksimile-2026"],

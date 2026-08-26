@@ -20,3 +20,15 @@ Quelle
 
 - http://localhost:4321/objekte/rheinlaendischer-hausfreund-1811/
 Quelle
+
+- http://localhost:4321/objekte/johann-jacob-hebels-rechenbuch/
+Sind verschiedene Objektre oder?
+
+- http://localhost:4321/objekte/hebelbueste-basel/
+Material Bildhauerei
+
+- http://localhost:4321/objekte/biblische-geschichten-umschlag-recto/
+Quelle
+
+- http://localhost:4321/objekte/alz-rezension-1790-lupe/
+Quelle

@@ -1,5 +1,4 @@
 ---
-quelle: "Staatliche Kunsthalle Karlsruhe"
 slug: "evangelische-stadtkirche-karlsruhe"
 lizenz: "Mit freundlicher Genehmigung der Staatlichen Kunsthalle Karlsruhe"
 titel: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe"
