@@ -99,7 +99,7 @@ Eine Bildzuordnung enthält:
 
 | Feld | Typ | Pflicht/Standard |
 |---|---|---:|
-| `bild` | Bild-Metadaten-ID oder vollständiger `Bilder/...`-Asset-Pfad | ja |
+| `bild` | Bild-Metadaten-ID oder vollständiger `Bilder/...`-Asset-Pfad; Metadaten dürfen auch auf `Heroes/...` verweisen | ja |
 | `position` | `Links`, `Rechts` oder `Vorne` | nein |
 | `objektReihenfolge` | Positive Ganzzahl | nein |
 | `beschriftung` | Galerie-spezifischer Markdown-Text | nein |

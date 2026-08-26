@@ -1,0 +1,175 @@
+---
+import { getCollection } from "astro:content";
+import { markdownBodyToPlainText, markdownToPlainText } from "../lib/markdown";
+import "../styles/global.css";
+
+const preserveMarkdownUrls = (value = "") =>
+  value.replace(/\[([^\]]+)]\(([^)]+)\)/g, "$1 ($2)");
+
+const plainInline = (value?: string) =>
+  value ? markdownToPlainText(preserveMarkdownUrls(value)).replace(/\s+/g, " ").trim() : "";
+
+const plainBody = (value?: string) =>
+  value ? markdownBodyToPlainText(preserveMarkdownUrls(value)) : "";
+
+const objects = (await getCollection("objects"))
+  .sort((left, right) => plainInline(left.data.titel).localeCompare(plainInline(right.data.titel), "de"))
+  .map((object) => ({
+    id: object.id,
+    slug: object.data.slug,
+    kapitelunabhaengig: String(object.data.kapitelunabhaengig),
+    transkription: String(object.data.transkription),
+    transkriptionsart: object.data.transkriptionsart,
+    titel: plainInline(object.data.titel),
+    untertitel: plainInline(object.data.untertitel),
+    urheber: plainInline(object.data.urheber),
+    datierung: plainInline(object.data.datierung),
+    materialTechnik: plainInline(object.data.materialTechnik),
+    institution: plainInline(object.data.institution),
+    inventarnummer: plainInline(object.data.inventarnummer),
+    quelle: plainInline(object.data.quelle),
+    bilder: (object.data.bilder ?? []).map((association, index) => [
+      `${index + 1}. bild: ${association.bild}`,
+      `position: ${association.position ?? "-"}`,
+      `objektReihenfolge: ${association.objektReihenfolge ?? "-"}`,
+      `beschriftung: ${plainInline(association.beschriftung) || "-"}`,
+      `inObjektansicht: ${association.inObjektansicht}`,
+    ].join("; ")).join("\n"),
+    inhalt: plainBody(object.body),
+  }));
+
+const columns = [
+  ["id", "ID"],
+  ["slug", "Slug"],
+  ["kapitelunabhaengig", "kapitelunabhaengig"],
+  ["transkription", "transkription"],
+  ["transkriptionsart", "transkriptionsart"],
+  ["titel", "titel"],
+  ["untertitel", "untertitel"],
+  ["urheber", "urheber"],
+  ["datierung", "datierung"],
+  ["materialTechnik", "materialTechnik"],
+  ["institution", "institution"],
+  ["inventarnummer", "inventarnummer"],
+  ["quelle", "quelle"],
+  ["bilder", "bilder"],
+  ["inhalt", "Inhalt"],
+] as const;
+---
+
+<!doctype html>
+<html lang="de">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex, nofollow" />
+    <title>Objektübersicht</title>
+  </head>
+  <body>
+    <main>
+      <header>
+        <h1>Objektübersicht</h1>
+        <p>{objects.length} Objekte</p>
+      </header>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              {columns.map(([, label]) => <th scope="col">{label}</th>)}
+            </tr>
+          </thead>
+          <tbody>
+            {objects.map((object) => (
+              <tr>
+                {columns.map(([key]) => <td>{object[key] || "-"}</td>)}
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
+
+<style>
+  main {
+    min-height: 100vh;
+    padding: var(--spacing-32) var(--spacing-20) var(--spacing-64);
+    background: var(--color-paper);
+  }
+
+  header {
+    display: flex;
+    margin-bottom: var(--spacing-24);
+    align-items: baseline;
+    justify-content: space-between;
+    gap: var(--spacing-20);
+  }
+
+  h1 {
+    font-size: var(--text-h2);
+    line-height: var(--text-h2--line-height);
+  }
+
+  header p {
+    color: var(--color-text-secondary);
+    font-size: var(--text-caption);
+    white-space: nowrap;
+  }
+
+  .table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    border: 1px solid var(--color-ash-grey);
+  }
+
+  table {
+    width: max-content;
+    min-width: 100%;
+    border-collapse: collapse;
+    background: var(--color-paper);
+    font-size: 0.75rem;
+    line-height: 1.45;
+  }
+
+  th,
+  td {
+    min-width: 150px;
+    max-width: 360px;
+    padding: var(--spacing-12);
+    border-right: 1px solid var(--color-ash-grey);
+    border-bottom: 1px solid var(--color-ash-grey);
+    text-align: left;
+    vertical-align: top;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+  }
+
+  th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    background: var(--color-oat);
+    font-weight: 600;
+  }
+
+  th:last-child,
+  td:last-child {
+    border-right: 0;
+  }
+
+  tbody tr:last-child td {
+    border-bottom: 0;
+  }
+
+  tbody tr:nth-child(even) td {
+    background: rgb(38 37 30 / 3%);
+  }
+
+  @media (min-width: 768px) {
+    main {
+      padding: var(--spacing-48) var(--spacing-32) var(--spacing-80);
+    }
+  }
+</style>

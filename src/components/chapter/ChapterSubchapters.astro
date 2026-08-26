@@ -85,6 +85,16 @@ const availableSubchapters = subchapters.filter(Boolean);
     line-height: var(--text-lead--line-height);
   }
 
+  .chapter-overview__text :global(> .footnotes) {
+    @apply font-sans text-text-secondary;
+
+    width: calc(100% - var(--spacing-40));
+    max-width: var(--container-text);
+    margin-inline: auto;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
   .chapter-overview__navigation {
     display: flex;
     padding: var(--spacing-48) var(--spacing-20) var(--spacing-64);
@@ -191,6 +201,10 @@ const availableSubchapters = subchapters.filter(Boolean);
       width: 522px;
     }
 
+    .chapter-overview__text :global(> .footnotes) {
+      width: 522px;
+    }
+
     .chapter-overview__navigation {
       padding: var(--spacing-80) var(--spacing-32);
       gap: var(--spacing-40);
@@ -229,6 +243,10 @@ const availableSubchapters = subchapters.filter(Boolean);
     }
 
     .chapter-overview__text :global(> p) {
+      width: var(--container-text);
+    }
+
+    .chapter-overview__text :global(> .footnotes) {
       width: var(--container-text);
     }
 

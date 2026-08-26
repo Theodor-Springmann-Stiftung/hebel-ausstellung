@@ -265,7 +265,7 @@ Eine Bildzuordnung hat folgende Felder:
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `src/content/images`, der auf ein `Bilder/...`-Asset verweist, oder vollständiger Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-2/datei.webp`. |
+| `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `src/content/images`, der auf ein `Bilder/...`- oder `Heroes/...`-Asset verweist, oder vollständiger `Bilder/...`-Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-2/datei.webp`. Hero-Assets werden über eine Bild-ID eingebunden. |
 | `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
 | `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
 | `beschriftung` | Markdown-String | nein | Bildunterschrift dieses Objekts in der Galerie. Überschreibt dort den Objekttitel. |
@@ -305,7 +305,7 @@ Die Einträge aus `folienbeschriftungen[].unterbeschriftungen` und der Galerie-`
 
 ## Bilddatei-Ersatzlogik
 
-Bild-Metadaten in `src/content/images` sind optional. Galerien und `objects.bilder` dürfen entweder eine Bild-Metadaten-ID oder direkt einen vollständigen Pfad relativ zu `src/assets` verwenden. Beide Referenzformen müssen auf ein Asset unter `Bilder/<Kapitel oder Unterkapitel>/` auflösen. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`.
+Bild-Metadaten in `src/content/images` sind optional. Galerien und `objects.bilder` dürfen entweder eine Bild-Metadaten-ID oder direkt einen vollständigen Pfad relativ zu `src/assets` verwenden. Galerien müssen auf ein Asset unter `Bilder/<Kapitel oder Unterkapitel>/` auflösen. Objektseiten dürfen zusätzlich über eine Bild-Metadaten-ID ein vorbereitetes Asset unter `Heroes/` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`.
 
 Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, `altText` und `beschriftung` bei der Bildauflösung und Darstellung berücksichtigt. `nachweis` bleibt als Metadatum erhalten und wird in den Suchindex aufgenommen, erscheint derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz. Objektbeziehungen werden unabhängig davon über `objects.bilder` anhand des aufgelösten Assets ermittelt.
 

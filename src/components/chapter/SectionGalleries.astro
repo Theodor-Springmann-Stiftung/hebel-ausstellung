@@ -199,6 +199,16 @@ const galleries = await Promise.all(
     margin-inline: auto;
   }
 
+  .section-intro__text :global(> .footnotes) {
+    @apply font-sans text-text-secondary;
+
+    width: 100%;
+    max-width: var(--container-text);
+    margin-inline: auto;
+    font-size: var(--text-small);
+    line-height: var(--text-small--line-height);
+  }
+
   .section-intro__text :global(> p),
   .section-gallery__body :global(> p) {
     @apply font-sans text-body text-text-primary;
@@ -335,6 +345,10 @@ const galleries = await Promise.all(
       line-height: var(--text-lead--line-height);
     }
 
+    .section-intro__text :global(> .footnotes) {
+      max-width: 522px;
+    }
+
     .section-intro--with-seal .section-intro__layout {
       display: grid;
       grid-template-columns: 180px minmax(0, 522px);
@@ -373,6 +387,10 @@ const galleries = await Promise.all(
     }
 
     .section-intro__text :global(> p) {
+      max-width: 840px;
+    }
+
+    .section-intro__text :global(> .footnotes) {
       max-width: 840px;
     }
 

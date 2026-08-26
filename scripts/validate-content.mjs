@@ -264,8 +264,8 @@ async function validateObjects() {
         errors.push(`${relative(file)} references missing image metadata or asset: ${imageReference}`);
       } else if (!isCanonicalImageReference(imageReference, imageCatalog)) {
         errors.push(`${relative(file)} must reference an image metadata ID or complete Bilder/... asset path: ${imageReference}`);
-      } else if (!assetName.startsWith("bilder/")) {
-        errors.push(`${relative(file)} object image must resolve to a Bilder/... asset: ${imageReference}`);
+      } else if (!/^(bilder|heroes)\//.test(assetName)) {
+        errors.push(`${relative(file)} object image must resolve to a Bilder/... or Heroes/... asset: ${imageReference}`);
       }
 
       if (association.objektReihenfolge && !/^[1-9]\d*$/.test(association.objektReihenfolge)) {
