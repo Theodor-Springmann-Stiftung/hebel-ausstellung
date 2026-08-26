@@ -8,5 +8,5 @@ institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "411215"
 quelle: "*Urania. Taschenbuch für Damen auf das Jahr 1812. Mit zwölf Kupfern, darstellend Scenen aus Göthe's Wahlverwandschaften und pantomimische Attitüden der Madame Hendel-Schütz.* Amsterdam und Leipzig: Kunst und Industrie-Comptoir, 1812, unpaginiert."
 bilder:
-  - bild: "6-3-hero-hendel-schuetz-urania-1812"
+  - bild: "6.3_01_00_Hendel_Portrait"
 ---
