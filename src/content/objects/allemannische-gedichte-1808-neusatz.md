@@ -5,6 +5,7 @@ titel: "*Alemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Viert
 urheber: "Macklots Hofbuchhandlung, Karlsruhe"
 datierung: "wohl nicht vor 1810"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "412292"
 bilder:
   - bild: "Bilder/2-4/2.4_03_01_AG_D4_TSS.webp"

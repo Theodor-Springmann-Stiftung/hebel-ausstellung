@@ -2,6 +2,7 @@
 quelle: "[Digitalisat der Badischen Landesbibliothek](https://digital.blb-karlsruhe.de/blbhs/content/pageview/91220)"
 materialTechnik: "Aquarellierte Federzeichnung"
 slug: "proteuserschwur-1812"
+lizenz: "Mit freundlicher Genehmigung des Dreiländermuseums Lörrach"
 titel: "Der Proteuserschwur"
 urheber: "Christian Meichelt"
 datierung: "1812"

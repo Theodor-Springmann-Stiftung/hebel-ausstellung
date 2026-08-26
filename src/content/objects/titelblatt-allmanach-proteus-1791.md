@@ -2,6 +2,7 @@
 quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/90960)"
 materialTechnik: "Bleistiftzeichnung"
 slug: "titelblatt-allmanach-proteus-1791"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Titelblatt des *Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>*"
 urheber: "Johann Peter Hebel"
 datierung: "1791"

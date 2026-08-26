@@ -1,5 +1,6 @@
 ---
 slug: "jenner-satzmanuskript-seite-3"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage zum *Jenner*, dritte Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

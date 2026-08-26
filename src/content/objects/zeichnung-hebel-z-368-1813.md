@@ -2,6 +2,7 @@
 quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/91181)"
 materialTechnik: "Zeichnung"
 slug: "zeichnung-hebel-z-368-1813"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Zeichnung Hebels aus Z 368"
 urheber: "Johann Peter Hebel"
 datierung: "1813"

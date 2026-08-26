@@ -1,5 +1,6 @@
 ---
 slug: "carfunkel-satzmanuskript"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage des *Carfunkel*"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

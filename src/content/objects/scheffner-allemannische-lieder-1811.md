@@ -1,6 +1,7 @@
 ---
 quelle: "*J. P. Hebels allemannische Lieder*, 1811, Universitäts- und Landesbibliothek Bonn. [ULB Bonn Digital](https://nbn-resolving.org/urn:nbn:de:hbz:5:1-438998)"
 slug: "scheffner-allemannische-lieder-1811"
+lizenz: "Mit freundlicher Genehmigung der Universitäts- und Landesbibliothek Bonn; Bearbeitung: Freigestellt"
 titel: "Johann Georg Scheffner: *J. P. Hebels allemannische Lieder*"
 urheber: |-
   Johann Peter Hebel (Autor)

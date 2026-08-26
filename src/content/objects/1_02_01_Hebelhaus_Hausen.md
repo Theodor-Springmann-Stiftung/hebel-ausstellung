@@ -1,5 +1,6 @@
 ---
 slug: "hebelhaus-hausen"
+lizenz: "[Gemeinfrei (Public Domain)](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Zeichnung vom Hebel-Haus in Hausen"
 urheber: "Gustav Wilhelm Friesenegger"
 datierung: "1840/50"

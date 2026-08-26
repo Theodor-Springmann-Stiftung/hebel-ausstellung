@@ -6,6 +6,7 @@ titel: "Schatzkästlein des rheinischen Hausfreundes (1859) mit handschriftliche
 urheber: "Johann Peter Hebel, Franz Kafka"
 datierung: "1859/1921"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "800390"
 bilder:
   - bild: "3_06_01_Schatzkaestlein_Kafka_TSS"

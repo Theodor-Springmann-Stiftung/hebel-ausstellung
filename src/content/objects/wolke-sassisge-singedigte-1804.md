@@ -7,6 +7,7 @@ urheber: |-
   Christian Heinrich Wolke (Übersetzer)
 datierung: "1804"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "112690"
 bilder:
   - bild: "2.3_02_1_Wolke_TSS"

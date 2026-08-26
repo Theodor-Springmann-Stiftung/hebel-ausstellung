@@ -1,5 +1,6 @@
 ---
 slug: "stammbuch-blb"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
 transkription: true
 titel: "Stammbuch des Johann Peter Hebel, 1777–1781"
 urheber: "versch. Urheber"

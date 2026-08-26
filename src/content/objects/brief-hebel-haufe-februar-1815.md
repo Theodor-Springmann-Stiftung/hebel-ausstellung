@@ -1,6 +1,7 @@
 ---
 quelle: "BLB Karlsruhe"
 slug: "brief-hebel-haufe-februar-1815"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 transkription: true
 titel: "Hebel an Haufe vom Februar 1815"
 urheber: "Johann Peter Hebel"

@@ -1,5 +1,6 @@
 ---
 slug: "roettler-schloss-gla"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Ansicht des Schlosses Rötteln von der Nordseite mit der Aussicht nach Lörrach"
 urheber: "Heinrich Meichelt u. Christian Meichelt"
 datierung: "Zw. 1820 und 1880"

@@ -6,6 +6,7 @@ titel: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"
 urheber: "Johann Peter Hebel"
 datierung: "1806"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "800410"
 bilder:
   - bild: "7_03_01_AG3-Jaeck1_TSS"

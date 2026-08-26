@@ -5,6 +5,7 @@ titel: "*Allemannische Gedichte. Neueste vollständige Ausgabe*, Reutlingen: J.[
 urheber: "Verlag Jacob Noah Enßlin"
 datierung: "1822"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "111704"
 bilder:
   - bild: "Bilder/2-4/2.4_05_D5_TSS.webp"

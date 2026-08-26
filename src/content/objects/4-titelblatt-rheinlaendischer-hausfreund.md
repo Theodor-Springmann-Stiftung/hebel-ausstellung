@@ -4,6 +4,7 @@ slug: "titelblatt-rheinlaendischer-hausfreund"
 titel: "Titelblatt des Rheinländischen Hausfreunds (Detail)"
 datierung: "1815"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "102413"
 bilder:
   - bild: "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"

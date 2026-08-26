@@ -5,6 +5,7 @@ titel: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständig
 urheber: "Johann Peter Hebel"
 datierung: "1820"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "212279"
 bilder:
   - bild: "Bilder/2-4/2.4_04_01_D5_TSS.webp"

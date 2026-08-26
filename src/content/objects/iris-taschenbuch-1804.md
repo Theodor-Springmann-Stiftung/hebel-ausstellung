@@ -7,6 +7,7 @@ urheber: |-
   Johann Peter Hebel (Mitautor)
 datierung: "1804"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "Alm 26"
 bilder:
   - bild: "2.3_01_2_Iris_1804_TSS"

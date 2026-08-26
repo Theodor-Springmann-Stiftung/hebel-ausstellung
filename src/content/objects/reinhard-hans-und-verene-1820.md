@@ -6,6 +6,7 @@ urheber: "Sophie Reinhard"
 datierung: "1820"
 materialTechnik: "Radierung"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 bilder:
   - bild: "2.2_04_Reinhard_Hans_und_Verene_1820_TSS"
 ---

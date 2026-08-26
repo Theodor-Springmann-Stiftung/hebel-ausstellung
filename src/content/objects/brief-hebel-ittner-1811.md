@@ -1,6 +1,7 @@
 ---
-quelle: "Universitätsbibliothek Basel, [e-manuscripta](https://doi.org/10.7891/e-manuscripta-102431) / Public Domain Mark"
+quelle: "Universitätsbibliothek Basel, [e-manuscripta](https://doi.org/10.7891/e-manuscripta-102431)"
 slug: "brief-hebel-ittner-1811"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 transkription: true
 transkriptionsart: "Übersetzung"
 titel: "Brief an Johann Albrecht Ittner"

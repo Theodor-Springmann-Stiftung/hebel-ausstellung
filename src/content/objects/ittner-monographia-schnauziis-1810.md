@@ -5,6 +5,7 @@ titel: "Ittners *Monographia de Schnauziis*"
 urheber: "Johann Albrecht Ittner"
 datierung: "1810"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "402817"
 bilder:
   - bild: "7_02_02_Ittner_Monographia_Schnauziae_TSS"

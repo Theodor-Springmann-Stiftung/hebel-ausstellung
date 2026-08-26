@@ -1,5 +1,6 @@
 ---
 slug: "widmungsgedicht-blb"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
 transkription: true
 titel: "Entwurf einer Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen und Widmungsgedicht"
 urheber: "Johann Peter Hebel"

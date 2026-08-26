@@ -7,6 +7,7 @@ urheber: |-
   Friedrich Girardet (Übersetzer)
 datierung: "1821"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en); Bearbeitung: Ausschnitt"
 inventarnummer: "112696"
 bilder:
   - bild: "2.3_00_Girardet1_TSS"

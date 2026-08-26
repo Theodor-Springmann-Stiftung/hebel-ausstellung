@@ -5,6 +5,7 @@ titel: "Alabasterrelief von Sophie Haufe, Hebel"
 urheber: "Landolin Ohmacht"
 materialTechnik: "Alabasterrelief"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "[Sophie Haufe:] 101B07<br>[Hebel:] 101B06"
 bilder:
   - bild: "HuF_6_2_Slide_1_Relief_SH_Ohmacht_TSS"

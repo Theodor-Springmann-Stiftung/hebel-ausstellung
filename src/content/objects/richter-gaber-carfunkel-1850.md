@@ -9,6 +9,7 @@ urheber: |-
 datierung: "1851"
 materialTechnik: "Holzstich"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "112040"
 bilder:
   - bild: "2.2_03_Richter_Karfunkel_Holzstich_1851_TSS"

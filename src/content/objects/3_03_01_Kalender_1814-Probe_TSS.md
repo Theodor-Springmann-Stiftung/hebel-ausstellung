@@ -7,6 +7,7 @@ untertitel: "Korrekturexemplar"
 urheber: "Johann Peter Hebel"
 datierung: "1814"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "800449"
 bilder:
   - bild: "3_03_01_Kalender_1814-Probe_TSS"

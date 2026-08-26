@@ -1,5 +1,6 @@
 ---
 slug: "gespenst-fruehe-version"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Frühe eigenhändige Version des *Gespensts an der Kanderer Straße*, erste Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1801"

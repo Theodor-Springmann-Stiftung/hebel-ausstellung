@@ -5,6 +5,7 @@ titel: "J.[ohann] P.[eter] H.[ebel]: *Alemannische Gedichte. Für Freunde ländl
 urheber: "Johann Peter Hebel"
 datierung: "1808"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "412291"
 bilder:
   - bild: "Bilder/2-4/2.4_03_01_AG_D4_TSS.webp"

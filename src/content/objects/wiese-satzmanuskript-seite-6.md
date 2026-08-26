@@ -1,5 +1,6 @@
 ---
 slug: "wiese-satzmanuskript-seite-6"
+lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage der *Wiese*, sechste Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

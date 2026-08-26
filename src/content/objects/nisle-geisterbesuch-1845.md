@@ -6,6 +6,7 @@ urheber: "Julius Nisle"
 datierung: "[1845]"
 materialTechnik: "Lithographie"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 inventarnummer: "412305"
 bilder:
   - bild: "Bilder/2-1/2.1_06_02_Jenner_u_Spinne_u_Nisle.webp"

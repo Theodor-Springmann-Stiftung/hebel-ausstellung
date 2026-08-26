@@ -1,5 +1,6 @@
 ---
 slug: "hebel-geburtshaus-privat"
+lizenz: "[Gemeinfrei (Public Domain)](https://creativecommons.org/publicdomain/mark/1.0/deed.de); Bearbeitung: Ausschnitt"
 titel: "Predigerkirche mit Totentanz"
 urheber: "Emanuel Büchel"
 datierung: "Um 1770"

@@ -5,6 +5,7 @@ titel: "Morgenblatt für gebildete Stände"
 urheber: "Johann Friedrich Cotta"
 datierung: "8. Januar 1810"
 institution: "Hebel-Archiv Heidelberg"
+lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en); Bearbeitung: Ausschnitt"
 inventarnummer: "104510"
 bilder:
   - bild: "3_05_01_Morgenblatt_TSS"

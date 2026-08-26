@@ -1,5 +1,6 @@
 ---
 slug: "lateinschule-schopfheim"
+lizenz: "Mit freundlicher Genehmigung des Stadtarchivs Schopfheim"
 titel: "Der innere Marktgraben mit der alten Lateinschule in Schopfheim"
 urheber: "Gustav Gebhardt"
 datierung: "1885"
