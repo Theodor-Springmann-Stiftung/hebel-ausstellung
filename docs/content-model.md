@@ -258,8 +258,9 @@ Pfad: `src/content/objects/*.md`
 | `institution` | Markdown-String | nein | Bewahrende Institution. |
 | `inventarnummer` | Markdown-String | nein | Inventarnummer. |
 | `quelle` | Markdown-String | nein | Quelle oder Quellenangabe zum Objekt. |
+| `lizenz` | Markdown-String | nein | Lizenz- oder Rechtehinweis zum Objekt. Unterstützt Inline-Markdown und darf nicht leer sein, wenn gesetzt. |
 | `bilder` | Array von Bildzuordnungen | nein | Geordnete Bilder des Objekts. Jede Zuordnung enthält `bild` und optional `position`, `objektReihenfolge`, `beschriftung` sowie `inObjektansicht`. |
-| Inhalt | Body-Markdown | nein | Objektbeschreibung, Transkription oder Übersetzung unterhalb des Frontmatters. Jeder vorhandene Inhalt muss unter einer der Überschriften `# Beschreibung`, `# Transkription` oder `# Übersetzung` stehen. Andere H1-Überschriften und Text vor der ersten H1-Überschrift sind nicht erlaubt. |
+| Inhalt | Body-Markdown | nein | Objektbeschreibung, Anmerkungen, Transkription oder Übersetzung unterhalb des Frontmatters. Jeder vorhandene Inhalt muss unter einer der Überschriften `# Beschreibung`, `# Anmerkungen`, `# Transkription` oder `# Übersetzung` stehen. Andere H1-Überschriften und Text vor der ersten H1-Überschrift sind nicht erlaubt. |
 
 Eine Bildzuordnung hat folgende Felder:
 
@@ -286,6 +287,7 @@ materialTechnik: "Kupferstich"
 institution: "Hebel-Archiv Heidelberg"
 inventarnummer: "412284"
 quelle: "https://example.com/object/412284"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 bilder:
   - bild: "Bilder/2-2/2.2_01_Zix_Carfunkel_Kupfer_1806_TSS.webp"
 ---
@@ -390,6 +392,7 @@ erDiagram
     markdown institution "optionalMarkdown"
     markdown inventarnummer "optionalMarkdown"
     markdown quelle "optionalMarkdown"
+    markdown lizenz "optionalMarkdown"
     object_array bilder "optional image associations"
     markdown body "optional"
   }

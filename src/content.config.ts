@@ -132,6 +132,7 @@ const objects = defineCollection({
       institution: optionalMarkdown,
       inventarnummer: optionalMarkdown,
       quelle: optionalMarkdown,
+      lizenz: optionalMarkdown,
       bilder: z.array(objectImageAssociation).min(1).optional(),
     }),
 });

@@ -92,6 +92,7 @@ Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild
 | `institution` | Markdown-String | nein |
 | `inventarnummer` | Markdown-String | nein |
 | `quelle` | Markdown-String | nein |
+| `lizenz` | Markdown-String | nein |
 | `bilder` | Geordnetes Array von Bildzuordnungen | nein |
 | Body | Markdown unter erlaubten H1-Überschriften | nein |
 
@@ -107,4 +108,4 @@ Eine Bildzuordnung enthält:
 
 Objekt-Bild-Zuordnungen sind die maßgebliche Quelle der Beziehungen. Teilen mehrere Objekte dasselbe Bild, müssen alle eine eindeutige `objektReihenfolge` besitzen. `inObjektansicht: false` blendet das Bild nur auf der Objektseite aus; die Galeriebeziehung bleibt erhalten.
 
-Objekt-Body-Inhalt muss vollständig unter `# Beschreibung`, `# Transkription` und/oder `# Übersetzung` stehen. Andere H1-Überschriften sowie Text vor der ersten H1-Überschrift sind nicht erlaubt.
+Objekt-Body-Inhalt muss vollständig unter `# Beschreibung`, `# Anmerkungen`, `# Transkription` und/oder `# Übersetzung` stehen. Andere H1-Überschriften sowie Text vor der ersten H1-Überschrift sind nicht erlaubt.
