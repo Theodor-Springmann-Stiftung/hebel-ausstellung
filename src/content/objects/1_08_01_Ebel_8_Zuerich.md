@@ -5,9 +5,11 @@ titel: "*Anleitung, auf die nützlichste und genussvollste Art die Schweitz zu b
 urheber: "Johann Gottfried Ebel"
 datierung: "1809"
 materialTechnik: "Kupferstich"
-institution: "ETH Bibliothek Zürich"
-inventarnummer: "Rar 7370"
-quelle: "ETH-Bibliothek Zürich Online: [Titelblatt](https://doi.org/10.3931/e-rara-9810) und [Kupfer](https://doi.org/10.3931/e-rara-32257)"
+institution: "Hebel-Archiv Heidelberg"
+inventarnummer: "401239"
+quelle: |-
+    Dargestellt: J. G. Ebel, *Anleitung, auf die nützlichste und genussvollste Art die Schweitz zu bereisen. Erster Theil. Dritte [...] Auflage.* Orell, Füssli und Compagnie, Zürich, 1809. Kupfer und Titelblatt.
+    2. Auflage: ETH-Bibliothek Zürich Online: [Titelblatt](https://doi.org/10.3931/e-rara-9810) und [Kupfer](https://doi.org/10.3931/e-rara-32257)
 bilder:
   - bild: "1_08_01_Ebel_8_Zuerich"
     inObjektansicht: false
