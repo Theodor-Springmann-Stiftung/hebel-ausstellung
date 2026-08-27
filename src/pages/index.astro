@@ -1,5 +1,6 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import { getEntry } from 'astro:content';
 import Quote from '../components/content/Quote.astro';
 import { chapterHref, getOrderedChapters } from '../lib/content';
 import { renderInlineMarkdown } from '../lib/markdown';
@@ -30,6 +31,8 @@ const chapters = await Promise.all((await getOrderedChapters()).map(async (chapt
   };
 }));
 const heroSource = await getHeroImageSource(heroPortrait);
+const portraitObject = await getEntry('objects', '6.1_03_03_Mueller-Kupferstich_Kunsthalle_KA');
+const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
 ---
 
 <Layout>
@@ -59,7 +62,7 @@ const heroSource = await getHeroImageSource(heroPortrait);
 
     <div class="home-caption">
       <p>Hebels Porträt nach dem Kupferstich von <a class="home-caption__gallery-link" href="/6/6.1/#3">Johann Friedrich Müller</a> (Ausschnitt)</p>
-      <a class="home-caption__object-link" href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="home-caption__link-arrow" aria-hidden="true">→</span></a>
+      <a class="home-caption__object-link" href={portraitObjectHref}>Zum Objekt <span class="home-caption__link-arrow" aria-hidden="true">→</span></a>
     </div>
 
     <section class="home-introduction" aria-labelledby="introduction-title">

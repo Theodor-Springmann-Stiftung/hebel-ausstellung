@@ -1,11 +1,14 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import { getEntry } from "astro:content";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 import heroImage from "../assets/Meta/ueber-hero.png";
 import sealImage from "../assets/Meta/ueber-hebel-siegel.png";
 import blbLogo from "../assets/Meta/ueber-blb-logo.png";
 import loerrachLogo from "../assets/Meta/ueber-loerrach-logo.png";
 import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
+const portraitObject = await getEntry("objects", "6.1_03_03_Mueller-Kupferstich_Kunsthalle_KA");
+const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
 ---
 
 <Layout>
@@ -20,7 +23,7 @@ import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
       <figcaption class="about-hero__caption">
         <div class="about-hero__caption-inner container-content w-[60ch]">
 					<p>Hebels Porträt nach dem Kupferstich von <a class="about-hero__gallery-link" href="/6/6.1/#3">Johann Friedrich Müller</a> (Ausschnitt)</p>
-					<a class="about-hero__object-link" href="/objekte/mueller-johann-peter-hebel-kupferstich/">Zum Objekt <span class="about-hero__object-link-arrow" aria-hidden="true">→</span></a>
+					<a class="about-hero__object-link" href={portraitObjectHref}>Zum Objekt <span class="about-hero__object-link-arrow" aria-hidden="true">→</span></a>
         </div>
       </figcaption>
     </header>
