@@ -8,9 +8,6 @@ Nur zugeschittenes Exemplar
 - http://localhost:4321/objekte/hebel-brief-hitzig-faksimile-2026/
 Sind das nicht drei Objekte
 
-- http://localhost:4321/objekte/rheinlaendischer-hausfreund-1811/
-Quelle
-
 - http://localhost:4321/objekte/johann-jacob-hebels-rechenbuch/
 Sind verschiedene Objektre oder?
 
@@ -20,17 +17,8 @@ Material Bildhauerei
 - http://localhost:4321/objekte/biblische-geschichten-umschlag-recto/
 Quelle
 
-- http://localhost:4321/objekte/alz-rezension-1790-lupe/
-Quelle
-
-- http://localhost:4321/objekte/ohmacht-alabasterrelief-sophie-haufe/
-IDs => BIBLIO-IDs
-
 - http://localhost:4321/objekte/portraet-jakob-i-von-haiti/
 Künstler?
-
-- http://localhost:4321/objekte/zeichnung-sophie-haufe/
-BIBLIO-ID
 
 - http://localhost:4321/objekte/hoffmann-deutschlands-flora-cryptogamie-1796/
 Quelle
