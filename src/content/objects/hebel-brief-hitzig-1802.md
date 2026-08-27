@@ -1,7 +1,7 @@
 ---
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
 slug: "brief-hitzig-1802"
-lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, [5. Dezember 1802], zweite Seite"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

@@ -1,7 +1,7 @@
 ---
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6637)"
 slug: "gedichtverzeichnis"
-lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Eigenhändiges Gedichtverzeichnis (Titel, Verszahl und potenzieller Druckumfang)"
 urheber: "Johann Peter Hebel"
 datierung: "1802"

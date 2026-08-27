@@ -2,7 +2,7 @@
 quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/90960)"
 materialTechnik: "Bleistiftzeichnung"
 slug: "allmanach-des-pi"
-lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Titelblatt des *Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>*"
 urheber: "Johann Peter Hebel"
 datierung: "1791"

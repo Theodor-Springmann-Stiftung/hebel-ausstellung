@@ -1,7 +1,7 @@
 ---
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-267797)"
 slug: "rechenbuch"
-lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de); Bearbeitung: Freigestellt"
 transkription: true
 titel: "Johann Jacob Hebels Rechenbuch"
 urheber: "Johann Jacob Hebel"

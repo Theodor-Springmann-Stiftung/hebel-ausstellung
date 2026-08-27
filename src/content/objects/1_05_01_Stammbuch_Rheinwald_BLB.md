@@ -1,6 +1,6 @@
 ---
 slug: "hebels-stammbuch"
-lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
+lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de); Bearbeitung: Freigestellt"
 transkription: true
 titel: "Hebels Stammbuch, 1777–1781"
 urheber: "versch. Urheber"
