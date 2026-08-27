@@ -14,5 +14,3 @@ galerien:
   - "2-1-06-feilen-bis-zum-schluss"
   - "2-1-07-feilen-bis-ganz-zum-schluss"
 ---
-
-Anonym erschienen, begründeten sie sein literarisches Renommée: Mit den *Allemannischen Gedichten* traf Hebel am rechten Ort zur rechten Zeit den richtigen Ton.

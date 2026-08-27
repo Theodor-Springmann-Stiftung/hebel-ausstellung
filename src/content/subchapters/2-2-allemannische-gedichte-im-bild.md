@@ -1,6 +1,6 @@
 ---
 nummer: "2.2"
-titel: "Die *Allemannischen Gedichte* im Bild. 1806–1851"
+titel: "Die *Allemannischen Gedichte* im Bild (1806–1851)"
 navTitel: "Die Allemannischen Gedichte im Bild"
 thumbnail: "2-2.webp"
 hero: "2-2.webp"

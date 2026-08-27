@@ -18,4 +18,4 @@ Jenseits des deutschsprachigen Südwestens sind sie heute weitgehend unbekannt �
 
 > Daß das Allemänlein in seinem luftigen rothen Tschöplein von seinen Landsleuten so gerne erkannt und so gut aufgenommen ist, und mit seinen Gauckeleyen noch da und dort ein Lächeln gewinnt, freut mich für das Allemänlein, und freut mich an den Landsleuten.
 >
-> Z 90
+> Brief an Hitzig von Anfang März 1803 (Z 90)
