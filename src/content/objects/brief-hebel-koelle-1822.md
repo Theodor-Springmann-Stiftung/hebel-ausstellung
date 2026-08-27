@@ -1,13 +1,13 @@
 ---
 quelle: "UB Leipzig"
-materialTechnik: "1 Bl., zwei Seiten beschrieben; besonders dünnes Papier"
+materialTechnik: "1 Bl., zwei Seiten beschrieben; besonders dünnes Papier; durch Tintenfraß stark beschädigt"
 slug: "brief-koelle-1822"
 lizenz: "Mit freundlicher Genehmigung der Universitätsbibliothek Leipzig; Fotografie: Alexander Knopf"
 transkription: true
 titel: "Brief Hebels an Christoph Friedrich Karl von Kölle"
 urheber: "Johann Peter Hebel"
-datierung: "2.3.1822"
-institution: "UB Leipzig"
+datierung: "2. März 1822"
+institution: "Universitätsbibliothek Leipzig"
 inventarnummer: "Slg. Nebauer/L/Ha-Le/L276"
 bilder:
   - bild: "7_05_01_An_Koelle_UB_Leipzig"
@@ -15,7 +15,7 @@ bilder:
 
 # Beschreibung
 
-1 Bl., zwei Seiten beschrieben, hier die erste Seite abgebildet. Durch Tintenfraß stark beschädigt.
+Hier ist die erste Seite abgebildet.
 
 # Transkription
 
