@@ -1,7 +1,7 @@
 ---
-quelle: "*Der Rheinländische Hausfreund oder Neuer Kalender mit lehrreichen Nachrichten und lustigen Erzählungen*. Verlag des Großherzogl. Lyceums zu Karlsruhe. Lahr/Pforzheim: Geiger und Katz"
+quelle: "*Der Rheinländische Hausfreund oder Neuer Kalender mit lehrreichen Nachrichten und lustigen Erzählungen auf das Jahr 1815*. Verlag des Großherzogl. Lyceums zu Karlsruhe. Lahr/Pforzheim: Geiger und Katz"
 slug: "rheinlaendischer-hausfreund-titel-detail"
-titel: "Titelblatt des Rheinländischen Hausfreunds (Detail)"
+titel: "Titelblatt des *Rheinländischen Hausfreunds* (Detail)"
 datierung: "1815"
 institution: "Hebel-Archiv Heidelberg"
 lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
@@ -12,4 +12,4 @@ bilder:
 
 # Beschreibung
 
-Detail des Titelblatts des Rheinländischen Hausfreunds
+Detail des Titelblatts des *Rheinländischen Hausfreunds*

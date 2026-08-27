@@ -5,7 +5,7 @@ bilder:
   - - "Bilder/4/Theo_4_1_Slide_2_Illustr_Wiese_TSS.webp"
 ---
 
-Im April 1809 schreibt Hebel an Friedrich Wilhelm Hitzig. Als <span class="no-hyphen">»eine Beicht unter Freunden«</span>, deklariert er selbst seinen Brief, <span class="no-hyphen">»so heilig … als die am Altar.«</span> Der Polytheismus, die heidnische Vielgötterei hat es ihm angetan, eröffnet Hebel seinem engsten Vertrauten, denn dessen Götter sind <span class="no-hyphen">»uns näher … als der einzige, ewige unerfaßbare über den Sternen«</span> (Z 252).
+Im April 1809 schreibt Hebel an Friedrich Wilhelm Hitzig. Als <span class="no-hyphen">»eine Beicht unter Freunden«</span>, deklariert er selbst seinen Brief, <span class="no-hyphen">»so heilig … als die am Altar.«</span> Der Polytheismus, die heidnische Vielgötterei, habe es ihm angetan, eröffnet Hebel seinem engsten Vertrauten, denn dessen Götter seien <span class="no-hyphen">»uns näher … als der einzige, ewige unerfaßbare über den Sternen«</span> (Z 252).
 
 Die absolute Enthobenheit des jüdisch-christlichen Gottes ruft Hebels theologisches Unbehagen hervor. <span class="no-hyphen">»Ich möchte mich gerne mit einem oder einigen Göttern dieser Erde begnügen«</span>, fährt er fort, <span class="no-hyphen">»die um uns sind, die uns lieben u. beobachten, die unsre Blüthenknospen aufthun, unsre Trauben reifen, denen wir trauen können, u. die sich lediglich nichts darum zu bekümmern haben, wer für die andern Sterne sorgt, so wenig als wir. Sie sollen nicht allmächtig, nicht allweise nur mächtig u. weise genug für uns seyn, nicht souverain, sondern untergeordnet einem noch mächtigern u. weisern, um den sie, nicht wir uns zu bekümmern haben«</span> (Z 252).
 

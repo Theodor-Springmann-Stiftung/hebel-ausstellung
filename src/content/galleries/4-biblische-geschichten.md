@@ -1,5 +1,5 @@
 ---
-titel: "<span class=\"no-hyphen\">»Ich suche dismal meine Recensenten in der Kinderwelt«</span>. Hebels Biblische Geschichten."
+titel: "<span class=\"no-hyphen\">»Ich suche dismal meine Recensenten in der Kinderwelt«</span>. Hebels *Biblische Geschichten*"
 bilder:
   - - "Theo_4_2_Slide_1_Umschlag_recto_BG_TSS"
     - "Theo_4_2_Slide_2_Umschlag_verso_BG_TSS"
@@ -9,7 +9,7 @@ bilder:
 
 <span class="no-hyphen">»Sie und Hitzig und ich und ein halbes Dutzend verstorbene und lebende Schulkameraden zwischen 1768 und 1772 heraus«</span>, so schreibt Hebel Ende 1818 an Gottlieb Fecht, <span class="no-hyphen">»müssen beständig vor mir stehen, wenn ich an der Bibelgeschichte schreibe. Uns Obgenannte muß ich unaufhörlich fragen, obs uns recht sei so und ob wirs auch verstehen …«</span> (Z 432).
 
-Kindgerecht soll seine Aufbereitung der Bibel sein. So entschärft er etwa die Sohnesopfererzählung, indem er allzu drastische Einzelheiten – der festgebundene Isaak, das Messer, das schon in Abrahams Hand ist – weglässt. Zu einzelnen Wörtern bringt er Erklärungen an (<span class="no-hyphen">»eine Arche, das heißt ein großes Haus, welches auf dem Wasser schwimmt«</span>). Von seinem Verleger Cotta wünscht er sich <span class="no-hyphen">»eine schöne Ausgabe, … ein nettes Büchlein in klein Oktav«</span>, denn <span class="no-hyphen">»Kinder lieben das Nette und Kleine«</span> (Z 494).
+Kindgerecht soll seine Aufbereitung der Bibel sein. So entschärft er etwa die Sohnesopfererzählung, indem er allzu drastische Einzelheiten – den festgebundenen Isaak, das Messer, das schon in Abrahams Hand ist – weglässt. Zu einzelnen Wörtern bringt er Erklärungen an (<span class="no-hyphen">»eine Arche, das heißt ein großes Haus, welches auf dem Wasser schwimmt«</span>). Von seinem Verleger Cotta wünscht er sich <span class="no-hyphen">»eine schöne Ausgabe, … ein nettes Büchlein in klein Oktav«</span>, denn <span class="no-hyphen">»Kinder lieben das Nette und Kleine«</span> (Z 494).
 
 Pikanterweise hatte Hebel im zweiten der oben erwähnten Gutachten, das sich gegen eine adaptierte Version von Christoph von Schmids Bibelgeschichte wandte, konfessionelle Bedenken angemeldet: <span class="no-hyphen">»Wir haben vielleicht nicht recht gethan, daß wir den Versuch einer Bibelgeschichte von der Hand eines Katholiken zum Lehrbuch unserer protestantischen Schulen gewählt haben.«</span>[^gutachten] Nach Publikation seiner *Biblischen Geschichten* 1824 tritt genau der umgekehrte Fall ein und <span class="no-hyphen">»[e]s wird um Einwilligung gefragt, eine Ausgabe zum Gebrauch in catholischen Schulen mit wenig Verbesserungen und Zusätzen zu veranstalten«</span>. Da kehren auch Hebels konfessionelle Bedenken sich um: <span class="no-hyphen">»Als Verfasser kann ich nur mit Freude einstimmen und behalte mir nichts vor, als die Durchsicht vor dem Abdruck«</span> (Z 530).
 

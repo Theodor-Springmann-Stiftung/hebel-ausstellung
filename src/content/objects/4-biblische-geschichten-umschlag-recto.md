@@ -1,7 +1,7 @@
 ---
 quelle: "Hebel-Archiv Heidelberg. Foto: Li-Wen Kuo."
 slug: "biblische-geschichten-umschlag"
-titel: "Umschlag der Biblischen Geschichten"
+titel: "Umschlag der *Biblischen Geschichten*"
 datierung: "1824"
 institution: "Hebel-Archiv Heidelberg"
 lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
@@ -12,6 +12,6 @@ bilder:
 
 # Beschreibung
 
-Recto-Umschlag der Biblischen Geschichten von 1824 mit der Abbildung eines Sämanns
+Recto-Umschlag der *Biblischen Geschichten* von 1824 mit der Abbildung eines Sämanns
 
-Verso-Umschlag der Biblischen Geschichten von 1824 mit der Abbildung eines studierenden Puttos
+Verso-Umschlag der *Biblischen Geschichten* von 1824 mit der Abbildung eines studierenden Puttos

@@ -1,6 +1,6 @@
 ---
 quelle: "[BLB-Digitalisat](https://digital.blb-karlsruhe.de/blbhs/content/pageview/90960)"
-materialTechnik: "Bleistiftzeichnung"
+materialTechnik: "Tinte sowie Zeichnung mit Stift"
 slug: "allmanach-des-pi"
 lizenz: "[Public Domain Mark 1.0](https://creativecommons.org/publicdomain/mark/1.0/deed.de)"
 titel: "Titelblatt des *Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>*"
