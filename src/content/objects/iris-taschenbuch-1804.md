@@ -4,7 +4,7 @@ slug: "iris-1804"
 titel: "*Iris. Ein Taschenbuch für 1804*"
 urheber: |-
   Johann Georg Jacobi (Herausgeber)
-  Johann Peter Hebel (Mitautor)
+  Johann Peter Hebel (Beiträger)
 datierung: "1804"
 institution: "Hebel-Archiv Heidelberg"
 lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
