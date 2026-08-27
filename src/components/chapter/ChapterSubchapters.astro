@@ -85,6 +85,10 @@ const availableSubchapters = subchapters.filter(Boolean);
     line-height: var(--text-lead--line-height);
   }
 
+  .chapter-overview__text :global(> blockquote) {
+    margin-top: var(--spacing-40);
+  }
+
   .chapter-overview__text :global(> .footnotes) {
     @apply font-sans text-text-secondary;
 
@@ -199,6 +203,10 @@ const availableSubchapters = subchapters.filter(Boolean);
 
     .chapter-overview__text :global(> p) {
       width: 522px;
+    }
+
+    .chapter-overview__text :global(> blockquote) {
+      margin-top: var(--spacing-48);
     }
 
     .chapter-overview__text :global(> .footnotes) {
