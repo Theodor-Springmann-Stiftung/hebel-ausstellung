@@ -1,5 +1,5 @@
 ---
-slug: "hendel-schuetz-pantomimische-attituede-1812"
+slug: "henriette-hendel-agrippina"
 titel: "Henriette Hendel als Agrippina"
 urheber: "Zeichnung: Friedrich August Junge; Kupferstich: Friedrich Wilhelm Bollinger"
 datierung: "1812"

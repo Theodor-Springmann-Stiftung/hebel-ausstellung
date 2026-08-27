@@ -1,7 +1,7 @@
 ---
 quelle: "UB Leipzig"
 materialTechnik: "1 Bl., zwei Seiten beschrieben; besonders dünnes Papier"
-slug: "brief-hebel-koelle-1822"
+slug: "brief-koelle-1822"
 lizenz: "Mit freundlicher Genehmigung der Universitätsbibliothek Leipzig; Fotografie: Alexander Knopf"
 transkription: true
 titel: "Brief Hebels an Christoph Friedrich Karl von Kölle"

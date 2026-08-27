@@ -1,5 +1,5 @@
 ---
-slug: "spinne-satzmanuskript-seite-1"
+slug: "satzvorlage-spinne"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage zur *Spinne*, erste Seite"
 urheber: "Johann Peter Hebel"

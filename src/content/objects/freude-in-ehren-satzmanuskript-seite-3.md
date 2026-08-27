@@ -1,5 +1,5 @@
 ---
-slug: "freude-in-ehren-satzmanuskript-seite-3"
+slug: "satzvorlage-freude-in-ehren"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage zu *Freude in Ehren*, dritte Seite"
 urheber: "Johann Peter Hebel"

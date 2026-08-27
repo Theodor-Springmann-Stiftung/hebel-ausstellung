@@ -8,7 +8,6 @@ Nur zugeschittenes Exemplar
 - http://localhost:4321/objekte/hebel-brief-hitzig-faksimile-2026/
 Sind das nicht drei Objekte
 
-
 - http://localhost:4321/objekte/badenscher-landkalender-1803/
 Quelle
 

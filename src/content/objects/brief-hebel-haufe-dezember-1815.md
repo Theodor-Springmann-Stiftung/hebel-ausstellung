@@ -1,6 +1,6 @@
 ---
 materialTechnik: "Manuskript"
-slug: "brief-hebel-haufe-dezember-1815"
+slug: "brief-haufe-dezember-1815"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 transkription: true
 titel: "Hebel an Haufe vom Dezember 1815"

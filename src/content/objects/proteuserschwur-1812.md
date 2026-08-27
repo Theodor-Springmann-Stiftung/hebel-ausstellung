@@ -1,6 +1,6 @@
 ---
 materialTechnik: "Aquarellierte Federzeichnung"
-slug: "proteuserschwur-1812"
+slug: "der-proteuserschwur"
 lizenz: "Mit freundlicher Genehmigung des Dreiländermuseums Lörrach"
 titel: "Der Proteuserschwur"
 urheber: "Christian Meichelt"

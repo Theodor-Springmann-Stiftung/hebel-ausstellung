@@ -1,5 +1,5 @@
 ---
-slug: "irrlichter-satzmanuskript-seite-1"
+slug: "satzvorlage-irrlichter-satzmanuskript"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage zu den *Irrlichtern*, erste Seite"
 urheber: "Johann Peter Hebel"

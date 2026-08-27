@@ -1,5 +1,5 @@
 ---
-slug: "wiese-satzmanuskript-seite-6"
+slug: "satzvorlage-wiese"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage der *Wiese*, sechste Seite"
 urheber: "Johann Peter Hebel"

@@ -1,6 +1,6 @@
 ---
 quelle: "A. I. V. Heunisch: Geographisch-topographische Beschreibung des Großherzogthums Baden. Heidelberg: Groos, 1833"
-slug: "wiesental-1833"
+slug: "das-oberland"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Ausschnitt"
 titel: "Das Oberland zwischen Freiburg und Basel"
 urheber: "A. I. V. Heunisch"

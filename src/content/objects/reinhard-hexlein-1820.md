@@ -1,6 +1,6 @@
 ---
 quelle: "S.[ophie] Reinhard: »Das Hexlein. se chunnt e Hexli wohlgimuth, und frogt no frey: „Haut’s Messer gut?“« In: *Zehn Blätter nach Hebels Alemannischen Gedichten, componirt und radirt von Sophie Reinhard.* Heidelberg: Mohr und Winter, 1820."
-slug: "reinhard-hexlein-1820"
+slug: "reinhard-hexlein"
 titel: "Radierung zum *Hexlein* von Sophie Reinhard"
 urheber: "Sophie Reinhard"
 datierung: "1820"

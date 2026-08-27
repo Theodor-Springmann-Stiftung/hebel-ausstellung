@@ -1,5 +1,5 @@
 ---
-slug: "widmungsgedicht-blb"
+slug: "widmungsgedicht-gemeinde-hausen"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
 transkription: true
 titel: "Handschriftliches Widmungsgedicht für die Gemeinde Hausen"

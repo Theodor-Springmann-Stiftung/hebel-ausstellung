@@ -1,6 +1,6 @@
 ---
 quelle: "[Sophie Haufe:] Sophie Haufe, *Zeit und Hebelerinnerungen der Straßburger Hebelfreundin Frau Sophie Haufe.* Bearbeitet und herausgegeben von Adolf Sütterlin. Karlsruhe 1928.<br>[Hebel:] Johann Peter Hebel, *Briefe von J. P. Hebel. Erste Sammlung [...]* Hrsg. v. Otto Behaghel. Verlag von H. Reuther. Karlsruhe, 1883. Beilage"
-slug: "ohmacht-alabasterrelief-sophie-haufe"
+slug: "alabasterrelief-sophie-haufe-hebel"
 titel: "Alabasterrelief von Sophie Haufe, Hebel"
 urheber: "Landolin Ohmacht"
 materialTechnik: "Alabasterrelief"

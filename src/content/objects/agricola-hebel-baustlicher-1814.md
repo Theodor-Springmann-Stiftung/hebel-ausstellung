@@ -1,5 +1,5 @@
 ---
-slug: "agricola-hebel-baustlicher-1814"
+slug: "hebel-baustlicher"
 lizenz: "[CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/deed.de); Bearbeitung: Ausschnitt"
 titel: "Doppelbildnis Johann Peter Hebel mit Elisabeth Baustlicher"
 urheber: "Carl Joseph Alois Agricola"

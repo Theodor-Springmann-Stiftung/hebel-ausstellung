@@ -1,6 +1,6 @@
 ---
 quelle: "Johann Peter Hebel, *Schatzkästlein des rheinischen Hausfreundes.* Cotta’sche Buchhandlung, Tübigen, 1811. / Foto: Li-Wen Kuo"
-slug: "schatzkaestlein-erstausgabe-1811"
+slug: "schatzkaestlein-erstausgabe"
 titel: "Schatzkästlein des rheinischen Hausfreundes, Erstausgabe 1811"
 urheber: "Johann Peter Hebel"
 datierung: "1811"

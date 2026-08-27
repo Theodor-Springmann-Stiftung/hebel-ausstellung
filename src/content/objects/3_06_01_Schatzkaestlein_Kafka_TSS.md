@@ -1,7 +1,7 @@
 ---
 quelle: "J[ohann] P[eter] Hebel: *Schatz-kästlein des rheinischen Hausfreundes*. Stuttgart, Augsburg: Cotta, 1859, mit einer handschriftlichen Widmung Franz Kafkas"
 materialTechnik: "Druck mit handschriftlicher Widmung"
-slug: "schatzkaestlein-kafka-hardt"
+slug: "schatzkaestlein-kafka"
 titel: "Schatzkästlein des rheinischen Hausfreundes (1859) mit handschriftlicher Widmung von Franz Kafka"
 urheber: "Johann Peter Hebel, Franz Kafka"
 datierung: "1859/1921"

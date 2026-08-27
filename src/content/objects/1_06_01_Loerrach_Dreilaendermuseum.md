@@ -1,5 +1,5 @@
 ---
-slug: "loerrach-foto"
+slug: "basler-strasse-loerrach"
 lizenz: "Mit freundlicher Genehmigung des Dreiländermuseums Lörrach"
 titel: "Basler Straße in Lörrach (ca. 1910)"
 urheber: "Eduard Hügin"

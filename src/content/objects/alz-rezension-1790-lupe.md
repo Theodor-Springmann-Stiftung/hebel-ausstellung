@@ -1,7 +1,7 @@
 ---
 quelle: "Li Wen Kuo, TSS"
 materialTechnik: "Fotografie"
-slug: "alz-rezension-1790-lupe"
+slug: "rezension-alz-1790"
 titel: "Fotografie der Rezension in der ALZ 1790 mit Lupe"
 urheber: "Li Wen Kuo, TSS"
 bilder:

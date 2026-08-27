@@ -1,5 +1,5 @@
 ---
-slug: "carfunkel-satzmanuskript"
+slug: "satzvorlage-carfunkel"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage des *Carfunkel*"
 urheber: "Johann Peter Hebel"

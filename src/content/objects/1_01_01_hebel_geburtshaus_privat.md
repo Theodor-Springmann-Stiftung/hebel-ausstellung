@@ -1,5 +1,5 @@
 ---
-slug: "hebel-geburtshaus-privat"
+slug: "basler-totentanz"
 lizenz: "[Gemeinfrei](https://dls.staatsarchiv.bs.ch/de/orientierung/rechtsgrundlagen-und-datenschutz/#StABS-gemeinfrei); Bearbeitung: Ausschnitt"
 titel: "Hebels Geburtshaus am Basler Totentanz"
 urheber: "Emanuel Büchel"

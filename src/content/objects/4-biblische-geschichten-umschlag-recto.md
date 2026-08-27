@@ -1,6 +1,6 @@
 ---
 quelle: "Hebel-Archiv Heidelberg. Foto: Li-Wen Kuo."
-slug: "biblische-geschichten-umschlag-recto"
+slug: "biblische-geschichten-umschlag"
 titel: "Umschlag der Biblischen Geschichten"
 datierung: "1824"
 institution: "Hebel-Archiv Heidelberg"

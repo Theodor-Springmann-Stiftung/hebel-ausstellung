@@ -1,6 +1,6 @@
 ---
 quelle: "L[udwig] R[ichter] (Zeichnung), [August] Gaber (Stich): [Holzstich zum *Karfunkel*]. In: *J. P. Hebel’s allemannische Gedichte für Freunde ländlicher Natur und Sitte. Ins Hochdeutsche übertragen von R.[obert] Reinick. Mit Bildern nach Zeichnungen von Ludw.[ig] Richter.* Leipzig: Wigand, 1851, S. 42."
-slug: "richter-gaber-carfunkel-1850"
+slug: "holzstich-karfunkel"
 titel: "Holzstich zum *Karfunkel* nach einer Zeichnung von Ludwig Richter"
 urheber: |-
   Zeichnung: Ludwig Richter

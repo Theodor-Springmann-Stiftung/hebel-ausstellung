@@ -1,6 +1,6 @@
 ---
 quelle: "J.[ohann] P.[eter] H.[ebel]: *Alemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Vierte Auflage mit Musick Blättern*. Karlsruhe: Macklot, 1808, Druck vom Neusatz, S. 110."
-slug: "allemannische-gedichte-1808-neusatz"
+slug: "alemannische-gedichte-vierte-auflage-neusatz"
 titel: "*Alemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Vierte Auflage mit Musick Blättern*, Druck vom Neusatz"
 urheber: "Macklots Hofbuchhandlung, Karlsruhe"
 datierung: "wohl nicht vor 1810"

@@ -1,5 +1,5 @@
 ---
-slug: "stammbuch-blb"
+slug: "hebels-stammbuch"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe; Bearbeitung: Freigestellt"
 transkription: true
 titel: "Hebels Stammbuch, 1777–1781"

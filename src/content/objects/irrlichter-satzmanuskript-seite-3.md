@@ -1,5 +1,5 @@
 ---
-slug: "irrlichter-satzmanuskript-seite-3"
+slug: "satzvorlage-irrlichter"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage der *Irrlichter*, dritte Seite"
 urheber: "Johann Peter Hebel"

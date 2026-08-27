@@ -1,6 +1,6 @@
 ---
 quelle: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*. Aarau: H.[einrich] R.[emigius] Sauerländer, 1820, Titelblatt."
-slug: "allemannische-gedichte-sauerlaender-1820"
+slug: "allemannische-gedichte-fuenfte-ausgabe-1820"
 titel: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*, Aarau: H.[einrich] R.[emigius] Sauerländer, 1820"
 urheber: "Johann Peter Hebel"
 datierung: "1820"

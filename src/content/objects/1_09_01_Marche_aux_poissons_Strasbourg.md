@@ -1,5 +1,5 @@
 ---
-slug: "marche-aux-poissons-strasbourg"
+slug: "fischmarkt-strassburg"
 lizenz: "Gemeinfreies Werk; BNU-Digitalisat unter [Licence Ouverte 2.0](https://www.etalab.gouv.fr/licence-ouverte-open-licence/)"
 titel: "Ansicht des Fischmarkts in Straßburg"
 datierung: "1790"

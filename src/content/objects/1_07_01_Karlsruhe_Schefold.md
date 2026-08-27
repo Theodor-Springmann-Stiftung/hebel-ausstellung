@@ -1,5 +1,5 @@
 ---
-slug: "karlsruhe-schefold"
+slug: "marktplatz-karlsruhe"
 titel: "Lithografische Ansicht des Marktplatzes in Karlsruhe"
 urheber: "Karl Müller nach L. Heiss"
 datierung: "1828"

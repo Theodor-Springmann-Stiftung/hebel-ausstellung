@@ -1,6 +1,6 @@
 ---
 materialTechnik: "1 Bl., zwei Seiten beschrieben"
-slug: "brief-hebel-jean-paul-1811"
+slug: "brief-richter-1811"
 transkription: true
 titel: "Brief Hebels an Jean Paul Richter"
 urheber: "Johann Peter Hebel"

@@ -1,5 +1,5 @@
 ---
-slug: "jenner-satzmanuskript-seite-3"
+slug: "satzvorlage-jenner"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Eigenhändige Satzvorlage zum *Jenner*, dritte Seite"
 urheber: "Johann Peter Hebel"

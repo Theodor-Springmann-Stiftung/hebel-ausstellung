@@ -1,6 +1,6 @@
 ---
 quelle: "H.[ebel], J.[ohann] P.[eter]: *Allemannische Gedichte. Für Freunde ländlicher Natur und Sitten*. Karlsruhe: Macklot, 1803, Umschlag."
-slug: "ag-1803-originalumschlag"
+slug: "allemannische-gedichte-umschlag"
 titel: "*Allemannische Gedichte*, Erstausgabe im Originalumschlag"
 urheber: "Johann Peter Hebel"
 datierung: "1803"

@@ -1,6 +1,6 @@
 ---
 quelle: "S.[ophie] Reinhard: »Hans und Verene. Chumm, lüpf mer Hans! Was fehlt der echt?« In: *Zehn Blätter nach Hebels Alemannischen Gedichten, componirt und radirt von Sophie Reinhard.* Heidelberg: Mohr und Winter, 1820."
-slug: "reinhard-hans-und-verene-1820"
+slug: "reinhard-hans-und-verene"
 titel: "Radierung zu *Hans und Verene* von Sophie Reinhard"
 urheber: "Sophie Reinhard"
 datierung: "1820"

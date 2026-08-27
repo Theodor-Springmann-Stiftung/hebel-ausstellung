@@ -1,6 +1,6 @@
 ---
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
-slug: "hexlein-abschrift-1801"
+slug: "hexlein-abschrift"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Abschrift von fremder alter Hand einer frühen Version von Hebels *Hexlein* unter dem Titel *E verhexte Burst*"
 urheber: |-

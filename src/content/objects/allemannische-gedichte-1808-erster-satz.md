@@ -1,6 +1,6 @@
 ---
 quelle: "J.[ohann] P.[eter] H.[ebel]: *Alemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Vierte Auflage mit Musick Blättern*, Karlsruhe: Macklots Hofbuchhandlung, 1808, S. 110, Druck vom ersten Satz"
-slug: "allemannische-gedichte-1808-erster-satz"
+slug: "alemannische-gedichte-vierte-auflage-erster-satz"
 titel: "*Alemannische Gedichte. Für Freunde ländlicher Natur und Sitten. Vierte Auflage mit Musick Blättern*, Druck vom ersten Satz"
 urheber: "Johann Peter Hebel"
 datierung: "1808"

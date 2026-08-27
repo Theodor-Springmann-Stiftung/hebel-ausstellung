@@ -1,5 +1,5 @@
 ---
-slug: "ebel-8-zuerich"
+slug: "ebel-schweitz"
 lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
 titel: "*Anleitung, auf die nützlichste und genussvollste Art die Schweitz zu bereisen*"
 urheber: "Johann Gottfried Ebel"

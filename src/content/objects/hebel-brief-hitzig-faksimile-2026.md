@@ -1,6 +1,6 @@
 ---
 quelle: "Vorlage: [BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
-slug: "hebel-brief-hitzig-faksimile-2026"
+slug: "brief-hitzig-1801-hexlein"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Faksimile des Briefs an Friedrich Wilhelm Hitzig vom 6. Februar [1801]. Faksimile der Abschrift von fremder alter Hand einer frühen Version des *Hexleins*"
 urheber: "Johann Peter Hebel; Andreas Beck (Photographie)"

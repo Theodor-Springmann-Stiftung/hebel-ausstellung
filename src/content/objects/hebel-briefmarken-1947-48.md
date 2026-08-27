@@ -1,5 +1,5 @@
 ---
-slug: "hebel-briefmarken-1947-48"
+slug: "hebel-briefmarken"
 lizenz: "Mit freundlicher Genehmigung des Dreiländermuseums Lörrach"
 titel: "Hebel-Briefmarken"
 urheber: "Vytautas Kazys Jonynas"

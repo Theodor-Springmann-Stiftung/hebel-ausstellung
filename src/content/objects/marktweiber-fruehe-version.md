@@ -1,5 +1,5 @@
 ---
-slug: "marktweiber-fruehe-version"
+slug: "marktweiber-in-der-stadt"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Frühe eigenhändige Version der *Marktweiber in der Stadt*, erste Seite"
 urheber: "Johann Peter Hebel"

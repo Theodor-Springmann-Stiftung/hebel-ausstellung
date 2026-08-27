@@ -1,6 +1,6 @@
 ---
 quelle: "Johann Peter Hebel, *J. P. Hebels allemannische Lieder*. Hrsg. v. Jophann Georg Scheffner. Friedrich Nicolovius, Königsberg, 1811. Titel und Vorwort. Reproduktion: [ULB Bonn Digital](https://nbn-resolving.org/urn:nbn:de:hbz:5:1-438998)"
-slug: "scheffner-allemannische-lieder-1811"
+slug: "scheffner-allemannische-lieder"
 lizenz: "Mit freundlicher Genehmigung der Universitäts- und Landesbibliothek Bonn; Bearbeitung: Freigestellt"
 titel: "Johann Georg Scheffner: *J. P. Hebels allemannische Lieder*"
 urheber: |-

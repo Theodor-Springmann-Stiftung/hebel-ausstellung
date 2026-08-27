@@ -1,5 +1,5 @@
 ---
-slug: "evangelische-stadtkirche-karlsruhe"
+slug: "stadtkirche-karlsruhe"
 lizenz: "Mit freundlicher Genehmigung der Staatlichen Kunsthalle Karlsruhe"
 titel: "Die Evangelische Stadtkirche am Marktplatz in Karlsruhe"
 urheber: "Georg Moller"

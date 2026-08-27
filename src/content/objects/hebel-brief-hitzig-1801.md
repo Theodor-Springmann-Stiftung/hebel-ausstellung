@@ -1,6 +1,6 @@
 ---
 quelle: "[BLB Online](https://nbn-resolving.org/urn:nbn:de:bsz:31-6660)"
-slug: "hebel-brief-hitzig-1801"
+slug: "brief-hitzig-1801"
 lizenz: "Mit freundlicher Genehmigung der Badischen Landesbibliothek Karlsruhe"
 titel: "Brief Johann Peter Hebel an Friedrich Wilhelm Hitzig, 6. Februar [1801], erste Seite"
 urheber: "Johann Peter Hebel"

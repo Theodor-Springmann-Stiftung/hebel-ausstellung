@@ -1,6 +1,6 @@
 ---
 quelle: "»Hans und Verene«. In: *Siebenundzwanzig Umrisse zu J. P. Hebel’s allemannischen Gedichten* […]. Von Julius Nisle. Mit einer Einleitung von A.[ugust] L.[ewald]. Zweite, mit beigedrucktem Texte vermehrte Ausgabe. Stuttgart: Literatur-Comptoir, [1837], nach S. 34."
-slug: "nisle-hans-und-verene-1837"
+slug: "nisle-hans-und-verene"
 lizenz: "Nicht-kommerzielle Nutzung gestattet"
 titel: "Lithographie zu *Hans und Verene* von Julius Nisle"
 urheber: |-
