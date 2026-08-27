@@ -1,5 +1,6 @@
 ---
 titel: "Morgenröte der Autoreitelkeit."
+folienbeschriftung: "Links: Furcht vor dem Raubdruck – oder Hoffen auf ihn? Johann Peter Hebel an Friedrich Wilhelm Hitzig im Dezember 1802."
 bilder:
   - - "24_02_01a_hebel_an_hitzig_blb"
     - "2.4_02_01b_hebel_an_hitzig_transkription_tss"
