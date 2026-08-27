@@ -1,7 +1,7 @@
 ---
-quelle: "Der Rheinländische Hausfreund oder Neuer Kalender auf das Jahr 1811."
+quelle: "*Der Rheinländische Hausfreund oder Neuer Kalender.* Lahr/Pforzheim: Geiger und Katz, 1811"
 slug: "rheinlaendischer-hausfreund-1811"
-titel: "Der Rheinländische Hausfreund auf das Jahr 1811"
+titel: "Holzschnitt zum »Unverhofften Wiedersehen«"
 urheber: |-
   Autor: Johann Peter Hebel
   Künstler: Kaspar Hegi (?)

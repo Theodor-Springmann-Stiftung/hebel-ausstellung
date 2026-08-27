@@ -7,6 +7,7 @@ urheber: "Johann Peter Hebel"
 datierung: "12.3.1810"
 institution: "DLA Marbach"
 inventarnummer: "B:Hebel, Johann Peter"
+lizenz: "Mit freundlicher Genehmigung des Deutschen Literaturarchivs Marbach"
 bilder:
   - bild: "7_03_03_An_Jaeck2_DLA"
 ---

@@ -1,5 +1,5 @@
 ---
-quelle: "Hebel-Archiv Heidelberg"
+quelle: "[Anonym]: *Hochfürstl. Markgräfl. Badenscher gnädigst privilefiter Landkalender [...]*. Verlag des Fürslichen Gymnasiums, Carlsruhe, 1803"
 slug: "badenscher-landkalender-1803"
 titel: "Badenscher Landkalender auf das Jahr 1803"
 urheber: "Mitautor: Johann Peter Hebel"

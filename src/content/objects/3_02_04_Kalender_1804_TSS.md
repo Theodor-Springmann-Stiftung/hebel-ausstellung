@@ -1,5 +1,5 @@
 ---
-quelle: "Badischer Landkalender auf das Jahr 1804, Hebel-Archiv Heidelberg"
+quelle: "[Anonym]: *Kurfürstlich-badischer gnädigs-privilegirter Landkalender für die Badische Marktgrafschaft protestantischen Antheils [...]*. Verlag des Kurfürstlichen Gymnasiums, Carlsruhe, 1804"
 slug: "badischer-landkalender-1804"
 titel: "Badischer Landkalender auf das Jahr 1804"
 urheber: "Mitautor: Johann Peter Hebel"
