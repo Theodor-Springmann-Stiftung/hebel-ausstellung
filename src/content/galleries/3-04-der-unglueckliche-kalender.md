@@ -3,7 +3,7 @@ titel: "Der unglückliche Kalender"
 beschriftung: "Das unzensierte Exemplar des *Rheinländischen Hausfreundes* auf das Jahr 1815, das Hebel seinem Freund Kölle schickte"
 folienbeschriftungen:
   - folie: 1
-    beschriftung: "Der Brief an Kölle, dem der <span class=\"no-hyphen\">»unglückliche Kalender«</span> beilag"
+    beschriftung: "Der Brief an Kölle, dem der <span class=\"no-hyphen\">»unglückliche Calender«</span> beilag"
     unterbeschriftungen:
       - "Johann Peter Hebel, Badische Landesbibliothek, Karlsruhe"
   - folie: 2
