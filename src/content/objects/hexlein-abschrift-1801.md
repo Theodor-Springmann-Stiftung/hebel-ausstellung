@@ -6,7 +6,7 @@ titel: "Abschrift von fremder alter Hand einer frühen Version von Hebels *Hexle
 urheber: |-
   Unbekannte fremde alte Hand (Abschrift)
   Johann Peter Hebel (Autor)
-datierung: "1801"
+datierung: "frühes 19. Jahrhundert"
 institution: "Badische Landesbibliothek Karlsruhe"
 inventarnummer: "Sign. K 1216, urn:nbn:de:bsz:31-6660"
 bilder:

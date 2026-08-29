@@ -1,5 +1,5 @@
 ---
-quelle: "*Dreißig Umrisse zu J. P. Hebels allemannischen Gedichten.* 3., mit beigedrucktem Text vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 64."
+quelle: "Julius Nisle: *Dreißig Umrisse zu J. P. Hebels allemannischen Gedichten.* 3., mit beigedrucktem Text vermehrte Ausgabe. Stuttgart: Becher & Müller, [1845], nach S. 64."
 slug: "nisle-geisterbesuch"
 titel: "Lithographie zu Hebels *Geisterbesuch auf dem Feldberg*"
 urheber: "Julius Nisle"

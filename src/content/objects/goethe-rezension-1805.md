@@ -1,5 +1,5 @@
 ---
-quelle: "Johann Wolfgang Goethe, Rezension der *Allemannischen Gedichte* in der *Jenaischen Allgemeinen Literatur-Zeitung* (1805)"
+quelle: "[Johann Wolfgang von Goethe]: Rez. Carlsruhe, b. Macklot: Allemannische Gedichte […], von J. P. Hebel […]. Zweyte Auflage. 1804 […]. In: Jenaische Allgemeine Literatur-Zeitung Nr. 37 (13. Februar 1805) Sp. 289–294."
 slug: "goethe-rezension-allemannische-gedichte"
 titel: "Goethes Rezension der *Allemannischen Gedichte* in der *Jenaischen Allgemeinen Literatur-Zeitung*"
 urheber: "Johann Wolfgang von Goethe"
