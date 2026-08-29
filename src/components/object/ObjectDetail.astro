@@ -14,6 +14,7 @@ const { object, images } = Astro.props as Props;
 const { Content } = await render(object);
 const hasBody = Boolean(object.body?.trim());
 const hasMultipleImages = images.length > 1;
+const titleHtml = renderInlineMarkdown(object.data.titel).replace(/([A-Z]\.)\[/g, "$1&#8288;[");
 const initialReturnContext = images[0]?.returnContext;
 const returnHref = initialReturnContext?.href ?? "/";
 const returnLabel = initialReturnContext?.label ?? "Zurück zur Startseite";
@@ -36,7 +37,7 @@ const details = [
   <header class="object-detail__header">
     <p class="object-detail__eyebrow">Objekt</p>
     <h1>
-      <span data-object-position></span><span set:html={renderInlineMarkdown(object.data.titel)}></span>
+      <span data-object-position></span><span set:html={titleHtml}></span>
     </h1>
     {object.data.untertitel && <p class="object-detail__subtitle" set:html={renderInlineMarkdown(object.data.untertitel)}></p>}
   </header>
