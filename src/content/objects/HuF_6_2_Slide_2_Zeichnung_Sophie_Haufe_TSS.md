@@ -1,8 +1,8 @@
 ---
-quelle: "Sophie Haufe: *Zeit und Hebelerinnerungen der Straßburger Hebelfreundin Frau Sophie Haufe*. Bearbeitet und herausgegeben von Adolf Sütterlin. Karlsruhe 1928."
+quelle: "Sophie Haufe: *Zeit- und Hebelerinnerungen der Straßburger Hebelfreundin Frau Sophie Haufe.* Bearbeitet und herausgegeben von Adolf Sütterlin. Evangelischer Preßverband für Baden, Karlsruhe, 1928."
 materialTechnik: "Zeichnung"
 slug: "sophie-haufe"
-titel: "Zeichnung von Sophie Haufe"
+titel: "Porträtzeichnung Sophie Haufe"
 urheber: "Unbekannt"
 institution: "Hebel-Archiv Heidelberg"
 lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode.en)"
