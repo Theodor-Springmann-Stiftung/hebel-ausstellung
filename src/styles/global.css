@@ -322,6 +322,11 @@ html[data-contrast="high"] .subchapter-page {
     hyphens: none;
   }
 
+  .quote-verse-lines {
+    display: block;
+    padding-left: var(--spacing-24);
+  }
+
   a {
     color: var(--color-link);
     text-decoration-thickness: 0.08em;

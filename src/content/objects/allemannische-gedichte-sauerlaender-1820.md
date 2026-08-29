@@ -1,5 +1,5 @@
 ---
-quelle: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*. Aarau: H.[einrich] R.[emigius] Sauerländer, 1820, Titelblatt."
+quelle: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer.* Aarau: H.[einrich] R.[emigius] Sauerländer, 1820, Titelblatt u. S. 262, »Der Schwarzwälder im Breisgau.«"
 slug: "allemannische-gedichte-fuenfte-ausgabe-1820"
 titel: "J.[ohann] P.[eter] Hebel: *Allemannische Gedichte. Fünfte, vollständige Original Ausgabe mit drey Kupfer*, Aarau: H.[einrich] R.[emigius] Sauerländer, 1820"
 urheber: "Johann Peter Hebel"
@@ -13,4 +13,6 @@ bilder:
     inObjektansicht: false
   - bild: "Raubdrucke_04_1a_D5_1820"
     beschriftung: "Links: Titelblatt der fünften von Hebel autorisierten Auflage der *Allemannischen Gedichte*"
+  - bild: "63_04_05_schwarzwaelder_im_breisgau"
+    beschriftung: "Der Anfang des *Schwarzwälders im Breisgau*."
 ---

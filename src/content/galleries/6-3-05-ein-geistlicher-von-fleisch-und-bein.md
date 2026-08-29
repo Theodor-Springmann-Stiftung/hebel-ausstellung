@@ -7,9 +7,9 @@ bilder:
 
 <span class="no-hyphen">»Sie freieten (nur ich nicht) und ließen sich freien«</span>, dieses Herrenwort (Mt 24,38) mit resignativem persönlichem Einschub findet sich im Brief an Henriette Hendel vom Oktober 1813; da hat Hebel sich mit seinem Junggesellentum und <span class="no-hyphen">»Ihre[m] Herrn Gemahl«</span> wohl abgefunden (Z 375). Anfangs gab es indes bibel- und handfeste Anfechtungen – und vielleicht die ganz leise Hoffnung auf mehr als eine Korrespondenz, besorgt durch die ›Post (Tausig-)Sappermost‹.
 
-Im Januar 1810 schrieb Hebel der Schauspielerin (Z 282), die eine Italienreise plante: <span class="no-hyphen">»Ich darf Sie begleiten […] bis an die Gräntzen meines […] Dichterreichs. Ich führe Sie nach Freyburg in die Stadt, nach Müllheim an die Post und wie der Teufel den Heiland auf einen (nicht) hohen Berg, zeige Ihnen alle <span class="no-hyphen">Kirchthürme</span> des Wiesenthals und seine Herrlichkeit, und falle nieder, ich vor Ihnen, und bete Sie an.«</span> Ein merkwürdiges Amalgam von Evangelium (Mt 4,8f.) und *Verliebtem Hauensteiner*, ein gewagtes Überkreuz von erlösend-teuflischer ›Sie‹ und teuflisch-erlösendem ›Er‹. Daraus wurde nichts. Stattdessen wurde Henriette Hendel wenig später schwanger und ehelichte Friedrich Karl Schütz, der Hebel diese Verbindung im November anzeigte und ihn kurz darauf für die neugeborene Tochter zu Gevatter bat. Hebel gratulierte höflich zur Vermählung (Z 303), und artig – aber spät, erst im Januar 1811 – bedankte sich der Pate für <span class="no-hyphen">»das Kindlein, das mir Vater und Mutter auf Freundesarme gelegt haben«</span>. Und noch später – im April 1811 an die Familie Haufe – zeigen jeanpauleske Windungen und Wendungen, wie tief ihn dieser Lauf der Dinge psychophysisch getroffen hat:
+Im Januar 1810 schrieb Hebel der Schauspielerin (Z 282), die eine Italienreise plante: <span class="no-hyphen">»Ich darf Sie begleiten […] bis an die Gräntzen meines […] Dichterreichs. Ich führe Sie nach Freyburg in die Stadt, nach Müllheim an die Post und wie der Teufel den Heiland auf einen (nicht) hohen Berg, zeige Ihnen alle <span class="no-hyphen">Kirchthürme</span> des Wiesenthals und seine Herrlichkeit, und falle nieder, ich vor Ihnen, und bete Sie an.«</span> Ein merkwürdiges Amalgam von Evangelium (Mt 4,8f.) und *Verliebtem Hauensteiner*, ein gewagtes Überkreuz von erlösend-teuflischer ›Sie‹ und teuflisch-erlösendem ›Er‹. Daraus wurde nichts. Stattdessen wurde Henriette Hendel wenig später schwanger und ehelichte Friedrich Karl Schütz, der Hebel diese Verbindung im November anzeigte und ihn kurz darauf für die neugeborene Tochter zu Gevatter bat. Hebel gratulierte höflich zur Vermählung (Z 303), und artig – aber spät, erst im Januar 1811 – bedankte sich der Pate für <span class="no-hyphen">»das Kindlein, das mir Vater u. Mutter auf Freundesarme gelegt haben«</span>. Und noch später – im April 1811 an die Familie Haufe – zeigen [jeanpauleske Windungen und Wendungen](/6/6.2/#3), wie tief ihn dieser Lauf der Dinge psychophysisch getroffen hat:
 
-> Die durch ihre Rosenwangen  
+> <span class="quote-verse-lines">Die durch ihre Rosenwangen<br>
 > durch der Lippe Red u. Kuß  
 > durch ihr zärtliches Umfangen  
 > fest mein armes Herz gefangen  
@@ -20,7 +20,7 @@ Im Januar 1810 schrieb Hebel der Schauspielerin (Z 282), die eine Italienreise p
 > hat das Sakrament empfangen,  
 > das zum heimlichsten Genuß  
 > iede Liebe weihen muß  
-> und hat schon ein Kind empfangen.
+> und hat schon ein Kind empfangen.</span>
 >
 > Sie hat nemlich, […] die gebenedeite Tochter Kronions Mad. Hendel, zerrißen hat sie den Bendel, und sich in den Stand der 4ten heiligen Ehe begeben mit HE. Professor Schütz in Halle.  
 > Und da soll man […] nicht […] einen thränenreichen Hopelpoppel schreiben, oder ein durchlöchertes Herz!
