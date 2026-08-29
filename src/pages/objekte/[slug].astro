@@ -7,8 +7,6 @@ import { getObjectRoutes } from '../../lib/content';
 export const getStaticPaths = getObjectRoutes;
 
 const { object, context } = Astro.props;
-const chapter = context.chapter;
-const returnLabel = chapter ? `Zurück zu Kapitel ${Number(chapter.data.nummer)}` : 'Zurück zur Startseite';
 const breadcrumbItems = [
 	{ label: 'Startseite', href: '/' },
 	{ label: 'Objekte', href: '/objekte/' },
@@ -21,8 +19,7 @@ const breadcrumbItems = [
 	<ObjectDetail
 		object={object}
 		images={context.images}
-		returnHref={context.returnHref}
-		returnLabel={returnLabel}
+		returnContexts={context.returnContexts}
 	/>
 </Layout>
 

@@ -11,39 +11,35 @@ const imageItems = images.map((image) => {
 });
 const hasMultipleImages = imageItems.length > 1;
 const shouldUseCarousel = hasMultipleImages;
-const carouselImages = imageItems.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.altText) }));
-const imageGroups = imageItems.map((item) => [item]);
+const carouselImages = imageItems.map(({ image, asset }) => ({ key: image.key, asset, alt: markdownToPlainText(image.altText) }));
+const singleImage = imageItems[0];
 ---
 
 {hasMultipleImages && (
   <div class="object-images object-images--compact-carousel">
-    <ObjectImageCarousel slides={carouselImages.map((image) => [image])} syncId="responsive-object-images" />
+    <ObjectImageCarousel images={carouselImages} syncId="responsive-object-images" />
   </div>
 )}
 
 {shouldUseCarousel && (
   <div class="object-images object-images--desktop-only">
-    <ObjectImageCarousel slides={imageGroups.map((group) => group.map(({ image, asset }) => ({ asset, alt: markdownToPlainText(image.altText) })))} syncId="responsive-object-images" />
+    <ObjectImageCarousel images={carouselImages} syncId="responsive-object-images" />
   </div>
 )}
 
-{!shouldUseCarousel && imageGroups.length > 0 && (
-  <div class:list={["object-images", { "object-images--desktop-only": hasMultipleImages }]}>
-    {imageGroups.map((group, groupIndex) => (
-      <figure class:list={["object-images__frame", { "object-images__frame--paired": group.length === 2 }]}>
-        {group.map(({ image, asset }) => (
-          <img
-            class="object-images__image"
-            src={asset.src}
-            alt={markdownToPlainText(image.altText)}
-            width={asset.width}
-            height={asset.height}
-            loading={groupIndex === 0 ? "eager" : "lazy"}
-            decoding="async"
-          />
-        ))}
-      </figure>
-    ))}
+{!shouldUseCarousel && singleImage && (
+  <div class="object-images">
+    <figure class="object-images__frame">
+      <img
+        class="object-images__image"
+        src={singleImage.asset.src}
+        alt={markdownToPlainText(singleImage.image.altText)}
+        width={singleImage.asset.width}
+        height={singleImage.asset.height}
+        loading="eager"
+        decoding="async"
+      />
+    </figure>
   </div>
 )}
 
@@ -79,18 +75,6 @@ const imageGroups = imageItems.map((item) => [item]);
     object-fit: contain;
   }
 
-  .object-images__frame--paired .object-images__image {
-    width: calc((100% - var(--spacing-8)) / 2);
-    height: auto;
-    max-height: none;
-  }
-
-  .object-images__frame--paired {
-    height: auto;
-    min-height: 315px;
-    gap: var(--spacing-8);
-  }
-
   @media (min-width: 768px) {
     .object-images {
       padding-inline: var(--spacing-32);
@@ -102,18 +86,8 @@ const imageGroups = imageItems.map((item) => [item]);
       padding-inline: var(--spacing-32);
     }
 
-    .object-images__frame:not(.object-images__frame--paired) .object-images__image {
+    .object-images__image {
       height: 100%;
-    }
-
-    .object-images__frame--paired .object-images__image {
-      width: calc((100% - var(--spacing-12)) / 2);
-      height: 100%;
-    }
-
-    .object-images__frame--paired {
-      height: 1000px;
-      gap: var(--spacing-12);
     }
   }
 
@@ -136,18 +110,8 @@ const imageGroups = imageItems.map((item) => [item]);
       padding-inline: var(--spacing-40);
     }
 
-    .object-images__frame:not(.object-images__frame--paired) .object-images__image {
+    .object-images__image {
       height: 100%;
-    }
-
-    .object-images__frame--paired .object-images__image {
-      width: calc((100% - var(--spacing-16)) / 2);
-    }
-
-    .object-images__frame--paired {
-      height: auto;
-      min-height: 1000px;
-      gap: var(--spacing-16);
     }
   }
 </style>

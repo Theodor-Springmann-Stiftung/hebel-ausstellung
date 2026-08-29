@@ -3,9 +3,11 @@ import type { CollectionEntry } from 'astro:content';
 import {
 	findObjectImage,
 	findContentImage,
+	imageReferenceId,
 	resolveContentImage,
 	type ImageReference,
 	type ObjectDisplayImage,
+	type ObjectReturnContext,
 } from './object-images';
 
 export const chapterSegment = (nummer: string) => nummer;
@@ -26,6 +28,23 @@ export const isNavigationPathActive = (currentPath: string, href: string) => nor
 
 export const subchapterHref = (chapterNumber: string, subchapterNumber: string) =>
 	`/${chapterSegment(chapterNumber)}/${subchapterSegment(subchapterNumber)}/`;
+
+export const galleryObjectSourceKey = (sectionId: string, galleryId: string, galleryIndex: number) =>
+	`gallery:${sectionId}:${galleryId}:${galleryIndex}`;
+
+export const heroObjectSourceKey = (sectionId: string) => `hero:${sectionId}`;
+
+export const objectHref = (
+	slug: string,
+	options: { position?: 'Links' | 'Rechts' | 'Vorne'; imageKey?: string; sourceKey?: string } = {},
+) => {
+	const search = new URLSearchParams();
+	if (options.position) search.set('position', options.position);
+	if (options.imageKey) search.set('image', options.imageKey);
+	if (options.sourceKey) search.set('source', options.sourceKey);
+	const query = search.toString();
+	return `/objekte/${slug}/${query ? `?${query}` : ''}`;
+};
 
 export const getOrderedChapters = async () =>
 	(await getCollection('chapters')).sort((a, b) => a.data.reihenfolge - b.data.reihenfolge);
@@ -105,6 +124,7 @@ export type ObjectImageRelationship = {
 	position?: 'Links' | 'Rechts' | 'Vorne';
 	objektReihenfolge?: number;
 	beschriftung?: string;
+	imageKey?: string;
 };
 
 let objectRelationshipsByImagePromise: Promise<Map<string, ObjectImageRelationship[]>> | undefined;
@@ -123,6 +143,7 @@ export const getObjectRelationshipsByImage = () => {
 					position: association.position,
 					objektReihenfolge: association.objektReihenfolge,
 					beschriftung: association.beschriftung,
+					imageKey: association.inObjektansicht ? imageReferenceId(association.bild) : undefined,
 				});
 				relationshipsByImage.set(image.asset.src, relationships);
 			}
@@ -150,16 +171,54 @@ export const getObjectRoutes = async () => {
 		getObjectRelationshipsByImage(),
 	]);
 	const galleryById = new Map(galleries.map((gallery) => [gallery.id, gallery]));
-	const contextByObject = new Map();
+	const returnContextsByObject = new Map<string, ObjectReturnContext[]>();
+	const addReturnContext = (objectId: string, context: ObjectReturnContext) => {
+		const contexts = returnContextsByObject.get(objectId) ?? [];
+		if (!contexts.some((existing) => existing.sourceKey === context.sourceKey && existing.imageKey === context.imageKey)) {
+			contexts.push(context);
+		}
+		returnContextsByObject.set(objectId, contexts);
+	};
 
-	const recordImageContext = async (imageReference: ImageReference, context) => {
+	const recordImageContext = async (
+		imageReference: ImageReference,
+		context: Omit<ObjectReturnContext, 'imageKey'>,
+	) => {
 		const image = await findContentImage(imageReference);
 		if (!image) return;
 
 		for (const relationship of relationshipsByImage.get(image.asset.src) ?? []) {
-			if (!contextByObject.has(relationship.object.id)) {
-				contextByObject.set(relationship.object.id, context);
-			}
+			addReturnContext(relationship.object.id, { ...context, imageKey: relationship.imageKey });
+		}
+	};
+
+	const recordHeroContext = async (
+		section: CollectionEntry<'chapters'> | CollectionEntry<'subchapters'>,
+		chapter: CollectionEntry<'chapters'>,
+	) => {
+		const context = {
+			sourceKey: heroObjectSourceKey(section.id),
+			href: section.collection === 'chapters'
+				? chapterHref(chapter.data.nummer)
+				: subchapterHref(chapter.data.nummer, section.data.nummer),
+			label: `Zurück zu Kapitel ${Number(chapter.data.nummer)}`,
+		};
+
+		if (section.data.heroMetadata) {
+			await recordImageContext(section.data.heroMetadata, context);
+		}
+
+		if (section.data.heroObject) {
+			const object = await getEntry(section.data.heroObject);
+			if (!object) return;
+
+			const image = section.data.heroMetadata
+				? await findContentImage(section.data.heroMetadata)
+				: undefined;
+			const relationship = image
+				? (relationshipsByImage.get(image.asset.src) ?? []).find((candidate) => candidate.object.id === object.id)
+				: undefined;
+			addReturnContext(object.id, { ...context, imageKey: relationship?.imageKey });
 		}
 	};
 
@@ -171,23 +230,19 @@ export const getObjectRoutes = async () => {
 		const sectionHref = subchapter
 			? subchapterHref(chapter.data.nummer, subchapter.data.nummer)
 			: chapterHref(chapter.data.nummer);
+		const section = subchapter ?? chapter;
 
 		for (const imageReference of gallery.data.bilder.flat()) {
 			await recordImageContext(imageReference, {
-				chapter,
-				subchapter,
-				returnHref: `${sectionHref}#${galleryIndex + 1}`,
+				sourceKey: galleryObjectSourceKey(section.id, gallery.id, galleryIndex),
+				href: `${sectionHref}#${galleryIndex + 1}`,
+				label: `Zurück zu Kapitel ${Number(chapter.data.nummer)}`,
 			});
 		}
 	};
 
 	for (const chapter of chapters) {
-		if (chapter.data.heroMetadata) {
-			await recordImageContext(chapter.data.heroMetadata, {
-				chapter,
-				returnHref: chapterHref(chapter.data.nummer),
-			});
-		}
+		await recordHeroContext(chapter, chapter);
 
 		for (const [galleryIndex, galleryReference] of (chapter.data.galerien ?? []).entries()) {
 			await recordGalleryContext(galleryReference, galleryIndex, chapter, undefined);
@@ -198,13 +253,7 @@ export const getObjectRoutes = async () => {
 
 			if (!subchapter) continue;
 
-			if (subchapter.data.heroMetadata) {
-				await recordImageContext(subchapter.data.heroMetadata, {
-					chapter,
-					subchapter,
-					returnHref: subchapterHref(chapter.data.nummer, subchapter.data.nummer),
-				});
-			}
+			await recordHeroContext(subchapter, chapter);
 
 			for (const [galleryIndex, galleryReference] of subchapter.data.galerien.entries()) {
 				await recordGalleryContext(galleryReference, galleryIndex, chapter, subchapter);
@@ -215,22 +264,26 @@ export const getObjectRoutes = async () => {
 	return Promise.all(objects
 		.filter((object) => object.data.slug)
 		.map(async (object) => {
-			const context = object.data.kapitelunabhaengig ? undefined : contextByObject.get(object.id);
+			const returnContexts = returnContextsByObject.get(object.id) ?? [];
+			const imageReturnContexts = object.data.kapitelunabhaengig ? [] : returnContexts;
 			const objectImages: ObjectDisplayImage[] = await Promise.all(
 				(object.data.bilder ?? [])
 					.filter((association) => association.inObjektansicht)
 					.map(async (association) => {
 						const image = await resolveContentImage(association.bild);
+						const key = imageReferenceId(association.bild);
 						return {
+							key,
 							id: image.id,
 							dateiname: image.entry?.data.dateiname,
 							altText: image.entry?.data.altText,
+							returnContexts: imageReturnContexts.filter((context) => context.imageKey === key),
 						};
 					}),
 			);
 
 			if (objectImages.length === 0 && findObjectImage(object.id)) {
-				objectImages.push({ id: object.id });
+				objectImages.push({ key: object.id, id: object.id, returnContexts: [] });
 			}
 
 			return {
@@ -238,8 +291,8 @@ export const getObjectRoutes = async () => {
 				props: {
 					object,
 					context: {
-						...(context ?? { returnHref: '/' }),
 						images: objectImages,
+						returnContexts,
 					},
 				},
 			};

@@ -1,6 +1,6 @@
 ---
 import { getEntry, type CollectionEntry } from "astro:content";
-import { getObjectRelationshipsByImage } from "../../lib/content";
+import { getObjectRelationshipsByImage, heroObjectSourceKey, objectHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -10,10 +10,17 @@ const metadataImage = chapter.data.heroMetadata ? await resolveContentImage(chap
 const metadata = metadataImage?.entry?.data;
 const imageSource = await getHeroImageSource(image);
 const configuredObject = chapter.data.heroObject ? await getEntry(chapter.data.heroObject) : undefined;
-const object = configuredObject ?? (metadataImage
-  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
-  : undefined);
-const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
+const objectRelationships = metadataImage
+  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src) ?? []
+  : [];
+const objectRelationship = configuredObject
+  ? objectRelationships.find((relationship) => relationship.object.id === configuredObject.id)
+  : objectRelationships.find((relationship) => relationship.object.data.slug);
+const object = configuredObject ?? objectRelationship?.object;
+const objectUrl = object ? objectHref(object.data.slug, {
+  imageKey: objectRelationship?.imageKey,
+  sourceKey: heroObjectSourceKey(chapter.id),
+}) : undefined;
 ---
 
 <header class="chapter-hero">
@@ -41,7 +48,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
     <div class="chapter-hero__caption">
       <div class="chapter-hero__caption-inner">
         {metadata?.beschriftung && <p class="chapter-hero__caption-title" set:html={renderInlineMarkdown(metadata.beschriftung)}></p>}
-        {objectHref && <a class="chapter-hero__object-link" href={objectHref}>Zum Objekt <span class="chapter-hero__object-link-arrow" aria-hidden="true">→</span></a>}
+        {objectUrl && <a class="chapter-hero__object-link" href={objectUrl}>Zum Objekt <span class="chapter-hero__object-link-arrow" aria-hidden="true">→</span></a>}
       </div>
     </div>
   )}

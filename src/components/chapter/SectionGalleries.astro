@@ -4,7 +4,7 @@ import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
 import seal from "../../assets/Meta/Hebel_Wachssiegel.png";
 import { findContentImage, getGalleryImageSource } from "../../lib/object-images";
-import { getObjectRelationshipsByImage } from "../../lib/content";
+import { galleryObjectSourceKey, getObjectRelationshipsByImage } from "../../lib/content";
 import { renderInlineMarkdown } from "../../lib/markdown";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
@@ -17,7 +17,7 @@ const hasIntroContent = Boolean(section.body?.trim());
 const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
 const galleries = await Promise.all(
-  (section.data.galerien ?? []).map(async (galleryReference) => {
+  (section.data.galerien ?? []).map(async (galleryReference, galleryIndex) => {
     const gallery = await getEntry(galleryReference);
 
     if (!gallery) return undefined;
@@ -38,10 +38,11 @@ const galleries = await Promise.all(
                 alt: metadata?.altText,
                 beschriftung: metadata?.beschriftung,
                 objekte: objectRelationships
-                  .map(({ object, position, beschriftung }) => ({
+                  .map(({ object, position, beschriftung, imageKey }) => ({
                     slug: object.data.slug,
                     position,
                     beschriftung,
+                    imageKey,
                     transkription: object.data.transkription,
                     transkriptionsart: object.data.transkriptionsart,
                     titel: object.data.titel ?? "",
@@ -57,7 +58,12 @@ const galleries = await Promise.all(
       )
     ).filter((images) => images.length > 0);
 
-    return { gallery, GalleryContent, bilder };
+    return {
+      gallery,
+      GalleryContent,
+      bilder,
+      sourceKey: galleryObjectSourceKey(section.id, gallery.id, galleryIndex),
+    };
   }),
 );
 ---
@@ -83,7 +89,7 @@ const galleries = await Promise.all(
   </section>
 )}
 
-{galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
+{galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder, sourceKey }, index) => (
   <section class="section-gallery" id={String(index + 1)} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
     <span class="section-gallery__search-anchor" id={`gallery-${gallery.id}`} aria-hidden="true"></span>
     {bilder.length > 0 ? (
@@ -97,6 +103,7 @@ const galleries = await Promise.all(
         positionsangaben={gallery.data.positionsangaben}
         chapterNumber={chapterNumber}
         bilder={bilder}
+        sourceKey={sourceKey}
       />
     ) : (
       <header class="section-gallery__text-header">

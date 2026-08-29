@@ -52,9 +52,18 @@ export type ResolvedContentImage = {
 };
 
 export type ObjectDisplayImage = {
+  key: string;
   id: string;
   dateiname?: string;
   altText?: string;
+  returnContexts: ObjectReturnContext[];
+};
+
+export type ObjectReturnContext = {
+  sourceKey: string;
+  href: string;
+  label: string;
+  imageKey?: string;
 };
 
 export const imageReferenceId = (reference: ImageReference) => typeof reference === "string" ? reference : reference.id;

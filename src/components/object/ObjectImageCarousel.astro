@@ -3,14 +3,13 @@ import type { ImageMetadata } from "astro";
 import { serializeForScript } from "../../lib/markdown";
 
 type CarouselImage = {
+  key: string;
   asset: ImageMetadata;
   alt: string;
 };
 
-const { slides: imageGroups, syncId } = Astro.props as { slides: CarouselImage[][]; syncId?: string };
-const slides = imageGroups.map((images) => ({
-  images: images.map(({ asset, alt }) => ({ src: asset.src, alt })),
-}));
+const { images, syncId } = Astro.props as { images: CarouselImage[]; syncId?: string };
+const slides = images.map(({ key, asset, alt }) => ({ key, src: asset.src, alt }));
 const firstSlide = slides[0];
 const nextSlide = slides[1];
 ---
@@ -27,14 +26,12 @@ const nextSlide = slides[1];
 
     <figure class="object-carousel__frame">
       <div class="object-carousel__slide" data-object-carousel-slide>
-        {firstSlide.images.map((image) => (
-          <img class="object-carousel__slide-image" src={image.src} alt={image.alt} loading="eager" decoding="async" />
-        ))}
+        <img class="object-carousel__slide-image" src={firstSlide.src} alt={firstSlide.alt} loading="eager" decoding="async" />
       </div>
     </figure>
 
     <div class:list={["object-carousel__peek", { "is-empty": !nextSlide }]} aria-hidden="true" data-object-carousel-next-peek>
-      {nextSlide?.images.map((image) => <img class="object-carousel__peek-image" src={image.src} alt="" loading="eager" decoding="async" />)}
+      {nextSlide && <img class="object-carousel__peek-image" src={nextSlide.src} alt="" loading="eager" decoding="async" />}
     </div>
 
     <button class="object-carousel__button object-carousel__button--next" type="button" data-object-carousel-next aria-label="Nächstes Bild">
@@ -63,20 +60,20 @@ const nextSlide = slides[1];
 </section>
 
 <script>
-  type Slide = { images: Array<{ src: string; alt: string }> };
+  type Slide = { key: string; src: string; alt: string };
 
   const renderObjectSlide = (container: HTMLElement, slide: Slide | undefined, isPeek = false) => {
     container.replaceChildren();
     container.classList.toggle("is-empty", !slide);
 
-    slide?.images.forEach((image) => {
-      const element = document.createElement("img");
-      element.className = isPeek ? "object-carousel__peek-image" : "object-carousel__slide-image";
-      element.src = image.src;
-      element.alt = isPeek ? "" : image.alt;
-      element.decoding = "async";
-      container.append(element);
-    });
+    if (!slide) return;
+
+    const element = document.createElement("img");
+    element.className = isPeek ? "object-carousel__peek-image" : "object-carousel__slide-image";
+    element.src = slide.src;
+    element.alt = isPeek ? "" : slide.alt;
+    element.decoding = "async";
+    container.append(element);
   };
 
   document.querySelectorAll<HTMLElement>("[data-object-carousel]").forEach((carousel) => {
@@ -106,16 +103,19 @@ const nextSlide = slides[1];
       dots.forEach((dot, index) => dot.toggleAttribute("aria-current", index === activeIndex));
 
       if (broadcast && syncId) {
+        const url = new URL(window.location.href);
+        url.searchParams.set("image", slides[activeIndex].key);
+        window.history.replaceState(window.history.state, "", url);
         window.dispatchEvent(new CustomEvent("object-carousel-change", {
-          detail: { syncId, imageSrc: slides[activeIndex]?.images[0]?.src },
+          detail: { syncId, imageKey: slides[activeIndex].key },
         }));
       }
     };
 
-    window.addEventListener("object-carousel-change", ((event: CustomEvent<{ syncId: string; imageSrc?: string }>) => {
-      if (event.detail.syncId !== syncId || !event.detail.imageSrc) return;
+    window.addEventListener("object-carousel-change", ((event: CustomEvent<{ syncId: string; imageKey?: string }>) => {
+      if (event.detail.syncId !== syncId || !event.detail.imageKey) return;
 
-      const matchingIndex = slides.findIndex((slide) => slide.images.some((image) => image.src === event.detail.imageSrc));
+      const matchingIndex = slides.findIndex((slide) => slide.key === event.detail.imageKey);
       if (matchingIndex >= 0 && matchingIndex !== activeIndex) setSlide(matchingIndex, false);
     }) as EventListener);
 
@@ -147,6 +147,10 @@ const nextSlide = slides[1];
     dots.forEach((dot) => {
       dot.addEventListener("click", () => setSlide(Number(dot.dataset.objectCarouselDot ?? 0)));
     });
+
+    const requestedImageKey = new URLSearchParams(window.location.search).get("image");
+    const requestedIndex = slides.findIndex((slide) => slide.key === requestedImageKey);
+    setSlide(requestedIndex >= 0 ? requestedIndex : 0, false);
   });
 </script>
 
@@ -172,8 +176,6 @@ const nextSlide = slides[1];
 
   .object-carousel__slide {
     @apply flex w-full items-center justify-center;
-
-    gap: var(--spacing-20);
   }
 
   :global(.object-carousel__slide-image) {
@@ -182,13 +184,6 @@ const nextSlide = slides[1];
     max-width: 100%;
     height: auto;
     object-fit: contain;
-  }
-
-  .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
-  .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
-    width: calc((100% - var(--spacing-20)) / 2);
-    height: auto;
-    max-height: 100%;
   }
 
   .object-carousel__peek,
@@ -245,7 +240,6 @@ const nextSlide = slides[1];
 
     .object-carousel__slide {
       height: 100%;
-      gap: var(--spacing-32);
     }
 
     :global(.object-carousel__slide-image) {
@@ -255,12 +249,6 @@ const nextSlide = slides[1];
     .object-carousel__peek {
       display: flex;
       align-self: stretch;
-    }
-
-    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
-    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
-      width: calc((100% - var(--spacing-32)) / 2);
-      height: 100%;
     }
 
     .object-carousel__peek {
@@ -374,15 +362,6 @@ const nextSlide = slides[1];
 
     .object-carousel__frame {
       max-width: var(--container-content);
-    }
-
-    .object-carousel__slide {
-      gap: var(--spacing-40);
-    }
-
-    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child),
-    .object-carousel__slide > :global(.object-carousel__slide-image:nth-last-child(2):first-child ~ .object-carousel__slide-image) {
-      width: calc((100% - var(--spacing-40)) / 2);
     }
 
     .object-carousel__counter {

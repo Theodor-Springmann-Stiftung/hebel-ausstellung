@@ -1,6 +1,6 @@
 ---
 import { getEntry, type CollectionEntry } from "astro:content";
-import { getObjectRelationshipsByImage } from "../../lib/content";
+import { getObjectRelationshipsByImage, heroObjectSourceKey, objectHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -12,10 +12,17 @@ const image = getDedicatedHeroImage(subchapter.data.hero);
 const metadataImage = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const imageSource = await getHeroImageSource(image);
 const configuredObject = subchapter.data.heroObject ? await getEntry(subchapter.data.heroObject) : undefined;
-const object = configuredObject ?? (metadataImage
-  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src)?.find((relationship) => relationship.object.data.slug)?.object
-  : undefined);
-const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
+const objectRelationships = metadataImage
+  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src) ?? []
+  : [];
+const objectRelationship = configuredObject
+  ? objectRelationships.find((relationship) => relationship.object.id === configuredObject.id)
+  : objectRelationships.find((relationship) => relationship.object.data.slug);
+const object = configuredObject ?? objectRelationship?.object;
+const objectUrl = object ? objectHref(object.data.slug, {
+  imageKey: objectRelationship?.imageKey,
+  sourceKey: heroObjectSourceKey(subchapter.id),
+}) : undefined;
 ---
 
 <header class="subchapter-hero">
@@ -45,7 +52,7 @@ const objectHref = object ? `/objekte/${object.data.slug}/` : undefined;
 {metadataImage?.entry?.data.beschriftung && (
   <div class="subchapter-hero-caption">
     {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
-    {objectHref && <a class="subchapter-hero-caption__link" href={objectHref}>Zum Objekt <span class="subchapter-hero-caption__link-arrow" aria-hidden="true">→</span></a>}
+    {objectUrl && <a class="subchapter-hero-caption__link" href={objectUrl}>Zum Objekt <span class="subchapter-hero-caption__link-arrow" aria-hidden="true">→</span></a>}
   </div>
 )}
 
