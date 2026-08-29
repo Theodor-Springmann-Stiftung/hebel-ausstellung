@@ -2,24 +2,23 @@
 import type { CollectionEntry } from "astro:content";
 import { render } from "astro:content";
 import { renderInlineMarkdown, serializeForScript } from "../../lib/markdown";
-import type { ObjectDisplayImage, ObjectReturnContext } from "../../lib/object-images";
+import type { ObjectDisplayImage } from "../../lib/object-images";
 import ObjectImages from "./ObjectImages.astro";
 
 type Props = {
   object: CollectionEntry<"objects">;
   images: ObjectDisplayImage[];
-  returnContexts: ObjectReturnContext[];
 };
 
-const { object, images, returnContexts } = Astro.props as Props;
+const { object, images } = Astro.props as Props;
 const { Content } = await render(object);
 const hasBody = Boolean(object.body?.trim());
-const initialReturnContext = images[0]?.returnContexts[0];
+const hasMultipleImages = images.length > 1;
+const initialReturnContext = images[0]?.returnContext;
 const returnHref = initialReturnContext?.href ?? "/";
 const returnLabel = initialReturnContext?.label ?? "Zurück zur Startseite";
 const returnData = {
-  images: images.map((image) => ({ key: image.key, returnContexts: image.returnContexts })),
-  returnContexts,
+  images: images.map((image) => ({ key: image.key, returnContext: image.returnContext })),
 };
 
 const details = [
@@ -64,19 +63,18 @@ const details = [
   </div>
 </article>
 
-<script type="application/json" data-object-return-contexts set:html={serializeForScript(returnData)}></script>
+{hasMultipleImages && (
+  <script type="application/json" data-object-return-contexts set:html={serializeForScript(returnData)}></script>
+)}
 
 <script>
   type ReturnContext = {
-    sourceKey: string;
     href: string;
     label: string;
-    imageKey?: string;
   };
 
   type ReturnData = {
-    images: Array<{ key: string; returnContexts: ReturnContext[] }>;
-    returnContexts: ReturnContext[];
+    images: Array<{ key: string; returnContext?: ReturnContext }>;
   };
 
   const position = new URLSearchParams(window.location.search).get("position");
@@ -90,18 +88,9 @@ const details = [
   const returnLink = document.querySelector<HTMLAnchorElement>("[data-object-return-link]");
   const returnLabel = returnLink?.querySelector<HTMLElement>("[data-object-return-label]");
   const returnDataElement = document.querySelector<HTMLScriptElement>("[data-object-return-contexts]");
-  const returnData: ReturnData = returnDataElement?.textContent
+  const returnData: ReturnData | undefined = returnDataElement?.textContent
     ? JSON.parse(returnDataElement.textContent)
-    : { images: [], returnContexts: [] };
-  const search = new URLSearchParams(window.location.search);
-  const requestedImageKey = search.get("image");
-  const sourceKey = search.get("source");
-  const sourceContext = sourceKey
-    ? returnData.returnContexts.find((context) => context.sourceKey === sourceKey)
     : undefined;
-  let activeImageKey = requestedImageKey && returnData.images.some((image) => image.key === requestedImageKey)
-    ? requestedImageKey
-    : returnData.images[0]?.key;
 
   const getReferrerContext = (): ReturnContext => {
     if (document.referrer) {
@@ -119,7 +108,6 @@ const details = [
 
         if (label) {
           return {
-            sourceKey: "referrer",
             href: `${referrer.pathname}${referrer.search}`,
             label,
           };
@@ -127,15 +115,12 @@ const details = [
       }
     }
 
-    return { sourceKey: "startseite", href: "/", label: "Zurück zur Startseite" };
+    return { href: "/", label: "Zurück zur Startseite" };
   };
 
   const getImageContext = (imageKey: string | undefined) => {
-    if (!imageKey) return undefined;
-
-    const contexts = returnData.images.find((image) => image.key === imageKey)?.returnContexts ?? [];
-
-    return contexts.find((context) => context.sourceKey === sourceKey) ?? contexts[0];
+    if (!returnData || !imageKey) return undefined;
+    return returnData.images.find((image) => image.key === imageKey)?.returnContext;
   };
 
   const setReturnContext = (context: ReturnContext) => {
@@ -144,18 +129,25 @@ const details = [
     returnLabel.textContent = context.label;
   };
 
-  const initialContext = sourceContext && (!sourceContext.imageKey || sourceContext.imageKey === activeImageKey)
-    ? sourceContext
-    : getImageContext(activeImageKey);
-  setReturnContext(initialContext ?? getReferrerContext());
+  if (returnData) {
+    const search = new URLSearchParams(window.location.search);
+    const requestedImageKey = search.get("image");
+    let activeImageKey = requestedImageKey && returnData.images.some((image) => image.key === requestedImageKey)
+      ? requestedImageKey
+      : returnData.images[0]?.key;
+    const initialContext = getImageContext(activeImageKey);
+    setReturnContext(initialContext ?? getReferrerContext());
 
-  window.addEventListener("object-carousel-change", ((event: CustomEvent<{ syncId: string; imageKey?: string }>) => {
-    if (event.detail.syncId !== "responsive-object-images" || !event.detail.imageKey) return;
-    if (!returnData.images.some((image) => image.key === event.detail.imageKey)) return;
+    window.addEventListener("object-carousel-change", ((event: CustomEvent<{ syncId: string; imageKey?: string }>) => {
+      if (event.detail.syncId !== "responsive-object-images" || !event.detail.imageKey) return;
+      if (!returnData.images.some((image) => image.key === event.detail.imageKey)) return;
 
-    activeImageKey = event.detail.imageKey;
-    setReturnContext(getImageContext(activeImageKey) ?? getReferrerContext());
-  }) as EventListener);
+      activeImageKey = event.detail.imageKey;
+      setReturnContext(getImageContext(activeImageKey) ?? getReferrerContext());
+    }) as EventListener);
+  } else if (returnLink?.getAttribute("href") === "/") {
+    setReturnContext(getReferrerContext());
+  }
 </script>
 
 <style>

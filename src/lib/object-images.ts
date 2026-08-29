@@ -56,14 +56,12 @@ export type ObjectDisplayImage = {
   id: string;
   dateiname?: string;
   altText?: string;
-  returnContexts: ObjectReturnContext[];
+  returnContext?: ObjectReturnContext;
 };
 
 export type ObjectReturnContext = {
-  sourceKey: string;
   href: string;
   label: string;
-  imageKey?: string;
 };
 
 export const imageReferenceId = (reference: ImageReference) => typeof reference === "string" ? reference : reference.id;

@@ -48,7 +48,6 @@ export type GalleryProps = {
   positionsangaben?: boolean;
   chapterNumber: number;
   bilder: GalleryImage[][];
-  sourceKey: string;
 };
 
 const props = Astro.props as GalleryProps;
@@ -61,7 +60,6 @@ const {
   bildabstand = "normal",
   chapterNumber,
   bilder,
-  sourceKey,
 } = props;
 const isMultiSlide = bilder.length > 1;
 const slideCaptionsByIndex = new Map(folienbeschriftungen.map((caption) => [caption.folie - 1, caption]));
@@ -86,7 +84,6 @@ const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
         href: object.slug ? objectHref(object.slug, {
           position: object.position,
           imageKey: object.imageKey,
-          sourceKey,
         }) : undefined,
         linkLabel: object.transkription ? `Zum Objekt (mit ${object.transkriptionsart})` : "Zum Objekt",
         objectKey: object.slug,

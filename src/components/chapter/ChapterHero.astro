@@ -1,6 +1,6 @@
 ---
 import { getEntry, type CollectionEntry } from "astro:content";
-import { getObjectRelationshipsByImage, heroObjectSourceKey, objectHref } from "../../lib/content";
+import { getObjectRelationshipsByImage, objectHref } from "../../lib/content";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -18,8 +18,7 @@ const objectRelationship = configuredObject
   : objectRelationships.find((relationship) => relationship.object.data.slug);
 const object = configuredObject ?? objectRelationship?.object;
 const objectUrl = object ? objectHref(object.data.slug, {
-  imageKey: objectRelationship?.imageKey,
-  sourceKey: heroObjectSourceKey(chapter.id),
+  imageKey: objectRelationship?.linkImageKey,
 }) : undefined;
 ---
 
