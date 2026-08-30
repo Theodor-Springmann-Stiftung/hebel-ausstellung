@@ -1,9 +1,13 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
+import { pageTitle } from "../data/site";
 ---
 
-<Layout>
+<Layout
+  title={`Impressum & Datenschutz. ${pageTitle}`}
+  description="Impressum und Datenschutzerklärung der virtuellen Ausstellung Johann Peter Hebel. Das Nachleben der Worte."
+>
   <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Impressum & Datenschutz" }]} />
 
   <main class="legal-page">

@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
+import { pageTitle } from "../data/site";
+
+const description = "Kontakt – Virtuelle Ausstellung: Johann Peter Hebel. Das Nachleben der Worte. Erarbeitet und kuratiert von Alexander Knopf, Jakob Brüssermann und Andreas Beck. URL: https://ausstellung.hebel-archiv.de";
 ---
 
-<Layout>
+<Layout title={`Kontakt. ${pageTitle}`} description={description}>
   <div class="contact-breadcrumbs">
     <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Kontakt" }]} />
   </div>

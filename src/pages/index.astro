@@ -2,6 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import { getEntry } from 'astro:content';
 import Quote from '../components/content/Quote.astro';
+import { homeDescription, pageTitle } from '../data/site';
 import { chapterHref, getOrderedChapters } from '../lib/content';
 import { renderInlineMarkdown } from '../lib/markdown';
 import { getHeroImageSource, getNavigationImageSource, getThumbnailImage } from '../lib/object-images';
@@ -35,7 +36,12 @@ const portraitObject = await getEntry('objects', '6.1_03_03_Mueller-Kupferstich_
 const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
 ---
 
-<Layout>
+<Layout
+  title={pageTitle}
+  description={homeDescription}
+  image={heroPortrait}
+  imageAlt="Hebels Porträt nach dem Kupferstich von Johann Friedrich Müller (Ausschnitt)"
+>
   <main class="home">
     <section class="home-hero" aria-labelledby="home-title">
       <img

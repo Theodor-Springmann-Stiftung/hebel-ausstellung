@@ -2,6 +2,7 @@
 import Layout from "../layouts/Layout.astro";
 import { getEntry } from "astro:content";
 import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
+import { pageTitle } from "../data/site";
 import heroImage from "../assets/Meta/ueber-hero.png";
 import sealImage from "../assets/Meta/ueber-hebel-siegel.png";
 import blbLogo from "../assets/Meta/ueber-blb-logo.png";
@@ -9,9 +10,15 @@ import loerrachLogo from "../assets/Meta/ueber-loerrach-logo.png";
 import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
 const portraitObject = await getEntry("objects", "6.1_03_03_Mueller-Kupferstich_Kunsthalle_KA");
 const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
+const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Peter Hebel. Das Nachleben der Worte. Erarbeitet und kuratiert von Alexander Knopf, Jakob Brüssermann und Andreas Beck. URL: https://ausstellung.hebel-archiv.de";
 ---
 
-<Layout>
+<Layout
+  title={`Über die Ausstellung. ${pageTitle}`}
+  description={description}
+  image={heroImage}
+  imageAlt="Hebels Porträt nach dem Kupferstich von Johann Friedrich Müller (Ausschnitt)"
+>
   <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Über die Ausstellung" }]} />
 
   <main class="about-page">

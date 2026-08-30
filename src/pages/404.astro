@@ -3,7 +3,10 @@ import Layout from "../layouts/Layout.astro";
 import { pageTitle } from "../data/site";
 ---
 
-<Layout title={`Seite nicht gefunden | ${pageTitle}`}>
+<Layout
+  title={`Seite nicht gefunden. ${pageTitle}`}
+  description="Die angeforderte Seite der virtuellen Ausstellung Johann Peter Hebel. Das Nachleben der Worte wurde nicht gefunden."
+>
   <main class="not-found">
     <h1 class="sr-only">Seite nicht gefunden</h1>
 

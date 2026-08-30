@@ -2,11 +2,32 @@
 import Layout from '../../layouts/Layout.astro';
 import Breadcrumbs from '../../components/navigation/Breadcrumbs.astro';
 import ObjectDetail from '../../components/object/ObjectDetail.astro';
+import { exhibitionCredit, pageTitle } from '../../data/site';
 import { getObjectRoutes } from '../../lib/content';
+import { markdownToPlainText } from '../../lib/markdown';
+import { getObjectImage } from '../../lib/object-images';
 
 export const getStaticPaths = getObjectRoutes;
 
 const { object, context } = Astro.props;
+const objectTitle = markdownToPlainText(object.data.titel).replace(/\s+/g, ' ').trim();
+const objectSource = markdownToPlainText((object.data.quelle ?? '').replace(/<br\s*\/?>/gi, ' '))
+	.replace(/\s+/g, ' ')
+	.trim();
+const seoImageReference = context.images[0];
+const seoImage = seoImageReference
+	? getObjectImage(seoImageReference.dateiname ?? seoImageReference.id)
+	: undefined;
+const seoImageAlt = markdownToPlainText(seoImageReference?.altText ?? object.data.titel)
+	.replace(/\s+/g, ' ')
+	.trim();
+const keywords = [object.data.urheber, object.data.datierung]
+	.map((keyword) => markdownToPlainText(keyword ?? '').replace(/\s+/g, ' ').trim())
+	.filter(Boolean);
+const title = `${objectTitle}. ${pageTitle}`;
+const description = objectSource
+	? `Objekt – ${objectTitle} – Aus: ${objectSource} – ${exhibitionCredit}`
+	: `Objekt – ${objectTitle} – ${exhibitionCredit}`;
 const breadcrumbItems = [
 	{ label: 'Startseite', href: '/' },
 	{ label: 'Objekte', href: '/objekte/' },
@@ -14,7 +35,14 @@ const breadcrumbItems = [
 ];
 ---
 
-<Layout>
+<Layout
+	{title}
+	{description}
+	canonicalPath={`/objekte/${object.data.slug}/`}
+	image={seoImage}
+	imageAlt={seoImageAlt}
+	{keywords}
+>
 	<div class="object-breadcrumbs"><Breadcrumbs items={breadcrumbItems} /></div>
 	<ObjectDetail
 		object={object}

@@ -1,6 +1,7 @@
 ---
 import Breadcrumbs from "../../components/navigation/Breadcrumbs.astro";
 import Layout from "../../layouts/Layout.astro";
+import { pageTitle } from "../../data/site";
 import { getReadingOrder } from "../../lib/content";
 import { markdownToPlainText } from "../../lib/markdown";
 import { getObjectOverview } from "../../lib/object-overview";
@@ -68,7 +69,10 @@ const defaultHiddenColumns = new Set([
 ]);
 ---
 
-<Layout title="Objektübersicht">
+<Layout
+  title={`Objektübersicht. ${pageTitle}`}
+  description="Objektübersicht der virtuellen Ausstellung Johann Peter Hebel. Das Nachleben der Worte: Manuskripte, Drucke, Bilder, Briefe und weitere Zeugnisse."
+>
   <Breadcrumbs items={[{ label: "Startseite", href: "/" }, { label: "Objektübersicht" }]} />
 
   <main class="objects-page">

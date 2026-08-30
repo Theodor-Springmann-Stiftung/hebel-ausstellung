@@ -5,19 +5,32 @@ import PageNavigation from '../../components/navigation/PageNavigation.astro';
 import ChapterHero from '../../components/chapter/ChapterHero.astro';
 import ChapterSubchapters from '../../components/chapter/ChapterSubchapters.astro';
 import SectionGalleries from '../../components/chapter/SectionGalleries.astro';
+import { exhibitionCredit, pageTitle } from '../../data/site';
 import { getChapterRoutes, getReadingOrder } from '../../lib/content';
+import { markdownToPlainText } from '../../lib/markdown';
+import { getDedicatedHeroImage, resolveContentImage } from '../../lib/object-images';
 
 export const getStaticPaths = getChapterRoutes;
 
 const { chapter } = Astro.props;
 const chapterLabel = `Kapitel ${Number(chapter.data.nummer)}: ${chapter.data.navTitel}`;
+const chapterTitle = markdownToPlainText(chapter.data.titel);
+const title = `Kapitel ${Number(chapter.data.nummer)}: ${chapterTitle}. ${pageTitle}`;
+const description = `Kapitel ${Number(chapter.data.nummer)} – ${chapterTitle} – ${exhibitionCredit}`;
+const heroImage = getDedicatedHeroImage(chapter.data.hero);
+const heroMetadata = chapter.data.heroMetadata ? await resolveContentImage(chapter.data.heroMetadata) : undefined;
+const heroAlt = markdownToPlainText(
+	heroMetadata?.entry?.data.beschriftung
+		?? heroMetadata?.entry?.data.altText
+		?? chapter.data.titel,
+);
 const readingOrder = await getReadingOrder();
 const readingIndex = readingOrder.findIndex((section) => section.kind === 'chapter' && section.id === chapter.id);
 const previousSection = readingIndex > 0 ? readingOrder[readingIndex - 1] : undefined;
 const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefined;
 ---
 
-<Layout>
+<Layout title={title} description={description} image={heroImage} imageAlt={heroAlt}>
 	<div class="chapter-page" style={`--chapter-color: var(--chapter-${Number(chapter.data.nummer)}); --chapter-color-medium: var(--chapter-${Number(chapter.data.nummer)}-medium); --chapter-color-vibrant: var(--chapter-${Number(chapter.data.nummer)}-vibrant); --chapter-color-dark: var(--chapter-${Number(chapter.data.nummer)}-dark); --page-background: var(--chapter-color)`}>
 		<Breadcrumbs
 			items={[
