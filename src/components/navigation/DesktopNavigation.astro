@@ -11,7 +11,7 @@ const isUeberActive = normalizedPath === '/ueber/';
 const isKontaktActive = normalizedPath === '/kontakt/';
 ---
 
-<nav class:list={{ "desktop-navigation": true, "desktop-navigation--home": isHome }} aria-label="Hauptnavigation">
+<nav role="navigation" class:list={{ "desktop-navigation": true, "desktop-navigation--home": isHome }} aria-label="Hauptnavigation">
   <div class="desktop-navigation__inner">
     <a class="desktop-navigation__brand" href="/" aria-label="Startseite">
       <span class="desktop-navigation__brand-kicker">{site.tagline}</span>

@@ -26,7 +26,7 @@ const commitDate = readGitValue(["show", "-s", "--format=%cd", "--date=format:%d
 const footerTitleParts = site.title.split(" der ");
 ---
 
-<footer class="site-footer" aria-labelledby="footer-title">
+<footer role="contentinfo" class="site-footer" aria-labelledby="footer-title">
   <div class="site-footer__inner">
     <div class="site-footer__columns">
       <section class="site-footer__exhibition" aria-labelledby="footer-title">
@@ -44,7 +44,7 @@ const footerTitleParts = site.title.split(" der ");
         </div>
       </section>
 
-      <nav class="site-footer__section site-footer__about" aria-labelledby="footer-about-title">
+      <nav role="navigation" class="site-footer__section site-footer__about" aria-labelledby="footer-about-title">
         <p class="site-footer__eyebrow" id="footer-about-title">Über Uns</p>
         <ul class="site-footer__link-list">
           {footerLinks.map((link) => (

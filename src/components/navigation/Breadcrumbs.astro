@@ -9,7 +9,7 @@ const stripInlineMarkdown = (value: string) =>
   value.replace(/\*\*([^*]+)\*\*/g, "$1").replace(/\*([^*]+)\*/g, "$1");
 ---
 
-<nav class="breadcrumbs" aria-label="Breadcrumb">
+<nav role="navigation" class="breadcrumbs" aria-label="Breadcrumb">
   <ol class="breadcrumbs__list">
     {items.map((item, index) => {
       const isCurrent = index === items.length - 1;

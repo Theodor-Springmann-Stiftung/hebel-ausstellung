@@ -29,7 +29,7 @@ const availableSubchapters = subchapters.filter(Boolean);
   <div class="chapter-overview__text"><Content /></div>
 
   {availableSubchapters.length > 0 && (
-    <nav class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
+    <nav role="navigation" class="chapter-overview__navigation" aria-label={`${chapter.data.navTitel} Unterkapitel`}>
       <h2>Unterkapitel</h2>
       <ol class="chapter-overview__list">
         {availableSubchapters.map(({ subchapter, image, imageSource }) => (

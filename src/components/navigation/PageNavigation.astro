@@ -11,7 +11,7 @@ const { previous, next } = Astro.props as {
 ---
 
 {(previous || next) && (
-  <nav class="page-navigation" aria-label="Vorherige und nächste Seite">
+  <nav role="navigation" class="page-navigation" aria-label="Vorherige und nächste Seite">
     <div class="page-navigation__inner">
       <div class="page-navigation__column page-navigation__column--previous">
         {previous && (

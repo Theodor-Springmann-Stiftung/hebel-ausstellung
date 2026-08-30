@@ -33,7 +33,7 @@ const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefin
 ---
 
 <Layout title={title} description={description} image={heroImage} imageAlt={heroAlt}>
-	<div class="subchapter-page" style={`--chapter-color: var(--chapter-${Number(chapter.data.nummer)}); --chapter-color-medium: var(--chapter-${Number(chapter.data.nummer)}-medium); --chapter-color-vibrant: var(--chapter-${Number(chapter.data.nummer)}-vibrant); --chapter-color-dark: var(--chapter-${Number(chapter.data.nummer)}-dark); --page-background: var(--chapter-color)`}>
+	<main role="main" class="subchapter-page" style={`--chapter-color: var(--chapter-${Number(chapter.data.nummer)}); --chapter-color-medium: var(--chapter-${Number(chapter.data.nummer)}-medium); --chapter-color-vibrant: var(--chapter-${Number(chapter.data.nummer)}-vibrant); --chapter-color-dark: var(--chapter-${Number(chapter.data.nummer)}-dark); --page-background: var(--chapter-color)`}>
 		<Breadcrumbs
 			items={[
 				{ label: 'Startseite', href: '/' },
@@ -47,7 +47,7 @@ const nextSection = readingIndex >= 0 ? readingOrder[readingIndex + 1] : undefin
 			previous={previousSection}
 			next={nextSection}
 		/>
-	</div>
+	</main>
 </Layout>
 
 <style>

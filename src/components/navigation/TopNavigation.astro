@@ -9,7 +9,7 @@ const currentPath = Astro.url.pathname;
 const isHome = currentPath === '/';
 ---
 
-<header class:list={{ "top-navigation": true, "top-navigation--home": isHome }}>
+<header role="banner" class:list={{ "top-navigation": true, "top-navigation--home": isHome }}>
   <DesktopNavigation chapters={chapters} currentPath={currentPath} isHome={isHome} />
   <MobileNavigation chapters={chapters} currentPath={currentPath} />
   <SearchDialog />

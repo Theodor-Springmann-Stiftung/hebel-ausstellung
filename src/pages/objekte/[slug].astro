@@ -43,11 +43,13 @@ const breadcrumbItems = [
 	imageAlt={seoImageAlt}
 	{keywords}
 >
-	<div class="object-breadcrumbs"><Breadcrumbs items={breadcrumbItems} /></div>
-	<ObjectDetail
-		object={object}
-		images={context.images}
-	/>
+	<main role="main">
+		<div class="object-breadcrumbs"><Breadcrumbs items={breadcrumbItems} /></div>
+		<ObjectDetail
+			object={object}
+			images={context.images}
+		/>
+	</main>
 </Layout>
 
 <style>
