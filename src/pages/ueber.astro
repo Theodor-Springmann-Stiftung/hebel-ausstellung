@@ -5,9 +5,6 @@ import Breadcrumbs from "../components/navigation/Breadcrumbs.astro";
 import { pageTitle } from "../data/site";
 import heroImage from "../assets/Meta/ueber-hero.png";
 import sealImage from "../assets/Meta/ueber-hebel-siegel.png";
-import blbLogo from "../assets/Meta/ueber-blb-logo.png";
-import loerrachLogo from "../assets/Meta/ueber-loerrach-logo.png";
-import lindenplatzLogo from "../assets/Meta/ueber-lindenplatz-logo.png";
 const portraitObject = await getEntry("objects", "6.1_03_03_Mueller-Kupferstich_Kunsthalle_KA");
 const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
 const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Peter Hebel. Das Nachleben der Worte. Erarbeitet und kuratiert von Alexander Knopf, Jakob Brüssermann und Andreas Beck. URL: https://ausstellung.hebel-archiv.de";
@@ -56,12 +53,23 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
 
     <section class="page-section about-section about-supporters">
       <h2>Leihgeber &amp; Unterstützer</h2>
-      <p>Unterstützt wurde die Ausstellung insbesondere von der Badischen Landesbibliothek Karlsruhe, dem Dreiländermuseum Lörrach und dem Museum am Lindenplatz in Weil am Rhein.</p>
-      <div class="about-supporters__logos" aria-label="Unterstützende Institutionen">
-        <a href="https://www.blb-karlsruhe.de/" target="_blank" rel="noreferrer"><img src={blbLogo.src} alt="Badische Landesbibliothek" loading="lazy" decoding="async" /></a>
-        <a href="https://www.dreilaendermuseum.eu/" target="_blank" rel="noreferrer"><img src={loerrachLogo.src} alt="Dreiländermuseum Lörrach" loading="lazy" decoding="async" /></a>
-        <a href="https://www.weil-am-rhein.de/" target="_blank" rel="noreferrer"><img src={lindenplatzLogo.src} alt="Stadt Museum am Lindenplatz" loading="lazy" decoding="async" /></a>
-      </div>
+      <p>Kuratoren danken den folgenden Institutionen für ihre großzügige Unterstützung bei der Beschaffung des Bildmaterials:</p>
+      <ul class="about-supporters__list">
+        <li>Badische Landesbibliothek Karlsruhe</li>
+        <li>Deutsches Literaturarchiv Marbach</li>
+        <li>Dreiländermuseum Lörrach</li>
+        <li>Staatliche Kunsthalle Karlsruhe</li>
+        <li>Staatliches Museum für Naturkunde Karlsruhe, Dauerleihgabe aus Privatbesitz</li>
+        <li>Staats- und Stadtbibliothek Augsburg</li>
+        <li>Stadtarchiv Karlsruhe</li>
+        <li>Stadtarchiv Schopfheim</li>
+        <li>Städtisches Museum am Lindenplatz, Weil am Rhein</li>
+        <li>Universitäts- und Landesbibliothek Bonn</li>
+        <li>Universitätsarchiv Heidelberg</li>
+        <li>Universitätsbibliothek Heidelberg</li>
+        <li>Universitätsbibliothek Johann Christian Senckenberg, Frankfurt am Main</li>
+        <li>Universitätsbibliothek Leipzig</li>
+      </ul>
     </section>
 
     <hr class="about-divider" />
@@ -118,10 +126,8 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
   .about-section__link:hover { @apply underline; opacity: 0.8; }
   .about-divider { width: calc(100% - var(--spacing-20) * 2); height: 0; margin: var(--spacing-40) auto; border: 0; border-top: .5px solid var(--color-ink); }
   .about-supporters { gap: var(--spacing-20); }
-  .about-supporters__logos { margin-top: var(--spacing-44); padding-inline: var(--spacing-12); }
-  .about-supporters__logos a { display: flex; width: 100%; justify-content: center; }
-  .about-supporters__logos { @apply flex flex-col items-center; gap: var(--spacing-32); }
-  .about-supporters__logos img { width: 100%; max-width: 346px; max-height: 151px; object-fit: contain; opacity: .5; }
+  .about-supporters__list { margin: 0; padding-inline-start: 1.25em; list-style-type: disc; font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
+  .about-supporters__list li + li { margin-top: var(--spacing-8); }
   .about-pending { @apply flex flex-col; width: 100%; gap: var(--spacing-16); padding: var(--spacing-24); border: 1px solid var(--color-ink); }
   .about-pending span { @apply bg-ink text-paper; width: fit-content; border-radius: 2px; padding: var(--spacing-4) var(--spacing-8); font-size: var(--text-small); letter-spacing: .05em; line-height: var(--text-body--line-height); }
   .about-pending p { font-size: var(--text-body); line-height: var(--text-body--line-height); }
@@ -145,9 +151,6 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
     .about-overview__seal img { width: 211.5px; height: 211.5px; }
     .about-overview__text { flex: 1; }
     .about-divider { width: calc(100% - var(--spacing-32) * 2); }
-    .about-supporters__logos { padding-inline: 0; flex-direction: row; align-items: center; justify-content: center; }
-    .about-supporters__logos a { width: min(240px, calc((100% - var(--spacing-64)) / 3)); }
-    .about-supporters__logos img { width: 100%; }
     .about-credits__list div { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: end; column-gap: var(--spacing-32); }
   }
 
@@ -161,8 +164,6 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
     .about-overview__seal { flex-basis: 360px; align-items: center; }
     .about-overview__seal img { width: 280px; height: 280px; }
     .about-divider { width: min(1059.5px, calc(100% - 416px)); }
-    .about-supporters__logos { gap: var(--spacing-40); }
-    .about-supporters__logos img { width: 240px; }
     .about-credits { padding-bottom: 120px; }
     .about-credits__list div { grid-template-columns: 180px minmax(0, 1fr); }
   }
