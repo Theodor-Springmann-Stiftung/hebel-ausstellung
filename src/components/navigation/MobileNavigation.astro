@@ -51,7 +51,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
         </button>
 
         <div class="mobile-navigation__chapter-section">
-          <p class="mobile-navigation__chapter-label">Kapitel der Ausstellung</p>
           <ChapterNavigationList chapters={chapters} currentPath={currentPath} variant="mobile" />
         </div>
       </div>
@@ -218,10 +217,13 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     @apply pointer-events-none fixed inset-0 z-20 flex flex-col overflow-auto bg-ink text-paper opacity-0;
 
     padding-top: 84px;
+    visibility: hidden;
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
     @apply pointer-events-auto opacity-100;
+
+    visibility: visible;
   }
 
   .mobile-navigation__views {
@@ -276,7 +278,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     --contrast-toggle-active-background: var(--color-paper);
     --contrast-toggle-active-thumb: var(--color-ink);
 
-    position: sticky;
+    position: static;
     bottom: 0;
     display: flex;
     flex: none;
@@ -286,6 +288,10 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     background: var(--color-ink);
     padding: var(--spacing-24) var(--spacing-24) var(--spacing-48);
     color: var(--color-paper);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__panel .mobile-navigation__utilities {
+    position: sticky;
   }
 
   .mobile-navigation__search {
@@ -326,14 +332,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
   .mobile-navigation__chapter-section {
     @apply flex w-full flex-col;
-
-    gap: var(--spacing-32);
-  }
-
-  .mobile-navigation__chapter-label {
-    @apply font-sans text-caption text-paper;
-
-    line-height: var(--text-caption--line-height);
   }
 
   @media (min-width: 768px) {
@@ -388,10 +386,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     .mobile-navigation__contrast-toggle {
       padding-inline: var(--spacing-48);
       padding-bottom: var(--spacing-64);
-    }
-
-    .mobile-navigation__chapter-section {
-      gap: var(--spacing-20);
     }
 
   }
