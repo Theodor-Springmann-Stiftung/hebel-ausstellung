@@ -36,8 +36,8 @@ const keywordContent = keywords.map((keyword) => keyword.trim()).filter(Boolean)
 	<head>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<meta name="robots" content="noindex, nofollow" />
-		<meta name="googlebot" content="noindex, nofollow" />
+		<meta name="robots" content="index, follow" />
+		<meta name="googlebot" content="index, follow" />
 		<meta name="description" content={description} />
 		{keywordContent && <meta name="keywords" content={keywordContent} />}
 		<link rel="canonical" href={canonicalUrl} />

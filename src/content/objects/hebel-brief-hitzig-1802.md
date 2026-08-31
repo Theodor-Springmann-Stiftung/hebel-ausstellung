@@ -22,14 +22,14 @@ Mann über Dich herfallen, an die Recension<br>
 dächtest und giengest. Du kennst der Stücke<br>
 genug, um ihnen vorläufig den Geist der<br>
 durch alle weht, abzulauschen, und zu würdigen<br>
-u. den allgemeinen Theil <del>zu</del> der R. zu ent&shy;<br>
+u. den allgemeinen Theil <del>zu</del> der R. zu ent-<br>
 werfen, du kannst alsdann, wenn ich dir das<br>
-Ganze schicke, das Specielle über einzelne Lie&shy;<br>
+Ganze schicke, das Specielle über einzelne Lie-<br>
 der die du noch nicht kennst, und über das<br>
 Idiotikönlein leicht hinzusetzen. Denn es ist<br>
 mir darum zu thun, daß das Bürschlein<br>
 der Welt bekannt werde, und Zutritt fin-<br>
-de, eh’ es ein Nachdruker in seine Lum&shy;<br>
+de, eh’ es ein Nachdruker in seine Lum-<br>
 pen kleidet. Es wird, sorge ich, doch immer<br>
 noch frühe genug wahr werden, was es<br>
 selber sagt:

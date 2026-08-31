@@ -14,29 +14,29 @@ bilder:
 
 # Transkription
 
-Meine Liebhaberey in den Nebenstunden, zur Schad&shy;<br>
+Meine Liebhaberey in den Nebenstunden, zur Schad-<br>
 loshaltung für den Ungenuß mancher Geschäfts<br>
 stunde hat sich in ein eigenes Fach geworfen.<br>
-Ich studire unsere oberländische Sprache grammati&shy;<br>
+Ich studire unsere oberländische Sprache grammati-;<br>
 kalisch, ich versificire sie <em>herculeum opus!</em> In<br>
 allen Arten von <em>Met</em>ris, ich suche in diesen<br>
 zerfallenden Ruinen der altdeutschen Ursprache<br>
 noch die Spuren ihres Umrißes und Gefüges<br>
 auf, und gedenke bald eine kleine Sammlung<br>
 solcher Gedichte mit einer kleinen Grammatik<br>
-u. einem auf die Derivation weisenden Regi&shy;<br>
+u. einem auf die Derivation weisenden Regi-<br>
 ster der Idiotismen in die Welt fliegen<br>
 zu lassen. Wenn du die Idee im Allgemeinen<br>
 billigest, u. es leiden magst, so werde ich<br>
 dir mehrers darüber schreiben, und dann über<br>
 eins und das andre noch deine Gedanken mir<br>
-ausbitten. Zur Beurtheilung schike ich dir eins&shy;<br>
+ausbitten. Zur Beurtheilung schike ich dir eins-<br>
 weilen anliegende Jamben, die hiemit dir<br>
 geeignet sein sollen, und die einschlagenden<br>
 Artikel aus dem Idiotikon oder Register,<br>
-als ein Müsterlein von dem letztern. Der&shy;<br>
-malen arbeite ich am <u>Dengelegeist</u> in Hexa&shy;<br>
-metern. Soll ich ihn dem Blaurock de&shy;<br>
+als ein Müsterlein von dem letztern. Der-<br>
+malen arbeite ich am <u>Dengelegeist</u> in Hexa-<br>
+metern. Soll ich ihn dem Blaurock de-<br>
 diciren? Es ist nicht mehr als billig. Vor<br>
 der Hand bitte ich indessen darüber stille zu<br>
 seyn. Ich weiß nicht, ob ich meinen Namen<br>
