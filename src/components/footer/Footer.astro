@@ -3,10 +3,19 @@ import { execFileSync } from "node:child_process";
 import portrait from "../../assets/Meta/Hebel_Portraet_Mueller.jpg";
 import { site } from "../../data/site";
 
-const footerLinks = [
+type FooterLink = {
+  label: string;
+  href?: string;
+  external?: boolean;
+  search?: boolean;
+};
+
+const footerLinks: FooterLink[] = [
   { label: "Über die Ausstellung", href: "/ueber/" },
+  { label: "Suche", search: true },
   { label: "Presse / Kontakt", href: "/kontakt/" },
   { label: "Impressum & Datenschutz", href: "/datenschutz/" },
+  { label: "Johann Peter Hebel-Archiv", href: "https://hebel-archiv.de", external: true },
 ];
 
 const readGitValue = (args: string[]) => {
@@ -49,7 +58,20 @@ const footerTitleParts = site.title.split(" der ");
         <ul class="site-footer__link-list">
           {footerLinks.map((link) => (
             <li>
-              <a class="site-footer__link" href={link.href}>{link.label}</a>
+              {link.search ? (
+                <button class="site-footer__link site-footer__link--button" type="button" data-search-open aria-label="Suche öffnen" aria-haspopup="dialog" aria-controls="site-search">
+                  {link.label}
+                </button>
+              ) : (
+                <a class="site-footer__link" href={link.href} aria-label={link.external ? `${link.label} (externe Website)` : undefined}>
+                  <span>{link.label}</span>
+                  {link.external && (
+                    <svg class="site-footer__external-icon" viewBox="0 0 16 16" aria-hidden="true" focusable="false">
+                      <path d="M6 3H3v10h10v-3M8 2h6v6M14 2 7 9" />
+                    </svg>
+                  )}
+                </a>
+              )}
             </li>
           ))}
         </ul>
@@ -167,8 +189,30 @@ const footerTitleParts = site.title.split(" der ");
   .site-footer__link {
     @apply inline-flex font-sans text-lead text-inherit no-underline;
 
+    align-items: center;
+    gap: 0.35em;
     padding-block: var(--spacing-8);
     line-height: var(--text-lead--line-height);
+  }
+
+  .site-footer__link--button {
+    appearance: none;
+    margin: 0;
+    border: 0;
+    background: transparent;
+    cursor: pointer;
+    padding-inline: 0;
+  }
+
+  .site-footer__external-icon {
+    width: 0.8em;
+    height: 0.8em;
+    flex: none;
+    fill: none;
+    stroke: currentColor;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-width: 1.25;
   }
 
   .site-footer__link:hover {

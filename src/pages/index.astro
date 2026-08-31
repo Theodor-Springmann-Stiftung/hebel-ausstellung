@@ -62,7 +62,7 @@ const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
           <p>Johann Peter Hebel</p>
           <h1 id="home-title">Das Nachleben der Worte</h1>
         </div>
-        <p class="home-hero__subtitle">Eine virtuelle Ausstellung des Hebel-Archivs der Theodor Springmann Stiftung in Heidelberg</p>
+        <p class="home-hero__subtitle">Eine virtuelle Ausstellung des <a href="https://hebel-archiv.de">Hebel-Archivs</a> der Theodor Springmann Stiftung in Heidelberg</p>
       </div>
     </section>
 
@@ -179,7 +179,9 @@ const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
   .home-hero__titles { gap: var(--spacing-8); font-family: var(--font-display); }
   .home-hero__titles p { font-size: 1.75rem; line-height: 1.25; }
   .home-hero__titles h1 { color: inherit; font-size: 2.5rem; line-height: 1.25; }
-  .home-hero__subtitle { max-width: 500px; font-size: 0.75rem; line-height: 1.5; }
+  .home-hero__subtitle { max-width: 500px; font-size: var(--text-caption); line-height: var(--text-caption--line-height); }
+  .home-hero__subtitle a { color: inherit; text-decoration-line: underline; }
+  .home-hero__subtitle a:hover { opacity: 0.8; }
 
   .home-caption {
     display: flex;
@@ -260,7 +262,6 @@ const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
     .home-hero__image { object-position: center; }
     .home-hero__titles p { font-size: 2rem; }
     .home-hero__titles h1 { font-size: 3.75rem; line-height: 1.1; }
-    .home-hero__subtitle { font-size: 0.875rem; }
     .home-caption { padding-inline: var(--spacing-32); }
     .home-caption p:first-child { font-size: 1rem; }
     .home-introduction { padding: var(--spacing-64) var(--spacing-32); }
