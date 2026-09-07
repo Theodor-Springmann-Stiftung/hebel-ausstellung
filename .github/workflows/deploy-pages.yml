@@ -29,7 +29,9 @@ jobs:
         uses: withastro/action@v6
         with:
           node-version: 24
-          cache: false
+          # Restore optimized images from the previous build; Astro regenerates
+          # variants whose source content or transform options have changed.
+          cache: true
 
   deploy:
     needs: build
