@@ -394,7 +394,7 @@ const nextSlide = slides[1] ?? firstSlide;
       return ready;
     };
 
-    type Swipe = { id: number; x: number; y: number; width: number; offset: number; horizontal: boolean; preview?: HTMLElement; target?: number };
+    type Swipe = { id: number; x: number; y: number; startedAt: number; width: number; offset: number; horizontal: boolean; preview?: HTMLElement; target?: number };
     let pointerStart: Swipe | undefined;
 
     const setSlide = (nextIndex: number, swipe?: { offset: number; width: number }) => {
@@ -469,8 +469,8 @@ const nextSlide = slides[1] ?? firstSlide;
     preloadOnIntent(previousButton, () => requestedIndex - 1);
     preloadOnIntent(nextButton, () => requestedIndex + 1);
 
-    const clearSwipe = () => {
-      pointerStart?.preview?.remove();
+    const clearSwipe = (keepPreview = false) => {
+      if (!keepPreview) pointerStart?.preview?.remove();
       if (images) images.style.transform = "";
       const pointerId = pointerStart?.id;
       pointerStart = undefined;
@@ -478,14 +478,31 @@ const nextSlide = slides[1] ?? firstSlide;
     };
 
     const cancelSwipe = () => {
-      const offset = pointerStart?.offset ?? 0;
-      clearSwipe();
-      if (images && offset && !reducedMotion.matches) {
-        const animation = images.animate([
-          { transform: `translateX(${offset}px)` },
+      const swipe = pointerStart;
+      if (!swipe) return;
+      const preview = swipe.preview;
+      clearSwipe(true);
+      if (images && swipe.offset && !reducedMotion.matches) {
+        const options = { duration: 100, easing: "ease-out" };
+        const animations = [images.animate([
+          { transform: `translateX(${swipe.offset}px)` },
           { transform: "translateX(0)" },
-        ], { duration: 100, easing: "ease-out" });
-        finishTransition = () => animation.cancel();
+        ], options)];
+        if (preview) {
+          const direction = (swipe.target ?? activeIndex) > activeIndex ? 1 : -1;
+          animations.push(preview.animate([
+            { transform: preview.style.transform, opacity: preview.style.opacity },
+            { transform: `translateX(${direction * swipe.width}px)`, opacity: 0 },
+          ], options));
+        }
+        const cleanup = () => {
+          animations.forEach(animation => animation.cancel());
+          preview?.remove();
+        };
+        finishTransition = cleanup;
+        void Promise.all(animations.map(animation => animation.finished)).then(cleanup, cleanup);
+      } else {
+        preview?.remove();
       }
     };
 
@@ -497,7 +514,7 @@ const nextSlide = slides[1] ?? firstSlide;
       void preloadSlide(activeIndex - 1);
       void preloadSlide(activeIndex + 1);
       pointerStart = {
-        id: event.pointerId, x: event.clientX, y: event.clientY,
+        id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp,
         width: images?.getBoundingClientRect().width || 1, offset: 0, horizontal: false,
       };
       stage.setPointerCapture(event.pointerId);
@@ -532,7 +549,9 @@ const nextSlide = slides[1] ?? firstSlide;
           preview.removeAttribute("data-gallery-images");
           preview.setAttribute("aria-hidden", "true");
           preview.dataset.imageCount = String(slides[target].images.length);
-          preview.replaceChildren(...preparedSlides.get(target)!.map(image => image.cloneNode(true)));
+          // Reuse the preloaded elements through drag and commit; cloning them can
+          // introduce another decode/paint gap on mobile browsers.
+          preview.replaceChildren(...preparedSlides.get(target)!);
           Object.assign(preview.style, { position: "absolute", inset: "0", pointerEvents: "none" });
           images.after(preview);
           swipe.preview = preview;
@@ -552,7 +571,10 @@ const nextSlide = slides[1] ?? firstSlide;
       const deltaY = event.clientY - swipe.y;
       const target = activeIndex + (deltaX < 0 ? 1 : -1);
       const threshold = Math.min(60, swipe.width * 0.18);
-      if (Math.abs(deltaX) < threshold || Math.abs(deltaX) <= Math.abs(deltaY) || !slides[target]) {
+      const elapsed = Math.max(1, event.timeStamp - swipe.startedAt);
+      const isFlick = Math.abs(deltaX) >= 24 && Math.abs(deltaX) / elapsed >= 0.35;
+      const isHorizontal = swipe.horizontal || Math.abs(deltaX) > Math.abs(deltaY);
+      if ((!isFlick && Math.abs(deltaX) < threshold) || !isHorizontal || !slides[target]) {
         cancelSwipe();
         return;
       }
@@ -560,12 +582,16 @@ const nextSlide = slides[1] ?? firstSlide;
       setSlide(target, { offset: swipe.offset, width: swipe.width });
     });
 
-    stage?.addEventListener("pointercancel", cancelSwipe);
-    stage?.addEventListener("lostpointercapture", () => {
-      if (pointerStart) cancelSwipe();
+    stage?.addEventListener("pointercancel", (event) => {
+      if (pointerStart?.id === event.pointerId) cancelSwipe();
+    });
+    stage?.addEventListener("lostpointercapture", (event) => {
+      if (pointerStart?.id === event.pointerId) cancelSwipe();
     });
     window.addEventListener("resize", () => {
-      if (pointerStart) cancelSwipe();
+      // Safari's collapsing browser chrome changes height during a gesture.
+      // Only an actual change to the gallery width invalidates drag geometry.
+      if (pointerStart && images && Math.abs(images.getBoundingClientRect().width - pointerStart.width) > 1) cancelSwipe();
     });
 
     dots.forEach((dot) => {
