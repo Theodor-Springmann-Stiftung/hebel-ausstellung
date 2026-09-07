@@ -364,14 +364,13 @@ const nextSlide = slides[1] ?? firstSlide;
     const nextImage = gallery.querySelector<HTMLImageElement>("[data-gallery-peek-next-image]");
     const counter = gallery.querySelector<HTMLElement>("[data-gallery-counter]");
     const caption = gallery.querySelector<HTMLElement>("[data-gallery-caption]");
-    const stage = gallery.querySelector<HTMLElement>(".gallery__stage");
     const previousButton = gallery.querySelector<HTMLButtonElement>("[data-gallery-prev]");
     const nextButton = gallery.querySelector<HTMLButtonElement>("[data-gallery-next]");
     const previousPeek = gallery.querySelector<HTMLElement>("[data-gallery-peek-prev]");
     const nextPeek = gallery.querySelector<HTMLElement>("[data-gallery-peek-next]");
     const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"));
     let activeIndex = 0;
-    let requestedIndex = 0;
+    const mobileViewport = window.matchMedia("(max-width: 767px)");
     let finishTransition = () => {};
     const preparedSlides = new Map<number, HTMLImageElement[]>();
     const pendingSlides = new Map<number, Promise<HTMLImageElement[] | undefined>>();
@@ -394,55 +393,47 @@ const nextSlide = slides[1] ?? firstSlide;
       return ready;
     };
 
-    type Swipe = { id: number; x: number; y: number; startedAt: number; width: number; offset: number; horizontal: boolean; preview?: HTMLElement; target?: number };
-    let pointerStart: Swipe | undefined;
+    if (!images) return;
+    preparedSlides.set(0, Array.from(images.querySelectorAll<HTMLImageElement>("img")));
 
-    const setSlide = (nextIndex: number, swipe?: { offset: number; width: number }) => {
-      requestedIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
-      const targetIndex = requestedIndex;
-      if (targetIndex === activeIndex) return;
+    const mobileTrack = document.createElement("div");
+    mobileTrack.className = "gallery__mobile-track";
+    mobileTrack.setAttribute("aria-label", "Galeriefolien");
+    const mobileSlides = slides.map((slide: { images: SlideImage[] }, index: number) => {
+      const container = images.cloneNode(false) as HTMLElement;
+      container.removeAttribute("data-gallery-images");
+      container.dataset.imageCount = String(slide.images.length);
+      container.dataset.mobileSlide = String(index);
+      mobileTrack.append(container);
+      return container;
+    });
+    images.after(mobileTrack);
+    gallery.dataset.nativeSwipe = "";
 
-      // Preload opportunistically, but never delay navigation for image readiness.
-      void preloadSlide(targetIndex);
-      const elements = preparedSlides.get(targetIndex)!;
+    const prepareMobileSlide = (index: number) => {
+      if (!slides[index]) return;
+      void preloadSlide(index);
+      const elements = preparedSlides.get(index)!;
+      if (elements[0]?.parentElement !== mobileSlides[index]) mobileSlides[index].replaceChildren(...elements);
+    };
 
-      finishTransition();
-      const outgoing = images && !reducedMotion.matches ? images.cloneNode(true) as HTMLElement : undefined;
-      const direction = targetIndex > activeIndex ? 1 : -1;
-      activeIndex = targetIndex;
+    const prepareNeighbours = () => {
+      const index = Math.round(mobileTrack.scrollLeft / (mobileTrack.clientWidth || 1));
+      [index - 1, index, index + 1].forEach(prepareMobileSlide);
+    };
+
+    const updateMobileFade = () => {
+      const position = mobileTrack.scrollLeft / (mobileTrack.clientWidth || 1);
+      mobileSlides.forEach((container: HTMLElement, index: number) => {
+        container.style.opacity = reducedMotion.matches ? "1" : String(Math.max(0, 1 - Math.abs(index - position)));
+        container.setAttribute("aria-hidden", String(index !== activeIndex));
+      });
+    };
+
+    const updateControls = () => {
       const slide = slides[activeIndex];
       const previousSlide = slides[activeIndex - 1];
       const nextSlide = slides[activeIndex + 1];
-
-      if (images) {
-        images.dataset.imageCount = String(elements.length);
-        images.replaceChildren(...elements);
-        if (outgoing) {
-          outgoing.removeAttribute("data-gallery-images");
-          outgoing.setAttribute("aria-hidden", "true");
-          Object.assign(outgoing.style, { position: "absolute", inset: "0", pointerEvents: "none" });
-          images.after(outgoing);
-          const options = { duration: swipe ? 100 : 60, easing: "ease-out" };
-          const slideOut = outgoing.animate([
-            { transform: `translateX(${swipe?.offset ?? 0}px)` },
-            { transform: `translateX(${-direction * 100}%)` },
-          ], options);
-          const slideIn = images.animate([
-            {
-              transform: swipe ? `translateX(${direction * swipe.width + swipe.offset}px)` : `translateX(${direction * 100}%)`,
-              opacity: swipe ? Math.min(Math.abs(swipe.offset) / swipe.width, 1) : 1,
-            },
-            { transform: "translateX(0)", opacity: 1 },
-          ], options);
-          const cleanup = () => {
-            slideOut.cancel();
-            slideIn.cancel();
-            outgoing.remove();
-          };
-          finishTransition = cleanup;
-          void Promise.all([slideOut.finished, slideIn.finished]).then(cleanup, cleanup);
-        }
-      }
 
       if (previousImage && previousSlide) previousImage.src = previousSlide.images[0].peekSrc;
       if (nextImage && nextSlide) nextImage.src = nextSlide.images[0].peekSrc;
@@ -459,153 +450,96 @@ const nextSlide = slides[1] ?? firstSlide;
       });
     };
 
-    previousButton?.addEventListener("click", () => void setSlide(requestedIndex - 1));
-    nextButton?.addEventListener("click", () => void setSlide(requestedIndex + 1));
-    const preloadOnIntent = (control: HTMLElement | null, index: () => number) => {
-      ["pointerenter", "focus", "pointerdown"].forEach((event) => {
-        control?.addEventListener(event, () => void preloadSlide(index()));
-      });
-    };
-    preloadOnIntent(previousButton, () => requestedIndex - 1);
-    preloadOnIntent(nextButton, () => requestedIndex + 1);
-
-    const clearSwipe = (keepPreview = false) => {
-      if (!keepPreview) pointerStart?.preview?.remove();
-      if (images) images.style.transform = "";
-      const pointerId = pointerStart?.id;
-      pointerStart = undefined;
-      if (pointerId !== undefined && stage?.hasPointerCapture(pointerId)) stage.releasePointerCapture(pointerId);
-    };
-
-    const cancelSwipe = () => {
-      const swipe = pointerStart;
-      if (!swipe) return;
-      const preview = swipe.preview;
-      clearSwipe(true);
-      if (images && swipe.offset && !reducedMotion.matches) {
-        const options = { duration: 100, easing: "ease-out" };
-        const animations = [images.animate([
-          { transform: `translateX(${swipe.offset}px)` },
-          { transform: "translateX(0)" },
-        ], options)];
-        if (preview) {
-          const direction = (swipe.target ?? activeIndex) > activeIndex ? 1 : -1;
-          animations.push(preview.animate([
-            { transform: preview.style.transform, opacity: preview.style.opacity },
-            { transform: `translateX(${direction * swipe.width}px)`, opacity: 0 },
-          ], options));
-        }
+    const setSlide = (nextIndex: number) => {
+      const target = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+      if (mobileViewport.matches) {
+        prepareMobileSlide(target);
+        activeIndex = target;
+        // Buttons jump immediately; touch scrolling and its momentum stay native.
+        mobileTrack.scrollTo({ left: target * mobileTrack.clientWidth, behavior: "instant" });
+        updateControls();
+        updateMobileFade();
+        return;
+      }
+      if (target === activeIndex) return;
+      void preloadSlide(target);
+      finishTransition();
+      const outgoing = !reducedMotion.matches ? images.cloneNode(true) as HTMLElement : undefined;
+      const direction = target > activeIndex ? 1 : -1;
+      activeIndex = target;
+      images.dataset.imageCount = String(slides[target].images.length);
+      images.replaceChildren(...preparedSlides.get(target)!);
+      if (outgoing) {
+        outgoing.removeAttribute("data-gallery-images");
+        outgoing.setAttribute("aria-hidden", "true");
+        Object.assign(outgoing.style, { position: "absolute", inset: "0", pointerEvents: "none" });
+        images.after(outgoing);
+        const options = { duration: 60, easing: "ease-out" };
+        const animations = [
+          outgoing.animate([{ transform: "translateX(0)" }, { transform: `translateX(${-direction * 100}%)` }], options),
+          images.animate([{ transform: `translateX(${direction * 100}%)` }, { transform: "translateX(0)" }], options),
+        ];
         const cleanup = () => {
           animations.forEach(animation => animation.cancel());
-          preview?.remove();
+          outgoing.remove();
         };
         finishTransition = cleanup;
         void Promise.all(animations.map(animation => animation.finished)).then(cleanup, cleanup);
+      }
+      updateControls();
+    };
+
+    const syncViewport = () => {
+      finishTransition();
+      if (mobileViewport.matches) {
+        prepareMobileSlide(activeIndex);
+        mobileTrack.scrollTo({ left: activeIndex * mobileTrack.clientWidth, behavior: "instant" });
+        updateMobileFade();
       } else {
-        preview?.remove();
+        void preloadSlide(activeIndex);
+        images.dataset.imageCount = String(slides[activeIndex].images.length);
+        images.replaceChildren(...preparedSlides.get(activeIndex)!);
       }
     };
 
-    stage?.addEventListener("pointerdown", (event) => {
-      if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest("button, a")) return;
-      finishTransition();
-      clearSwipe();
-      // Warm both neighbours before the horizontal direction is known.
-      void preloadSlide(activeIndex - 1);
-      void preloadSlide(activeIndex + 1);
-      pointerStart = {
-        id: event.pointerId, x: event.clientX, y: event.clientY, startedAt: event.timeStamp,
-        width: images?.getBoundingClientRect().width || 1, offset: 0, horizontal: false,
-      };
-      stage.setPointerCapture(event.pointerId);
-    });
-
-    stage?.addEventListener("pointermove", (event) => {
-      const swipe = pointerStart;
-      if (!swipe || swipe.id !== event.pointerId || !images) return;
-      const deltaX = event.clientX - swipe.x;
-      const deltaY = event.clientY - swipe.y;
-      if (!swipe.horizontal) {
-        if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 8) return;
-        if (Math.abs(deltaY) >= Math.abs(deltaX)) {
-          clearSwipe();
-          return;
-        }
-        swipe.horizontal = true;
+    // No pointer capture, swipe threshold, release handler, or resize reset:
+    // the browser owns the touch gesture and settles at the actual scroll snap.
+    mobileTrack.addEventListener("touchstart", prepareNeighbours, { passive: true });
+    mobileTrack.addEventListener("pointerdown", prepareNeighbours, { passive: true });
+    mobileTrack.addEventListener("scroll", () => {
+      if (!mobileViewport.matches || !mobileTrack.clientWidth) return;
+      prepareNeighbours();
+      const index = Math.min(slides.length - 1, Math.max(0, Math.round(mobileTrack.scrollLeft / mobileTrack.clientWidth)));
+      if (index !== activeIndex) {
+        activeIndex = index;
+        updateControls();
       }
-      const direction = deltaX < 0 ? 1 : -1;
-      const target = activeIndex + direction;
-      const hasNeighbour = Boolean(slides[target]);
-      swipe.offset = Math.max(-swipe.width, Math.min(swipe.width, deltaX)) * (hasNeighbour ? 1 : 0.2);
-      if (reducedMotion.matches) return;
+      updateMobileFade();
+    }, { passive: true });
 
-      if (swipe.target !== target) {
-        swipe.preview?.remove();
-        swipe.preview = undefined;
-        swipe.target = target;
-        if (hasNeighbour) {
-          void preloadSlide(target);
-          const preview = images.cloneNode(false) as HTMLElement;
-          preview.removeAttribute("data-gallery-images");
-          preview.setAttribute("aria-hidden", "true");
-          preview.dataset.imageCount = String(slides[target].images.length);
-          // Reuse the preloaded elements through drag and commit; cloning them can
-          // introduce another decode/paint gap on mobile browsers.
-          preview.replaceChildren(...preparedSlides.get(target)!);
-          Object.assign(preview.style, { position: "absolute", inset: "0", pointerEvents: "none" });
-          images.after(preview);
-          swipe.preview = preview;
-        }
-      }
-      images.style.transform = `translateX(${swipe.offset}px)`;
-      if (swipe.preview) {
-        swipe.preview.style.transform = `translateX(${direction * swipe.width + swipe.offset}px)`;
-        swipe.preview.style.opacity = String(Math.min(Math.abs(swipe.offset) / swipe.width, 1));
-      }
-    });
-
-    stage?.addEventListener("pointerup", (event) => {
-      const swipe = pointerStart;
-      if (!swipe || swipe.id !== event.pointerId) return;
-      const deltaX = event.clientX - swipe.x;
-      const deltaY = event.clientY - swipe.y;
-      const target = activeIndex + (deltaX < 0 ? 1 : -1);
-      const threshold = Math.min(60, swipe.width * 0.18);
-      const elapsed = Math.max(1, event.timeStamp - swipe.startedAt);
-      const isFlick = Math.abs(deltaX) >= 24 && Math.abs(deltaX) / elapsed >= 0.35;
-      const isHorizontal = swipe.horizontal || Math.abs(deltaX) > Math.abs(deltaY);
-      if ((!isFlick && Math.abs(deltaX) < threshold) || !isHorizontal || !slides[target]) {
-        cancelSwipe();
-        return;
-      }
-      clearSwipe();
-      setSlide(target, { offset: swipe.offset, width: swipe.width });
-    });
-
-    stage?.addEventListener("pointercancel", (event) => {
-      if (pointerStart?.id === event.pointerId) cancelSwipe();
-    });
-    stage?.addEventListener("lostpointercapture", (event) => {
-      if (pointerStart?.id === event.pointerId) cancelSwipe();
-    });
-    window.addEventListener("resize", () => {
-      // Safari's collapsing browser chrome changes height during a gesture.
-      // Only an actual change to the gallery width invalidates drag geometry.
-      if (pointerStart && images && Math.abs(images.getBoundingClientRect().width - pointerStart.width) > 1) cancelSwipe();
-    });
-
+    previousButton?.addEventListener("click", () => setSlide(activeIndex - 1));
+    nextButton?.addEventListener("click", () => setSlide(activeIndex + 1));
+    const preloadOnIntent = (control: HTMLElement | null, index: () => number) => {
+      ["pointerenter", "focus", "pointerdown"].forEach((event) => {
+        control?.addEventListener(event, () => {
+          if (mobileViewport.matches) prepareMobileSlide(index());
+          else void preloadSlide(index());
+        });
+      });
+    };
+    preloadOnIntent(previousButton, () => activeIndex - 1);
+    preloadOnIntent(nextButton, () => activeIndex + 1);
     dots.forEach((dot) => {
       const index = () => Number(dot.dataset.galleryDot ?? 0);
       preloadOnIntent(dot, index);
-      dot.addEventListener("click", () => void setSlide(index()));
+      dot.addEventListener("click", () => setSlide(index()));
     });
-
+    mobileViewport.addEventListener("change", syncViewport);
     reducedMotion.addEventListener("change", () => {
-      if (reducedMotion.matches) {
-        clearSwipe();
-        finishTransition();
-      }
+      if (reducedMotion.matches) finishTransition();
+      updateMobileFade();
     });
+    syncViewport();
   });
 </script>
 
@@ -638,6 +572,42 @@ const nextSlide = slides[1] ?? firstSlide;
 
   .gallery__frame {
     @apply relative m-0 w-full overflow-hidden;
+  }
+
+  .gallery__frame :global(.gallery__mobile-track) {
+    display: none;
+  }
+
+  @media (max-width: 767px) {
+    .gallery[data-native-swipe] .gallery__stage {
+      touch-action: auto;
+    }
+
+    .gallery[data-native-swipe] [data-gallery-images] {
+      display: none;
+    }
+
+    .gallery__frame :global(.gallery__mobile-track) {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      scroll-snap-type: x mandatory;
+      overscroll-behavior-x: contain;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .gallery__frame :global(.gallery__mobile-track::-webkit-scrollbar) {
+      display: none;
+    }
+
+    .gallery__frame :global([data-mobile-slide]) {
+      min-width: 0;
+      scroll-snap-align: start;
+      scroll-snap-stop: always;
+    }
   }
 
   .gallery__mat {
