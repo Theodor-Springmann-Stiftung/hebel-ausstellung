@@ -46,6 +46,7 @@ const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
     <section class="home-hero" aria-labelledby="home-title">
       <img
         class="home-hero__image"
+      data-hero-intro
         src={heroSource.src}
         srcset={heroSource.srcset}
         sizes={heroSource.sizes}
@@ -257,6 +258,19 @@ const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
   .chapter-card a:hover .chapter-card__link-arrow { transform: translateX(3px); }
   .chapter-card--poet .chapter-card__image { background: #faf8e4; }
   .chapter-card--friend .chapter-card__image { background: #d6e1f3; }
+
+  @media (max-width: 767px) {
+    .home-hero {
+      left: auto;
+      width: 100%;
+      height: clamp(480px, calc(100svh - 84px), 642px);
+      margin-left: 0;
+    }
+
+    .home-hero__image {
+      transform-origin: 53% center;
+    }
+  }
 
   @media (min-width: 768px) {
     .home-hero { height: 640px; padding: var(--spacing-64) var(--spacing-32); }
