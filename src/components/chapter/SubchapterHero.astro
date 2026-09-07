@@ -11,6 +11,7 @@ const { chapter, subchapter } = Astro.props as {
 const image = getDedicatedHeroImage(subchapter.data.hero);
 const metadataImage = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const imageSource = await getHeroImageSource(image);
+const isSophieHaufe = subchapter.data.nummer === "6.2";
 const configuredObject = subchapter.data.heroObject ? await getEntry(subchapter.data.heroObject) : undefined;
 const objectRelationships = metadataImage
   ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src) ?? []
@@ -24,14 +25,14 @@ const objectUrl = object ? objectHref(object.data.slug, {
 }) : undefined;
 ---
 
-<header class="subchapter-hero">
+<header class:list={["subchapter-hero", { "subchapter-hero--sophie-haufe": isSophieHaufe }]}>
   <div class="subchapter-hero__image-frame">
     <img
       class="subchapter-hero__image"
       data-hero-intro
       src={imageSource.src}
       srcset={imageSource.srcset}
-      sizes={imageSource.sizes}
+      sizes={isSophieHaufe ? "(max-width: 767px) 200vw, 100vw" : imageSource.sizes}
       alt={markdownToPlainText(metadataImage?.entry?.data.altText || subchapter.data.titel)}
       width={image.width}
       height={image.height}
@@ -75,6 +76,15 @@ const objectUrl = object ? objectHref(object.data.slug, {
     inset: 0;
     width: 100%;
     height: 100%;
+  }
+
+  @media (max-width: 767px) {
+    .subchapter-hero--sophie-haufe .subchapter-hero__image {
+      /* The frame displays the left half of the paired portrait. */
+      width: 200%;
+      object-position: 25% center;
+      transform-origin: 25% center;
+    }
   }
 
   .subchapter-hero__image-frame {
