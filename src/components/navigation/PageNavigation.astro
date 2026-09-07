@@ -72,7 +72,7 @@ const { previous, next } = Astro.props as {
     font-weight: 400;
     line-height: var(--text-body--line-height);
     text-decoration: none;
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   .page-navigation__arrow {
@@ -80,8 +80,9 @@ const { previous, next } = Astro.props as {
     transition: transform 150ms var(--ease-default);
   }
 
+  .page-navigation__link:focus-visible,
   .page-navigation__link:hover {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .page-navigation__link--previous:hover .page-navigation__arrow {

@@ -120,9 +120,9 @@ const objectUrl = object ? objectHref(object.data.slug, {
   }
 
   .subchapter-hero-caption__title { font-size: var(--text-caption); }
-  .subchapter-hero-caption__link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); align-items: baseline; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--chapter-object-link-color, var(--color-link)); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .subchapter-hero-caption__link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); align-items: baseline; gap: 0.25em; border-bottom: 1px solid transparent; color: var(--chapter-object-link-color, var(--color-link)); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; @apply progressive-underline; }
   .subchapter-hero-caption__link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
-  .subchapter-hero-caption__link:hover { border-bottom-color: currentColor; }
+  .subchapter-hero-caption__link:hover { background-size: 100% 1px; }
   .subchapter-hero-caption__link:hover .subchapter-hero-caption__link-arrow { transform: translateX(3px); }
 
   @media (min-width: 768px) {

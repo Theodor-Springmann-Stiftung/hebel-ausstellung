@@ -54,12 +54,12 @@ import { pageTitle } from "../data/site";
   .not-found__return-link {
     margin-top: var(--spacing-40);
     border-bottom: 1px solid transparent;
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   .not-found__return-link:hover,
   .not-found__return-link:focus-visible {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
     text-decoration: none;
   }
 

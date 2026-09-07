@@ -22,9 +22,13 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
     <div class="mobile-navigation__actions">
       <label class="mobile-navigation__menu-button" for="mobile-navigation-toggle" aria-label="Menü öffnen oder schließen">
-        <span></span>
-        <span></span>
-        <span></span>
+        <!-- Remix Icon: menu-line and close-line -->
+        <svg class="mobile-navigation__menu-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M3 4H21V6H3V4ZM3 11H21V13H3V11ZM3 18H21V20H3V18Z" />
+        </svg>
+        <svg class="mobile-navigation__close-icon" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" focusable="false">
+          <path d="M11.9997 10.5865L16.9495 5.63672L18.3637 7.05093L13.4139 12.0007L18.3637 16.9504L16.9495 18.3646L11.9997 13.4149L7.04996 18.3646L5.63574 16.9504L10.5855 12.0007L5.63574 7.05093L7.04996 5.63672L11.9997 10.5865Z" />
+        </svg>
       </label>
     </div>
   </div>
@@ -91,11 +95,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
       if (toggle) {
         toggle.checked = false;
       }
-      setChaptersOpen(false);
     });
 
     toggle?.addEventListener("change", () => {
-      if (!toggle.checked) {
+      // Reset on opening so the chapter view does not flash away during exit.
+      if (toggle.checked) {
         setChaptersOpen(false);
       }
     });
@@ -105,7 +109,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
         if (toggle) {
           toggle.checked = false;
         }
-        setChaptersOpen(false);
       });
     });
   });
@@ -116,6 +119,9 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
   .mobile-navigation {
     @apply relative block;
+
+    --menu-duration: 320ms;
+    --menu-ease: cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .mobile-navigation__toggle {
@@ -148,6 +154,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     border-bottom: 0.5px solid var(--color-ink);
     background-color: var(--color-paper, #f7f7f4);
     padding: var(--spacing-16) var(--spacing-20);
+    transition: background-color var(--menu-duration) ease, border-color var(--menu-duration) ease;
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar {
@@ -163,6 +170,8 @@ const isKontaktActive = normalizedPath === '/kontakt/';
 
   .mobile-navigation__brand {
     @apply min-w-0 flex-1 text-text-primary;
+
+    transition: color var(--menu-duration) ease;
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__brand {
@@ -195,35 +204,51 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   .mobile-navigation__menu-button {
     width: var(--spacing-32);
     height: var(--spacing-32);
-    flex-direction: column;
-    gap: 5px;
+    position: relative;
+    color: var(--color-text-primary);
+    transition: color var(--menu-duration) ease;
   }
 
-  .mobile-navigation__menu-button span {
-    width: 22px;
-    height: 1.5px;
-    background: var(--color-text-primary);
+  .mobile-navigation__menu-button svg {
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    transition: opacity var(--menu-duration) ease;
   }
 
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span {
-    background: var(--color-paper);
-  }
-
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button span:nth-child(2) {
+  .mobile-navigation__close-icon {
     opacity: 0;
   }
 
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-button {
+    color: var(--color-paper);
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__menu-icon {
+    opacity: 0;
+  }
+
+  .mobile-navigation__toggle:checked ~ .mobile-navigation__bar .mobile-navigation__close-icon {
+    opacity: 1;
+  }
+
   .mobile-navigation__panel {
-    @apply pointer-events-none fixed inset-0 z-20 flex flex-col overflow-auto bg-ink text-paper opacity-0;
+    @apply pointer-events-none fixed inset-0 z-20 flex flex-col overflow-auto bg-ink text-paper;
 
     padding-top: 84px;
     visibility: hidden;
+    clip-path: circle(0% at 100% 0);
+    transition:
+      clip-path var(--menu-duration) var(--menu-ease),
+      visibility 0s linear var(--menu-duration);
   }
 
   .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
-    @apply pointer-events-auto opacity-100;
+    @apply pointer-events-auto;
 
     visibility: visible;
+    clip-path: circle(150% at 100% 0);
+    transition-delay: 0s;
   }
 
   .mobile-navigation__views {
@@ -259,11 +284,17 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     font-family: var(--font-display);
     font-size: var(--text-h2);
     line-height: var(--text-h2--line-height);
+    text-decoration: none;
+    @apply progressive-underline;
+
   }
 
+  .mobile-navigation__panel-link:focus-visible,
   .mobile-navigation__panel-link:hover,
   .mobile-navigation__panel-link[aria-current] {
-    @apply no-underline opacity-80;
+    @apply opacity-80;
+
+    background-size: 100% 1px;
   }
 
   .mobile-navigation__panel-link--arrow::after {
@@ -278,7 +309,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     --contrast-toggle-active-background: var(--color-paper);
     --contrast-toggle-active-thumb: var(--color-ink);
 
-    position: static;
+    position: sticky;
     bottom: 0;
     display: flex;
     flex: none;
@@ -288,10 +319,6 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     background: var(--color-ink);
     padding: var(--spacing-24) var(--spacing-24) var(--spacing-48);
     color: var(--color-paper);
-  }
-
-  .mobile-navigation__toggle:checked ~ .mobile-navigation__panel .mobile-navigation__utilities {
-    position: sticky;
   }
 
   .mobile-navigation__search {
@@ -393,6 +420,21 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   @media (min-width: 1440px) {
     .mobile-navigation {
       @apply hidden;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .mobile-navigation {
+      --menu-duration: 0s;
+    }
+
+    .mobile-navigation__panel-link {
+      transition: none;
+    }
+
+    .mobile-navigation__panel,
+    .mobile-navigation__toggle:checked ~ .mobile-navigation__panel {
+      clip-path: none;
     }
   }
 

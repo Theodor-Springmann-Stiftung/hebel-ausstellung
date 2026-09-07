@@ -26,6 +26,20 @@ const { chapters, currentPath, variant } = Astro.props as {
     @apply m-0 flex w-full list-none flex-col p-0;
   }
 
+  .chapter-navigation-list__title {
+    text-decoration: none;
+    @apply progressive-underline;
+    text-underline-offset: 0.16em;
+    text-decoration-thickness: 1px;
+
+  }
+
+  .chapter-navigation-list__link:hover .chapter-navigation-list__title,
+  .chapter-navigation-list__link:focus-visible .chapter-navigation-list__title,
+  .chapter-navigation-list__link[aria-current] .chapter-navigation-list__title {
+    background-size: 100% 1px;
+  }
+
   .chapter-navigation-list--desktop {
     gap: var(--spacing-16);
   }
@@ -48,12 +62,12 @@ const { chapters, currentPath, variant } = Astro.props as {
   }
 
   .chapter-navigation-list--desktop .chapter-navigation-list__title {
-    @apply flex-1 font-sans text-body-medium;
+    @apply font-sans text-body-medium;
   }
 
   .chapter-navigation-list--desktop .chapter-navigation-list__link:hover .chapter-navigation-list__title,
   .chapter-navigation-list--desktop .chapter-navigation-list__link[aria-current] .chapter-navigation-list__title {
-    @apply text-link underline;
+    @apply text-link;
 
     text-underline-offset: 0.16em;
   }
@@ -86,7 +100,7 @@ const { chapters, currentPath, variant } = Astro.props as {
   }
 
   .chapter-navigation-list--mobile .chapter-navigation-list__title {
-    @apply flex-1 font-sans text-lead text-paper;
+    @apply font-sans text-lead text-paper;
 
     line-height: var(--text-lead--line-height);
   }
@@ -113,6 +127,11 @@ const { chapters, currentPath, variant } = Astro.props as {
       @apply font-display text-h2;
 
       line-height: var(--text-h2--line-height);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .chapter-navigation-list__title {
+      transition: none;
     }
   }
 </style>

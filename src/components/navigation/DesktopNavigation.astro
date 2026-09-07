@@ -172,6 +172,11 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     line-height: var(--text-body--line-height);
   }
 
+  .desktop-navigation__dropdown-trigger,
+  .desktop-navigation__link {
+    @apply progressive-underline;
+  }
+
   .desktop-navigation__search {
     @apply inline-flex cursor-pointer items-center bg-transparent text-inherit select-none;
 
@@ -197,11 +202,13 @@ const isKontaktActive = normalizedPath === '/kontakt/';
     text-decoration: none;
   }
 
+  .desktop-navigation__dropdown-trigger:focus-visible,
+  .desktop-navigation__link:focus-visible,
   .desktop-navigation__dropdown-trigger:hover,
   .desktop-navigation__link:hover {
     @apply no-underline;
 
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .desktop-navigation__dropdown-trigger::-webkit-details-marker {
@@ -223,7 +230,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   .desktop-navigation__dropdown[open] > .desktop-navigation__dropdown-trigger {
     @apply no-underline;
 
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .desktop-navigation__dropdown-panel {
@@ -244,7 +251,7 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   }
 
   .desktop-navigation__link[aria-current] {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   @media (min-width: 1440px) {
@@ -264,6 +271,8 @@ const isKontaktActive = normalizedPath === '/kontakt/';
   }
 
   @media (prefers-reduced-motion: reduce) {
+    .desktop-navigation__dropdown-trigger,
+    .desktop-navigation__link,
     .desktop-navigation__chevron {
       transition: none;
     }

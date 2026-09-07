@@ -170,7 +170,7 @@ const availableSubchapters = subchapters.filter(Boolean);
     border-bottom: 1px solid transparent;
     font-size: 0.75rem;
     line-height: 1.5;
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   .chapter-overview__link-arrow {
@@ -179,8 +179,9 @@ const availableSubchapters = subchapters.filter(Boolean);
     transition: transform 150ms var(--ease-default);
   }
 
+  .chapter-overview__card a:focus-visible .chapter-overview__link { background-size: 100% 1px; }
   .chapter-overview__card a:hover .chapter-overview__link {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .chapter-overview__card a:hover .chapter-overview__thumbnail {

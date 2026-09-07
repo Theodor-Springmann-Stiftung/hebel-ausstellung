@@ -227,8 +227,7 @@ const details = [
 
   .object-detail__metadata :global(a) {
     color: inherit;
-    text-decoration-line: underline;
-    transition: none;
+    text-decoration-line: underline; text-decoration-color: var(--link-underline-color, currentColor);
   }
 
   .object-detail__metadata :global(a:hover) {
@@ -241,11 +240,11 @@ const details = [
     gap: 0.25em;
     border-bottom: 1px solid transparent;
     line-height: var(--text-body--line-height);
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   .object-detail__return-link:hover {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .object-detail__return-link-arrow {

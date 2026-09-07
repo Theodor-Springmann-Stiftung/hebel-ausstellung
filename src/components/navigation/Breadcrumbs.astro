@@ -58,11 +58,17 @@ const stripInlineMarkdown = (value: string) =>
     line-height: var(--text-small--line-height);
   }
 
-  .breadcrumbs__link:not(.breadcrumbs__link--current):hover {
-    @apply underline;
-
-    opacity: 0.8;
+  a.breadcrumbs__link {
+    text-decoration: none;
+    @apply progressive-underline;
     text-underline-offset: 0.16em;
+
+  }
+
+  a.breadcrumbs__link:hover,
+  a.breadcrumbs__link:focus-visible {
+    background-size: 100% 1px;
+    opacity: 0.8;
   }
 
   .breadcrumbs__link--current {
@@ -89,6 +95,11 @@ const stripInlineMarkdown = (value: string) =>
   @media (min-width: 1440px) {
     .breadcrumbs__list {
       padding-inline: var(--spacing-80);
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .breadcrumbs__link {
+      transition: none;
     }
   }
 </style>

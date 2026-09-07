@@ -526,7 +526,7 @@ const defaultHiddenColumns = new Set([
 
   table :global(a) {
     color: inherit;
-    text-decoration: underline;
+    text-decoration: underline; text-decoration-color: var(--link-underline-color, currentColor);
     text-underline-offset: 0.15em;
   }
 
@@ -626,13 +626,13 @@ const defaultHiddenColumns = new Set([
 
   .object-cell a {
     color: inherit;
-    text-decoration: underline;
+    text-decoration: underline; text-decoration-color: var(--link-underline-color, currentColor);
     text-underline-offset: 0.15em;
   }
 
   .object-cell a:hover {
     color: var(--color-link);
-    text-decoration: underline;
+    text-decoration: underline; text-decoration-color: var(--link-underline-color, currentColor);
     text-underline-offset: 0.15em;
   }
 
@@ -756,7 +756,7 @@ const defaultHiddenColumns = new Set([
 
   .cell-list a {
     color: var(--color-link);
-    text-decoration: underline;
+    text-decoration: underline; text-decoration-color: var(--link-underline-color, currentColor);
     text-underline-offset: 0.15em;
   }
 

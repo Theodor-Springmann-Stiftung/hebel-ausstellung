@@ -105,11 +105,11 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
   .about-hero__caption { padding: var(--spacing-20); }
   .about-hero__caption-inner { @apply flex flex-col font-sans; gap: var(--spacing-10, 10px); }
   .about-hero__caption-inner p { font-size: var(--text-caption); line-height: 1; }
-  .about-hero__gallery-link { color: inherit; text-decoration-line: underline; }
+  .about-hero__gallery-link { color: inherit; text-decoration-line: underline; text-decoration-color: var(--link-underline-color, currentColor); }
   .about-hero__gallery-link:hover { opacity: 0.8; }
-  .about-hero__object-link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; transition: border-color 150ms var(--ease-default); }
+  .about-hero__object-link { display: inline-flex; width: fit-content; margin-top: var(--spacing-8); gap: 0.25em; border-bottom: 1px solid transparent; color: var(--color-link); font-family: var(--font-sans); font-size: var(--text-small); line-height: var(--text-small--line-height); text-decoration: none; @apply progressive-underline; }
   .about-hero__object-link-arrow { display: inline-block; transition: transform 150ms var(--ease-default); }
-  .about-hero__object-link:hover { border-bottom-color: currentColor; }
+  .about-hero__object-link:hover { background-size: 100% 1px; }
   .about-hero__object-link:hover .about-hero__object-link-arrow { transform: translateX(3px); }
   .page-section { width: calc(100% - var(--spacing-40)); margin-inline: auto; padding-block: var(--spacing-20); }
   .about-intro { padding: 48px var(--spacing-20); }
@@ -122,8 +122,8 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
   .about-section--first { padding-block-start: var(--spacing-64); }
   .about-section h2 { font-family: var(--font-display); font-size: var(--text-h2); font-weight: 400; line-height: var(--text-h2--line-height); }
   .about-section > p, .about-section__link { font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
-  .about-section__link { @apply text-link no-underline; margin-top: var(--spacing-20); }
-  .about-section__link:hover { @apply underline; opacity: 0.8; }
+  .about-section__link { @apply text-link; @apply progressive-underline; margin-top: var(--spacing-20); }
+  .about-section__link:hover, .about-section__link:focus-visible { background-size: 100% 1px; opacity: 0.8; }
   .about-divider { width: calc(100% - var(--spacing-20) * 2); height: 0; margin: var(--spacing-40) auto; border: 0; border-top: .5px solid var(--color-ink); }
   .about-supporters { gap: var(--spacing-20); }
   .about-supporters__list { margin: 0; padding-inline-start: 1.25em; list-style-type: disc; font-family: var(--font-sans); font-size: var(--text-lead); font-weight: 400; line-height: var(--text-lead--line-height); }
@@ -136,7 +136,7 @@ const description = "Über die Ausstellung – Virtuelle Ausstellung: Johann Pet
   .about-credits__list div { @apply flex flex-col; gap: var(--spacing-4); }
   .about-credits__list dt { @apply text-text-secondary; font-family: var(--font-sans); font-size: var(--text-small); font-weight: 400; line-height: var(--text-small--line-height); }
   .about-credits__list dd { margin: 0; font-family: var(--font-sans); font-size: var(--text-body-medium); font-weight: 400; line-height: var(--text-body-medium--line-height); }
-  .about-credits__list a { color: inherit; text-decoration-line: underline; }
+  .about-credits__list a { color: inherit; text-decoration-line: underline; text-decoration-color: var(--link-underline-color, currentColor); }
   .about-credits__list a:hover { opacity: 0.8; }
 
   @media (min-width: 768px) {

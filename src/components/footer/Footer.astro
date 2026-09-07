@@ -243,9 +243,13 @@ const footerTitleParts = site.title.split(" der ");
     line-height: var(--text-body--line-height);
   }
 
-  .site-footer__address a:hover {
-    @apply underline;
+  .site-footer__address a {
+    @apply progressive-underline;
+  }
 
+  .site-footer__address a:hover,
+  .site-footer__address a:focus-visible {
+    background-size: 100% 1px;
     opacity: 0.8;
   }
 

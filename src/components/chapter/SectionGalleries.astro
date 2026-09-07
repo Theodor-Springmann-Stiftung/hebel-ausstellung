@@ -234,8 +234,7 @@ const galleries = await Promise.all(
 
   .section-gallery__body :global(a) {
     color: inherit;
-    text-decoration-line: underline;
-    transition: none;
+    text-decoration-line: underline; text-decoration-color: var(--link-underline-color, currentColor);
   }
 
   .section-gallery__body :global(a:hover) {

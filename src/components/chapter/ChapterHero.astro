@@ -120,11 +120,11 @@ const objectUrl = object ? objectHref(object.data.slug, {
     color: var(--chapter-object-link-color, var(--color-link));
     font-size: var(--text-small);
     line-height: var(--text-small--line-height);
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   .chapter-hero__object-link:hover {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   .chapter-hero__object-link-arrow {

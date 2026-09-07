@@ -332,6 +332,13 @@ html[data-contrast="high"] .subchapter-page {
     color: var(--color-link);
     text-decoration-thickness: 0.08em;
     text-underline-offset: 0.16em;
+    text-decoration-color: var(--link-underline-color, currentColor);
+    transition: text-decoration-color 150ms ease, opacity 150ms ease, border-color 150ms ease;
+  }
+
+  a:hover,
+  a:focus-visible {
+    --link-underline-color: color-mix(in srgb, currentColor 55%, transparent);
   }
 
   [data-footnote-ref] {
@@ -895,13 +902,17 @@ html[data-contrast="high"] .subchapter-page {
 
   .text-link,
   .link-arrow,
-  .link-arrow-left,
+  .link-arrow-left {
+    @apply progressive-underline;
+  }
+
   .nav-link {
-    text-decoration-line: none;
+    text-decoration: none;
   }
 
   .link-underline {
     text-decoration-line: underline;
+    text-decoration-color: var(--link-underline-color, currentColor);
   }
 
   .link-arrow,
@@ -925,12 +936,16 @@ html[data-contrast="high"] .subchapter-page {
     content: "←";
   }
 
+  .text-link:focus-visible,
+  .link-arrow:focus-visible,
+  .link-arrow-left:focus-visible,
+  .nav-link:focus-visible,
   .text-link:hover,
   .link-arrow:hover,
   .link-arrow-left:hover,
   .nav-link:hover {
     opacity: 0.8;
-    text-decoration-line: underline;
+    background-size: 100% 1px;
   }
 
   .link-arrow:hover::after {
@@ -1014,5 +1029,29 @@ html[data-contrast="high"] .subchapter-page {
       grid-template-columns: repeat(12, minmax(0, 1fr));
       column-gap: var(--spacing-20);
     }
+  }
+}
+
+/* Keep every link effect immediate when reduced motion is requested,
+   including component-scoped border and underline transitions. */
+@media (prefers-reduced-motion: reduce) {
+  a, a::before, a::after,
+  .text-link, .link-arrow, .link-arrow-left, .link-underline, .nav-link,
+  .chapter-card__link, .chapter-overview__link {
+    transition-duration: 0s !important;
+  }
+}
+
+/* Background sizing draws hover-only underlines without moving text. */
+@utility progressive-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 0% 1px;
+  text-decoration: none;
+  transition: background-size 150ms ease-out, opacity 150ms ease;
+
+  &:focus-visible {
+    background-size: 100% 1px;
   }
 }

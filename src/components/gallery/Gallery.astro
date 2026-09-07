@@ -336,25 +336,21 @@ const nextSlide = slides[1] ?? firstSlide;
     container.replaceChildren(...[pagination, captionList].filter(Boolean));
   };
 
-  const renderImages = (
-    container: HTMLElement,
-    images: Array<{ src: string; srcset: string; sizes: string; alt: string }>,
-  ) => {
-    container.dataset.imageCount = String(images.length);
-    const elements = images.map((image) => {
-      const element = document.createElement("img");
-      element.className = "gallery__image";
-      element.srcset = image.srcset;
-      element.sizes = image.sizes;
-      element.src = image.src;
-      element.alt = image.alt;
-      element.draggable = false;
-      element.loading = "lazy";
-      element.decoding = "async";
-      return element;
-    });
+  type SlideImage = { src: string; srcset: string; sizes: string; alt: string; peekSrc: string };
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    container.replaceChildren(...elements);
+  const createImage = (image: SlideImage) => {
+    const element = new Image();
+    element.className = "gallery__image";
+    element.alt = image.alt;
+    element.draggable = false;
+    element.loading = "eager";
+    element.decoding = "async";
+    // Set sizes first so preloading selects the same responsive source as display.
+    element.sizes = image.sizes;
+    element.srcset = image.srcset;
+    element.src = image.src;
+    return element;
   };
 
   document.querySelectorAll<HTMLElement>("[data-gallery]").forEach((gallery) => {
@@ -375,15 +371,78 @@ const nextSlide = slides[1] ?? firstSlide;
     const nextPeek = gallery.querySelector<HTMLElement>("[data-gallery-peek-next]");
     const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"));
     let activeIndex = 0;
-    let pointerStart: { id: number; x: number; y: number } | undefined;
+    let requestedIndex = 0;
+    let finishTransition = () => {};
+    const preparedSlides = new Map<number, HTMLImageElement[]>();
+    const pendingSlides = new Map<number, Promise<HTMLImageElement[] | undefined>>();
 
-    const setSlide = (nextIndex: number) => {
-      activeIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+    const preloadSlide = (index: number): Promise<HTMLImageElement[] | undefined> => {
+      if (!slides[index]) return Promise.resolve(undefined);
+      const pending = pendingSlides.get(index);
+      if (pending) return pending;
+      const elements = preparedSlides.get(index) ?? slides[index].images.map(createImage);
+      preparedSlides.set(index, elements);
+      const ready = Promise.all(elements.map((image: HTMLImageElement) => image.decode()))
+        .then(() => elements)
+        .catch(() => {
+          // A failed speculative load must be retryable on the next interaction.
+          preparedSlides.delete(index);
+          return undefined;
+        })
+        .finally(() => pendingSlides.delete(index));
+      pendingSlides.set(index, ready);
+      return ready;
+    };
+
+    type Swipe = { id: number; x: number; y: number; width: number; offset: number; horizontal: boolean; preview?: HTMLElement; target?: number };
+    let pointerStart: Swipe | undefined;
+
+    const setSlide = (nextIndex: number, swipe?: { offset: number; width: number }) => {
+      requestedIndex = Math.min(Math.max(nextIndex, 0), slides.length - 1);
+      const targetIndex = requestedIndex;
+      if (targetIndex === activeIndex) return;
+
+      // Preload opportunistically, but never delay navigation for image readiness.
+      void preloadSlide(targetIndex);
+      const elements = preparedSlides.get(targetIndex)!;
+
+      finishTransition();
+      const outgoing = images && !reducedMotion.matches ? images.cloneNode(true) as HTMLElement : undefined;
+      const direction = targetIndex > activeIndex ? 1 : -1;
+      activeIndex = targetIndex;
       const slide = slides[activeIndex];
       const previousSlide = slides[activeIndex - 1];
       const nextSlide = slides[activeIndex + 1];
 
-      if (images) renderImages(images, slide.images);
+      if (images) {
+        images.dataset.imageCount = String(elements.length);
+        images.replaceChildren(...elements);
+        if (outgoing) {
+          outgoing.removeAttribute("data-gallery-images");
+          outgoing.setAttribute("aria-hidden", "true");
+          Object.assign(outgoing.style, { position: "absolute", inset: "0", pointerEvents: "none" });
+          images.after(outgoing);
+          const options = { duration: swipe ? 100 : 60, easing: "ease-out" };
+          const slideOut = outgoing.animate([
+            { transform: `translateX(${swipe?.offset ?? 0}px)` },
+            { transform: `translateX(${-direction * 100}%)` },
+          ], options);
+          const slideIn = images.animate([
+            {
+              transform: swipe ? `translateX(${direction * swipe.width + swipe.offset}px)` : `translateX(${direction * 100}%)`,
+              opacity: swipe ? Math.min(Math.abs(swipe.offset) / swipe.width, 1) : 1,
+            },
+            { transform: "translateX(0)", opacity: 1 },
+          ], options);
+          const cleanup = () => {
+            slideOut.cancel();
+            slideIn.cancel();
+            outgoing.remove();
+          };
+          finishTransition = cleanup;
+          void Promise.all([slideOut.finished, slideIn.finished]).then(cleanup, cleanup);
+        }
+      }
 
       if (previousImage && previousSlide) previousImage.src = previousSlide.images[0].peekSrc;
       if (nextImage && nextSlide) nextImage.src = nextSlide.images[0].peekSrc;
@@ -400,33 +459,126 @@ const nextSlide = slides[1] ?? firstSlide;
       });
     };
 
-    gallery.querySelector("[data-gallery-prev]")?.addEventListener("click", () => setSlide(activeIndex - 1));
-    gallery.querySelector("[data-gallery-next]")?.addEventListener("click", () => setSlide(activeIndex + 1));
+    previousButton?.addEventListener("click", () => void setSlide(requestedIndex - 1));
+    nextButton?.addEventListener("click", () => void setSlide(requestedIndex + 1));
+    const preloadOnIntent = (control: HTMLElement | null, index: () => number) => {
+      ["pointerenter", "focus", "pointerdown"].forEach((event) => {
+        control?.addEventListener(event, () => void preloadSlide(index()));
+      });
+    };
+    preloadOnIntent(previousButton, () => requestedIndex - 1);
+    preloadOnIntent(nextButton, () => requestedIndex + 1);
+
+    const clearSwipe = () => {
+      pointerStart?.preview?.remove();
+      if (images) images.style.transform = "";
+      const pointerId = pointerStart?.id;
+      pointerStart = undefined;
+      if (pointerId !== undefined && stage?.hasPointerCapture(pointerId)) stage.releasePointerCapture(pointerId);
+    };
+
+    const cancelSwipe = () => {
+      const offset = pointerStart?.offset ?? 0;
+      clearSwipe();
+      if (images && offset && !reducedMotion.matches) {
+        const animation = images.animate([
+          { transform: `translateX(${offset}px)` },
+          { transform: "translateX(0)" },
+        ], { duration: 100, easing: "ease-out" });
+        finishTransition = () => animation.cancel();
+      }
+    };
 
     stage?.addEventListener("pointerdown", (event) => {
-      if ((event.target as HTMLElement).closest("button, a")) return;
-      pointerStart = { id: event.pointerId, x: event.clientX, y: event.clientY };
+      if (!event.isPrimary || event.button !== 0 || (event.target as HTMLElement).closest("button, a")) return;
+      finishTransition();
+      clearSwipe();
+      // Warm both neighbours before the horizontal direction is known.
+      void preloadSlide(activeIndex - 1);
+      void preloadSlide(activeIndex + 1);
+      pointerStart = {
+        id: event.pointerId, x: event.clientX, y: event.clientY,
+        width: images?.getBoundingClientRect().width || 1, offset: 0, horizontal: false,
+      };
+      stage.setPointerCapture(event.pointerId);
+    });
+
+    stage?.addEventListener("pointermove", (event) => {
+      const swipe = pointerStart;
+      if (!swipe || swipe.id !== event.pointerId || !images) return;
+      const deltaX = event.clientX - swipe.x;
+      const deltaY = event.clientY - swipe.y;
+      if (!swipe.horizontal) {
+        if (Math.max(Math.abs(deltaX), Math.abs(deltaY)) < 8) return;
+        if (Math.abs(deltaY) >= Math.abs(deltaX)) {
+          clearSwipe();
+          return;
+        }
+        swipe.horizontal = true;
+      }
+      const direction = deltaX < 0 ? 1 : -1;
+      const target = activeIndex + direction;
+      const hasNeighbour = Boolean(slides[target]);
+      swipe.offset = Math.max(-swipe.width, Math.min(swipe.width, deltaX)) * (hasNeighbour ? 1 : 0.2);
+      if (reducedMotion.matches) return;
+
+      if (swipe.target !== target) {
+        swipe.preview?.remove();
+        swipe.preview = undefined;
+        swipe.target = target;
+        if (hasNeighbour) {
+          void preloadSlide(target);
+          const preview = images.cloneNode(false) as HTMLElement;
+          preview.removeAttribute("data-gallery-images");
+          preview.setAttribute("aria-hidden", "true");
+          preview.dataset.imageCount = String(slides[target].images.length);
+          preview.replaceChildren(...preparedSlides.get(target)!.map(image => image.cloneNode(true)));
+          Object.assign(preview.style, { position: "absolute", inset: "0", pointerEvents: "none" });
+          images.after(preview);
+          swipe.preview = preview;
+        }
+      }
+      images.style.transform = `translateX(${swipe.offset}px)`;
+      if (swipe.preview) {
+        swipe.preview.style.transform = `translateX(${direction * swipe.width + swipe.offset}px)`;
+        swipe.preview.style.opacity = String(Math.min(Math.abs(swipe.offset) / swipe.width, 1));
+      }
     });
 
     stage?.addEventListener("pointerup", (event) => {
-      if (!pointerStart || pointerStart.id !== event.pointerId) return;
-
-      const deltaX = event.clientX - pointerStart.x;
-      const deltaY = event.clientY - pointerStart.y;
-      pointerStart = undefined;
-
-      if (Math.abs(deltaX) < 40 || Math.abs(deltaX) <= Math.abs(deltaY)) return;
-      if (deltaX > 0 && activeIndex === 0) return;
-      if (deltaX < 0 && activeIndex === slides.length - 1) return;
-      setSlide(deltaX < 0 ? activeIndex + 1 : activeIndex - 1);
+      const swipe = pointerStart;
+      if (!swipe || swipe.id !== event.pointerId) return;
+      const deltaX = event.clientX - swipe.x;
+      const deltaY = event.clientY - swipe.y;
+      const target = activeIndex + (deltaX < 0 ? 1 : -1);
+      const threshold = Math.min(60, swipe.width * 0.18);
+      if (Math.abs(deltaX) < threshold || Math.abs(deltaX) <= Math.abs(deltaY) || !slides[target]) {
+        cancelSwipe();
+        return;
+      }
+      clearSwipe();
+      setSlide(target, { offset: swipe.offset, width: swipe.width });
     });
 
-    stage?.addEventListener("pointercancel", () => {
-      pointerStart = undefined;
+    stage?.addEventListener("pointercancel", cancelSwipe);
+    stage?.addEventListener("lostpointercapture", () => {
+      if (pointerStart) cancelSwipe();
+    });
+    window.addEventListener("resize", () => {
+      if (pointerStart) cancelSwipe();
     });
 
     dots.forEach((dot) => {
-      dot.addEventListener("click", () => setSlide(Number(dot.dataset.galleryDot ?? 0)));
+      const index = () => Number(dot.dataset.galleryDot ?? 0);
+      preloadOnIntent(dot, index);
+      dot.addEventListener("click", () => void setSlide(index()));
+    });
+
+    reducedMotion.addEventListener("change", () => {
+      if (reducedMotion.matches) {
+        clearSwipe();
+        finishTransition();
+      }
     });
   });
 </script>
@@ -455,11 +607,11 @@ const nextSlide = slides[1] ?? firstSlide;
     @apply relative flex w-full items-center;
 
     padding-inline: var(--spacing-20);
-    touch-action: pan-y;
+    touch-action: pan-y pinch-zoom;
   }
 
   .gallery__frame {
-    @apply m-0 w-full;
+    @apply relative m-0 w-full overflow-hidden;
   }
 
   .gallery__mat {
@@ -578,8 +730,7 @@ const nextSlide = slides[1] ?? firstSlide;
   .gallery__caption-section :global(a:not(.gallery__object-link)) {
     border-bottom: 0;
     color: inherit;
-    text-decoration-line: underline;
-    transition: none;
+    text-decoration-line: underline; text-decoration-color: var(--link-underline-color, currentColor);
   }
 
   .gallery__caption-section :global(a:not(.gallery__object-link):hover) {
@@ -626,7 +777,7 @@ const nextSlide = slides[1] ?? firstSlide;
     color: var(--chapter-object-link-color, var(--color-link));
     font-size: var(--text-small);
     line-height: var(--text-small--line-height);
-    transition: border-color 150ms var(--ease-default);
+    @apply progressive-underline;
   }
 
   :global(.gallery__object-link-arrow) {
@@ -636,7 +787,7 @@ const nextSlide = slides[1] ?? firstSlide;
   }
 
   :global(.gallery__object-link:hover) {
-    border-bottom-color: currentColor;
+    background-size: 100% 1px;
   }
 
   :global(.gallery__object-link:hover .gallery__object-link-arrow) {
