@@ -497,16 +497,6 @@ html[data-contrast="high"] .subchapter-page {
     content: "";
   }
 
-  :is(
-    .section-gallery__body > blockquote,
-    .chapter-overview__text > blockquote
-  ):has(.quote-attribution--koelle) > p:last-child {
-    color: var(--color-text-primary);
-    font-family: var(--font-display);
-    font-size: var(--text-h5);
-    line-height: var(--text-h5--line-height);
-    letter-spacing: var(--text-h5--letter-spacing);
-  }
 
   :is(
     .section-gallery__body > blockquote,
@@ -557,24 +547,7 @@ html[data-contrast="high"] .subchapter-page {
       flex-basis: var(--spacing-40);
     }
 
-    :is(
-      .section-gallery__body > blockquote,
-      .chapter-overview__text > blockquote
-    ):has(.quote-attribution--koelle) > p:last-child {
-      min-height: var(--spacing-48);
-      font-size: 1.25rem;
-    }
 
-    :is(
-      .section-gallery__body > blockquote,
-      .chapter-overview__text > blockquote
-    ):has(.quote-attribution--koelle) > p:last-child::before {
-      width: var(--spacing-48);
-      height: var(--spacing-48);
-      flex-basis: var(--spacing-48);
-      background-position: center -2.7px;
-      background-size: 110.5% auto;
-    }
   }
 
   @media (min-width: 1440px) {
@@ -606,12 +579,6 @@ html[data-contrast="high"] .subchapter-page {
       flex-basis: var(--spacing-48);
     }
 
-    :is(
-      .section-gallery__body > blockquote,
-      .chapter-overview__text > blockquote
-    ):has(.quote-attribution--koelle) > p:last-child {
-      font-size: var(--text-h5);
-    }
   }
 }
 
