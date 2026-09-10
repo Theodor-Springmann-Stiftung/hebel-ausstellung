@@ -238,6 +238,8 @@ const defaultHiddenColumns = new Set([
 </Layout>
 
 <script>
+  import { normalizeSearchText } from "../../lib/search";
+
   const defaultHiddenColumnKeys = [
     "imageData",
     "systemData",
@@ -296,12 +298,12 @@ const defaultHiddenColumns = new Set([
   const count = document.querySelector<HTMLElement>("[data-object-count]");
 
   const applyFilters = () => {
-    const query = filter?.value.trim().toLocaleLowerCase("de") ?? "";
+    const query = normalizeSearchText(filter?.value.trim() ?? "");
     const selectedPage = pageFilter?.value ?? "";
     let visibleRows = 0;
 
     for (const row of rows) {
-      const matchesQuery = !query || (row.textContent ?? "").toLocaleLowerCase("de").includes(query);
+      const matchesQuery = !query || normalizeSearchText(row.textContent ?? "").includes(query);
       const matchesPage = !selectedPage || (row.dataset.pageFilters ?? "").split(" ").includes(selectedPage);
       const visible = matchesQuery && matchesPage;
       row.hidden = !visible;

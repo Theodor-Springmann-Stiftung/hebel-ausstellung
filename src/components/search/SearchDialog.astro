@@ -83,7 +83,7 @@
   };
 
   const findMatchIndex = (text: string, terms: string[]) => {
-    for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
+    for (const match of text.matchAll(/[\p{L}\p{N}][\p{L}\p{N}\p{M}]*/gu)) {
       const word = normalizeSearchText(match[0]);
       if (terms.some((term) => word.startsWith(term) || word.includes(term))) return match.index ?? 0;
     }
@@ -116,7 +116,7 @@
   const appendHighlightedText = (element: HTMLElement, text: string, terms: string[]) => {
     let lastIndex = 0;
 
-    for (const match of text.matchAll(/[\p{L}\p{N}]+/gu)) {
+    for (const match of text.matchAll(/[\p{L}\p{N}][\p{L}\p{N}\p{M}]*/gu)) {
       const word = normalizeSearchText(match[0]);
       if (!terms.some((term) => word.startsWith(term) || word.includes(term))) continue;
 

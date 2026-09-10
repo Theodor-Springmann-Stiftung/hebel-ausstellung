@@ -14,8 +14,4 @@ export type SearchRecord = {
 };
 
 export const normalizeSearchText = (value: string) =>
-  value
-    .toLocaleLowerCase("de-DE")
-    .replace(/ß/g, "ss")
-    .normalize("NFKD")
-    .replace(/\p{M}/gu, "");
+  value.toLocaleLowerCase("de-DE").normalize("NFC");
