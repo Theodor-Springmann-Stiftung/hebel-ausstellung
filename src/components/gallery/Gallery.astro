@@ -371,7 +371,6 @@ const nextSlide = slides[1] ?? firstSlide;
     const dots = Array.from(gallery.querySelectorAll<HTMLButtonElement>("[data-gallery-dot]"));
     let activeIndex = 0;
     const mobileViewport = window.matchMedia("(max-width: 767px)");
-    let finishTransition = () => {};
     const preparedSlides = new Map<number, HTMLImageElement[]>();
     const pendingSlides = new Map<number, Promise<HTMLImageElement[] | undefined>>();
 
@@ -463,34 +462,13 @@ const nextSlide = slides[1] ?? firstSlide;
       }
       if (target === activeIndex) return;
       void preloadSlide(target);
-      finishTransition();
-      const outgoing = !reducedMotion.matches ? images.cloneNode(true) as HTMLElement : undefined;
-      const direction = target > activeIndex ? 1 : -1;
       activeIndex = target;
       images.dataset.imageCount = String(slides[target].images.length);
       images.replaceChildren(...preparedSlides.get(target)!);
-      if (outgoing) {
-        outgoing.removeAttribute("data-gallery-images");
-        outgoing.setAttribute("aria-hidden", "true");
-        Object.assign(outgoing.style, { position: "absolute", inset: "0", pointerEvents: "none" });
-        images.after(outgoing);
-        const options = { duration: 60, easing: "ease-out" };
-        const animations = [
-          outgoing.animate([{ transform: "translateX(0)" }, { transform: `translateX(${-direction * 100}%)` }], options),
-          images.animate([{ transform: `translateX(${direction * 100}%)` }, { transform: "translateX(0)" }], options),
-        ];
-        const cleanup = () => {
-          animations.forEach(animation => animation.cancel());
-          outgoing.remove();
-        };
-        finishTransition = cleanup;
-        void Promise.all(animations.map(animation => animation.finished)).then(cleanup, cleanup);
-      }
       updateControls();
     };
 
     const syncViewport = () => {
-      finishTransition();
       if (mobileViewport.matches) {
         prepareMobileSlide(activeIndex);
         mobileTrack.scrollTo({ left: activeIndex * mobileTrack.clientWidth, behavior: "instant" });
@@ -536,7 +514,6 @@ const nextSlide = slides[1] ?? firstSlide;
     });
     mobileViewport.addEventListener("change", syncViewport);
     reducedMotion.addEventListener("change", () => {
-      if (reducedMotion.matches) finishTransition();
       updateMobileFade();
     });
     syncViewport();
