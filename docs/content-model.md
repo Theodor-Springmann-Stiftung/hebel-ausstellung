@@ -63,7 +63,7 @@ Das angezeigte Bild bleibt `assets/Heroes/1.webp`. Fehlt der Alternativtext des 
 
 ## Galerien
 
-Eine Galerie besteht aus `titel`, optional `bildabstand` (`normal` oder `weit`, Standard `normal`), mindestens einer `folie` in der Liste `folien` und einem nicht leeren Markdown-Body. Jede Folie enthält mindestens eine Bildreferenz in `bilder`.
+Eine Galerie besteht aus `titel`, optional `bildabstand` (`normal` oder `weit`, Standard `normal`), mindestens einem Eintrag in `folien` und einem nicht leeren Markdown-Body. Jede Folie enthält mindestens eine Bildreferenz in `bilder`.
 
 ```md
 ---
