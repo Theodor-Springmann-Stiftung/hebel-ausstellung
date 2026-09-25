@@ -4,13 +4,13 @@ folien:
   - bilder:
       - "23_04_1_girardet_tss"
     beschriftungen:
-      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
+      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821) mit Originalumschlag"
         objekt: "girardet-hebels-allemannische-gedichte"
         objektBild: "2.3_00_Girardet1_TSS"
   - bilder:
       - "23_04_2_girardet_tss"
     beschriftungen:
-      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
+      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821) mit Originalumschlag"
         objekt: "girardet-hebels-allemannische-gedichte"
         objektBild: "2.3_04_2_Girardet_TSS"
 ---
