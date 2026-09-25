@@ -12,7 +12,7 @@ unterkapitel:
   - "2-2-allemannische-gedichte-im-bild"
   - "2-3-uebersetzungen"
   - "2-4-raubdrucke"
-heroBeschriftung: "Das »luftige[] rothe[] Tschöplein [= Jäckchen]«: Originalumschlag der Erstausgabe der *Allemannischen Gedichte*, von dem nur ein erhaltenes Exemplar bekannt ist"
+heroBeschriftung: "Das »luftige rothe Tschöplein [= Jäckchen]«: Originalumschlag der Erstausgabe der *Allemannischen Gedichte*, von dem nur sehr wenige Exemplare erhalten sind."
 heroNachweis: "Hebel-Archiv Heidelberg"
 heroObject: "allemannische-gedichte-umschlag"
 ---
