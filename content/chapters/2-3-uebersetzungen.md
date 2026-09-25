@@ -10,7 +10,7 @@ galerien:
   - "2-3-02-christian-heinrich-wolke"
   - "2-3-03-johann-george-scheffner"
   - "2-3-04-allemannische-gedichte-in-dresden"
-heroBeschriftung: "Hebels *Allemannische Gedichte* von Friedrich Girardet (1821)"
+heroBeschriftung: "Hebels *Allemannische Gedichte* (1821), übersetzt von Friedrich Girardet, mit nachträglichem Schmuckeinband"
 heroObject: "girardet-hebels-allemannische-gedichte"
 heroObjektBild: "2.3_00_Girardet1_TSS"
 ---
