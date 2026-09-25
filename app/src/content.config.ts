@@ -53,7 +53,7 @@ const objectImageAssociation = z.object({
 const contentFileId = ({ entry }: { entry: string }) => entry.replace(/\.[^.]+$/, "");
 
 const chapters = defineCollection({
-  loader: glob({ base: "./src/content/chapters", pattern: "**/*.md" }),
+  loader: glob({ base: "../content/chapters", pattern: "**/*.md" }),
   schema: z
     .object({
       ...sectionFields,
@@ -80,7 +80,7 @@ const chapters = defineCollection({
 });
 
 const subchapters = defineCollection({
-  loader: glob({ base: "./src/content/subchapters", pattern: "**/*.md" }),
+  loader: glob({ base: "../content/subchapters", pattern: "**/*.md" }),
   schema: z.object({
     ...sectionFields,
     hero: z.string().regex(/\.webp$/i, { message: "Hero must be a WebP filename" }),
@@ -91,7 +91,7 @@ const subchapters = defineCollection({
 });
 
 const galleries = defineCollection({
-  loader: glob({ base: "./src/content/galleries", pattern: "**/*.md" }),
+  loader: glob({ base: "../content/galleries", pattern: "**/*.md" }),
   schema: z.object({
     titel: requiredMarkdown,
     beschriftung: optionalMarkdown,
@@ -105,10 +105,10 @@ const galleries = defineCollection({
 });
 
 const images = defineCollection({
-  loader: glob({ base: "./src/content/images", pattern: "**/*.md" }),
+  loader: glob({ base: "../content/images", pattern: "**/*.md" }),
   schema: z.object({
     dateiname: z.string().regex(/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i, {
-      message: "Image dateiname must be a complete path relative to src/assets",
+      message: "Image dateiname must be a complete path relative to assets/",
     }).optional(),
     altText: optionalMarkdown,
     beschriftung: optionalMarkdown,
@@ -117,7 +117,7 @@ const images = defineCollection({
 });
 
 const objects = defineCollection({
-  loader: glob({ base: "./src/content/objects", pattern: "**/*.md", generateId: contentFileId }),
+  loader: glob({ base: "../content/objects", pattern: "**/*.md", generateId: contentFileId }),
   schema: z
     .object({
       slug: objectSlug,

@@ -28,6 +28,7 @@ jobs:
       - name: Build and upload site
         uses: withastro/action@v6
         with:
+          path: ./app
           node-version: 24
           # Restore optimized images from the previous build; Astro regenerates
           # variants whose source content or transform options have changed.

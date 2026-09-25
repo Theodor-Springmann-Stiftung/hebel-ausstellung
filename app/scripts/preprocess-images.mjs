@@ -25,9 +25,9 @@ function printUsage() {
 Converts supported images recursively to source-controlled lossless WebP masters.
 
 Examples:
-  npm run images:preprocess -- import/images src/assets/objects
-  npm run images:preprocess -- import/images src/assets/objects --max-edge=5000
-  npm run images:preprocess -- import/Hebel_Ausstellung src/assets/objects --flat
+  npm run images:preprocess -- import/images ../assets/objects
+  npm run images:preprocess -- import/images ../assets/objects --max-edge=5000
+  npm run images:preprocess -- import/Hebel_Ausstellung ../assets/objects --flat
 
 Behavior:
   - Preserves the input folder structure in the output folder by default.

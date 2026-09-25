@@ -491,7 +491,7 @@ html[data-contrast="high"] .subchapter-page {
     flex: 0 0 var(--spacing-56);
     border: 0.5px solid var(--color-ink);
     border-radius: 50%;
-    background-image: url("../assets/Meta/Hebel_Cite.png");
+    background-image: url("../../../assets/Meta/Hebel_Cite.png");
     background-position: 68% 50%;
     background-size: auto 110%;
     content: "";
@@ -502,7 +502,7 @@ html[data-contrast="high"] .subchapter-page {
     .section-gallery__body > blockquote,
     .chapter-overview__text > blockquote
   ):has(.quote-attribution--koelle) > p:last-child::before {
-    background-image: url("../assets/Meta/Koelle_Portraet.png");
+    background-image: url("../../../assets/Meta/Koelle_Portraet.png");
     background-position: center;
     background-size: cover;
   }

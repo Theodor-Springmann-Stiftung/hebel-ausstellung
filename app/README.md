@@ -6,22 +6,34 @@
 
 ## Project Structure
 
+The npm project lives in `app/`. Content and exhibition images are edited in the
+root-level `content/` and `assets/` folders.
+
 ```text
 /
-├── public/ -- Files copied into the destination at build time
-├── src
-│   ├── assets -- Asset files processed by astro
-│   ├── components -- Component files
-│   ├── layouts -- Main HTML layouts
-│   └── pages -- Subpage designs
-├── package.json -- nodejs package file
-└── astro.config.mjs -- Astro config & build script 
+├── content/ -- Editable Markdown: chapters, subchapters, galleries, images, objects
+├── assets/ -- Exhibition images: Bilder, Heroes, Meta, Thumbnails
+├── docs/ -- Content model and editorial documentation
+├── .github/ -- GitHub Pages deployment workflow
+└── app/ -- npm / Astro project
+    ├── public/ -- Static files copied at build time (fonts, favicon, etc.)
+    ├── src/ -- Components, layouts, pages, and content schema
+    ├── scripts/ -- Content validation and image tools
+    ├── package.json
+    └── astro.config.mjs
 ```
+
+Edit Markdown in `../content/` and replace or add images in `../assets/`.
+Image references inside Markdown stay relative to `assets/`, for example
+`Bilder/2-1/datei.webp`; do not add `../assets/` to these values.
+See [the content model](../docs/content-model.md) for fields and examples.
+Run `npm run content:validate` after editing, and `npm run dev` to preview changes.
+GitHub Pages builds from `app/` and reads both shared folders from the checkout.
 
 
 ## Commands
 
-All commands are run from the root of the project, from a terminal:
+Run all commands from `app/` (use `cd app` from the repository root):
 
 | Command                   | Action                                           |
 | :------------------------ | :----------------------------------------------- |

@@ -1,10 +1,11 @@
+import { fileURLToPath } from "node:url";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
-const rootDir = process.cwd();
-const contentDir = path.join(rootDir, "src", "content");
-const assetsDir = path.join(rootDir, "src", "assets");
+const rootDir = fileURLToPath(new URL("../../", import.meta.url));
+const contentDir = path.join(rootDir, "content");
+const assetsDir = path.join(rootDir, "assets");
 const errors = [];
 const warnings = [];
 const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
@@ -211,17 +212,17 @@ async function validateImages() {
     }
 
     if (fileName.includes("..") || path.isAbsolute(fileName)) {
-      errors.push(`${relative(file)} fileName must be relative to src/assets`);
+      errors.push(`${relative(file)} fileName must be relative to assets`);
       continue;
     }
 
     if (!/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(fileName)) {
-      errors.push(`${relative(file)} dateiname must be a complete path relative to src/assets`);
+      errors.push(`${relative(file)} dateiname must be a complete path relative to assets`);
       continue;
     }
 
     if (!imageCatalog.resolve(fileName)) {
-      errors.push(`${relative(file)} references missing image asset: src/assets/${fileName}`);
+      errors.push(`${relative(file)} references missing image asset: assets/${fileName}`);
     }
   }
 }

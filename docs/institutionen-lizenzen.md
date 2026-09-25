@@ -1,8 +1,10 @@
 # Institutionen und allgemeiner Rechtestatus
 
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
 Stand: 29. August 2026
 
-Die Liste ist aus den `institution`- und `lizenz`-Feldern aller 109 Dateien in `src/content/objects` abgeleitet. Abweichende Schreibweisen und Abkürzungen derselben Institution sind zusammengeführt. Die Angaben beschreiben den allgemeinen Rechtestatus der in der Ausstellung verwendeten Objekte und Abbildungen; maßgeblich bleibt die Lizenzangabe des einzelnen Objekts in `src/content/objects` beziehungsweise `LICENSES.csv`. Bearbeitungsvermerke wie Ausschnitt, Freistellung oder Bildmontage sind hier nicht vollständig aufgeführt.
+Die Liste ist aus den `institution`- und `lizenz`-Feldern aller 109 Dateien in `content/objects` abgeleitet. Abweichende Schreibweisen und Abkürzungen derselben Institution sind zusammengeführt. Die Angaben beschreiben den allgemeinen Rechtestatus der in der Ausstellung verwendeten Objekte und Abbildungen; maßgeblich bleibt die Lizenzangabe des einzelnen Objekts in `content/objects` beziehungsweise `app/LICENSES.csv`. Bearbeitungsvermerke wie Ausschnitt, Freistellung oder Bildmontage sind hier nicht vollständig aufgeführt.
 
 | Institution oder Quelle | Objekte | Allgemeine Lizenz / allgemeiner Rechtestatus |
 |---|---:|---|

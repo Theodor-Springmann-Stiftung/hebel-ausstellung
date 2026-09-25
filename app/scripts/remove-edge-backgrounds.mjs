@@ -6,7 +6,7 @@ import process from "node:process";
 import sharp from "sharp";
 
 const SUPPORTED_EXTENSIONS = new Set([".jpeg", ".jpg", ".png", ".webp"]);
-const DEFAULT_INPUT = "src/assets/objects";
+const DEFAULT_INPUT = "../assets/objects";
 const ANALYSIS_MAX_EDGE = 384;
 
 function printUsage() {
@@ -25,7 +25,7 @@ Options:
 
 Examples:
   npm run images:remove-backgrounds
-  npm run images:remove-backgrounds -- src/assets/objects
+  npm run images:remove-backgrounds -- ../assets/objects
   npm run images:remove-backgrounds -- --apply --output=/tmp/objects-transparent
 `);
 }

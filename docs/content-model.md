@@ -1,6 +1,8 @@
 # Inhaltsmodell
 
-Dieses Dokument beschreibt die Astro-Sammlungen aus `src/content.config.ts`.
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
+Dieses Dokument beschreibt die Astro-Sammlungen aus `app/content.config.ts`.
 
 ## Kurzüberblick
 
@@ -36,7 +38,7 @@ Die folgenden Abschnitte beschreiben die Content-Sammlungen, aus denen die Ausst
 
 Ein Kapitel ist ein großer Ausstellungsabschnitt und enthält entweder Unterkapitel oder direkt Galerien.
 
-Pfad: `src/content/chapters/*.md`
+Pfad: `content/chapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
@@ -44,8 +46,8 @@ Pfad: `src/content/chapters/*.md`
 | `nummer` | String | ja | Sichtbare Kapitelnummer, zum Beispiel `"1"` oder `"2"`. |
 | `titel` | Markdown-String | ja | Sichtbarer Kapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `thumbnail` | String | ja | Dateiname eines WebP-Bildes in `src/assets/Thumbnails`. Das Bild wird in der Kapitelübersicht und auf der Startseite verwendet. |
-| `hero` | String | ja | Dateiname des vorbereiteten Kapitel-Heroes in `src/assets/Heroes`. |
+| `thumbnail` | String | ja | Dateiname eines WebP-Bildes in `assets/Thumbnails`. Das Bild wird in der Kapitelübersicht und auf der Startseite verwendet. |
+| `hero` | String | ja | Dateiname des vorbereiteten Kapitel-Heroes in `assets/Heroes`. |
 | `heroMetadata` | Bildreferenz | nein | Bilddatensatz des zugrunde liegenden Hero-Motivs für Alternativtext und Beschriftung. Über die Bildzuordnungen in `objects.bilder` kann daraus außerdem ein Objektlink ermittelt werden. |
 | `heroObject` | Referenz auf `objects` | nein | Explizites Ziel des Objektlinks am Hero. Hat Vorrang vor einem Objekt, das über `heroMetadata` und `objects.bilder` ermittelt wurde. |
 | `startseitenVariante` | Enum | ja | Darstellungsvariante auf der Startseite. Erlaubt sind `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` und `letter-writer`. |
@@ -107,15 +109,15 @@ Wenn es vom *Rheinländischen Hausfreund* im Jahrgang 1809 heißt, er gehe flei�
 
 Ein Unterkapitel ist ein Abschnitt innerhalb eines Kapitels und enthält direkt seine Galerien.
 
-Pfad: `src/content/subchapters/*.md`
+Pfad: `content/subchapters/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
 | `nummer` | String | ja | Sichtbare Unterkapitelnummer, zum Beispiel `"2.1"`. Der Wert wird unverändert als URL-Segment verwendet. |
 | `titel` | Markdown-String | ja | Sichtbarer Unterkapiteltitel. Unterstützt Inline-Markdown. |
 | `navTitel` | Markdown-String | ja | Titel für Navigationen und Menüs. Das Schema erlaubt Inline-Markdown, der Text sollte aber meist einfach bleiben. |
-| `thumbnail` | String | ja | Dateiname des vorbereiteten Unterkapitel-Thumbnails in `src/assets/Thumbnails`. |
-| `hero` | String | ja | Dateiname des vorbereiteten Unterkapitel-Heroes in `src/assets/Heroes`. |
+| `thumbnail` | String | ja | Dateiname des vorbereiteten Unterkapitel-Thumbnails in `assets/Thumbnails`. |
+| `hero` | String | ja | Dateiname des vorbereiteten Unterkapitel-Heroes in `assets/Heroes`. |
 | `heroMetadata` | Bildreferenz | nein | Bilddatensatz des zugrunde liegenden Hero-Motivs für Alternativtext und Beschriftung. Über die Bildzuordnungen in `objects.bilder` kann daraus außerdem ein Objektlink ermittelt werden. |
 | `heroObject` | Referenz auf `objects` | nein | Explizites Ziel des Objektlinks am Hero. Hat Vorrang vor einem Objekt, das über `heroMetadata` und `objects.bilder` ermittelt wurde. |
 | `galerien` | Array von Referenzen auf `galleries` | ja | Mindestens 1 Galerie. |
@@ -145,7 +147,7 @@ Anonym erschienen, begründeten sie sein literarisches Renommée: Mit den *Allem
 
 Eine Galerie verbindet Bilder, Bildunterschriften und begleitenden Markdown-Text zu einem Galeriebaustein. Die Galeriefläche verwendet die Farbe des zugehörigen Kapitels; Bilder werden darauf ohne zusätzliches Passepartout dargestellt.
 
-Pfad: `src/content/galleries/*.md`
+Pfad: `content/galleries/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
@@ -215,11 +217,11 @@ bilder:
 
 Ein Bild-Metadatensatz beschreibt optional eine Bilddatei mit Alternativtext, Bildunterschrift und Bildnachweis. Objektverweise werden ausschließlich in der Sammlung `objects` gespeichert.
 
-Pfad: `src/content/images/*.md`
+Pfad: `content/images/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `dateiname` | String | nein | Pfad relativ zu `src/assets`, in der Regel `Bilder/<Kapitel oder Unterkapitel>/<Dateiname>`. |
+| `dateiname` | String | nein | Pfad relativ zu `assets`, in der Regel `Bilder/<Kapitel oder Unterkapitel>/<Dateiname>`. |
 | `altText` | Markdown-String | nein | Alternativtext. Das Schema erlaubt Markdown, aus Barrierefreiheitsgründen sollte der Text aber einfach bleiben. |
 | `beschriftung` | Markdown-String | nein | Bild-spezifische Bildunterschrift. |
 | `nachweis` | Markdown-String | nein | Bildnachweis. Wird in den Suchindex aufgenommen, aber derzeit weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes ausgegeben. |
@@ -242,7 +244,7 @@ Bild-Metadatensätze enthalten keine Objektbeziehungen. Die Verknüpfung wird au
 
 Ein Objekt beschreibt ein einzelnes Ausstellungsobjekt mit seinen kuratorischen Metadaten.
 
-Pfad: `src/content/objects/*.md`
+Pfad: `content/objects/*.md`
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
@@ -266,7 +268,7 @@ Eine Bildzuordnung hat folgende Felder:
 
 | Feld | Typ | Pflicht | Hinweise |
 |---|---|---:|---|
-| `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `src/content/images`, der auf ein `Bilder/...`- oder `Heroes/...`-Asset verweist, oder vollständiger `Bilder/...`-Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-2/datei.webp`. Hero-Assets werden über eine Bild-ID eingebunden. |
+| `bild` | Bild-ID oder Asset-Pfad | ja | ID eines optionalen Eintrags in `content/images`, der auf ein `Bilder/...`- oder `Heroes/...`-Asset verweist, oder vollständiger `Bilder/...`-Pfad relativ zu `assets`, zum Beispiel `Bilder/2-2/datei.webp`. Hero-Assets werden über eine Bild-ID eingebunden. |
 | `position` | Enum | nein | Position dieses Objekts in genau diesem Bild: `Links`, `Rechts` oder `Vorne`. |
 | `objektReihenfolge` | Positive Ganzzahl | nein | Reihenfolge mehrerer Objekte innerhalb desselben Bildes. Nur bei Bildern mit mehreren Objekten erforderlich. |
 | `beschriftung` | Markdown-String | nein | Bildunterschrift dieses Objekts in der Galerie. Überschreibt dort den Objekttitel. |
@@ -307,7 +309,7 @@ Die Einträge aus `folienbeschriftungen[].unterbeschriftungen` und der Galerie-`
 
 ## Bilddatei-Ersatzlogik
 
-Bild-Metadaten in `src/content/images` sind optional. Galerien und `objects.bilder` dürfen entweder eine Bild-Metadaten-ID oder direkt einen vollständigen Pfad relativ zu `src/assets` verwenden. Galerien müssen auf ein Asset unter `Bilder/<Kapitel oder Unterkapitel>/` auflösen. Objektseiten dürfen zusätzlich über eine Bild-Metadaten-ID ein vorbereitetes Asset unter `Heroes/` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`.
+Bild-Metadaten in `content/images` sind optional. Galerien und `objects.bilder` dürfen entweder eine Bild-Metadaten-ID oder direkt einen vollständigen Pfad relativ zu `assets` verwenden. Galerien müssen auf ein Asset unter `Bilder/<Kapitel oder Unterkapitel>/` auflösen. Objektseiten dürfen zusätzlich über eine Bild-Metadaten-ID ein vorbereitetes Asset unter `Heroes/` verwenden. Unterstützt werden `.avif`, `.gif`, `.jpg`, `.jpeg`, `.png` und `.webp`.
 
 Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, `altText` und `beschriftung` bei der Bildauflösung und Darstellung berücksichtigt. `nachweis` bleibt als Metadatum erhalten und wird in den Suchindex aufgenommen, erscheint derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes. Ohne Bild-Eintrag wird das Asset direkt geladen und die allgemeineren Metadaten des jeweiligen Kontexts dienen als Ersatz. Objektbeziehungen werden unabhängig davon über `objects.bilder` anhand des aufgelösten Assets ermittelt.
 
@@ -315,10 +317,10 @@ Wenn ein gleichnamiger Bild-Eintrag vorhanden ist, werden dessen `dateiname`, `a
 
 Für Galerien und `objects.bilder` gelten zwei Referenzformen:
 
-- ID einer Datei in `src/content/images`, ohne `.md`
-- vollständiger Asset-Pfad relativ zu `src/assets`, zum Beispiel `Bilder/2-1/datei.webp`
+- ID einer Datei in `content/images`, ohne `.md`
+- vollständiger Asset-Pfad relativ zu `assets`, zum Beispiel `Bilder/2-1/datei.webp`
 
-Entscheidend für die Identität ist immer die aufgelöste Datei unter `src/assets`, nicht der geschriebene Referenzwert. Verweist zum Beispiel eine Galerie über eine Bild-Metadaten-ID auf ein Asset und ein Objekt direkt über dessen `Bilder/...`-Pfad auf dasselbe Asset, werden beide als dasselbe Bild behandelt. Das Objekt wird deshalb an diesem Galerie-Bild angezeigt.
+Entscheidend für die Identität ist immer die aufgelöste Datei unter `assets`, nicht der geschriebene Referenzwert. Verweist zum Beispiel eine Galerie über eine Bild-Metadaten-ID auf ein Asset und ein Objekt direkt über dessen `Bilder/...`-Pfad auf dasselbe Asset, werden beide als dasselbe Bild behandelt. Das Objekt wird deshalb an diesem Galerie-Bild angezeigt.
 
 ## Grafik
 

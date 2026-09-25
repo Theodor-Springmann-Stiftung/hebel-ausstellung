@@ -1,6 +1,8 @@
 # Historische Fragen
 
-> **Nicht mehr aktuell:** Diese Notizen beziehen sich auf frühere Content-Fragebögen und ältere Fassungen der Inhalte. Die überarbeiteten Dateien in `src/content` sind die aktuelle Grundlage. Die folgenden Punkte dienen nur noch als historischer Kontext und sind keine offenen Anforderungen.
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
+> **Nicht mehr aktuell:** Diese Notizen beziehen sich auf frühere Content-Fragebögen und ältere Fassungen der Inhalte. Die überarbeiteten Dateien in `content` sind die aktuelle Grundlage. Die folgenden Punkte dienen nur noch als historischer Kontext und sind keine offenen Anforderungen.
 
 - Ich finde das neue Design mit der Hidnergrundfarbe hässlich.
   - Vorschlag: Passpartout mit Hintergrundfarbe verwenden und der Überschrift eine Hintergrundfarbe geben. Subunterschriften behalten, aber ohne fixed-width-font.

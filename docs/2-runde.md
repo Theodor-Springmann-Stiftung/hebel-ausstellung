@@ -1,5 +1,7 @@
 2.1: Dichter im Bild
 - Alle nicht reduzierbaren Quellenangaben betreffen K 3357. Ein verlässlicher BLB-Online-Link würde alle elf Fälle lösen.
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
   The quelle field was removed from all eleven entries without a verified BLB link:
     [Hebel, Johann Peter]: [frühe eigenhändige Version des *Gespensts an der Kanderer Straße*], [S. 1]. Badische Landesbibliothek Karlsruhe, Handschriftenkonvolut K 3357 (vormals K 57 bzw. K 57 II).
     [Hebel, Johann Peter]: [frühe eigenhändige Version der *Marktweiber in der Stadt*], [S. 1]. Badische Landesbibliothek Karlsruhe, Sign. K 3357 (vormals K 57 bzw. K 57 II).
@@ -16,9 +18,9 @@
 - Synoptische Darstellung des Hitzig-Briefs: Was soll konkret nebeneinander erscheinen, beispielsweise Faksimile und Transkription? Eine verwendbare Transkription und die gewünschte Zuordnung fehlen.
 
 - Dritte Abbildung verkleinern: Für Folie 3 von „Die Anfänge“ ist eine um ein Drittel kleinere dritte Abbildung gewünscht. Das Inhaltsmodell erlaubt derzeit keine individuelle Bildskalierung.
-    Zwei Dateien, aber drei Positionen: Die Folie beschreibt „Links“, „Mitte“ und „Rechts“, enthält jedoch nur zwei Bilddateien (src/content/galleries/2-1-02-die-anfaenge.md:13). Es muss geklärt werden, ob die rechte Rekonstruktion bereits Teil einer zusammengesetzten Datei ist oder eine dritte Bilddatei fehlt.
+    Zwei Dateien, aber drei Positionen: Die Folie beschreibt „Links“, „Mitte“ und „Rechts“, enthält jedoch nur zwei Bilddateien (content/galleries/2-1-02-die-anfaenge.md:13). Es muss geklärt werden, ob die rechte Rekonstruktion bereits Teil einer zusammengesetzten Datei ist oder eine dritte Bilddatei fehlt.
 
-- The only unimplemented request is replacing the repeated hero collage with one title page. That requires a new or edited asset outside src/content.
+- The only unimplemented request is replacing the repeated hero collage with one title page. That requires a new or edited asset outside content.
 
 6.3: Henriette Hendel
 - Da geht die Post ab: Bidler montieren? 

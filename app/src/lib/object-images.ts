@@ -3,17 +3,17 @@ import { getImage } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import { getCollection } from "astro:content";
 
-const objectImageModules = import.meta.glob("../assets/{Bilder,Heroes,Meta}/**/*.{avif,gif,jpg,jpeg,png,webp}", {
+const objectImageModules = import.meta.glob("../../../assets/{Bilder,Heroes,Meta}/**/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, ImageMetadata>;
 
-const thumbnailModules = import.meta.glob("../assets/Thumbnails/*.{avif,gif,jpg,jpeg,png,webp}", {
+const thumbnailModules = import.meta.glob("../../../assets/Thumbnails/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, ImageMetadata>;
 
-const heroModules = import.meta.glob("../assets/Heroes/*.{avif,gif,jpg,jpeg,png,webp}", {
+const heroModules = import.meta.glob("../../../assets/Heroes/*.{avif,gif,jpg,jpeg,png,webp}", {
   eager: true,
   import: "default",
 }) as Record<string, ImageMetadata>;
@@ -27,7 +27,7 @@ const heroByFilename = new Map<string, ImageMetadata>();
 for (const [assetPath, image] of Object.entries(objectImageModules)) {
   const filename = assetPath.split("/").at(-1) ?? assetPath;
   const stem = filename.replace(/\.[^.]+$/, "");
-  const relativePath = assetPath.replace(/^\.\.\/assets\//, "").toLowerCase();
+  const relativePath = assetPath.replace(/^\.\.\/\.\.\/\.\.\/assets\//, "").toLowerCase();
   assetByPath.set(relativePath, image);
   if (!assetByFilename.has(filename.toLowerCase())) assetByFilename.set(filename.toLowerCase(), image);
   if (!assetByStem.has(stem.toLowerCase())) assetByStem.set(stem.toLowerCase(), image);

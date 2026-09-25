@@ -1,8 +1,10 @@
 # Bildrechte: Abgleich von CSV und Objektseiten
 
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
 Stand: 26. August 2026
 
-Grundlage ist `import/Bilrechte.csv`. Alle URLs in diesem Dokument verwenden die lokale, maßgebliche Entwicklungsumgebung unter `http://localhost:4321`.
+Grundlage ist `app/import/Bilrechte.csv`. Alle URLs in diesem Dokument verwenden die lokale, maßgebliche Entwicklungsumgebung unter `http://localhost:4321`.
 
 Der ursprüngliche Abgleich unterschied drei disjunkte Gruppen:
 
@@ -43,7 +45,7 @@ Diese Objektseiten besaßen beim ursprünglichen Abgleich keine CSV-Entsprechung
 
 | CSV-Position | Link | URL | Auf der aktuellen Website | Objekttitel laut CSV | Begründung |
 |---|---|---|---|---|---|
-| 56.2 | [CSV-Link öffnen](http://localhost:4321/objekte/proteus-siegel/) | `http://localhost:4321/objekte/proteus-siegel/` | Kein Objektlink. Das Siegel erscheint statisch in [Kapitel 5: Der Proteuser](http://localhost:4321/5/). | Siegel / Proteus-Symbol | Es gibt keinen aktuellen Objektdatensatz für das Siegel. `SectionGalleries.astro` bindet `src/assets/Meta/Hebel_Wachssiegel.png` unmittelbar ein. Der eigenständige Proteuserschwur besitzt bereits einen anderen, wörtlich passenden CSV-Eintrag unter Position 56.1. |
+| 56.2 | [CSV-Link öffnen](http://localhost:4321/objekte/proteus-siegel/) | `http://localhost:4321/objekte/proteus-siegel/` | Kein Objektlink. Das Siegel erscheint statisch in [Kapitel 5: Der Proteuser](http://localhost:4321/5/). | Siegel / Proteus-Symbol | Es gibt keinen aktuellen Objektdatensatz für das Siegel. `SectionGalleries.astro` bindet `assets/Meta/Hebel_Wachssiegel.png` unmittelbar ein. Der eigenständige Proteuserschwur besitzt bereits einen anderen, wörtlich passenden CSV-Eintrag unter Position 56.1. |
 
 ## 3. Über Metadaten zugeordnete URL-Änderungen
 
@@ -65,6 +67,6 @@ Die Links in der Spalte „Alter CSV-Link“ führen auf die in der CSV gespeich
 
 Im Zuge des Abgleichs wurden drei Objektdateien entfernt, weil sie weder aus einer Galerie noch über einen Hero oder einen anderen kuratierten Seitenlink erreichbar waren:
 
-- `src/content/objects/1_00_01_hero_image_Plan_Karlsruhe_BLB.md`
-- `src/content/objects/brief-hitzig-z-335.md`
-- `src/content/objects/hebel-brief-hitzig-transkription-2026.md`
+- `content/objects/1_00_01_hero_image_Plan_Karlsruhe_BLB.md`
+- `content/objects/brief-hitzig-z-335.md`
+- `content/objects/hebel-brief-hitzig-transkription-2026.md`

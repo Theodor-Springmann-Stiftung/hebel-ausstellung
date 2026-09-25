@@ -1,10 +1,11 @@
+import { fileURLToPath } from "node:url";
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
-const rootDir = process.cwd();
-const objectDir = path.join(rootDir, "src", "content", "objects");
-const imageMetadataDir = path.join(rootDir, "src", "content", "images");
-const assetsDir = path.join(rootDir, "src", "assets");
+const rootDir = fileURLToPath(new URL("../../", import.meta.url));
+const objectDir = path.join(rootDir, "content", "objects");
+const imageMetadataDir = path.join(rootDir, "content", "images");
+const assetsDir = path.join(rootDir, "assets");
 const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;
 
 async function listFiles(directory, predicate) {
@@ -186,5 +187,5 @@ const output = [
   ].map(csvField).join(",")),
 ].join("\n");
 
-await writeFile(path.join(rootDir, "LICENSES.csv"), `${output}\n`, "utf8");
+await writeFile(path.join(rootDir, "app", "LICENSES.csv"), `${output}\n`, "utf8");
 console.log(`Generated LICENSES.csv with ${rows.length} objects.`);

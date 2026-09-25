@@ -1,6 +1,8 @@
 # Datenmodell: Kurzreferenz
 
-Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist `src/content.config.ts`; zusätzliche inhaltliche Regeln stehen in `scripts/validate-content.mjs`.
+Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+
+Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist `app/content.config.ts`; zusätzliche inhaltliche Regeln stehen in `app/scripts/validate-content.mjs`.
 
 ## Struktur
 
@@ -21,8 +23,8 @@ Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./co
 | `nummer` | String | ja |
 | `titel` | Markdown-String | ja |
 | `navTitel` | Markdown-String | ja |
-| `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
-| `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
+| `thumbnail` | WebP-Dateiname in `assets/Thumbnails` | ja |
+| `hero` | WebP-Dateiname in `assets/Heroes` | ja |
 | `heroMetadata` | Bildreferenz | nein |
 | `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
 | `startseitenVariante` | `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` oder `letter-writer` | ja |
@@ -39,8 +41,8 @@ Genau eines der Felder `unterkapitel` und `galerien` muss gesetzt und darf nicht
 | `nummer` | String | ja |
 | `titel` | Markdown-String | ja |
 | `navTitel` | Markdown-String | ja |
-| `thumbnail` | WebP-Dateiname in `src/assets/Thumbnails` | ja |
-| `hero` | WebP-Dateiname in `src/assets/Heroes` | ja |
+| `thumbnail` | WebP-Dateiname in `assets/Thumbnails` | ja |
+| `hero` | WebP-Dateiname in `assets/Heroes` | ja |
 | `heroMetadata` | Bildreferenz | nein |
 | `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
 | `galerien` | Geordnetes, nicht leeres Array von Galerie-Referenzen | ja |

@@ -1,10 +1,11 @@
+import { fileURLToPath } from "node:url";
 import { mkdir, readdir, writeFile } from "node:fs/promises";
 import path from "node:path";
 import process from "node:process";
 
-const rootDir = process.cwd();
-const assetsDir = path.join(rootDir, "src", "assets", "objects");
-const imagesDir = path.join(rootDir, "src", "content", "images");
+const rootDir = fileURLToPath(new URL("../../", import.meta.url));
+const assetsDir = path.join(rootDir, "assets", "objects");
+const imagesDir = path.join(rootDir, "content", "images");
 const supportedExtensions = new Set([".avif", ".gif", ".jpeg", ".jpg", ".png", ".webp"]);
 
 function imageFrontmatter(fileName) {
