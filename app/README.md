@@ -11,7 +11,7 @@ root-level `content/` and `assets/` folders.
 
 ```text
 /
-├── content/ -- Editable Markdown: chapters, subchapters, galleries, images, objects
+├── content/ -- Editable Markdown: chapters (including subchapters), galleries, images, objects
 ├── assets/ -- Exhibition images: Bilder, Heroes, Meta, Thumbnails
 ├── docs/ -- Content model and editorial documentation
 ├── .github/ -- GitHub Pages deployment workflow
@@ -24,6 +24,15 @@ root-level `content/` and `assets/` folders.
 ```
 
 Edit Markdown in `../content/` and replace or add images in `../assets/`.
+Chapters and subchapters share `../content/chapters/`: use names such as
+`2-der-dichter.md` for chapters and `2-1-allemannische-gedichte-1803.md` for subchapters.
+Chapter names have no leading zero; the title part starts with a lowercase letter.
+These filename patterns determine which schema loads each file.
+Galleries are grouped in `../content/galleries/1/`, `2-1/`, `2-2/`, etc.
+Keep their complete filenames (for example `2-1-01-ueberraschungserfolg.md`): gallery
+references still use that filename without `.md`, regardless of its folder.
+Object files are named after their `slug` (`zix-carfunkel.md`); object references
+such as `heroObject` also use that slug. Image metadata IDs stay separate.
 Image references inside Markdown stay relative to `assets/`, for example
 `Bilder/2-1/datei.webp`; do not add `../assets/` to these values.
 See [the content model](../docs/content-model.md) for fields and examples.

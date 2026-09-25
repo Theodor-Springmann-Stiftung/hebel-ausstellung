@@ -32,7 +32,7 @@ const chapters = await Promise.all((await getOrderedChapters()).map(async (chapt
   };
 }));
 const heroSource = await getHeroImageSource(heroPortrait);
-const portraitObject = await getEntry('objects', '6.1_03_03_Mueller-Kupferstich_Kunsthalle_KA');
+const portraitObject = await getEntry('objects', 'hebel-kupferstich');
 const portraitObjectHref = `/objekte/${portraitObject.data.slug}/`;
 ---
 

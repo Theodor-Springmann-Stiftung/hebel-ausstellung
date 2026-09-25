@@ -11,12 +11,15 @@ const warnings = [];
 const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
 const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;
 
-async function listMarkdownFiles(directory) {
+async function listMarkdownFiles(directory, recursive = false) {
   try {
     const entries = await readdir(directory, { withFileTypes: true });
-    return entries
-      .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
-      .map((entry) => path.join(directory, entry.name));
+    const files = await Promise.all(entries.map(async (entry) => {
+      const entryPath = path.join(directory, entry.name);
+      if (recursive && entry.isDirectory()) return listMarkdownFiles(entryPath, true);
+      return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
+    }));
+    return files.flat();
   } catch (error) {
     if (error?.code === "ENOENT") {
       return [];
@@ -178,9 +181,15 @@ const isCanonicalImageReference = (reference, imageCatalog) =>
   || /^Bilder\/[1-7](?:-[1-9])?\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(reference);
 
 async function validateGalleries() {
-  const files = await listMarkdownFiles(path.join(contentDir, "galleries"));
+  const files = await listMarkdownFiles(path.join(contentDir, "galleries"), true);
+  const filesById = new Map();
 
   for (const file of files) {
+    const id = path.basename(file, ".md");
+    if (filesById.has(id)) {
+      errors.push(`${relative(file)} duplicates gallery ID ${id} from ${relative(filesById.get(id))}`);
+    }
+    filesById.set(id, file);
     const source = await readFile(file, "utf8");
     const { body } = splitMarkdownFile(file, source);
 
@@ -245,6 +254,10 @@ async function validateObjects() {
       errors.push(`${relative(file)} slug must use only ASCII letters, digits, and hyphens`);
     } else if (/^[1-7]-/.test(slug)) {
       errors.push(`${relative(file)} object slug must not start with a chapter number`);
+    }
+
+    if (slug && path.basename(file, ".md") !== slug) {
+      errors.push(`${relative(file)} must be named ${slug}.md to match its slug`);
     }
 
     if (!title) {
@@ -323,21 +336,23 @@ async function validateObjects() {
 async function validateDisplayImageReferences() {
   const imageCatalog = await getImageCatalog();
 
-  for (const collection of ["chapters", "subchapters"]) {
-    const files = await listMarkdownFiles(path.join(contentDir, collection));
+  const sectionFiles = await listMarkdownFiles(path.join(contentDir, "chapters"));
 
-    for (const file of files) {
-      const source = await readFile(file, "utf8");
-      const { frontmatter } = splitMarkdownFile(file, source);
-      const hero = getFrontmatterString(frontmatter, "hero");
+  for (const file of sectionFiles) {
+    if (!/^[1-7](?:-[1-9])?-[a-z].*\.md$/.test(path.basename(file))) {
+      errors.push(`${relative(file)} must use a chapter filename like 2-name.md or a subchapter filename like 2-1-name.md (without leading zeros, with a name starting with a lowercase letter)`);
+    }
 
-      if (hero && !imageCatalog.resolve(hero)) {
-        errors.push(`${relative(file)} references missing hero image metadata or asset: ${hero}`);
-      }
+    const source = await readFile(file, "utf8");
+    const { frontmatter } = splitMarkdownFile(file, source);
+    const hero = getFrontmatterString(frontmatter, "hero");
+
+    if (hero && !imageCatalog.resolve(hero)) {
+      errors.push(`${relative(file)} references missing hero image metadata or asset: ${hero}`);
     }
   }
 
-  const galleryFiles = await listMarkdownFiles(path.join(contentDir, "galleries"));
+  const galleryFiles = await listMarkdownFiles(path.join(contentDir, "galleries"), true);
   for (const file of galleryFiles) {
     const source = await readFile(file, "utf8");
     const { frontmatter } = splitMarkdownFile(file, source);

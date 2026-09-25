@@ -5,7 +5,7 @@ navTitel: "Henriette Hendel"
 thumbnail: "6-3.webp"
 hero: "6-3.webp"
 heroMetadata: "6.3_01_00_Hendel_Portrait"
-heroObject: "hendel-schuetz-pantomimische-attituede-1812"
+heroObject: "henriette-hendel-agrippina"
 galerien:
   - "6-3-01-ists-moeglich-ist-das-weib-so-schoen"
   - "6-3-02-ein-heimlicher-heiratsantrag"

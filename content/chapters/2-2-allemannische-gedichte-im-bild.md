@@ -5,7 +5,7 @@ navTitel: "Die Allemannischen Gedichte im Bild"
 thumbnail: "2-2.webp"
 hero: "2-2.webp"
 heroMetadata: "2-2-hero-reinhard-statthalter-1820"
-heroObject: "reinhard-statthalter-1820"
+heroObject: "reinhard-statthalter-von-schopfheim"
 galerien:
   - "2-2-01-aufgeklaerte-volkspoesie"
   - "2-2-02-christlich-romantische-volkspoesie"

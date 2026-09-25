@@ -2,7 +2,11 @@
 
 Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
 
-Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist `app/content.config.ts`; zusätzliche inhaltliche Regeln stehen in `app/scripts/validate-content.mjs`.
+Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist [`app/src/content.config.ts`](../app/src/content.config.ts); zusätzliche inhaltliche Regeln stehen in [`app/scripts/validate-content.mjs`](../app/scripts/validate-content.mjs).
+
+Redaktionelle Dateien liegen in `content/chapters` (Kapitel und Unterkapitel), `content/galleries/<Kapitel oder Unterkapitel>/`, `content/images` und `content/objects`; Bilddateien in `assets/`. Befehle werden aus `app/` ausgeführt: `npm run content:validate` prüft zusätzliche Inhaltsregeln, `npm run build` prüft außerdem das Astro-Schema und baut alle Seiten.
+
+Kapitel und Unterkapitel liegen gemeinsam direkt in `content/chapters/`. Kapiteldateien heißen zum Beispiel `2-der-dichter.md` (eine Ziffer ohne führende Null vor dem ersten Bindestrich), Unterkapiteldateien `2-1-allemannische-gedichte-1803.md` (je eine Ziffer für Kapitel und Unterkapitel). Astro unterscheidet die beiden Sammlungen anhand dieser Dateinamen. Der Name nach den Ziffern beginnt mit einem kleinen lateinischen Buchstaben. Kapitelnummern reichen von `1` bis `7`, Unterkapitelnummern von `1` bis `9`. Die öffentlichen URLs verwenden weiterhin `nummer`.
 
 ## Struktur
 
@@ -48,7 +52,11 @@ Genau eines der Felder `unterkapitel` und `galerien` muss gesetzt und darf nicht
 | `galerien` | Geordnetes, nicht leeres Array von Galerie-Referenzen | ja |
 | Body | Markdown | nein |
 
+Für einen sichtbaren Hero-Objektlink muss der über `heroMetadata` geladene Bilddatensatz eine `beschriftung` enthalten; `heroObject` allein reicht nicht.
+
 ### Galerie
+
+Galerien liegen in Unterordnern wie `content/galleries/1/`, `2-1/` oder `2-2/`. Ihre IDs bleiben die vollständigen Dateinamen ohne `.md` und ohne Ordnerpräfix; Dateinamen müssen deshalb über alle Galerieordner hinweg eindeutig sein. `galerien` im Kapitel oder Unterkapitel bestimmt weiterhin Zuordnung und Reihenfolge.
 
 | Feld | Typ | Pflicht/Standard |
 |---|---|---:|
@@ -76,7 +84,7 @@ Der aktuelle Renderer zeigt `unterbeschriftungen` und den regulären Galerie-`un
 | `nachweis` | Markdown-String | nein |
 | Body | Markdown, derzeit ungenutzt | nein |
 
-Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen. `nachweis` wird in den Suchindex aufgenommen, derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes ausgegeben.
+Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen. `nachweis` wird bei in Galerien verwendeten Bildern in den Suchindex aufgenommen, derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes ausgegeben.
 
 ### Objekt
 
@@ -95,7 +103,7 @@ Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild
 | `inventarnummer` | Markdown-String | nein |
 | `quelle` | Markdown-String | nein |
 | `lizenz` | Markdown-String | nein |
-| `bilder` | Geordnetes Array von Bildzuordnungen | nein |
+| `bilder` | Geordnetes Array von Bildzuordnungen; mindestens ein Eintrag, wenn gesetzt | nein |
 | Body | Markdown unter erlaubten H1-Überschriften | nein |
 
 Eine Bildzuordnung enthält:
@@ -110,4 +118,13 @@ Eine Bildzuordnung enthält:
 
 Objekt-Bild-Zuordnungen sind die maßgebliche Quelle der Beziehungen. Teilen mehrere Objekte dasselbe Bild, müssen alle eine eindeutige `objektReihenfolge` besitzen. `inObjektansicht: false` blendet das Bild nur auf der Objektseite aus; die Galeriebeziehung bleibt erhalten.
 
+`transkription` steuert den Hinweis am Galerie-Objektlink; der Body wird unabhängig davon angezeigt. `transkriptionsart` erzeugt keine Überschrift automatisch.
+
 Objekt-Body-Inhalt muss vollständig unter `# Beschreibung`, `# Anmerkungen`, `# Transkription` und/oder `# Übersetzung` stehen. Andere H1-Überschriften sowie Text vor der ersten H1-Überschrift sind nicht erlaubt.
+
+## Hinweise für die Bearbeitung
+
+- Bildpfade in Markdown bleiben relativ zu `assets/`, zum Beispiel `Bilder/2-1/datei.webp`.
+- Ohne `altText` bleibt der Alternativtext in Galerien und auf Objektseiten leer. Heroes verwenden ersatzweise den Kapitel- oder Unterkapiteltitel.
+- Fehlende Galeriebilder erzeugen derzeit nur eine Warnung und werden übersprungen. Fehlende Objektbilder sind ein Validierungsfehler.
+- Objektdateiname, Objekt-ID und `slug` stimmen überein: zum Beispiel `zix-carfunkel.md` und `zix-carfunkel`. Referenzen wie `heroObject` verwenden ebenfalls den Slug.

@@ -18,7 +18,7 @@ Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichni
 - Synoptische Darstellung des Hitzig-Briefs: Was soll konkret nebeneinander erscheinen, beispielsweise Faksimile und Transkription? Eine verwendbare Transkription und die gewünschte Zuordnung fehlen.
 
 - Dritte Abbildung verkleinern: Für Folie 3 von „Die Anfänge“ ist eine um ein Drittel kleinere dritte Abbildung gewünscht. Das Inhaltsmodell erlaubt derzeit keine individuelle Bildskalierung.
-    Zwei Dateien, aber drei Positionen: Die Folie beschreibt „Links“, „Mitte“ und „Rechts“, enthält jedoch nur zwei Bilddateien (content/galleries/2-1-02-die-anfaenge.md:13). Es muss geklärt werden, ob die rechte Rekonstruktion bereits Teil einer zusammengesetzten Datei ist oder eine dritte Bilddatei fehlt.
+    Zwei Dateien, aber drei Positionen: Die Folie beschreibt „Links“, „Mitte“ und „Rechts“, enthält jedoch nur zwei Bilddateien (content/galleries/2-1/2-1-02-die-anfaenge.md:13). Es muss geklärt werden, ob die rechte Rekonstruktion bereits Teil einer zusammengesetzten Datei ist oder eine dritte Bilddatei fehlt.
 
 - The only unimplemented request is replacing the repeated hero collage with one title page. That requires a new or edited asset outside content.
 
