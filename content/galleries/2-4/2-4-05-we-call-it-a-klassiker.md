@@ -1,10 +1,15 @@
 ---
 titel: "We call it a Klassiker."
-folienbeschriftung: "Typographischer Ritterschlag durch einen Raubdruck des Raubdrucks."
-positionsangaben: false
-bilder:
-  - - "Raubdrucke_05_1a_D5_Reutlingen1821"
-    - "Raubdrucke_05_1b_D5_Reutlingen1822"
+folien:
+  - bilder:
+      - "Raubdrucke_05_1a_D5_Reutlingen1821"
+      - "Raubdrucke_05_1b_D5_Reutlingen1822"
+    beschriftungen:
+      - text: "Typographischer Ritterschlag durch einen Raubdruck des Raubdrucks."
+      - text: "Links: ›Original‹-Nachdruck der *Allemannischen Gedichte* von 1821"
+        objekt: "allemannische-gedichte-maecken-1821"
+      - text: "Rechts: Nachahmung dieser Vorlage von 1822"
+        objekt: "allemannische-gedichte-ensslin-1822"
 ---
 
 Die Restitution des lateinischen Mottos bei Mäcken zeigt, dass es Hebel tatsächlich gelungen ist, mit den *Allemannischen Gedichten* <span class="no-hyphen">»unsere sonst so verachtete u. lächerlich gemachte Sprache classisch zu machen«</span> (Brief an Hitzig vom [4. November 1809]). Dieses Signal verstärkt der Nachdruck des Nachdrucks durch einen Reutlinger Kollegen: Auf dem Titelblatt finden anstelle der erwartbaren Frakturbuchstaben nun lateinische Lettern Verwendung. Das ist in deutschsprachigen Drucken um 1800 ungewöhnlich. Solche typographische Auffälligkeit bildet, wie etwa in der Göschen’schen Wieland-Ausgabe (1794–1811), einen Hinweis an das Publikum, dass die betreffenden Texte antikenähnliche Klassizität besitzen bzw. beanspruchen. Derart kompensieren die Reutlinger Raubdrucke den von ihnen angerichteten ökonomischen Schaden immerhin durch symbolisches Kapital.

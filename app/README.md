@@ -35,6 +35,9 @@ Object files are named after their `slug` (`zix-carfunkel.md`); object reference
 such as `heroObject` also use that slug. Image metadata IDs stay separate.
 Image references inside Markdown stay relative to `assets/`, for example
 `Bilder/2-1/datei.webp`; do not add `../assets/` to these values.
+Captions live in gallery `folien[].beschriftungen` or chapter `heroBeschriftung`.
+Image metadata contains only `dateiname` and `altText`; object image associations
+contain only `bild` and optional `inObjektansicht`.
 See [the content model](../docs/content-model.md) for fields and examples.
 Run `npm run content:validate` after editing, and `npm run dev` to preview changes.
 GitHub Pages builds from `app/` and reads both shared folders from the checkout.

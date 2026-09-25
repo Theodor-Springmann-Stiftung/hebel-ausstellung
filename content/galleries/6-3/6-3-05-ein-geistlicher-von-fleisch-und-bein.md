@@ -1,8 +1,14 @@
 ---
 titel: "Ein Geistlicher von Fleisch und Bein."
-bilder:
-  - - "63_05_1a_hebel_an_schuetz_tss"
-    - "63_05_1b_hebel_an_haufe_blb"
+folien:
+  - bilder:
+      - "63_05_1a_hebel_an_schuetz_tss"
+      - "63_05_1b_hebel_an_haufe_blb"
+    beschriftungen:
+      - text: "Links: Dank für die angetragene Patenschaft der Tochter von Henriette Hendel und Friedrich Karl Schütz."
+        objekt: "brief-schuetz-1811"
+      - text: "Rechts: Klage über Heirat und Elternschaft von Henriette Hendel und Friedrich Karl Schütz. Brief an die Familie Haufe."
+        objekt: "brief-familie-haufe-1811"
 ---
 
 <span class="no-hyphen">»Sie freieten (nur ich nicht) und ließen sich freien«</span>, dieses Herrenwort (Mt 24,38) mit resignativem persönlichem Einschub findet sich im Brief an Henriette Hendel vom Oktober 1813; da hat Hebel sich mit seinem Junggesellentum und <span class="no-hyphen">»Ihre[m] Herrn Gemahl«</span> wohl abgefunden (Z 375). Anfangs gab es indes bibel- und handfeste Anfechtungen – und vielleicht die ganz leise Hoffnung auf mehr als eine Korrespondenz, besorgt durch die ›Post (Tausig-)Sappermost‹.

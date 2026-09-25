@@ -28,35 +28,29 @@ export const GET: APIRoute = async () => {
     indexedGalleryIds.add(gallery.id);
 
     const imageMetadata = await Promise.all(
-      gallery.data.bilder.flat().map(async (reference) => {
+      gallery.data.folien.flatMap((slide) => slide.bilder).map(async (reference) => {
         const image = await findContentImage(reference);
         if (!image?.entry) return "";
 
         return joinText([
           plainInline(image.entry.data.altText),
-          plainInline(image.entry.data.beschriftung),
-          plainInline(image.entry.data.nachweis),
         ]);
       }),
     );
-    const slideCaptions = gallery.data.folienbeschriftungen.flatMap((slide) => [
-      plainInline(slide.beschriftung),
-      ...slide.unterbeschriftungen.map((caption) =>
-        plainInline(typeof caption === "string" ? caption : caption.beschriftung),
-      ),
+    const slideCaptions = gallery.data.folien.flatMap((slide) => [
+      ...slide.beschriftungen.map((caption) => plainInline(caption.text)),
+      plainInline(slide.nachweis),
     ]);
 
     records.push({
       id: `gallery:${gallery.id}`,
       kind: "gallery",
       title: plainInline(gallery.data.titel),
-      subtitle: plainInline(gallery.data.untertitel),
+      subtitle: "",
       context,
       href: `${sectionHref}#gallery-${gallery.id}`,
       body: markdownBodyToPlainText(gallery.body),
       captions: joinText([
-        plainInline(gallery.data.beschriftung),
-        plainInline(gallery.data.folienbeschriftung),
         ...slideCaptions,
       ]),
       imageMetadata: joinText([...new Set(imageMetadata.filter(Boolean))]),

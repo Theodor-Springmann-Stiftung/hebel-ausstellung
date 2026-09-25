@@ -20,7 +20,7 @@ const description = `Kapitel ${subchapter.data.nummer} â€“ ${subchapterTitle} â€
 const heroImage = getDedicatedHeroImage(subchapter.data.hero);
 const heroMetadata = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const heroAlt = markdownToPlainText(
-	heroMetadata?.entry?.data.beschriftung
+	subchapter.data.heroBeschriftung
 		?? heroMetadata?.entry?.data.altText
 		?? subchapter.data.titel,
 );

@@ -8,7 +8,7 @@ import {
 import { resolveContentImage } from "./object-images";
 
 export type ObjectUsageCaption = {
-  label: "Galerie" | "Folie" | "Bild" | "Objekt" | "Nachweis";
+  label: "Folie" | "Bild" | "Nachweis";
   text: string;
 };
 
@@ -36,24 +36,10 @@ const getPageLabel = (
   ? `Unterkapitel ${subchapter.data.nummer}: ${subchapter.data.navTitel}`
   : `Kapitel ${chapter.data.nummer}: ${chapter.data.navTitel}`;
 
-const getHeroObject = async (
-  section: CollectionEntry<"chapters"> | CollectionEntry<"subchapters">,
-  relationshipsByImage: Awaited<ReturnType<typeof getObjectRelationshipsByImage>>,
-) => {
-  if (section.data.heroObject) return getEntry(section.data.heroObject);
-  if (!section.data.heroMetadata) return undefined;
-
-  const image = await resolveContentImage(section.data.heroMetadata);
-  return relationshipsByImage.get(image.asset.src)?.find((relationship) => relationship.object.data.slug)?.object;
-};
-
-const getHeroCaption = async (section: CollectionEntry<"chapters"> | CollectionEntry<"subchapters">) => {
-  if (!section.data.heroMetadata) return [];
-  const image = await resolveContentImage(section.data.heroMetadata);
+const getHeroCaption = (section: CollectionEntry<"chapters"> | CollectionEntry<"subchapters">) => {
   const captions: ObjectUsageCaption[] = [];
-
-  if (image.entry?.data.beschriftung) captions.push({ label: "Bild", text: image.entry.data.beschriftung });
-  if (image.entry?.data.nachweis) captions.push({ label: "Nachweis", text: image.entry.data.nachweis });
+  if (section.data.heroBeschriftung) captions.push({ label: "Bild", text: section.data.heroBeschriftung });
+  if (section.data.heroNachweis) captions.push({ label: "Nachweis", text: section.data.heroNachweis });
   return captions;
 };
 
@@ -71,7 +57,7 @@ export const getObjectUsagesById = async () => {
     subchapter?: CollectionEntry<"subchapters">,
   ) => {
     const section = subchapter ?? chapter;
-    const object = await getHeroObject(section, relationshipsByImage);
+    const object = section.data.heroObject ? await getEntry(section.data.heroObject) : undefined;
     if (!object) return;
 
     const href = subchapter
@@ -82,7 +68,7 @@ export const getObjectUsagesById = async () => {
       type: "Hero",
       href,
       page: getPageLabel(chapter, subchapter),
-      captions: await getHeroCaption(section),
+      captions: getHeroCaption(section),
     });
   };
 
@@ -99,8 +85,8 @@ export const getObjectUsagesById = async () => {
       const gallery = galleryById.get(galleryReference.id);
       if (!gallery) continue;
 
-      for (const [slideIndex, imageReferences] of gallery.data.bilder.entries()) {
-        const slideCaption = gallery.data.folienbeschriftungen.find((caption) => caption.folie === slideIndex + 1);
+      for (const [slideIndex, slide] of gallery.data.folien.entries()) {
+        const imageReferences = slide.bilder;
 
         for (const [imageIndex, imageReference] of imageReferences.entries()) {
           const image = await resolveContentImage(imageReference);
@@ -108,25 +94,12 @@ export const getObjectUsagesById = async () => {
 
           for (const relationship of relationships) {
             const captions: ObjectUsageCaption[] = [];
-            if (gallery.data.beschriftung) captions.push({ label: "Galerie", text: gallery.data.beschriftung });
-            if (slideCaption?.beschriftung ?? gallery.data.folienbeschriftung) {
-              captions.push({ label: "Folie", text: slideCaption?.beschriftung ?? gallery.data.folienbeschriftung ?? "" });
-            }
-
-            for (const undercaption of slideCaption?.unterbeschriftungen ?? []) {
-              if (typeof undercaption === "string" || undercaption.bild === imageIndex + 1) {
-                captions.push({
-                  label: "Bild",
-                  text: typeof undercaption === "string" ? undercaption : undercaption.beschriftung,
-                });
+            for (const caption of slide.beschriftungen) {
+              if (!caption.objekt || caption.objekt.id === relationship.object.id) {
+                captions.push({ label: "Folie", text: caption.text });
               }
             }
-            if (image.entry?.data.beschriftung && !captions.some((caption) => caption.text === image.entry?.data.beschriftung)) {
-              captions.push({ label: "Bild", text: image.entry.data.beschriftung });
-            }
-
-            if (relationship.beschriftung) captions.push({ label: "Objekt", text: relationship.beschriftung });
-            if (image.entry?.data.nachweis) captions.push({ label: "Nachweis", text: image.entry.data.nachweis });
+            if (slide.nachweis) captions.push({ label: "Nachweis", text: slide.nachweis });
 
             addUsage(usagesByObject, relationship.object.id, {
               key: `gallery:${gallery.id}:${slideIndex}:${imageIndex}:${relationship.object.id}`,

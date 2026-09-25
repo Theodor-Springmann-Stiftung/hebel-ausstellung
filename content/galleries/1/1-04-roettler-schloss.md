@@ -1,7 +1,11 @@
 ---
 titel: "Röttler Schloss"
-bilder:
-  - - "1_04_01_roettler_schloss_gla"
+folien:
+  - bilder:
+      - "1_04_01_roettler_schloss_gla"
+    beschriftungen:
+      - text: "Ansicht des Schlosses Rötteln von der Nordseite mit der Aussicht nach Lörrach"
+        objekt: "schloss-roetteln"
 ---
 
 > Fast allmol, Ätti, wenn mer ’s Röttler Schloß<br>

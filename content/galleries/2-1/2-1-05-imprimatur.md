@@ -1,8 +1,15 @@
 ---
 titel: "Imprimatur!"
-bilder:
-  - - "2.1_05_01a_Irrlichter_H2_Setzermarkierung"
-    - "2.1_05_01b_D1_S._33"
+folien:
+  - bilder:
+      - "2.1_05_01a_Irrlichter_H2_Setzermarkierung"
+      - "2.1_05_01b_D1_S._33"
+    beschriftungen:
+      - text: "Links: Ein seltener Glücksfall – die eigenhändige Satzvorlage zu den *Allemannischen Gedichten*. Manuskriptseite aus den *Irrlichtern*."
+        objekt: "satzvorlage-irrlichter"
+      - text: "Rechts: Die entsprechende Druckseite der *Irrlichter* in der Erstausgabe."
+        objekt: "allemannische-gedichte"
+        objektBild: "2.1_05_01b_D1_S._33"
 ---
 
 Um 1800 wurden Handschriften, die als Vorlage für den Satz eines Buchs dienten, nach Gebrauch meist entsorgt – doch Hebels eigenhändige Druckvorlage der *Allemannischen Gedichte* blieb großteils erhalten. Das Bild zeigt eine Seite aus den *Irrlichtern*, vor dem dritten Vers von oben ist mit Stift <span class="no-hyphen">»P 3[«</span> notiert, wohl ein Eintrag des Setzers: <span class="no-hyphen">»P«</span> dürfte ›*plagula*‹, ›Bogen‹ meinen, und entsprechend beginnt im Erstdruck, vgl. die Zahl am unteren Seitenrand, mit jenem Vers der dritte Druckbogen. Das Satzmanuskript der *Allemannischen Gedichte* dürfte im Spätsommer 1802 recht endgültig vorgelegen haben; letzte Eintragungen erfolgten wohl noch im Oktober. Anders als die Handschriftengruppe früherer Gedichtversionen weist der Text der Satzvorlage zahlreiche Änderungen auf: hier z. B., in den ersten fünf Versen, die Verdeutlichung einzelner Buchstaben sowie Feinjustierungen von Rechtschreibung und Zeichensetzung. Es finden sich indes auch markante Überarbeitungen, die Einblicke in Hebels facettenreiche Textwerkstatt erlauben.

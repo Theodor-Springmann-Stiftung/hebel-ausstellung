@@ -1,17 +1,20 @@
 ---
 reihenfolge: 2
 nummer: "2"
-titel: Der Dichter
-navTitel: Der Dichter
-thumbnail: 2.webp
-hero: 2.webp
-heroMetadata: 20_hero_image_tschoepli_tss
-startseitenVariante: poet
+titel: "Der Dichter"
+navTitel: "Der Dichter"
+thumbnail: "2.webp"
+hero: "2.webp"
+heroMetadata: "20_hero_image_tschoepli_tss"
+startseitenVariante: "poet"
 unterkapitel:
-  - 2-1-allemannische-gedichte-1803
-  - 2-2-allemannische-gedichte-im-bild
-  - 2-3-uebersetzungen
-  - 2-4-raubdrucke
+  - "2-1-allemannische-gedichte-1803"
+  - "2-2-allemannische-gedichte-im-bild"
+  - "2-3-uebersetzungen"
+  - "2-4-raubdrucke"
+heroBeschriftung: "Das »luftige[] rothe[] Tschöplein [= Jäckchen]«: Originalumschlag der Erstausgabe der *Allemannischen Gedichte*, von dem nur ein erhaltenes Exemplar bekannt ist"
+heroNachweis: "Hebel-Archiv Heidelberg"
+heroObject: "allemannische-gedichte-umschlag"
 ---
 
 Jenseits des deutschsprachigen Südwestens sind sie heute weitgehend unbekannt – anders als früher. 1803 begründeten die anonym erschienenen *Allemannischen Gedichte* schlagartig das Renommée ihres Autors. Hebel hatte zur rechten Zeit den rechten Ton getroffen: Die Sammlung wurde mehrfach übersetzt, teilweise vertont, wiederholt bebildert, sie sah zahlreiche rechtmäßige Ausgaben, fragwürdige Nachdrucke sowie gelehrte Editionen. Als eines der meistaufgelegten Werke des 19. Jahrhunderts waren die *Allemannischen Gedichte* Teil des deutschliterarischen Kanons.

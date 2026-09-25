@@ -1,8 +1,11 @@
 ---
 titel: "<span class=\"no-hyphen\">»Die große herrliche Oper«</span> – Eschatologie bei Hebel"
-beschriftung: "Erste Station auf dem Weg ins Himmelreich und [proteusische Kultstätte](/5/) zumal: der Belchen"
-bilder:
-  - - "Theo_4_1_Slide_1_Belchen_Wikipedia"
+folien:
+  - bilder:
+      - "Theo_4_1_Slide_1_Belchen_Wikipedia"
+    beschriftungen:
+      - text: "Erste Station auf dem Weg ins Himmelreich und [proteusische Kultstätte](/5/) zumal: der Belchen"
+        objekt: "belchen"
 ---
 
 <span class="no-hyphen">»Ist es wahr, daß die erste Station von der Erde zum Himmel auf dem Belchen ist und die zweite im Mond, u. die dritte auf dem Morgenstern u daß dort alle 8 Tage ein Komet als Postwagen ankommt und die angelangten Fremdlinge von aller Welt Ende ins himmlische Jerusalem zur ewigen Heimat führt?«</span>.

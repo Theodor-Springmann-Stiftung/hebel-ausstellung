@@ -1,7 +1,11 @@
 ---
 titel: "Zukunftsträchtige Weiblichkeit"
-bilder:
-  - - "22_04_reinhard_hans_und_verene_1820_tss"
+folien:
+  - bilder:
+      - "22_04_reinhard_hans_und_verene_1820_tss"
+    beschriftungen:
+      - text: "Kompetente bildliche Gedicht-›Lektüre‹: Konfessionell, politisch, maternalistisch."
+        objekt: "reinhard-hans-und-verene"
 ---
 
 Warum bekrönt eine Madonna dieses Blatt zu einem Gedicht aus lutherischer Feder? Weil, so Hebel, die <span class="no-hyphen">»aufmerksame Künstlerin«</span> *Hans und Verene* genau gelesen hat und <span class="no-hyphen">»zu dem Heiligenbilde auf dem Brunnen durch die Stelle: „Du hast mich aus dem Fegfeuer geholt“ sich veranlaßt sah«</span>. Sophie Reinhard versteht <span class="no-hyphen">»De hesch mi usem Fegfüür gholt«</span> als konfessionellen Wink: Mit diesem Vers, im Protestantismus lodert ja kein Fegefeuer, gibt sich Hans, durch Vrenelis Geständnis ihrer Gegenliebe ›erlöst‹, als Katholik zu erkennen. Daher ist es würdig und recht, den Brunnen mit einer Muttergottes zu zieren – und durch sie einen politischen Aspekt sichtbar zu machen, den die Zeitläufte dem Text eingeschrieben haben.

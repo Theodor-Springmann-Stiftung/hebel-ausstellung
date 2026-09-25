@@ -1,4 +1,3 @@
 ---
 dateiname: "Bilder/7/7_6_1_Z_392_an_Haufe_BLB.webp"
-beschriftung: "Hebel an Haufe vom Februar 1815 (Z 392)"
 ---

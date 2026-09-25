@@ -3,9 +3,8 @@ import type { CollectionEntry } from "astro:content";
 import { getEntry, render } from "astro:content";
 import Gallery from "../gallery/Gallery.astro";
 import seal from "../../../../assets/Meta/Hebel_Wachssiegel.png";
-import { findContentImage, getGalleryImageSource } from "../../lib/object-images";
-import { getObjectRelationshipsByImage } from "../../lib/content";
-import { renderInlineMarkdown } from "../../lib/markdown";
+import { resolveContentImage, getGalleryImageSource } from "../../lib/object-images";
+import { renderGalleryCaption } from "../../lib/captions";
 
 type Section = CollectionEntry<"chapters"> | CollectionEntry<"subchapters">;
 
@@ -14,7 +13,6 @@ const chapterNumber = Number(section.data.nummer.split(".")[0]);
 const showProteusSeal = chapterNumber === 5;
 const { Content } = await render(section);
 const hasIntroContent = Boolean(section.body?.trim());
-const objectRelationshipsByImage = await getObjectRelationshipsByImage();
 
 const galleries = await Promise.all(
   (section.data.galerien ?? []).map(async (galleryReference) => {
@@ -23,42 +21,18 @@ const galleries = await Promise.all(
     if (!gallery) return undefined;
 
     const { Content: GalleryContent } = await render(gallery);
-    const bilder = (
-      await Promise.all(
-        gallery.data.bilder.map(async (imageReferences) => {
-          const imageEntries = (await Promise.all(imageReferences.map(findContentImage))).filter(Boolean);
+    const folien = await Promise.all(gallery.data.folien.map(async (slide) => ({
+      bilder: await Promise.all(slide.bilder.map(async (reference) => {
+        const image = await resolveContentImage(reference);
+        return {
+          src: await getGalleryImageSource(image.asset),
+          alt: image.entry?.data.altText,
+        };
+      })),
+      beschriftungen: await Promise.all(slide.beschriftungen.map(renderGalleryCaption)),
+    })));
 
-          return Promise.all(
-            imageEntries.map(async (imageEntry) => {
-              const metadata = imageEntry.entry?.data;
-              const objectRelationships = objectRelationshipsByImage.get(imageEntry.asset.src) ?? [];
-
-              return {
-                src: await getGalleryImageSource(imageEntry.asset),
-                alt: metadata?.altText,
-                beschriftung: metadata?.beschriftung,
-                objekte: objectRelationships
-                  .map(({ object, position, beschriftung, linkImageKey }) => ({
-                    slug: object.data.slug,
-                    position,
-                    beschriftung,
-                    imageKey: linkImageKey,
-                    transkription: object.data.transkription,
-                    transkriptionsart: object.data.transkriptionsart,
-                    titel: object.data.titel ?? "",
-                    urheber: object.data.urheber,
-                    datierung: object.data.datierung,
-                    materialTechnik: object.data.materialTechnik,
-                    institution: object.data.institution,
-                  })),
-              };
-            }),
-          );
-        }),
-      )
-    ).filter((images) => images.length > 0);
-
-    return { gallery, GalleryContent, bilder };
+    return { gallery, GalleryContent, folien };
   }),
 );
 ---
@@ -84,28 +58,15 @@ const galleries = await Promise.all(
   </section>
 )}
 
-{galleries.filter(Boolean).map(({ gallery, GalleryContent, bilder }, index) => (
+{galleries.filter(Boolean).map(({ gallery, GalleryContent, folien }, index) => (
   <section class="section-gallery" id={String(index + 1)} style={`--chapter-color: var(--chapter-${chapterNumber})`}>
     <span class="section-gallery__search-anchor" id={`gallery-${gallery.id}`} aria-hidden="true"></span>
-    {bilder.length > 0 ? (
-      <Gallery
-        titel={gallery.data.titel}
-        beschriftung={gallery.data.beschriftung}
-        untertitel={gallery.data.untertitel}
-        folienbeschriftung={gallery.data.folienbeschriftung}
-        folienbeschriftungen={gallery.data.folienbeschriftungen}
-        bildabstand={gallery.data.bildabstand}
-        positionsangaben={gallery.data.positionsangaben}
-        chapterNumber={chapterNumber}
-        bilder={bilder}
-      />
-    ) : (
-      <header class="section-gallery__text-header">
-        <h2 set:html={renderInlineMarkdown(gallery.data.titel)}></h2>
-        {gallery.data.beschriftung && <p set:html={renderInlineMarkdown(gallery.data.beschriftung)}></p>}
-        {gallery.data.untertitel && <p set:html={renderInlineMarkdown(gallery.data.untertitel)}></p>}
-      </header>
-    )}
+    <Gallery
+      titel={gallery.data.titel}
+      bildabstand={gallery.data.bildabstand}
+      chapterNumber={chapterNumber}
+      folien={folien}
+    />
     <div class="section-gallery__body"><GalleryContent /></div>
   </section>
 ))}
@@ -130,27 +91,6 @@ const galleries = await Promise.all(
 
   .section-gallery__body {
     background: var(--content-background, var(--chapter-color, var(--color-paper)));
-  }
-
-  .section-gallery__text-header {
-    display: flex;
-    padding: var(--spacing-48) var(--spacing-20) var(--spacing-24);
-    background: var(--content-background, var(--chapter-color, var(--color-paper)));
-    flex-direction: column;
-    gap: var(--spacing-12);
-  }
-
-  .section-gallery__text-header h2 {
-    font-family: var(--font-display);
-    font-size: var(--text-h2);
-    font-weight: normal;
-    line-height: var(--text-h2--line-height);
-  }
-
-  .section-gallery__text-header p {
-    max-width: var(--container-text);
-    font-family: var(--font-sans);
-    font-size: var(--text-caption);
   }
 
   .section-gallery__body {

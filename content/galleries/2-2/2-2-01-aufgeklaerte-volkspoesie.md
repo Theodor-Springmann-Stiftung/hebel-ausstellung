@@ -1,7 +1,11 @@
 ---
 titel: "Aufgeklärte Volkspoesie"
-bilder:
-  - - "22_01_zix_carfunkel_kupfer_1806_tss"
+folien:
+  - bilder:
+      - "22_01_zix_carfunkel_kupfer_1806_tss"
+    beschriftungen:
+      - text: "Das Licht der Aufklärung erhellt die Dunkelheit bäuerlichen Erzählens."
+        objekt: "zix-carfunkel"
 ---
 
 Benjamin Zix präsentiert den *Carfunkel* als ›Volkspoesie‹. Schon Goethe hatte in seiner [Rezension der *Allemannischen Gedichte*](/2/2.1/#1) den von einem <span class="no-hyphen">»Bauern«</span> als <span class="no-hyphen">»wackern naiven Erzähler«</span> dargebotenen <span class="no-hyphen">»*Karfunkel*«</span> ein <span class="no-hyphen">»Volksmährchen«</span> genannt. Dieses klassische ›volkspoetische‹ Setting, bäuerlich-mündliches Erzählen am Ofen und/oder in der Spinnstube, ist das Sujet des Kupferstichs.

@@ -1,9 +1,18 @@
 ---
 titel: "Hausen"
-bilder:
-  - - "1_02_01_hebelhaus_schopfheim"
-  - - "1_02_02_widmungsgedicht1_blb"
-    - "1_02_03_widmungsgedicht2_blb"
+folien:
+  - bilder:
+      - "1_02_01_hebelhaus_schopfheim"
+    beschriftungen:
+      - text: "Zeichnung vom Hebel-Haus in Hausen"
+        objekt: "hebel-haus-hausen"
+  - bilder:
+      - "1_02_02_widmungsgedicht1_blb"
+      - "1_02_03_widmungsgedicht2_blb"
+    beschriftungen:
+      - text: "Handschriftliche Widmung der *Allemannischen Gedichte* für Johann Jeremias Herbster und die Gemeinde Hausen"
+        objekt: "widmungsgedicht-gemeinde-hausen"
+        objektBild: "1_02_02_Widmungsgedicht1_BLB"
 ---
 
 > Es ist für mich wahr und bleibt für mich wahr, der Himmel ist nirgends so blau, und die Luft nirgends so rein, und alles so lieblich und so heimlich als zwischen den Bergen von Hausen [...]

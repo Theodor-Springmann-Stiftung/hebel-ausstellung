@@ -13,4 +13,7 @@ galerien:
   - "2-1-05-imprimatur"
   - "2-1-06-feilen-bis-zum-schluss"
   - "2-1-07-feilen-bis-ganz-zum-schluss"
+heroBeschriftung: "Der Originaleinband der *Allemannischen Gedichte* von 1803"
+heroObject: "allemannische-gedichte-umschlag"
+heroObjektBild: "2.1_00_AG_1803_Tschoepli_TSS"
 ---

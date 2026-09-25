@@ -1,6 +1,6 @@
 ---
-import { getEntry, type CollectionEntry } from "astro:content";
-import { getObjectRelationshipsByImage, objectHref } from "../../lib/content";
+import { type CollectionEntry } from "astro:content";
+import { getHeroObjectHref } from "../../lib/captions";
 import { markdownToPlainText, renderInlineMarkdown } from "../../lib/markdown";
 import { getDedicatedHeroImage, getHeroImageSource, resolveContentImage } from "../../lib/object-images";
 
@@ -12,17 +12,7 @@ const image = getDedicatedHeroImage(subchapter.data.hero);
 const metadataImage = subchapter.data.heroMetadata ? await resolveContentImage(subchapter.data.heroMetadata) : undefined;
 const imageSource = await getHeroImageSource(image);
 const isSophieHaufe = subchapter.data.nummer === "6.2";
-const configuredObject = subchapter.data.heroObject ? await getEntry(subchapter.data.heroObject) : undefined;
-const objectRelationships = metadataImage
-  ? (await getObjectRelationshipsByImage()).get(metadataImage.asset.src) ?? []
-  : [];
-const objectRelationship = configuredObject
-  ? objectRelationships.find((relationship) => relationship.object.id === configuredObject.id)
-  : objectRelationships.find((relationship) => relationship.object.data.slug);
-const object = configuredObject ?? objectRelationship?.object;
-const objectUrl = object ? objectHref(object.data.slug, {
-  imageKey: objectRelationship?.linkImageKey,
-}) : undefined;
+const objectUrl = await getHeroObjectHref(subchapter);
 ---
 
 <header class:list={["subchapter-hero", { "subchapter-hero--sophie-haufe": isSophieHaufe }]}>
@@ -49,9 +39,9 @@ const objectUrl = object ? objectHref(object.data.slug, {
   </div>
 </header>
 
-{metadataImage?.entry?.data.beschriftung && (
+{subchapter.data.heroBeschriftung && (
   <div class="subchapter-hero-caption">
-    {metadataImage?.entry?.data.beschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(metadataImage.entry.data.beschriftung)}></p>}
+    {subchapter.data.heroBeschriftung && <p class="subchapter-hero-caption__title" set:html={renderInlineMarkdown(subchapter.data.heroBeschriftung)}></p>}
     {objectUrl && <a class="subchapter-hero-caption__link" href={objectUrl}>Zum Objekt <span class="subchapter-hero-caption__link-arrow" aria-hidden="true">→</span></a>}
   </div>
 )}

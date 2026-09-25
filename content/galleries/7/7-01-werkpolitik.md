@@ -1,8 +1,11 @@
 ---
 titel: "Werkpolitik"
-beschriftung: "Hebel kannte noch keine Briefmarken, seinen Wert als Schriftsteller aber durchaus."
-bilder:
-  - - "7_01_01_aph_93_briefmarken_loerrach"
+folien:
+  - bilder:
+      - "7_01_01_aph_93_briefmarken_loerrach"
+    beschriftungen:
+      - text: "Hebel kannte noch keine Briefmarken, seinen Wert als Schriftsteller aber durchaus."
+        objekt: "hebel-briefmarken"
 ---
 
 [Sophie Haufe](/6/6.2/) gibt in ihren *Zeit- und Hebelerinnerungen* einen Einblick in das Zustandekommen der ersten Ausgaben von Hebels Briefen. Es wird deutlich, dass Hebel, dem in solchen Dingen oft eine naive Bescheidenheit unterstellt wird, seine Briefe nach Schriftstellerart durchaus als für die Nachwelt interessante Zeugnisse seines Lebens und seiner Sprachkunst betrachtete: <span class="no-hyphen">»Einmal frug Hebel meinen Mann, ob er seine Briefe aufhebe. ›Ja, meine Frau hat alle‹, so sagte er. ›Ich sehe, daß man mich gerne liest, und Sie können einst vielleicht einen Vorteil davon haben.‹ Daher kam es, daß, als wir nach seinem Tode von dem Verleger seiner Schriften dazu aufgefordert wurden, unsern Beitrag auch zu geben, er uns dafür das vorhandene Konversationslexikon gebunden nebst Lessings Schriften und einem Forte-Piano zusandte, auch den vier Töchtern für die schöne Abschrift der Briefe vier goldene verzierte Ringe. Die Original-Briefe blieben unser eigen.«</span>

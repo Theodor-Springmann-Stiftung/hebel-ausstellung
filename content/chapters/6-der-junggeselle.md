@@ -11,6 +11,9 @@ unterkapitel:
   - "6-1-gustave-fecht"
   - "6-2-sophie-haufe"
   - "6-3-henriette-hendel"
+heroBeschriftung: "Zwischen »Hebel und Vreneli« steht die Kirche"
+heroNachweis: "Carl Joseph Alois Agricola, 1814, Pinselzeichnung mit Deckfarben, Historisches Museum Basel"
+heroObject: "hebel-baustlicher"
 ---
 
 Im Juni 1822 schreibt Hebel einen zerknirschten Brief an Sophie Haufe: »Ich habe eine Frage, die Sie in einer guten Laune an mich gethan haben, nicht aufgenommen, wie ich sie hätte sollen aufnehmen. Ich bin – gerade herausgesagt – unartig gegen Sie geworden. Es ist ein schweres Geständniß, das ich Ihnen ablege, aber ein gerechtes. Jener Augenblick hat mir den Rest unsers Beisammenseyns verbittert, u. alle schönen Stunden, die ihm vorangiengen in einen halben Hintergrund gestellt«. (Z 479)

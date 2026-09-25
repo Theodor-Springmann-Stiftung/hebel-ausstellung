@@ -1,184 +1,30 @@
 ---
 import { markdownToPlainText, renderInlineMarkdown, serializeForScript } from "../../lib/markdown";
-import { objectHref } from "../../lib/content";
 import type { GalleryImageSource } from "../../lib/object-images";
+import type { RenderedCaption } from "../../lib/captions";
 
-export type GalleryObject = {
-  slug?: string;
-  position?: "Links" | "Rechts" | "Vorne";
-  imageKey?: string;
-  beschriftung?: string;
-  transkription: boolean;
-  transkriptionsart: "Transkription" | "Übersetzung";
+type GalleryProps = {
   titel: string;
-  urheber?: string;
-  datierung?: string;
-  materialTechnik?: string;
-  institution?: string;
-};
-
-export type GalleryImage = {
-  src: GalleryImageSource;
-  alt?: string;
-  beschriftung?: string;
-  objekte?: GalleryObject[];
-};
-
-type CaptionItem = {
-  titleHtml: string;
-  textHtml: string;
-  href?: string;
-  linkLabel?: string;
-  links?: Array<{ href: string; label: string }>;
-  objectKey?: string;
-  position?: "Links" | "Rechts" | "Vorne";
-};
-
-export type GalleryProps = {
-  titel: string;
-  beschriftung?: string;
-  untertitel?: string;
-  folienbeschriftung?: string;
-  folienbeschriftungen?: Array<{
-    folie: number;
-    beschriftung: string;
-    unterbeschriftungen: Array<string | { bild: number; beschriftung: string }>;
-  }>;
   bildabstand?: "normal" | "weit";
-  positionsangaben?: boolean;
   chapterNumber: number;
-  bilder: GalleryImage[][];
+  folien: Array<{
+    bilder: Array<{ src: GalleryImageSource; alt?: string }>;
+    beschriftungen: RenderedCaption[];
+  }>;
 };
 
-const props = Astro.props as GalleryProps;
-const {
-  titel,
-  beschriftung,
-  untertitel,
-  folienbeschriftung,
-  folienbeschriftungen = [],
-  bildabstand = "normal",
-  chapterNumber,
-  bilder,
-} = props;
-const isMultiSlide = bilder.length > 1;
-const slideCaptionsByIndex = new Map(folienbeschriftungen.map((caption) => [caption.folie - 1, caption]));
-const imagePositionLabel = (imageIndex: number, imageCount: number) => {
-  if (imageCount === 2) return imageIndex === 0 ? "Links" : "Rechts";
-  if (imageCount === 3) return ["Links", "Mitte", "Rechts"][imageIndex];
-  return `Bild ${imageIndex + 1}`;
-};
-
-const getImageCaptionItems = (image: GalleryImage): CaptionItem[] => {
-  if (image.objekte?.length) {
-    const hasMultipleObjects = image.objekte.length > 1;
-
-    return image.objekte.map((object) => {
-      const captionTitle = hasMultipleObjects
-        ? (object.beschriftung ?? object.titel)
-        : (image.beschriftung ?? object.beschriftung ?? object.titel);
-
-      return {
-        titleHtml: renderInlineMarkdown(captionTitle),
-        textHtml: "",
-        href: object.slug ? objectHref(object.slug, {
-          position: object.position,
-          imageKey: object.imageKey,
-        }) : undefined,
-        linkLabel: object.transkription ? `Zum Objekt (mit ${object.transkriptionsart})` : "Zum Objekt",
-        objectKey: object.slug,
-        position: object.position,
-      };
-    });
-  }
-
-  if (image.beschriftung) {
-    return [
-      {
-        titleHtml: renderInlineMarkdown(image.beschriftung),
-        textHtml: "",
-      },
-    ];
-  }
-
-  return [];
-};
-
-const getSlideCaptionItems = (images: GalleryImage[], slideIndex: number) => {
-  const imageCaptions = images.flatMap((image, imageIndex) =>
-    getImageCaptionItems(image)
-      .map((caption) => ({ ...caption, imageIndex })),
-  );
-  const distinctObjectKeys = new Set(imageCaptions.flatMap((caption) => caption.objectKey ? [caption.objectKey] : []));
-  const hasMultipleObjects = distinctObjectKeys.size > 1;
-  const hasPositionPrefix = (caption: string) => /^(Links|Rechts|Mitte|Vorne|Bild \d+):/i.test(caption);
-
-  const captions = imageCaptions.map(({ imageIndex, ...caption }) => {
-    const positionLabel = images.length > 1
-      ? imagePositionLabel(imageIndex, images.length)
-      : caption.position;
-
-    return {
-      ...caption,
-      titleHtml: hasMultipleObjects && caption.objectKey && positionLabel && !hasPositionPrefix(caption.titleHtml)
-        ? `${positionLabel}: ${caption.titleHtml}`
-        : caption.titleHtml,
-    };
-  });
-
-  const seenObjects = new Set<string>();
-  const uniqueCaptions = captions.filter((caption) => {
-    if (!caption.objectKey) return true;
-    if (seenObjects.has(caption.objectKey)) return false;
-    seenObjects.add(caption.objectKey);
-    return true;
-  });
-  const objectCaptions = uniqueCaptions.filter((caption) => caption.objectKey);
-  const hasSingleObject = objectCaptions.length === 1;
-  const individualCaptions = hasSingleObject
-    ? uniqueCaptions.filter((caption) => !caption.objectKey)
-    : uniqueCaptions;
-  const singleObjectLink = hasSingleObject && objectCaptions[0].href
-    ? [{ href: objectCaptions[0].href, label: objectCaptions[0].linkLabel ?? "Zum Objekt" }]
-    : [];
-
-  const withSharedCaption = (caption: string): CaptionItem[] => [
-    {
-      titleHtml: renderInlineMarkdown(caption),
-      textHtml: "",
-      links: singleObjectLink,
-    },
-    ...individualCaptions,
-  ];
-
-  const slideCaption = slideCaptionsByIndex.get(slideIndex);
-  if (slideCaption) {
-    return withSharedCaption(slideCaption.beschriftung);
-  }
-
-  if (folienbeschriftung) {
-    return withSharedCaption(folienbeschriftung);
-  }
-
-  if (hasSingleObject) {
-    return [...individualCaptions, objectCaptions[0]];
-  }
-
-  return uniqueCaptions.length > 0
-    ? uniqueCaptions
-    : [{ titleHtml: renderInlineMarkdown(beschriftung), textHtml: "" }];
-};
-
-const slides = bilder.map((images, index) => ({
+const { titel, bildabstand = "normal", chapterNumber, folien } = Astro.props as GalleryProps;
+const isMultiSlide = folien.length > 1;
+const slides = folien.map((slide, index) => ({
   index,
-  images: images.map((image) => ({
+  images: slide.bilder.map((image) => ({
     src: image.src.src,
     srcset: image.src.srcset,
     sizes: image.src.sizes,
     peekSrc: image.src.peekSrc,
     alt: markdownToPlainText(image.alt),
   })),
-  captions: getSlideCaptionItems(images, index),
+  captions: slide.beschriftungen,
 }));
 
 const firstSlide = slides[0];
@@ -251,19 +97,13 @@ const nextSlide = slides[1] ?? firstSlide;
       {firstSlide.captions.map((item) => (
         <div class="gallery__caption-item">
           {item.titleHtml && <p class="gallery__caption-title" set:html={item.titleHtml}></p>}
-          {item.textHtml && <p class="gallery__caption-text" set:html={item.textHtml}></p>}
           {item.href && (
             <a class="gallery__object-link" href={item.href}>
               <span>{item.linkLabel}</span>
               <span class="gallery__object-link-arrow" aria-hidden="true">→</span>
             </a>
           )}
-          {item.links?.map((link) => (
-            <a class="gallery__object-link" href={link.href}>
-              <span>{link.label}</span>
-              <span class="gallery__object-link-arrow" aria-hidden="true">→</span>
-            </a>
-          ))}
+
         </div>
       ))}
     </div>
@@ -273,7 +113,7 @@ const nextSlide = slides[1] ?? firstSlide;
 </section>
 
 <script>
-  const renderCaption = (container: HTMLElement, captions: Array<{ titleHtml?: string; textHtml?: string; href?: string; linkLabel?: string; links?: Array<{ href: string; label: string }> }>) => {
+  const renderCaption = (container: HTMLElement, captions: Array<{ titleHtml: string; href?: string; linkLabel?: string }>) => {
     const captionList = document.createElement("div");
     captionList.className = "gallery__caption-list";
 
@@ -286,13 +126,6 @@ const nextSlide = slides[1] ?? firstSlide;
         title.className = "gallery__caption-title";
         title.innerHTML = caption.titleHtml;
         item.append(title);
-      }
-
-      if (caption.textHtml) {
-        const text = document.createElement("p");
-        text.className = "gallery__caption-text";
-        text.innerHTML = caption.textHtml;
-        item.append(text);
       }
 
       if (caption.href) {
@@ -311,23 +144,6 @@ const nextSlide = slides[1] ?? firstSlide;
         link.append(label, arrow);
         item.append(link);
       }
-
-      caption.links?.forEach((captionLink) => {
-        const link = document.createElement("a");
-        link.className = "gallery__object-link";
-        link.href = captionLink.href;
-
-        const label = document.createElement("span");
-        label.textContent = captionLink.label;
-
-        const arrow = document.createElement("span");
-        arrow.className = "gallery__object-link-arrow";
-        arrow.setAttribute("aria-hidden", "true");
-        arrow.textContent = "→";
-
-        link.append(label, arrow);
-        item.append(link);
-      });
 
       captionList.append(item);
     });
@@ -727,18 +543,13 @@ const nextSlide = slides[1] ?? firstSlide;
     gap: var(--spacing-8);
   }
 
-  :global(.gallery__caption-title),
-  :global(.gallery__caption-text) {
+  :global(.gallery__caption-title) {
     @apply font-sans text-text-primary;
 
     line-height: var(--text-caption--line-height);
   }
 
   :global(.gallery__caption-title) {
-    font-size: var(--text-caption);
-  }
-
-  :global(.gallery__caption-text) {
     font-size: var(--text-caption);
   }
 

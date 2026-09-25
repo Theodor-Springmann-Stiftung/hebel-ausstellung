@@ -1,130 +1,94 @@
 # Datenmodell: Kurzreferenz
 
-Alle Projektpfade in diesem Dokument sind relativ zum Repository-Stammverzeichnis.
+Alle Pfade beziehen sich auf das Repository. Die ausführliche Anleitung steht in [content-model.md](./content-model.md). Maßgeblich sind [das Astro-Schema](../app/src/content.config.ts) und [die Inhaltsprüfung](../app/scripts/validate-content.mjs).
 
-Die ausführliche Beschreibung mit Beispielen steht in [`content-model.md`](./content-model.md). Maßgeblich für die von Astro gelesenen Felder ist [`app/src/content.config.ts`](../app/src/content.config.ts); zusätzliche inhaltliche Regeln stehen in [`app/scripts/validate-content.mjs`](../app/scripts/validate-content.mjs).
+## Dateien
 
-Redaktionelle Dateien liegen in `content/chapters` (Kapitel und Unterkapitel), `content/galleries/<Kapitel oder Unterkapitel>/`, `content/images` und `content/objects`; Bilddateien in `assets/`. Befehle werden aus `app/` ausgeführt: `npm run content:validate` prüft zusätzliche Inhaltsregeln, `npm run build` prüft außerdem das Astro-Schema und baut alle Seiten.
+| Ordner | Inhalt |
+|---|---|
+| `content/chapters/` | Kapitel (`2-der-dichter.md`) und Unterkapitel (`2-1-allemannische-gedichte-1803.md`) |
+| `content/galleries/1/`, `2-1/`, … | Galerien mit Bildern und Beschriftungen je Folie |
+| `content/images/` | Bildpfad und Alternativtext |
+| `content/objects/` | Objekte; Dateiname entspricht dem `slug` |
+| `assets/` | Bilddateien in `Bilder/`, `Heroes/`, `Thumbnails/` und `Meta/` |
 
-Kapitel und Unterkapitel liegen gemeinsam direkt in `content/chapters/`. Kapiteldateien heißen zum Beispiel `2-der-dichter.md` (eine Ziffer ohne führende Null vor dem ersten Bindestrich), Unterkapiteldateien `2-1-allemannische-gedichte-1803.md` (je eine Ziffer für Kapitel und Unterkapitel). Astro unterscheidet die beiden Sammlungen anhand dieser Dateinamen. Der Name nach den Ziffern beginnt mit einem kleinen lateinischen Buchstaben. Kapitelnummern reichen von `1` bis `7`, Unterkapitelnummern von `1` bis `9`. Die öffentlichen URLs verwenden weiterhin `nummer`.
+Galerie-IDs sind die vollständigen Dateinamen ohne `.md` und ohne Ordnerpräfix. Sie müssen in allen Galerieordnern eindeutig sein. Objekt-IDs entsprechen dem `slug`. Bildreferenzen sind Bild-Metadaten-IDs oder vollständige Pfade relativ zu `assets/`.
 
-## Struktur
-
-- Startseite: verwendet `thumbnail` und `startseitenVariante` der Kapitel.
-- Kapitel: enthält entweder Unterkapitel oder direkt Galerien.
-- Unterkapitel: enthält direkt Galerien.
-- Galerie: geordnete Folien mit einem oder mehreren Bildern sowie einem erforderlichen Begleittext.
-- Bild: optionale Metadaten zu einem Bild-Asset.
-- Objekt: kuratorische Metadaten und maßgebliche Beziehungen zu den Bildern, auf denen das Objekt gezeigt wird.
-
-## Entitäten
-
-### Kapitel
-
-| Feld | Typ | Pflicht |
-|---|---|---:|
-| `reihenfolge` | Positive Ganzzahl | ja |
-| `nummer` | String | ja |
-| `titel` | Markdown-String | ja |
-| `navTitel` | Markdown-String | ja |
-| `thumbnail` | WebP-Dateiname in `assets/Thumbnails` | ja |
-| `hero` | WebP-Dateiname in `assets/Heroes` | ja |
-| `heroMetadata` | Bildreferenz | nein |
-| `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
-| `startseitenVariante` | `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor` oder `letter-writer` | ja |
-| `unterkapitel` | Geordnetes Array von Unterkapitel-Referenzen | bedingt |
-| `galerien` | Geordnetes Array von Galerie-Referenzen | bedingt |
-| Body | Markdown | nein |
-
-Genau eines der Felder `unterkapitel` und `galerien` muss gesetzt und darf nicht leer sein.
-
-### Unterkapitel
-
-| Feld | Typ | Pflicht |
-|---|---|---:|
-| `nummer` | String | ja |
-| `titel` | Markdown-String | ja |
-| `navTitel` | Markdown-String | ja |
-| `thumbnail` | WebP-Dateiname in `assets/Thumbnails` | ja |
-| `hero` | WebP-Dateiname in `assets/Heroes` | ja |
-| `heroMetadata` | Bildreferenz | nein |
-| `heroObject` | Objekt-Referenz für einen expliziten Hero-Objektlink | nein |
-| `galerien` | Geordnetes, nicht leeres Array von Galerie-Referenzen | ja |
-| Body | Markdown | nein |
-
-Für einen sichtbaren Hero-Objektlink muss der über `heroMetadata` geladene Bilddatensatz eine `beschriftung` enthalten; `heroObject` allein reicht nicht.
-
-### Galerie
-
-Galerien liegen in Unterordnern wie `content/galleries/1/`, `2-1/` oder `2-2/`. Ihre IDs bleiben die vollständigen Dateinamen ohne `.md` und ohne Ordnerpräfix; Dateinamen müssen deshalb über alle Galerieordner hinweg eindeutig sein. `galerien` im Kapitel oder Unterkapitel bestimmt weiterhin Zuordnung und Reihenfolge.
+## Kapitel und Unterkapitel
 
 | Feld | Typ | Pflicht/Standard |
-|---|---|---:|
+|---|---|---|
+| `nummer` | String, zum Beispiel `"2"` oder `"2.1"` | ja |
+| `titel`, `navTitel` | Markdown-String | ja |
+| `thumbnail`, `hero` | WebP-Dateiname in `Thumbnails/` bzw. `Heroes/` | ja |
+| `heroMetadata` | Bildreferenz für den Alternativtext | nein |
+| `heroBeschriftung` | Direkt angezeigter Markdown-Text unter dem Hero | nein |
+| `heroObject` | Objekt-Slug für „Zum Objekt“ | nein |
+| `heroObjektBild` | Exakte sichtbare `bilder[].bild`-Referenz des verlinkten Objekts | nein |
+| `heroNachweis` | Nachweis für die Objektübersicht | nein |
+| `reihenfolge` | Positive Ganzzahl | nur Kapitel: ja |
+| `startseitenVariante` | `featured`, `poet`, `friend`, `theologian`, `proteuser`, `bachelor`, `letter-writer` | nur Kapitel: ja |
+| `unterkapitel` | Geordnete Unterkapitel-IDs | nur Kapitel: bedingt |
+| `galerien` | Geordnete Galerie-IDs | Kapitel: bedingt; Unterkapitel: ja |
+| Body | Markdown-Einleitung | nein |
+
+Ein Kapitel enthält genau eines von `unterkapitel` und `galerien`, jeweils nicht leer. Unterkapitel enthalten mindestens eine Galerie. Ein Hero zeigt nur den expliziten `heroBeschriftung`-Text. Sein Objektlink erscheint innerhalb dieses Beschriftungsbereichs und nur mit `heroObject`; das Linkziel wird nicht aus Bildbeziehungen abgeleitet.
+
+## Galerien und Folien
+
+| Feld | Typ | Pflicht/Standard |
+|---|---|---|
 | `titel` | Markdown-String | ja |
-| `beschriftung` | Markdown-String | nein |
-| `untertitel` | Markdown-String | nein |
-| `folienbeschriftung` | Gemeinsame Markdown-Beschriftung aller Folien | nein |
-| `folienbeschriftungen` | Array folienspezifischer Beschriftungen | `[]` |
 | `bildabstand` | `normal` oder `weit` | `normal` |
-| `positionsangaben` | Boolean | `true` |
-| `bilder` | Geordnetes Array nicht leerer Bildreferenz-Arrays | ja |
-| Body | Markdown | ja |
+| `folien` | Geordnete Liste von Folien | mindestens eine |
+| Body | Begleitender Markdown-Text | ja |
 
-Jeder Eintrag in `folienbeschriftungen` enthält eine positive, einsbasierte `folie`, eine erforderliche Markdown-`beschriftung` und optionale `unterbeschriftungen`. Eine Unterbeschriftung ist entweder ein Markdown-String oder ein Objekt aus einsbasierter Bildnummer `bild` und Markdown-`beschriftung`.
-
-Der aktuelle Renderer zeigt `unterbeschriftungen` und den regulären Galerie-`untertitel` nicht an. Auch `positionsangaben` ist im Schema vorhanden, wird vom Renderer aber noch nicht ausgewertet. `bildabstand: weit` ist wirksam.
-
-### Bild
-
-| Feld | Typ | Pflicht |
-|---|---|---:|
-| `dateiname` | Vollständiger Asset-Pfad unter `Bilder/`, `Heroes/` oder `Meta/` | nein |
-| `altText` | Markdown-String | nein |
-| `beschriftung` | Markdown-String | nein |
-| `nachweis` | Markdown-String | nein |
-| Body | Markdown, derzeit ungenutzt | nein |
-
-Ohne `dateiname` muss der Basisname der Metadatendatei zu einem vorhandenen Bild-Asset passen. Bilddatensätze enthalten keine Objektbeziehungen. `nachweis` wird bei in Galerien verwendeten Bildern in den Suchindex aufgenommen, derzeit aber weder in Galerien noch an Kapitel- oder Unterkapitel-Heroes ausgegeben.
-
-### Objekt
+Jede Folie enthält:
 
 | Feld | Typ | Pflicht/Standard |
-|---|---|---:|
-| `slug` | URL-sicherer ASCII-Slug aus Buchstaben, Ziffern und Bindestrichen | ja |
-| `kapitelunabhaengig` | Boolean | `false` |
-| `transkription` | Boolean | `false` |
-| `transkriptionsart` | `Transkription` oder `Übersetzung` | `Transkription` |
+|---|---|---|
+| `bilder` | Geordnete Bildreferenzen | mindestens eine |
+| `beschriftungen` | Geordnete Beschriftungen | `[]` |
+| `nachweis` | Nachweis für Suche und Objektübersicht | nein |
+
+Jede Beschriftung enthält:
+
+| Feld | Typ | Pflicht |
+|---|---|---|
+| `text` | Der angezeigte Markdown-Text | ja |
+| `objekt` | Objekt-Slug für „Zum Objekt“ | nein |
+| `objektBild` | Exakte sichtbare `bilder[].bild`-Referenz des verlinkten Objekts | nein |
+| `position` | `Links`, `Rechts` oder `Vorne`; Zusatz am Ziel der Objektverlinkung | nein |
+
+Beschriftungen werden genau in Listenreihenfolge ausgegeben. Es gibt keine Ersatztexte aus Bildern oder Objekttiteln, keine automatische Zusammenfassung und keine automatisch ergänzten „Links/Rechts“-Präfixe. Gewünschte Präfixe stehen direkt in `text`. `objektBild` und `position` benötigen `objekt`.
+
+## Bildmetadaten
+
+| Feld | Typ | Pflicht |
+|---|---|---|
+| `dateiname` | Vollständiger Pfad unter `Bilder/`, `Heroes/` oder `Meta/` | nein, wenn Dateiname zum Asset passt |
+| `altText` | Alternativtext | nein |
+
+Bildmetadaten haben keine Beschriftungen, Nachweise, Objektbeziehungen oder Body-Texte. Ohne `altText` bleibt der Alternativtext in Galerien und auf Objektseiten leer. Heroes verwenden ersatzweise den Kapitel- oder Unterkapiteltitel.
+
+## Objekte
+
+| Feld | Typ | Pflicht/Standard |
+|---|---|---|
+| `slug` | ASCII-Buchstaben, Ziffern und Bindestriche; kein Präfix `1-` bis `7-` | ja |
 | `titel` | Markdown-String | ja |
-| `untertitel` | Markdown-String | nein |
-| `urheber` | Markdown-String | nein |
-| `datierung` | Markdown-String | nein |
-| `materialTechnik` | Markdown-String | nein |
-| `institution` | Markdown-String | nein |
-| `inventarnummer` | Markdown-String | nein |
-| `quelle` | Markdown-String | nein |
-| `lizenz` | Markdown-String | nein |
-| `bilder` | Geordnetes Array von Bildzuordnungen; mindestens ein Eintrag, wenn gesetzt | nein |
+| `untertitel`, `urheber`, `datierung`, `materialTechnik` | Markdown-String | nein |
+| `institution`, `inventarnummer`, `quelle`, `lizenz` | Markdown-String | nein |
+| `kapitelunabhaengig` | Boolean | `false` |
+| `transkription` | Boolean; kennzeichnet den Galerie-Objektlink | `false` |
+| `transkriptionsart` | `Transkription` oder `Übersetzung` | `Transkription` |
+| `bilder` | Geordnete Bildzuordnungen | nein; wenn gesetzt, mindestens eine |
 | Body | Markdown unter erlaubten H1-Überschriften | nein |
 
-Eine Bildzuordnung enthält:
+Eine Bildzuordnung enthält nur `bild` und optional `inObjektansicht` (Standard `true`). Bei `false` bleibt die Bildbeziehung erhalten, das Bild wird jedoch nicht in der regulären Objekt-Bildliste angezeigt. Beschriftungen, Linkpositionen und ihre Reihenfolge werden in der Galerie gepflegt.
 
-| Feld | Typ | Pflicht/Standard |
-|---|---|---:|
-| `bild` | Bild-Metadaten-ID oder vollständiger `Bilder/...`-Asset-Pfad; Metadaten dürfen auch auf `Heroes/...` verweisen | ja |
-| `position` | `Links`, `Rechts` oder `Vorne` | nein |
-| `objektReihenfolge` | Positive Ganzzahl | nein |
-| `beschriftung` | Galerie-spezifischer Markdown-Text | nein |
-| `inObjektansicht` | Boolean | `true` |
+Erlaubte Objekt-Überschriften: `# Beschreibung`, `# Anmerkungen`, `# Transkription`, `# Übersetzung`. Text vor der ersten H1-Überschrift ist nicht erlaubt.
 
-Objekt-Bild-Zuordnungen sind die maßgebliche Quelle der Beziehungen. Teilen mehrere Objekte dasselbe Bild, müssen alle eine eindeutige `objektReihenfolge` besitzen. `inObjektansicht: false` blendet das Bild nur auf der Objektseite aus; die Galeriebeziehung bleibt erhalten.
+## Prüfung
 
-`transkription` steuert den Hinweis am Galerie-Objektlink; der Body wird unabhängig davon angezeigt. `transkriptionsart` erzeugt keine Überschrift automatisch.
-
-Objekt-Body-Inhalt muss vollständig unter `# Beschreibung`, `# Anmerkungen`, `# Transkription` und/oder `# Übersetzung` stehen. Andere H1-Überschriften sowie Text vor der ersten H1-Überschrift sind nicht erlaubt.
-
-## Hinweise für die Bearbeitung
-
-- Bildpfade in Markdown bleiben relativ zu `assets/`, zum Beispiel `Bilder/2-1/datei.webp`.
-- Ohne `altText` bleibt der Alternativtext in Galerien und auf Objektseiten leer. Heroes verwenden ersatzweise den Kapitel- oder Unterkapiteltitel.
-- Fehlende Galeriebilder erzeugen derzeit nur eine Warnung und werden übersprungen. Fehlende Objektbilder sind ein Validierungsfehler.
-- Objektdateiname, Objekt-ID und `slug` stimmen überein: zum Beispiel `zix-carfunkel.md` und `zix-carfunkel`. Referenzen wie `heroObject` verwenden ebenfalls den Slug.
+Aus `app/`: `npm run content:validate`, danach für die vollständige Prüfung `npm run build`. Fehlende Bilder oder Objektlinkziele sind Fehler. Entfernte Felder in Galerien, Bildmetadaten und Objekt-Bildzuordnungen werden abgewiesen. Optionale Textfelder weglassen, statt leere Strings einzutragen.

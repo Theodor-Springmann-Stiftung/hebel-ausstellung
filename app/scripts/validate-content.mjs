@@ -1,401 +1,197 @@
 import { fileURLToPath } from "node:url";
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import process from "node:process";
+import { load, JSON_SCHEMA } from "js-yaml";
 
 const rootDir = fileURLToPath(new URL("../../", import.meta.url));
 const contentDir = path.join(rootDir, "content");
 const assetsDir = path.join(rootDir, "assets");
 const errors = [];
-const warnings = [];
-const urlSafeAsciiSlugPattern = /^[A-Za-z0-9-]+$/;
-const imageExtensionPattern = /\.(avif|gif|jpe?g|png|webp)$/i;
+const imageExtension = /\.(avif|gif|jpe?g|png|webp)$/i;
+const relative = (file) => path.relative(rootDir, file);
+const nonempty = (value) => typeof value === "string" && value.trim().length > 0;
+const stripExtension = (value) => value.replace(imageExtension, "");
 
-async function listMarkdownFiles(directory, recursive = false) {
-  try {
-    const entries = await readdir(directory, { withFileTypes: true });
-    const files = await Promise.all(entries.map(async (entry) => {
-      const entryPath = path.join(directory, entry.name);
-      if (recursive && entry.isDirectory()) return listMarkdownFiles(entryPath, true);
-      return entry.isFile() && entry.name.endsWith(".md") ? [entryPath] : [];
-    }));
-    return files.flat();
-  } catch (error) {
-    if (error?.code === "ENOENT") {
-      return [];
-    }
-
-    throw error;
-  }
+async function listFiles(directory, predicate, recursive = false) {
+  const files = await Promise.all((await readdir(directory, { withFileTypes: true })).map(async (entry) => {
+    const file = path.join(directory, entry.name);
+    if (entry.isDirectory() && recursive) return listFiles(file, predicate, true);
+    return entry.isFile() && predicate(entry.name) ? [file] : [];
+  }));
+  return files.flat().sort();
 }
 
-async function listImageFiles(directory) {
-  const files = [];
-
-  for (const entry of await readdir(directory, { withFileTypes: true })) {
-    const entryPath = path.join(directory, entry.name);
-
-    if (entry.isDirectory()) {
-      files.push(...await listImageFiles(entryPath));
-    } else if (entry.isFile() && imageExtensionPattern.test(entry.name)) {
-      files.push(entryPath);
-    }
-  }
-
-  return files;
-}
-
-function relative(filePath) {
-  return path.relative(rootDir, filePath);
-}
-
-function splitMarkdownFile(filePath, source) {
-  const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
-
-  if (!match) {
-    errors.push(`${relative(filePath)} must start with YAML frontmatter`);
-    return { frontmatter: "", body: source };
-  }
-
-  return {
-    frontmatter: match[1],
-    body: source.slice(match[0].length),
-  };
-}
-
-function getFrontmatterString(frontmatter, key) {
-  const match = frontmatter.match(new RegExp(`^${key}:\\s*["']?([^"'\\r\\n]+)["']?\\s*$`, "m"));
-  return match?.[1]?.trim();
-}
-
-function unquoteFrontmatterValue(value) {
-  const trimmed = value.trim();
-  const quote = trimmed[0];
-  return (quote === '"' || quote === "'") && trimmed.at(-1) === quote
-    ? trimmed.slice(1, -1)
-    : trimmed;
-}
-
-function getFrontmatterNestedList(frontmatter, key) {
-  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+.*(?:\\r?\\n|$))*)`, "m"));
-  const groups = [];
-  let current;
-
-  for (const line of (match?.[1] ?? "").split(/\r?\n/)) {
-    const outer = line.match(/^[ \t]{2}-[ \t]*(.*)$/);
-    const inner = line.match(/^[ \t]{4}-[ \t]+(.+?)\s*$/);
-
-    if (outer) {
-      current = [];
-      groups.push(current);
-      const firstItem = outer[1].match(/^-[ \t]+(.+?)\s*$/);
-      if (firstItem) current.push(unquoteFrontmatterValue(firstItem[1]));
-    } else if (inner && current) {
-      current.push(unquoteFrontmatterValue(inner[1]));
-    }
-  }
-
-  return groups;
-}
-
-function getFrontmatterObjectList(frontmatter, key) {
-  const match = frontmatter.match(new RegExp(`^${key}:\\s*\\r?\\n((?:^[ \\t]+.*(?:\\r?\\n|$))*)`, "m"));
-  const block = match?.[1] ?? "";
-  const entries = [];
-  let current;
-
-  for (const line of block.split(/\r?\n/)) {
-    const item = line.match(/^\s{2}-\s+([A-Za-z][A-Za-z0-9]*):\s*["']?(.+?)["']?\s*$/);
-    const property = line.match(/^\s{4}([A-Za-z][A-Za-z0-9]*):\s*["']?(.+?)["']?\s*$/);
-
-    if (item) {
-      current = { [item[1]]: item[2] };
-      entries.push(current);
-    } else if (property && current) {
-      current[property[1]] = property[2];
-    }
-  }
-
-  return entries;
-}
-
-const stripImageExtension = (value) => value.replace(imageExtensionPattern, "");
-
-async function getImageCatalog() {
-  const imageFiles = await listMarkdownFiles(path.join(contentDir, "images"));
-  const assetFiles = (await Promise.all(["Bilder", "Heroes", "Meta", "Thumbnails"].map(
-    (directory) => listImageFiles(path.join(assetsDir, directory)),
-  ))).flat();
-  const assetNames = assetFiles.map((file) => path.relative(assetsDir, file).split(path.sep).join("/"));
-  const assetByReference = new Map();
-  const metadataReferences = new Set();
-
-  for (const assetName of assetNames) {
-    const normalizedName = assetName.toLowerCase();
-    const filename = path.basename(normalizedName);
-    assetByReference.set(normalizedName, normalizedName);
-    assetByReference.set(stripImageExtension(normalizedName), normalizedName);
-    if (!assetByReference.has(filename)) assetByReference.set(filename, normalizedName);
-    if (!assetByReference.has(stripImageExtension(filename))) assetByReference.set(stripImageExtension(filename), normalizedName);
-  }
-
-  for (const imageFile of imageFiles) {
-    const source = await readFile(imageFile, "utf8");
-    const { frontmatter } = splitMarkdownFile(imageFile, source);
-    const imageId = path.basename(imageFile, path.extname(imageFile));
-    const fileName = getFrontmatterString(frontmatter, "dateiname") ?? imageId;
-    const assetName = assetByReference.get(fileName.toLowerCase())
-      ?? assetByReference.get(stripImageExtension(fileName.toLowerCase()));
-
-    if (!assetName) continue;
-
-    for (const reference of [imageId, imageId.toLowerCase(), imageId.toLowerCase().replaceAll(".", ""), fileName.toLowerCase(), stripImageExtension(fileName.toLowerCase())]) {
-      if (!assetByReference.has(reference)) assetByReference.set(reference, assetName);
-    }
-    metadataReferences.add(imageId);
-    metadataReferences.add(imageId.toLowerCase());
-    metadataReferences.add(imageId.toLowerCase().replaceAll(".", ""));
-  }
-
-  return {
-    assetNames: new Set(assetNames.map((name) => name.toLowerCase())),
-    assetStems: new Set(assetNames.map((name) => stripImageExtension(name.toLowerCase()))),
-    resolve(reference) {
-      const normalized = reference.toLowerCase();
-      return assetByReference.get(reference)
-        ?? assetByReference.get(normalized)
-        ?? assetByReference.get(normalized.replaceAll(".", ""))
-        ?? assetByReference.get(stripImageExtension(normalized));
-    },
-    isMetadataReference(reference) {
-      const normalized = reference.toLowerCase();
-      return metadataReferences.has(reference)
-        || metadataReferences.has(normalized)
-        || metadataReferences.has(normalized.replaceAll(".", ""));
-    },
-  };
-}
-
-const isCanonicalImageReference = (reference, imageCatalog) =>
-  imageCatalog.isMetadataReference(reference)
-  || /^Bilder\/[1-7](?:-[1-9])?\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(reference);
-
-async function validateGalleries() {
-  const files = await listMarkdownFiles(path.join(contentDir, "galleries"), true);
-  const filesById = new Map();
-
-  for (const file of files) {
-    const id = path.basename(file, ".md");
-    if (filesById.has(id)) {
-      errors.push(`${relative(file)} duplicates gallery ID ${id} from ${relative(filesById.get(id))}`);
-    }
-    filesById.set(id, file);
+async function readCollection(name, recursive = false) {
+  const files = await listFiles(path.join(contentDir, name), (file) => file.endsWith(".md"), recursive);
+  return Promise.all(files.map(async (file) => {
     const source = await readFile(file, "utf8");
-    const { body } = splitMarkdownFile(file, source);
+    const match = source.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?/);
+    let data = {};
+    if (!match) errors.push(`${relative(file)} must start with YAML frontmatter`);
+    else {
+      try {
+        data = load(match[1], { schema: JSON_SCHEMA });
+        if (!data || typeof data !== "object" || Array.isArray(data)) throw new Error("Expected a field mapping");
+      } catch (error) {
+        errors.push(`${relative(file)} has invalid YAML: ${error.message}`);
+        data = {};
+      }
+    }
+    return { file, id: path.basename(file, ".md"), data, body: match ? source.slice(match[0].length) : "" };
+  }));
+}
 
-    if (!body.trim()) {
-      errors.push(`${relative(file)} must contain required gallery text in the Markdown body`);
+function onlyFields(data, allowed, context) {
+  for (const key of Object.keys(data)) if (!allowed.includes(key)) errors.push(`${context} has unsupported field ${key}`);
+}
+
+function array(value, context, required = false) {
+  if (value === undefined && !required) return [];
+  if (!Array.isArray(value) || (required && value.length === 0)) {
+    errors.push(`${context} must be ${required ? "a non-empty" : "an"} array`);
+    return [];
+  }
+  return value;
+}
+
+function mapping(value, context) {
+  if (!value || typeof value !== "object" || Array.isArray(value)) {
+    errors.push(`${context} must be a field mapping`);
+    return {};
+  }
+  return value;
+}
+
+function optionalText(value, context) {
+  if (value !== undefined && !nonempty(value)) errors.push(`${context} must be non-empty text when provided`);
+}
+
+const [images, objects, galleries, sections] = await Promise.all([
+  readCollection("images"), readCollection("objects"), readCollection("galleries", true), readCollection("chapters"),
+]);
+const assetFiles = await listFiles(assetsDir, (name) => imageExtension.test(name), true);
+const assets = new Map();
+const metadataIds = new Set();
+for (const file of assetFiles) {
+  const name = path.relative(assetsDir, file).split(path.sep).join("/").toLowerCase();
+  const basename = path.posix.basename(name);
+  assets.set(name, name);
+  assets.set(stripExtension(name), name);
+  if (!assets.has(basename)) assets.set(basename, name);
+  if (!assets.has(stripExtension(basename))) assets.set(stripExtension(basename), name);
+}
+const resolveAsset = (reference) => typeof reference === "string"
+  ? assets.get(reference.toLowerCase()) ?? assets.get(stripExtension(reference.toLowerCase()))
+  : undefined;
+for (const image of images) {
+  const asset = resolveAsset(image.data.dateiname ?? image.id);
+  if (!asset) continue;
+  for (const id of [image.id.toLowerCase(), image.id.toLowerCase().replaceAll(".", "")]) {
+    metadataIds.add(id);
+    if (!assets.has(id)) assets.set(id, asset);
+  }
+}
+const canonicalReference = (reference) => typeof reference === "string" && (
+  metadataIds.has(reference.toLowerCase()) || /^Bilder\/[1-7](?:-[1-9])?\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(reference)
+);
+const objectsBySlug = new Map(objects.map((object) => [object.data.slug, object]));
+
+function validateImage(reference, context, gallery = false) {
+  const asset = resolveAsset(reference);
+  if (!asset) errors.push(`${context} references missing image metadata or asset: ${reference}`);
+  else if (!canonicalReference(reference)) errors.push(`${context} must use an image metadata ID or complete Bilder/... path: ${reference}`);
+  else if (!(gallery ? /^bilder\// : /^(bilder|heroes)\//).test(asset)) errors.push(`${context} references an image outside ${gallery ? "Bilder/" : "Bilder/ or Heroes/"}: ${reference}`);
+}
+
+function validateObjectLink(slug, imageKey, position, context) {
+  if (slug === undefined) {
+    if (imageKey !== undefined || position !== undefined) errors.push(`${context} requires an object link for a target image or position`);
+    return;
+  }
+  const object = objectsBySlug.get(slug);
+  if (!object) {
+    errors.push(`${context} references missing object: ${slug}`);
+    return;
+  }
+  if (imageKey !== undefined && !(Array.isArray(object.data.bilder) && object.data.bilder.some(
+    (association) => association?.bild === imageKey && association.inObjektansicht !== false,
+  ))) errors.push(`${context} target image must match a visible bilder[].bild reference in object ${slug}: ${imageKey}`);
+  if (position !== undefined && !["Links", "Rechts", "Vorne"].includes(position)) errors.push(`${context} position must be Links, Rechts, or Vorne`);
+}
+
+for (const image of images) {
+  const context = relative(image.file);
+  onlyFields(image.data, ["dateiname", "altText"], context);
+  optionalText(image.data.altText, `${context} altText`);
+  if (image.body.trim()) errors.push(`${context} image metadata must not contain body text`);
+  const filename = image.data.dateiname;
+  if (filename !== undefined && (typeof filename !== "string" || filename.includes("..") || !/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(filename))) {
+    errors.push(`${context} dateiname must be a complete path relative to assets/`);
+  }
+  if (!resolveAsset(filename ?? image.id)) errors.push(`${context} must reference or match an existing image asset`);
+}
+
+for (const object of objects) {
+  const context = relative(object.file);
+  const { slug, titel } = object.data;
+  if (!nonempty(slug) || !/^[A-Za-z0-9-]+$/.test(slug) || /^[1-7]-/.test(slug)) errors.push(`${context} must define an ASCII slug without a chapter-number prefix`);
+  if (slug !== object.id) errors.push(`${context} must be named ${slug}.md to match its slug`);
+  if (!nonempty(titel)) errors.push(`${context} must define titel`);
+  for (const [index, value] of array(object.data.bilder, `${context} bilder`, object.data.bilder !== undefined).entries()) {
+    const location = `${context} bilder[${index}]`;
+    const association = mapping(value, location);
+    onlyFields(association, ["bild", "inObjektansicht"], location);
+    validateImage(association.bild, location);
+    if (association.inObjektansicht !== undefined && typeof association.inObjektansicht !== "boolean") errors.push(`${location} inObjektansicht must be a boolean`);
+  }
+  if (object.body.trim()) {
+    const headings = [...object.body.matchAll(/^#\s+(.+?)\s*$/gm)];
+    if (object.body.split(/^#\s+/m)[0].trim() || headings.length === 0) errors.push(`${context} body must be under # Beschreibung, # Anmerkungen, # Transkription, or # Übersetzung`);
+    for (const heading of headings) if (!["Beschreibung", "Anmerkungen", "Transkription", "Übersetzung"].includes(heading[1])) errors.push(`${context} has unsupported object body heading: ${heading[1]}`);
+  }
+}
+
+const galleryIds = new Set();
+for (const gallery of galleries) {
+  const context = relative(gallery.file);
+  if (galleryIds.has(gallery.id)) errors.push(`${context} duplicates gallery ID ${gallery.id}`);
+  galleryIds.add(gallery.id);
+  onlyFields(gallery.data, ["titel", "bildabstand", "folien"], context);
+  if (!nonempty(gallery.data.titel)) errors.push(`${context} must define titel`);
+  if (!gallery.body.trim()) errors.push(`${context} must contain required gallery text in the Markdown body`);
+  for (const [slideIndex, value] of array(gallery.data.folien, `${context} folien`, true).entries()) {
+    const location = `${context} folien[${slideIndex}]`;
+    const slide = mapping(value, location);
+    onlyFields(slide, ["bilder", "beschriftungen", "nachweis"], location);
+    for (const reference of array(slide.bilder, `${location} bilder`, true)) validateImage(reference, location, true);
+    optionalText(slide.nachweis, `${location} nachweis`);
+    for (const [captionIndex, value] of array(slide.beschriftungen, `${location} beschriftungen`).entries()) {
+      const captionLocation = `${location} beschriftungen[${captionIndex}]`;
+      const caption = mapping(value, captionLocation);
+      onlyFields(caption, ["text", "objekt", "objektBild", "position"], captionLocation);
+      if (!nonempty(caption.text)) errors.push(`${captionLocation} must define non-empty text`);
+      validateObjectLink(caption.objekt, caption.objektBild, caption.position, captionLocation);
     }
   }
 }
 
-async function validateImages() {
-  const files = await listMarkdownFiles(path.join(contentDir, "images"));
-  const imageCatalog = await getImageCatalog();
-
-  for (const file of files) {
-    const source = await readFile(file, "utf8");
-    const { frontmatter } = splitMarkdownFile(file, source);
-    const fileName = getFrontmatterString(frontmatter, "dateiname");
-
-    if (/^(objekte|objektPositionen):/m.test(frontmatter)) {
-      errors.push(`${relative(file)} must not define object relationships; use objects.bilder instead`);
-    }
-
-    if (!fileName) {
-      const inferredStem = path.basename(file, path.extname(file)).toLowerCase();
-      if (!imageCatalog.resolve(inferredStem)) {
-        errors.push(`${relative(file)} must define dateiname or match an image asset basename`);
-      }
-      continue;
-    }
-
-    if (fileName.includes("..") || path.isAbsolute(fileName)) {
-      errors.push(`${relative(file)} fileName must be relative to assets`);
-      continue;
-    }
-
-    if (!/^(Bilder|Heroes|Meta)\/.+\.(avif|gif|jpe?g|png|webp)$/i.test(fileName)) {
-      errors.push(`${relative(file)} dateiname must be a complete path relative to assets`);
-      continue;
-    }
-
-    if (!imageCatalog.resolve(fileName)) {
-      errors.push(`${relative(file)} references missing image asset: assets/${fileName}`);
-    }
+for (const section of sections) {
+  const context = relative(section.file);
+  if (!/^[1-7](?:-[1-9])?-[a-z].*\.md$/.test(path.basename(section.file))) errors.push(`${context} must use a chapter filename like 2-name.md or a subchapter filename like 2-1-name.md`);
+  for (const [field, folder] of [["hero", "Heroes"], ["thumbnail", "Thumbnails"]]) {
+    const name = section.data[field];
+    if (!nonempty(name) || !/\.webp$/i.test(name) || !assets.has(`${folder}/${name}`.toLowerCase())) errors.push(`${context} must reference an existing WebP ${field} in assets/${folder}`);
   }
+  if (section.data.heroMetadata !== undefined && !resolveAsset(section.data.heroMetadata)) errors.push(`${context} references missing heroMetadata: ${section.data.heroMetadata}`);
+  optionalText(section.data.heroBeschriftung, `${context} heroBeschriftung`);
+  optionalText(section.data.heroNachweis, `${context} heroNachweis`);
+  validateObjectLink(section.data.heroObject, section.data.heroObjektBild, undefined, `${context} heroObject`);
+  for (const id of array(section.data.galerien, `${context} galerien`)) if (!galleryIds.has(id)) errors.push(`${context} references missing gallery: ${id}`);
 }
 
-async function validateObjects() {
-  const files = await listMarkdownFiles(path.join(contentDir, "objects"));
-  const imageCatalog = await getImageCatalog();
-  const relationshipsByImage = new Map();
-  const allowedHeadings = new Set(["Beschreibung", "Anmerkungen", "Transkription", "Übersetzung"]);
-
-  for (const file of files) {
-    const source = await readFile(file, "utf8");
-    const { frontmatter, body } = splitMarkdownFile(file, source);
-    const slug = getFrontmatterString(frontmatter, "slug");
-    const title = getFrontmatterString(frontmatter, "titel");
-
-    if (!slug) {
-      errors.push(`${relative(file)} must define slug`);
-    } else if (!urlSafeAsciiSlugPattern.test(slug)) {
-      errors.push(`${relative(file)} slug must use only ASCII letters, digits, and hyphens`);
-    } else if (/^[1-7]-/.test(slug)) {
-      errors.push(`${relative(file)} object slug must not start with a chapter number`);
-    }
-
-    if (slug && path.basename(file, ".md") !== slug) {
-      errors.push(`${relative(file)} must be named ${slug}.md to match its slug`);
-    }
-
-    if (!title) {
-      errors.push(`${relative(file)} must define titel`);
-    }
-
-    for (const association of getFrontmatterObjectList(frontmatter, "bilder")) {
-      const imageReference = association.bild;
-
-      if (!imageReference) {
-        errors.push(`${relative(file)} contains a bilder entry without bild`);
-        continue;
-      }
-
-      const assetName = imageCatalog.resolve(imageReference);
-
-      if (!assetName) {
-        errors.push(`${relative(file)} references missing image metadata or asset: ${imageReference}`);
-      } else if (!isCanonicalImageReference(imageReference, imageCatalog)) {
-        errors.push(`${relative(file)} must reference an image metadata ID or complete Bilder/... asset path: ${imageReference}`);
-      } else if (!/^(bilder|heroes)\//.test(assetName)) {
-        errors.push(`${relative(file)} object image must resolve to a Bilder/... or Heroes/... asset: ${imageReference}`);
-      }
-
-      if (association.objektReihenfolge && !/^[1-9]\d*$/.test(association.objektReihenfolge)) {
-        errors.push(`${relative(file)} objektReihenfolge must be a positive integer`);
-      }
-
-      if (assetName) {
-        const relationships = relationshipsByImage.get(assetName) ?? [];
-        relationships.push({ file, order: association.objektReihenfolge });
-        relationshipsByImage.set(assetName, relationships);
-      }
-    }
-
-    if (!body.trim()) {
-      continue;
-    }
-
-    const h1Matches = [...body.matchAll(/^#\s+(.+?)\s*$/gm)];
-    const beforeFirstHeading = body.split(/^#\s+/m)[0]?.trim();
-
-    if (beforeFirstHeading) {
-      errors.push(`${relative(file)} object body text must be inside # Beschreibung, # Anmerkungen, # Transkription, or # Übersetzung`);
-    }
-
-    if (h1Matches.length === 0) {
-      errors.push(`${relative(file)} object body must use # Beschreibung, # Anmerkungen, # Transkription, and/or # Übersetzung`);
-      continue;
-    }
-
-    for (const match of h1Matches) {
-      const heading = match[1].trim();
-
-      if (!allowedHeadings.has(heading)) {
-        errors.push(`${relative(file)} has unsupported object body heading: # ${heading}`);
-      }
-    }
-  }
-
-  for (const [image, relationships] of relationshipsByImage) {
-    if (relationships.length < 2) continue;
-
-    const orders = relationships.map((relationship) => relationship.order);
-    if (orders.some((order) => !order)) {
-      errors.push(`Objects sharing image ${image} must all define objektReihenfolge`);
-      continue;
-    }
-
-    if (new Set(orders).size !== orders.length) {
-      errors.push(`Objects sharing image ${image} must define unique objektReihenfolge values`);
-    }
-  }
-}
-
-async function validateDisplayImageReferences() {
-  const imageCatalog = await getImageCatalog();
-
-  const sectionFiles = await listMarkdownFiles(path.join(contentDir, "chapters"));
-
-  for (const file of sectionFiles) {
-    if (!/^[1-7](?:-[1-9])?-[a-z].*\.md$/.test(path.basename(file))) {
-      errors.push(`${relative(file)} must use a chapter filename like 2-name.md or a subchapter filename like 2-1-name.md (without leading zeros, with a name starting with a lowercase letter)`);
-    }
-
-    const source = await readFile(file, "utf8");
-    const { frontmatter } = splitMarkdownFile(file, source);
-    const hero = getFrontmatterString(frontmatter, "hero");
-
-    if (hero && !imageCatalog.resolve(hero)) {
-      errors.push(`${relative(file)} references missing hero image metadata or asset: ${hero}`);
-    }
-  }
-
-  const galleryFiles = await listMarkdownFiles(path.join(contentDir, "galleries"), true);
-  for (const file of galleryFiles) {
-    const source = await readFile(file, "utf8");
-    const { frontmatter } = splitMarkdownFile(file, source);
-
-    const imageGroups = getFrontmatterNestedList(frontmatter, "bilder");
-    if (imageGroups.length === 0 || imageGroups.some((group) => group.length === 0)) {
-      errors.push(`${relative(file)} must define bilder as a non-empty array of non-empty image arrays`);
-    }
-
-    for (const [slideIndex, imageGroup] of imageGroups.entries()) {
-      for (const [imageIndex, imageReference] of imageGroup.entries()) {
-        const assetName = imageCatalog.resolve(imageReference);
-
-        if (!assetName) {
-          warnings.push(`${relative(file)} references unavailable gallery image metadata or asset at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
-        } else if (!isCanonicalImageReference(imageReference, imageCatalog)) {
-          errors.push(`${relative(file)} must use an image metadata ID or complete Bilder/... path at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
-        } else if (!assetName.startsWith("bilder/")) {
-          errors.push(`${relative(file)} gallery image must resolve to a Bilder/... asset at bilder[${slideIndex}][${imageIndex}]: ${imageReference}`);
-        }
-      }
-    }
-  }
-}
-
-await validateGalleries();
-await validateImages();
-await validateObjects();
-await validateDisplayImageReferences();
-
-if (errors.length > 0) {
+if (errors.length) {
   console.error("Content validation failed:");
-  for (const error of errors) {
-    console.error(`- ${error}`);
-  }
+  for (const error of errors) console.error(`- ${error}`);
   process.exit(1);
 }
-
-if (warnings.length > 0) {
-  console.warn("Content validation warnings:");
-  for (const warning of warnings) {
-    console.warn(`- ${warning}`);
-  }
-}
-
 console.log("Content validation passed.");

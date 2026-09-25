@@ -1,17 +1,18 @@
 ---
 titel: "Die *Allemannischen Gedichte* in Dresden"
-folienbeschriftungen:
-  - folie: 1
-    beschriftung: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
-    unterbeschriftungen:
-      - "Hebel-Archiv Heidelberg"
-  - folie: 2
-    beschriftung: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
-    unterbeschriftungen:
-      - "Hebel-Archiv Heidelberg"
-bilder:
-  - - "23_04_1_girardet_tss"
-  - - "23_04_2_girardet_tss"
+folien:
+  - bilder:
+      - "23_04_1_girardet_tss"
+    beschriftungen:
+      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
+        objekt: "girardet-hebels-allemannische-gedichte"
+        objektBild: "2.3_00_Girardet1_TSS"
+  - bilder:
+      - "23_04_2_girardet_tss"
+    beschriftungen:
+      - text: "Friedrich Girardets Übertragung der *Allemannischen Gedichte* (1821)"
+        objekt: "girardet-hebels-allemannische-gedichte"
+        objektBild: "2.3_04_2_Girardet_TSS"
 ---
 
 Ende Juli 1803 teilte Hebel Hitzig mit, Ludwig Tieck habe bei einem Besuch in Heidelberg die *Allemannischen Gedichte* kennengelernt. Er finde sie schön und wolle sie übersetzen (Z 95). Vermutlich stammt die Nachricht von dem Heidelberger Gymnasialprofessor Karl Philipp Kayser, mit dem Hebel korrespondierte. In dessen *Tagebuchblättern* findet sich ein detaillierter Bericht über Tiecks vom 14. bis 17. Juli währenden Aufenthalt. Daraus geht hervor, dass Kayser selbst es war, der Tieck ein Exemplar verschafft hatte. Im Vergleich zu Hebels Gedichten, wird Tieck zitiert, seien [Vossens niederdeutsche Versuche <span class="no-hyphen">»affectirt und am Ende plump«</span>](#2).

@@ -12,4 +12,6 @@ galerien:
   - "6-3-03-ein-oeffentliches-liebesgestaendnis"
   - "6-3-04-da-geht-die-post-ab"
   - "6-3-05-ein-geistlicher-von-fleisch-und-bein"
+heroBeschriftung: "Henriette Hendel als Agrippina – „zerbrechlicher als die Urne, die sie trägt“"
+heroNachweis: "Hebel-Archiv Heidelberg"
 ---

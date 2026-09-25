@@ -1,7 +1,11 @@
 ---
 titel: "Ein mathematisches Intermezzo"
-bilder:
-  - - "21_04_gedichtverzeichnis_blb"
+folien:
+  - bilder:
+      - "21_04_gedichtverzeichnis_blb"
+    beschriftungen:
+      - text: "Aussagekräftiger Zahlensalat: Titel, Verszahl und potenzieller Druckumfang einzelner Gedichte."
+        objekt: "gedichtverzeichnis"
 ---
 
 Nicht vor Frühjahr 1802 entstanden, lässt dieses eigenhändige Verzeichnis erkennen, wie intensiv Hebel an den *Allemannischen Gedichten* kurz vor deren Drucklegung im November gearbeitet hat. Die <span class="no-hyphen">»Marktw.[eiber]«</span> werden mit <span class="no-hyphen">»72.«</span> Versen geführt, jene Version auf Briefpapier war wohl um drei Strophen gekürzt worden; später umfasst das Gedicht wieder 15 sechsversige Strophen. Auch bei anderen Gedichten, etwa <span class="no-hyphen">»Marienk[äfer]«</span> (*Käfer*), <span class="no-hyphen">»H[ans] u.[nd] V.[erene]«</span> oder <span class="no-hyphen">»Wächt[erruf]«</span>, weicht der angegebene Umfang deutlich von dem des Erstdrucks ab. Vor allem aber bietet das Verzeichnis eine textgeschichtliche Überraschung. Unter dem Titel <span class="no-hyphen">»Dengl.«</span> ist ein Gedicht mit <span class="no-hyphen">»227«</span> Versen gelistet, das <span class="no-hyphen">»19.«</span> bzw. <span class="no-hyphen">»20.«</span> Seiten füllen soll: Der [<span class="no-hyphen">»Dengelegeist in Hexametern«</span>](#2), von dem Hebel Hitzig berichtet hatte, war wohl nahezu druckreif fertiggestellt; Hebels [Satzmanuskript der *Allemannischen Gedichte*](#6) stützt diese Vermutung. Bislang schien das Gedicht, das rasch ins Stocken geraten war (Briefe an Hitzig vom 14. April und 20. Juni 1801, Z 57 und Z 58), erst Jahre später unter dem Titel *Geisterbesuch auf dem Feldberg* ausgearbeitet worden zu sein.

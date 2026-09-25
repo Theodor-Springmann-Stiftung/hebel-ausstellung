@@ -12,6 +12,7 @@ galerien:
   - "5-01-allmanach-des-proteus-zeichens"
   - "5-02-woerterbuch-des-belchismus"
   - "5-03-proteuserphilosophie"
+heroBeschriftung: "Aquarellierte Federzeichnung des Proteuserbunds von Christian Meichelt, 1812. Weist die Position von Hebels Unterschrift darauf hin, dass er als vierter von links abgebildet ist?"
 ---
 
 In den 1780er Jahren war Hebel Präzeptoratsvikar (Hilfslehrer, der gleichzeitig predigtdienstliche Aufgaben übernimmt) in Lörrach. In dieser Zeit gründete er mit Freunden einen spaßhaften Geheimbund, der sich einem ironischen Kult um den heidnischen Meergott Proteus verschrieben hatte. Als Zentrum dieses Kults bekam Proteus seine eigene Chiffre, ein griechisches Pi mit drei statt zwei Abstrichen: <i class="triple-pi" role="img" aria-label="dreigebalktes Pi"></i>.

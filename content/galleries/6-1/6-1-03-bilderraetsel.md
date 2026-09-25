@@ -1,11 +1,19 @@
 ---
 titel: "Bilderrätsel"
-beschriftung: "Die Hebel-Porträts von Karl Josef Agricola und Johann Friedrich Müller in verschiedenen Ausführungen"
-positionsangaben: false
-bilder:
-  - - "61_03_01_agricola_abzug_erste_serie_tss"
-    - "61_03_02_agricola_abzug_dritte_serie_tss"
-  - - "61_03_03_mueller-kupferstich_kunsthalle_ka"
+folien:
+  - bilder:
+      - "61_03_01_agricola_abzug_erste_serie_tss"
+      - "61_03_02_agricola_abzug_dritte_serie_tss"
+    beschriftungen:
+      - text: "Links: Agricolas Hebel-Porträt »nach der Natur gezeichnet auf Stein« (erste Serie)"
+        objekt: "hebel-lithographie-erste-serie"
+      - text: "Rechts: das von Agricola überarbeitete und bei C. F. Müller gedruckte Porträt (dritte Serie)"
+        objekt: "hebel-lithographie-dritte-serie"
+  - bilder:
+      - "61_03_03_mueller-kupferstich_kunsthalle_ka"
+    beschriftungen:
+      - text: "Johann Friedrich Müllers Kupferstich nach dem von ihm selbst gezeichneten Porträt Hebels"
+        objekt: "hebel-kupferstich"
 ---
 
 Am 13. September 1814 schickt Hebel ein Porträt mit folgenden Worten nach Weil:

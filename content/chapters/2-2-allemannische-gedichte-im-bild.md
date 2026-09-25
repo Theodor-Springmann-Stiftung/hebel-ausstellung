@@ -16,4 +16,5 @@ galerien:
   - "2-2-07-maskuliner-revisionismus-ii"
   - "2-2-08-wegweisende-weiblichkeit"
   - "2-2-09-maskuliner-revisionismus-iii"
+heroBeschriftung: "Radierung von Sophie Reinhard zum *Statthalter von Schopfheim* (1820, Ausschnitt)"
 ---

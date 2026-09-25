@@ -99,9 +99,6 @@ export const getObjectOverview = async () => {
       label: `Bild ${index + 1}`,
       details: [
         { label: "Datei", value: association.bild },
-        { label: "Position", value: association.position ?? "-" },
-        { label: "Objektreihenfolge", value: String(association.objektReihenfolge ?? "-") },
-        { label: "Beschriftung", value: plainInline(association.beschriftung) || "-" },
         { label: "In Objektansicht", value: association.inObjektansicht ? "Ja" : "Nein" },
       ],
     }));
@@ -130,9 +127,6 @@ export const getObjectOverview = async () => {
           label: `Bild ${index + 1}`,
           details: [
             { label: "Datei", value: association.bild },
-            { label: "Position", value: association.position ?? "-" },
-            { label: "Objektreihenfolge", value: String(association.objektReihenfolge ?? "-") },
-            { label: "Beschriftung", value: association.beschriftung ?? "-" },
             { label: "In Objektansicht", value: association.inObjektansicht ? "Ja" : "Nein" },
           ],
         })),

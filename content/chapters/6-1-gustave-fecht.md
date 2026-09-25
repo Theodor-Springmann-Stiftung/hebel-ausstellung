@@ -9,4 +9,6 @@ galerien:
   - "6-1-01-im-krebsgang"
   - "6-1-02-anfechtungen"
   - "6-1-03-bilderraetsel"
+heroBeschriftung: "Gustave Fecht mit Hahn (Ausschnitt)"
+heroObject: "gustave-fecht-mit-hahn"
 ---

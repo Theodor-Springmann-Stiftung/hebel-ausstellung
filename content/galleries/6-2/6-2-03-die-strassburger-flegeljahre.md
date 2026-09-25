@@ -1,8 +1,11 @@
 ---
 titel: "Die Straßburger Flegeljahre"
-beschriftung: "Ein verbindendes Element in Hebels Freundschaft mit Sophie Haufe: die geteilte Bewunderung für Jean Paul."
-bilder:
-  - - "huf_6_2_slide_4_jeanpaul_wikipedia"
+folien:
+  - bilder:
+      - "huf_6_2_slide_4_jeanpaul_wikipedia"
+    beschriftungen:
+      - text: "Ein verbindendes Element in Hebels Freundschaft mit Sophie Haufe: die geteilte Bewunderung für Jean Paul."
+        objekt: "jean-paul-richter"
 ---
 
 <span class="no-hyphen">»Nun kam auch Herr Professor Hebel einmal und fragte mich nach meiner Lektüre; beschämt gestand ich ihm Rittergeschichten von Spieß und Romane von Lafontaine, auch hie und da eine erhabene Räubergeschichte. Er schien nicht verwundert, denn alles las diese Bücher, da wenig anderes in den Leihbibliotheken zu finden war. Er riet mir, den Jean Paul zu lesen, was ich dann auch tat; doch verstand ich vieles nicht; aber das andere, was ich verstand, gefiel mir.«</span> (ZHE 26)

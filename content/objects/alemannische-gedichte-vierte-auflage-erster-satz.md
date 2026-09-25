@@ -9,8 +9,6 @@ lizenz: "[CC BY-NC 4.0](https://creativecommons.org/licenses/by-nc/4.0/legalcode
 inventarnummer: "412291"
 bilder:
   - bild: "Bilder/2-4/2.4_03_01_AG_D4_TSS.webp"
-    objektReihenfolge: 1
     inObjektansicht: false
   - bild: "Raubdrucke_03_1a_AG_D4_S._110a"
-    beschriftung: "Links: S. 110 in der vierten Auflage der *Allemannischen Gedichte*, Version I"
 ---

@@ -1,7 +1,11 @@
 ---
 titel: "Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>"
-bilder:
-  - - "BuP_1_1_Titel_Allm_Pi_BLB"
+folien:
+  - bilder:
+      - "BuP_1_1_Titel_Allm_Pi_BLB"
+    beschriftungen:
+      - text: "*Allmanach des <i class=triple-pi role=img aria-label=dreigebalkten&#32;Pi></i>*: Nach Art des Erkennungszeichens eines Geheimbunds formen die gezeichneten Hände auf dem Titelblatt das <i class=triple-pi role=img aria-label=dreigebalkte&#32;Pi></i>. Proteopolis ist Lörrach als Sitz des Proteuserordens."
+        objekt: "allmanach-des-pi"
 ---
 
 Wie kann Hebel Hitzig brieflich im Dezember zum neuen Jahr gratulieren? Die Proteuser hatten ihre eigene Zeitrechnung, die Hebel im *Allmanach des <i class="triple-pi" role="img" aria-label="dreigebalkten Pi"></i>* (s. Abb.) niedergelegt hat. Laut ihr beginnt das Proteusische Jahr am Andreastag, dem 30. November des gregorianischen Kalenders.

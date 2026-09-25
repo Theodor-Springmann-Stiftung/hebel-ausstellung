@@ -1,9 +1,21 @@
 ---
 titel: "Ist’s möglich, ist das Weib so schön?"
-bilder:
-  - - "63_01_01a_hamilton_rehberg_ub_heidelberg"
-  - - "63_01_01b_hendel_peroux_ub_frankfurt"
-  - - "63_01_01c_hamilton_novelli_nga_washington"
+folien:
+  - bilder:
+      - "63_01_01a_hamilton_rehberg_ub_heidelberg"
+    beschriftungen:
+      - text: "Lady Hamilton als »Nymphe die in ihrer Ruhe aufgeschreckt wird«."
+        objekt: "hamilton-nymphe"
+  - bilder:
+      - "63_01_01b_hendel_peroux_ub_frankfurt"
+    beschriftungen:
+      - text: "Henriette Hendel als »[Ariadne], als Theseus sie verläßt«."
+        objekt: "henriette-hendel-ariadne"
+  - bilder:
+      - "63_01_01c_hamilton_novelli_nga_washington"
+    beschriftungen:
+      - text: "Attituden der Lady Hamilton."
+        objekt: "attituden-lady-hamilton"
 ---
 
 Schier vergessen sind sie heute, die um 1800 prominenten ›Attituden‹, die Nachahmungen von antiken Statuen durch den lebendigen weiblichen Körper. Man(n) wurde ergriffen durch die erotische Strahlkraft solcher pygmalionesker ›Werke‹: Eine lange, weiße‚ faltenreiche, unter der Brust zusammengebundene Tunika brachte, zusammen mit einem langen Schal, die wohlgebaute Figur der Miminnen zur Geltung. Weich schmiegten sich die fließenden, mäßig blickdichten Stoffe deren Leib an, den sie nur leicht verhüllten.

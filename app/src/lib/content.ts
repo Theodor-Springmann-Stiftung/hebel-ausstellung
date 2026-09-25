@@ -115,11 +115,7 @@ export const getReadingOrder = async () => {
 
 export type ObjectImageRelationship = {
 	object: CollectionEntry<'objects'>;
-	position?: 'Links' | 'Rechts' | 'Vorne';
-	objektReihenfolge?: number;
-	beschriftung?: string;
 	imageKey?: string;
-	linkImageKey?: string;
 };
 
 let objectRelationshipsByImagePromise: Promise<Map<string, ObjectImageRelationship[]>> | undefined;
@@ -130,7 +126,6 @@ export const getObjectRelationshipsByImage = () => {
 		const objects = await getCollection('objects');
 
 		for (const object of objects) {
-			const displayImageCount = (object.data.bilder ?? []).filter((association) => association.inObjektansicht).length;
 
 			for (const association of object.data.bilder ?? []) {
 				const image = await resolveContentImage(association.bild);
@@ -138,23 +133,12 @@ export const getObjectRelationshipsByImage = () => {
 				const relationships = relationshipsByImage.get(image.asset.src) ?? [];
 				relationships.push({
 					object,
-					position: association.position,
-					objektReihenfolge: association.objektReihenfolge,
-					beschriftung: association.beschriftung,
 					imageKey,
-					linkImageKey: displayImageCount > 1 ? imageKey : undefined,
 				});
 				relationshipsByImage.set(image.asset.src, relationships);
 			}
 		}
 
-		for (const relationships of relationshipsByImage.values()) {
-			relationships.sort(
-				(left, right) =>
-					(left.objektReihenfolge ?? Number.MAX_SAFE_INTEGER) -
-					(right.objektReihenfolge ?? Number.MAX_SAFE_INTEGER),
-			);
-		}
 
 		return relationshipsByImage;
 	})();
@@ -215,7 +199,7 @@ export const getObjectRoutes = async () => {
 			? subchapterHref(chapter.data.nummer, subchapter.data.nummer)
 			: chapterHref(chapter.data.nummer);
 
-		for (const imageReference of gallery.data.bilder.flat()) {
+		for (const imageReference of gallery.data.folien.flatMap((slide) => slide.bilder)) {
 			await recordImageContext(imageReference, {
 				href: `${sectionHref}#${galleryIndex + 1}`,
 				label: `Zurück zu Kapitel ${Number(chapter.data.nummer)}`,

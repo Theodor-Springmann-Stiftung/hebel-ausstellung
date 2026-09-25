@@ -20,36 +20,33 @@ const objectSlug = urlSafeAsciiSlug.refine((slug) => !/^[1-7]-/.test(slug), {
   message: "Object slug must not start with a chapter number",
 });
 
-const gallerySlideCaption = z.object({
-  folie: z.number().int().positive(),
-  beschriftung: requiredMarkdown,
-  unterbeschriftungen: z.array(z.union([
-    requiredMarkdown,
-    z.object({
-      bild: z.number().int().positive(),
-      beschriftung: requiredMarkdown,
-    }),
-  ])).default([]),
+const imageReference = z.string().min(1);
+const galleryCaption = z.object({
+  text: requiredMarkdown,
+  objekt: reference("objects").optional(),
+  objektBild: imageReference.optional(),
+  position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
+}).strict().refine((caption) => caption.objekt || (!caption.objektBild && !caption.position), {
+  message: "objektBild and position require an objekt link",
 });
 
 const sectionFields = {
   nummer: z.string().min(1),
   titel: requiredMarkdown,
   navTitel: requiredMarkdown,
+  heroBeschriftung: optionalMarkdown,
+  heroNachweis: optionalMarkdown,
+  heroObjektBild: imageReference.optional(),
   thumbnail: z.string().regex(/\.webp$/i, {
     message: "Thumbnail must be a WebP filename",
   }),
 };
 
 const homepageImageVariant = z.enum(["featured", "poet", "friend", "theologian", "proteuser", "bachelor", "letter-writer"]);
-const imageReference = z.string().min(1);
 const objectImageAssociation = z.object({
   bild: imageReference,
-  position: z.enum(["Links", "Rechts", "Vorne"]).optional(),
-  objektReihenfolge: z.number().int().positive().optional(),
-  beschriftung: optionalMarkdown,
   inObjektansicht: z.boolean().default(true),
-});
+}).strict();
 // Gallery folders organize editing without changing reference IDs or page anchors.
 const galleryFileId = ({ entry }: { entry: string }) =>
   (entry.split("/").at(-1) ?? entry).replace(/\.[^.]+$/, "");
@@ -97,14 +94,13 @@ const galleries = defineCollection({
   loader: glob({ base: "../content/galleries", pattern: "**/*.md", generateId: galleryFileId }),
   schema: z.object({
     titel: requiredMarkdown,
-    beschriftung: optionalMarkdown,
-    untertitel: optionalMarkdown,
-    folienbeschriftung: optionalMarkdown,
-    folienbeschriftungen: z.array(gallerySlideCaption).default([]),
     bildabstand: z.enum(["normal", "weit"]).default("normal"),
-    positionsangaben: z.boolean().default(true),
-    bilder: z.array(z.array(imageReference).min(1)).min(1),
-  }),
+    folien: z.array(z.object({
+      bilder: z.array(imageReference).min(1),
+      beschriftungen: z.array(galleryCaption).default([]),
+      nachweis: optionalMarkdown,
+    }).strict()).min(1),
+  }).strict(),
 });
 
 const images = defineCollection({
@@ -114,9 +110,7 @@ const images = defineCollection({
       message: "Image dateiname must be a complete path relative to assets/",
     }).optional(),
     altText: optionalMarkdown,
-    beschriftung: optionalMarkdown,
-    nachweis: optionalMarkdown,
-  }),
+  }).strict(),
 });
 
 const objects = defineCollection({

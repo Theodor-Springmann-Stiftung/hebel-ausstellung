@@ -14,6 +14,8 @@ galerien:
   - "7-04-froehlicher-polymeter"
   - "7-05-italienische-reise"
   - "7-06-das-schreiben-wird-beschwerlich"
+heroBeschriftung: "Brief Hebels an seinen Freund Christoph Friedrich Karl von Kölle"
+heroObject: "brief-koelle-1812"
 ---
 
 Nirgendwo wird deutlicher, dass Hebel zur Species der *homines ludentes* gehört, als in seinen Briefen. Fast überall in seiner Korrespondenz, wenn sie nicht gerade an Würdenträger gerichtet oder in amtlichen Geschäften verfasst war, brach sich sein Spieltrieb Bahn. Rollen- und Sprachspiele, Ironie und Maskeraden, Inszenierung und Hintersinn, Nonsense und Charaden – sie verraten eine tiefe Abneigung gegen den hohen Ton.

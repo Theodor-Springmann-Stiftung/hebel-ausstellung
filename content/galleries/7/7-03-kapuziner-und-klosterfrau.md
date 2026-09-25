@@ -1,11 +1,28 @@
 ---
 titel: "Kapuziner und Klosterfrau"
-beschriftung: "Ein durch alemannische Gedichte und drei Krüge Kirschwasser inspirierter Briefwechsel"
-bilder:
-  - - "7_03_01_ag3-jaeck1_tss"
-  - - "7_03_02_ag3-jaeck2_tss"
-  - - "7_03_03_an_jaeck2_dla"
-  - - "7_03_04_von_jaeck4_blb"
+folien:
+  - bilder:
+      - "7_03_01_ag3-jaeck1_tss"
+    beschriftungen:
+      - text: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"
+        objekt: "widmungsexemplar-jaeck-allemannische-gedichte"
+        objektBild: "7_03_01_AG3-Jaeck1_TSS"
+  - bilder:
+      - "7_03_02_ag3-jaeck2_tss"
+    beschriftungen:
+      - text: "Widmungsexemplar der *Allemannischen Gedichte* für Jäck"
+        objekt: "widmungsexemplar-jaeck-allemannische-gedichte"
+        objektBild: "7_03_02_AG3-Jaeck2_TSS"
+  - bilder:
+      - "7_03_03_an_jaeck2_dla"
+    beschriftungen:
+      - text: "Brief von Hebel an Marcus Fidelis Jäck"
+        objekt: "brief-hebel-jaeck-1810"
+  - bilder:
+      - "7_03_04_von_jaeck4_blb"
+    beschriftungen:
+      - text: "Brief von Marcus Fidelis Jäck an Hebel"
+        objekt: "brief-jaeck-hebel-1810"
 ---
 
 Es gehört zu den Merkwürdigkeiten von Hebels Korrespondenz, dass vor allem Briefe *von* ihm überliefert sind. Seit Karl Obser 1920 die Verlassenschaftsakten Hebels gesichtet hatte, also die Gerichtsakten, in denen das gesamte Inventar seiner Wohnung in der Erbprinzenstraße 31 unmittelbar nach seinem Tode verzeichnet worden war, war für lange Zeit überhaupt nur ein einziger Brief *an* Hebel bekannt, nämlich ein Schreiben des Breslauer Verlegers Gruson, das Hebel nicht mehr lebend erreichte. Heute kennen wir fünf Briefe an Hebel. Hinzu kamen: ein Schreiben von [Ittner](/7/#2), ein Schreiben von [Gmelin](/6/6.1/#2), ein Brief des Baumwollfabrikanten Eichthal aus St. Blasien und ein Brief des Pfarrers Marcus Fidelis Jäck (1768-1845). Als Dank für ein Widmungsexemplar der *Allemannischen Gedichte* hatte Jäck von Triberg aus drei Krüge Kirschenwasser, Kuchen und eine alemannische Epistel an Hebel geschickt, die dieser wiederum mit einem in Mundart verfassten Gedicht beantwortete. Hebels <span class="no-hyphen">»Chapeziner Dank – [d.h.] mit Segen und Papir«</span> – versetzte Jäck erneut in poetische Stimmung. In seiner hier abgebildeten Versepistel an Hebel wird er <span class="no-hyphen">»vor lauter Freuden au / so gschwäzig wiene jungi chlosterfrau«</span>. Dass ihm sein eigener Kopf nicht mehr ganz geheuer (*ghür*) sei, sehe man an dem angehäuften (*g’huffige*) Papier. Ob damit die Menge beschriebenen Papiers gemeint ist, muss offen bleiben. Dagegen fällt die ornamentale Anmutung der Schrift auf, die von einer Blumenranke als Wasserzeichen gerahmt wird – vielleicht in Anspielung auf den <span class="no-hyphen">»Blumenkranz«</span> der [*Allemannischen Gedichte*](/1/#2), die Hebel seinem Freunde Herbster und der Gemeinde Hausen weihte?

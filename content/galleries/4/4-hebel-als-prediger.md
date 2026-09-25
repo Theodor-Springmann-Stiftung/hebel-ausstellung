@@ -1,8 +1,11 @@
 ---
 titel: "<span class=\"no-hyphen\">»Item, wie sagt die Schrift?«</span> Hebel als Prediger"
-beschriftung: "<span class=\"no-hyphen\">»Schreibt wie er spricht und predigt wie gedruckt: Der *Rheinländische Hausfreund*.«</span>"
-bilder:
-  - - "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"
+folien:
+  - bilder:
+      - "Bilder/4/Theo_4_1_Slide_3_TB_Rh_Hf_TSS.webp"
+    beschriftungen:
+      - text: "Titelblatt des *Rheinländischen Hausfreunds* (Detail)"
+        objekt: "rheinlaendischer-hausfreund-titel-detail"
 ---
 
 <span class="no-hyphen">»[W]er nur Ja sagen darf um Stadtpfarrer u. Universitätsprediger in Freyburg zu seyn, das bin ich«</span>, meldet Hebel 1806 an Gustave Fecht. <span class="no-hyphen">»Die Stelle ist mir angeboten. Sie können denken, wie viel ich in beide Wagschalen zu legen habe, wie es an mir zieht, u. zurükhält«</span> (Z 187). Am Ende ist Hebel erleichtert, als der Großherzog ihm die Entscheidung abnimmt, indem er den Wunsch ausspricht, Hebel möge in der Residenzstadt Karlsruhe bleiben. Letztlich hat er nie eine Pfarrstelle angetreten.

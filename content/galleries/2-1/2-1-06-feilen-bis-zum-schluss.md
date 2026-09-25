@@ -1,20 +1,27 @@
 ---
 titel: "Feilen bis zum Schluss"
-folienbeschriftungen:
-  - folie: 1
-    beschriftung: "De- und Rekomposition, Umsortieren."
-    unterbeschriftungen:
-      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe"
-  - folie: 2
-    beschriftung: "De- und Rekomposition, Aussortieren."
-    unterbeschriftungen:
-      - "Johann Peter Hebel, 1802, Autograph, Badische Landesbibliothek Karlsruhe; Julius Nisle, [1845], Lithographie, Hebel-Archiv Heidelberg"
-bilder:
-  - - "2.1_06_01a_FiE_H2_BLB"
-    - "2.1_06_01b_Irrlichter_H2_BLB"
-  - - "2.1_06_02a_Jenner_H2_Schluss"
-    - "2.1_06_02b_JNisle_Geisterbesuch"
-    - "2.1_06_02c_JSpinne_H2_Beginn"
+folien:
+  - bilder:
+      - "2.1_06_01a_FiE_H2_BLB"
+      - "2.1_06_01b_Irrlichter_H2_BLB"
+    beschriftungen:
+      - text: "De- und Rekomposition, Umsortieren."
+      - text: "Links: Eigenhändige Satzvorlage zu *Freude in Ehren*, dritte Seite"
+        objekt: "satzvorlage-freude-in-ehren"
+      - text: "Rechts: Eigenhändige Satzvorlage zu den *Irrlichtern*, erste Seite"
+        objekt: "satzvorlage-irrlichter-satzmanuskript"
+  - bilder:
+      - "2.1_06_02a_Jenner_H2_Schluss"
+      - "2.1_06_02b_JNisle_Geisterbesuch"
+      - "2.1_06_02c_JSpinne_H2_Beginn"
+    beschriftungen:
+      - text: "De- und Rekomposition, Aussortieren."
+      - text: "Links: Eigenhändige Satzvorlage zum *Jenner*, dritte Seite"
+        objekt: "satzvorlage-jenner"
+      - text: "Mitte: Lithographie zu Hebels *Geisterbesuch auf dem Feldberg*"
+        objekt: "nisle-geisterbesuch"
+      - text: "Rechts: Eigenhändige Satzvorlage zur *Spinne*, erste Seite"
+        objekt: "satzvorlage-spinne"
 ---
 
 Hebel versah die Satzhandschrift mit einem durchgehenden Blattzähler (Bild 1): Die *Irrlichter* etwa (Bl. <span class="no-hyphen">»38.«</span>–40., darüber rechts <span class="no-hyphen">»76.«</span>, die Anzahl der Verse) wurden zunächst nach dem *Hexlein* (Bl. 36.–37.) platziert – was stimmig wirkt, da beide Gedichte von magisch bedingter Orientierungslosigkeit handeln. Später entschied sich Hebel für die deutlich andere Textanordnung des Erstdrucks, und die *Irrlichter* (nun Bl. <span class="no-hyphen">»18.«</span>–20.) kamen nach *Freude in Ehren* (Bl. 16.–<span class="no-hyphen">»17.«</span>) zu stehen.
